@@ -1,0 +1,120 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>NEAT Overview &#8212; NEAT-Python 0.91 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.91',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Welcome to NEAT-Python’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="neat-overview">
+<h1>NEAT Overview<a class="headerlink" href="#neat-overview" title="Permalink to this headline">¶</a></h1>
+<p><em class="dfn">NEAT</em> (NeuroEvolution of Augmenting Topologies) is an evolutionary algorithm that creates artificial networks. For a
+detailed description of the algorithm, you should probably go read some of <a class="reference external" href="http://www.cs.ucf.edu/~kstanley/#publications">Stanley’s papers</a> on his website.</p>
+<p>Even if you just want to get the gist of the algorithm, reading at least a couple of the early NEAT papers is a good
+idea.  Most of them are pretty short, and do a good job of explaining concepts (or at least pointing
+you to other references that will).  <a class="reference external" href="http://nn.cs.utexas.edu/downloads/papers/stanley.cec02.pdf">The initial NEAT paper</a> is only 6 pages long, and Section II should be enough
+if you just want a high-level overview.</p>
+<p>In the current implementation of NEAT-Python, a population of individual genomes is maintained.  Each genome contains
+two sets of genes that describe how to build an artificial neural network:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">Node</span></a> genes, each of which specifies a single neuron.</li>
+<li><a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> genes, each of which specifies a single connection between neurons.</li>
+</ol>
+</div></blockquote>
+<p>To evolve a solution to a problem, the user must provide a fitness function which computes a single real number
+indicating the quality of an individual genome: better ability to solve the problem means a higher score.  The algorithm
+progresses through a user-specified number of generations, with each generation being produced by reproduction (either
+sexual or asexual) and mutation of the most fit individuals of the previous generation.</p>
+<p>The reproduction and mutation operations may add nodes and/or connections to genomes, so as the algorithm proceeds
+genomes (and the neural networks they produce) may become more and more complex.  When the preset number of generations
+is reached, or when at least one individual exceeds the user-specified fitness threshold, the algorithm terminates.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to NEAT-Python’s documentation!</a></li>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/neat_overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, CodeReclaimers, LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/neat_overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

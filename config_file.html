@@ -1,0 +1,422 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration file description &#8212; NEAT-Python 0.91 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.91',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview of the basic XOR example (xor2.py)" href="xor_example.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration-file-description">
+<h1>Configuration file description<a class="headerlink" href="#configuration-file-description" title="Permalink to this headline">¶</a></h1>
+<p>The configuration file is in the format described in the <a class="reference external" href="https://docs.python.org/2/library/configparser.html">Python ConfigParser documentation</a> as “a basic configuration file parser language
+which provides a structure similar to what you would find on Microsoft Windows INI files.”</p>
+<p>All settings must be explicitly enumerated in the configuration file.  This makes it less likely
+that library code changes will result in your project silently using different NEAT settings.  However,
+it is not necessary that they appear in any certain order.</p>
+<p>Note that the <cite>Config</cite> constructor also requires you to explicitly specify the types that will be used
+for the NEAT simulation.  This, again, is to help avoid silent changes in behavior.</p>
+<div class="section" id="neat-section">
+<h2>[NEAT] section<a class="headerlink" href="#neat-section" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">NEAT</span></code> section specifies parameters particular to the generic NEAT algorithm or the experiment
+itself.  This section is always required.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>fitness_criterion</em></dt>
+<dd>The function used to compute the termination criterion from the set of genome fitnesses.  Allowable
+values are: <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">mean</span></code></dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>fitness_threshold</em></dt>
+<dd>When the fitness computed by <code class="docutils literal"><span class="pre">fitness_criterion</span></code> meets or exceeds this threshold, the evolution process will terminate.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>pop_size</em></dt>
+<dd>The number of individuals in each generation.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>reset_on_extinction</em></dt>
+<dd>If this evaluates to <cite>True</cite>, when all species simultaneously become extinct due to stagnation, a new random
+population will be created. If <cite>False</cite>, a <cite>CompleteExtinctionException</cite> will be thrown.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="defaultstagnation-section">
+<h2>[DefaultStagnation] section<a class="headerlink" href="#defaultstagnation-section" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">DefaultStagnation</span></code> section specifies parameters for the builtin <cite>DefaultStagnation</cite> class.
+This section is only necessary if you specify this class as the stagnation implementation when
+creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
+required for your particular implementation.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>species_fitness_func</em></dt>
+<dd>The function used to compute species fitness.  Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, <code class="docutils literal"><span class="pre">median</span></code></dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>max_stagnation</em></dt>
+<dd>Species that have not shown improvement in more than this number of generations will be considered stagnant and removed.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>species_elitism</em></dt>
+<dd>The number of species that will be protected from stagnation; mainly intended to prevent
+total extinctions caused by all species becoming stagnant before new species arise.  For example,
+a <code class="docutils literal"><span class="pre">species_elitism</span></code> setting of 3 will prevent the 3 species with the highest species fitness from
+being removed for stagnation regardless of the amount of time they have not shown improvement.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="defaultreproduction-section">
+<h2>[DefaultReproduction] section<a class="headerlink" href="#defaultreproduction-section" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">DefaultReproduction</span></code> section specifies parameters for the builtin <cite>DefaultReproduction</cite> class.
+This section is only necessary if you specify this class as the reproduction implementation when
+creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
+required for your particular implementation.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>elitism</em></dt>
+<dd>The number of most-fit individuals in each species that will be preserved as-is from one generation to the next.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>survival_threshold</em></dt>
+<dd>The fraction for each species allowed to reproduce each generation.</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="defaultgenome-section">
+<h2>[DefaultGenome] section<a class="headerlink" href="#defaultgenome-section" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">DefaultGenome</span></code> section specifies parameters for the builtin <cite>DefaultGenome</cite> class.
+This section is only necessary if you specify this class as the genome implementation when
+creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
+required for your particular implementation.</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><em>activation_default</em></dt>
+<dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> assigned to new <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>activation_mutate_rate</em></dt>
+<dd>The probability that mutation will replace the node’s activation function with a randomly-determined member of the <code class="docutils literal"><span class="pre">activation_options</span></code>.
+Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>activation_options</em></dt>
+<dd>A space-separated list of the activation functions that may be used by nodes.  The
+available functions can be found here: <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>aggregation_default</em></dt>
+<dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> assigned to new nodes. The aggregation function combines the inputs.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>aggregation_mutate_rate</em></dt>
+<dd>The probability that mutation will replace the node’s aggregation function with a randomly-determined member of the <code class="docutils literal"><span class="pre">aggregation_options</span></code>.
+Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>aggregation_options</em></dt>
+<dd>A space-separated list of the aggregation functions that may be used by nodes.  The
+available functions are: <code class="docutils literal"><span class="pre">sum</span></code>, <code class="docutils literal"><span class="pre">product</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code></dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_init_mean</em></dt>
+<dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a> values for new nodes.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_init_stdev</em></dt>
+<dd>The standard deviation of the normal distribution used to select bias values for new nodes.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_max_value</em></dt>
+<dd>The maximum allowed bias value.  Biases above this value will be clamped to this value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_min_value</em></dt>
+<dd>The minimum allowed bias value.  Biases below this value will be clamped to this value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_mutate_power</em></dt>
+<dd>The standard deviation of the zero-centered normal distribution from which a bias value mutation is drawn.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_mutate_rate</em></dt>
+<dd>The probability that mutation will change the bias of a node by adding a random value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>bias_replace_rate</em></dt>
+<dd>The probability that mutation will replace the bias of a node with a newly chosen random value (as if it were a new node).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>compatibility_threshold</em></dt>
+<dd>Individuals whose <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> is less than this threshold are considered to be in the same species.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>compatibility_disjoint_coefficient</em></dt>
+<dd>The coefficient for the disjoint+excess <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> counts’ contribution to the genomic distance.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>compatibility_weight_coefficient</em></dt>
+<dd>The coefficient for each <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>, <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a>, or <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier difference’s contribution to the genomic distance.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>conn_add_prob</em></dt>
+<dd>The probability that mutation will add a <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> between existing <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>conn_delete_prob</em></dt>
+<dd>The probability that mutation will delete an existing connection. Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>enabled_default</em></dt>
+<dd>The default <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of newly created connections (including in newly-created <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genomes</span></a>).  Valid values are <cite>True</cite>
+and <cite>False</cite>.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>enabled_mutate_rate</em></dt>
+<dd>The probability that mutation will replace (50/50 chance of <cite>True</cite> or <cite>False</cite>) the enabled status of a connection.
+Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>feed_forward</em></dt>
+<dd>If this evaluates to <cite>True</cite>, generated networks will not be allowed to have <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> connections (they will be <a class="reference internal" href="glossary.html#term-feedforward"><span class="xref std std-term">feedforward</span></a>).
+Otherwise they may be (but are not forced to be) recurrent.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>initial_connection</em></dt>
+<dd>Specifies the initial connectivity of newly-created genomes.  There are four allowed values:<ul class="last">
+<li><code class="docutils literal"><span class="pre">unconnected</span></code> - No <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> are initially present.</li>
+<li><code class="docutils literal"><span class="pre">fs_neat</span></code> - One randomly-chosen <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> has one connection to each <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and
+<a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a>. (This is the FS-NEAT scheme.)</li>
+<li><code class="docutils literal"><span class="pre">full</span></code> - Each <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> is connected to all <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>,
+and each hidden node is connected to all output nodes. (Note: This does not include <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> connections.)</li>
+<li><code class="docutils literal"><span class="pre">partial</span> <span class="pre">#</span></code> - As for <code class="docutils literal"><span class="pre">full</span></code>, but each connection has a probability of being present determined by the number (valid values are in [0.0, 1.0]).</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>node_add_prob</em></dt>
+<dd>The probability that mutation will add a new node (essentially replacing an existing connection,
+the <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of which will be set to <code class="docutils literal"><span class="pre">False</span></code>). Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>node_delete_prob</em></dt>
+<dd>The probability that mutation will delete an existing node (and all connections to it). Valid values are in [0.0, 1.0].</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>num_hidden</em></dt>
+<dd>The number of <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden nodes</span></a> to add to each genome in the initial population.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>num_inputs</em></dt>
+<dd>The number of <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>, through which the network receives inputs.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>num_outputs</em></dt>
+<dd>The number of <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>, to which the network delivers outputs.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_init_mean</em></dt>
+<dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multipliers for new nodes.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_init_stdev</em></dt>
+<dd>The standard deviation of the normal distribution used to select response multipliers for new nodes.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_max_value</em></dt>
+<dd>The maximum allowed response multiplier. Response multipliers above this value will be clamped to this value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_min_value</em></dt>
+<dd>The minimum allowed response multiplier. Response multipliers below this value will be clamped to this value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_mutate_power</em></dt>
+<dd>The standard deviation of the zero-centered normal distribution from which a response multiplier mutation is drawn.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_mutate_rate</em></dt>
+<dd>The probability that mutation will change the response multiplier of a node by adding a random value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>response_replace_rate</em></dt>
+<dd>The probability that mutation will replace the response multiplier of a node with a newly chosen random value (as if it were a new node).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_init_mean</em></dt>
+<dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a> values for new connections.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_init_stdev</em></dt>
+<dd>The standard deviation of the normal distribution used to select weight values for new connections.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_max_value</em></dt>
+<dd>The maximum allowed weight value. Weights above this value will be clamped to this value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_min_value</em></dt>
+<dd>The minimum allowed weight value. Weights below this value will be clamped to this value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_mutate_power</em></dt>
+<dd>The standard deviation of the zero-centered normal distribution from which a weight value mutation is drawn.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_mutate_rate</em></dt>
+<dd>The probability that mutation will change the weight of a connection by adding a random value.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>weight_replace_rate</em></dt>
+<dd>The probability that mutation will replace the weight of a connection with a newly chosen random value (as if it were a new connection).</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuration file description</a><ul>
+<li><a class="reference internal" href="#neat-section">[NEAT] section</a></li>
+<li><a class="reference internal" href="#defaultstagnation-section">[DefaultStagnation] section</a></li>
+<li><a class="reference internal" href="#defaultreproduction-section">[DefaultReproduction] section</a></li>
+<li><a class="reference internal" href="#defaultgenome-section">[DefaultGenome] section</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="xor_example.html" title="next chapter">Overview of the basic XOR example (xor2.py)</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/config_file.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, CodeReclaimers, LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/config_file.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

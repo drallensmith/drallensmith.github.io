@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Genome Interface &#8212; NEAT-Python 0.91 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.91',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reproduction Interface" href="reproduction-interface.html" />
+    <link rel="prev" title="Continuous-time recurrent neural network implementation" href="ctrnn.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="genome-interface">
+<span id="genome-interface-label"></span><h1>Genome Interface<a class="headerlink" href="#genome-interface" title="Permalink to this headline">¶</a></h1>
+<p>This is an outline of the minimal interface that is expected to be present on genome objects.</p>
+<div class="section" id="class-methods">
+<h2>Class Methods<a class="headerlink" href="#class-methods" title="Permalink to this headline">¶</a></h2>
+<p><cite>parse_config(cls, param_dict)</cite> - Takes a dictionary of configuration items, returns an object that will later
+be passed to the <cite>write_config</cite> method.  This configuration object is considered to be opaque by the rest
+of the library.</p>
+<p><cite>write_config(cls, f, config)</cite> - Takes a file-like object and the configuration object created by parse_config.
+This method should write the configuration item definitions to the given file.</p>
+</div>
+<div class="section" id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
+<p><cite>__init__(self, key)</cite> - Takes a unique genome instance identifier and the top-level Config object.  The
+initializer should create the following members:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>key</cite></li>
+<li><cite>connections</cite> - (gene_key, gene) pairs for the connection gene set.</li>
+<li><cite>nodes</cite> - (gene_key, gene) pairs for the node gene set.</li>
+<li><cite>fitness</cite></li>
+</ul>
+</div></blockquote>
+<p><cite>configure_new(self, config)</cite> - Configure the genome as a new random genome based on the given configuration.</p>
+<p><cite>configure_crossover(self, genome1, genome2, config)</cite> - Configure the genome as a child of the given parent
+genomes.</p>
+</div>
+<div class="section" id="mutation-reproduction">
+<h2>Mutation/reproduction<a class="headerlink" href="#mutation-reproduction" title="Permalink to this headline">¶</a></h2>
+<p><cite>mutate(self, config)</cite> - Apply mutation operations to the genome, using the given configuration.</p>
+<p><cite>distance(self, other, config)</cite> - Returns the genetic distance between this genome and the other. This distance value
+is used to compute genome compatibility for speciation.</p>
+<p><cite>size(self)</cite> - Returns a measure of genome complexity. This object is currently only given to reporters at the
+end of a generation to indicate the complexity of the highest-fitness genome.  In the DefaultGenome class,
+this method currently returns (number of nodes, number of enabled connections).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Genome Interface</a><ul>
+<li><a class="reference internal" href="#class-methods">Class Methods</a></li>
+<li><a class="reference internal" href="#initialization">Initialization</a></li>
+<li><a class="reference internal" href="#mutation-reproduction">Mutation/reproduction</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ctrnn.html" title="previous chapter">Continuous-time recurrent neural network implementation</a></li>
+      <li>Next: <a href="reproduction-interface.html" title="next chapter">Reproduction Interface</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/genome-interface.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, CodeReclaimers, LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/genome-interface.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

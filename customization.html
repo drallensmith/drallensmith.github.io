@@ -1,0 +1,176 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Customizing Behavior &#8212; NEAT-Python 0.91 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.91',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview of builtin activation functions" href="activation.html" />
+    <link rel="prev" title="Overview of the basic XOR example (xor2.py)" href="xor_example.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="customizing-behavior">
+<h1>Customizing Behavior<a class="headerlink" href="#customizing-behavior" title="Permalink to this headline">¶</a></h1>
+<p>NEAT-Python allows the user to provide drop-in replacements for some parts of the NEAT algorithm, which hopefully
+makes it easier to implement common variations of the algorithm as mentioned in the literature.  If
+you find that you’d like to be able to customize something not shown here, please submit an issue on GitHub.</p>
+<div class="section" id="new-activation-functions">
+<h2>New activation functions<a class="headerlink" href="#new-activation-functions" title="Permalink to this headline">¶</a></h2>
+<p>New activation functions are registered with your <cite>Config</cite> instance, prior to creation of the <cite>Population</cite> instance,
+as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sinc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span>
+
+<span class="n">config</span><span class="o">.</span><span class="n">genome_config</span><span class="o">.</span><span class="n">add_activation</span><span class="p">(</span><span class="s1">&#39;my_sinc_function&#39;</span><span class="p">,</span> <span class="n">sinc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first argument to <cite>add_activation</cite> is the name by which this activation function will be referred to in the
+configuration settings file.</p>
+<p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/tree/master/examples/memory-fixed">memory-fixed</a> example.</p>
+<p>NOTE: This method is only valid when using the <cite>DefaultGenome</cite> implementation–different genome implementations
+may require a different method of registration.</p>
+</div>
+<div class="section" id="reporting-logging">
+<h2>Reporting/logging<a class="headerlink" href="#reporting-logging" title="Permalink to this headline">¶</a></h2>
+<p>The Population class makes calls to a collection of zero or more reporters at fixed points during the evolution
+process.  The user can add a custom reporter to this collection by calling Population.add_reporter and providing
+it with an object which implements the same interface as <cite>BaseReporter</cite>.</p>
+<p><cite>StdOutReporter</cite> and <cite>StatisticsReporter</cite> in <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/neat/reporting.py#L56">reporting.py</a> may be useful as examples of the
+behavior you can add using a reporter.</p>
+<p>TODO: document reporter interface</p>
+</div>
+<div class="section" id="new-genome-types">
+<h2>New genome types<a class="headerlink" href="#new-genome-types" title="Permalink to this headline">¶</a></h2>
+<p>To use a different genome type, you can create a custom class whose interface matches that of
+<cite>DefaultGenome</cite> (the minimum genome type interface is documented here: <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a>)
+and pass this as the <cite>genome_type</cite> argument to the <cite>Config</cite> constructor.</p>
+<p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/circuits/evolve.py">circuit evolution</a> example.</p>
+<p>Alternatively, you can subclass <cite>DefaultGenome</cite> in cases where you need to just add some extra behavior.
+This is done in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/openai-lander/evolve.py">OpenAI lander</a> example to
+add an evolvable per-genome reward discount value.</p>
+</div>
+<div class="section" id="speciation-scheme">
+<h2>Speciation scheme<a class="headerlink" href="#speciation-scheme" title="Permalink to this headline">¶</a></h2>
+<p>To use a different speciation scheme, you can create a custom class whose interface matches that of
+<cite>DefaultSpeciesSet</cite> and pass this as the <cite>species_set_type</cite> argument to the <cite>Config</cite> constructor.</p>
+<p>TODO: document species set interface</p>
+<p>TODO: include example</p>
+</div>
+<div class="section" id="species-stagnation-scheme">
+<h2>Species stagnation scheme<a class="headerlink" href="#species-stagnation-scheme" title="Permalink to this headline">¶</a></h2>
+<p>The default species stagnation scheme is a simple fixed stagnation limit–when a species exhibits
+no improvement for a fixed number of generations, all its members are removed from the simulation. This
+behavior is encapsulated in the <cite>DefaultStagnation</cite> class.</p>
+<p>To use a different species stagnation scheme, you must create a custom class whose interface matches that
+of <cite>DefaultStagnation</cite>, and provide it as the <cite>stagnation_type</cite> argument to the <cite>Config</cite> constructor.</p>
+<p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/picture2d/interactive.py">interactive 2D image</a> example.</p>
+<p>TODO: document stagnation interface</p>
+</div>
+<div class="section" id="reproduction-scheme">
+<h2>Reproduction scheme<a class="headerlink" href="#reproduction-scheme" title="Permalink to this headline">¶</a></h2>
+<p>The default reproduction scheme uses explicit fitness sharing.  This behavior is encapsulated in the
+<cite>DefaultReproduction</cite> class.  The minimum reproduction type interface is documented here: <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a></p>
+<p>To use a different reproduction scheme, you must create a custom class whose interface matches that
+of <cite>DefaultReproduction</cite>, and provide it as the <cite>reproduction_type</cite> argument to the <cite>Config</cite> constructor.</p>
+<p>TODO: document reproduction interface</p>
+<p>TODO: include example</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Customizing Behavior</a><ul>
+<li><a class="reference internal" href="#new-activation-functions">New activation functions</a></li>
+<li><a class="reference internal" href="#reporting-logging">Reporting/logging</a></li>
+<li><a class="reference internal" href="#new-genome-types">New genome types</a></li>
+<li><a class="reference internal" href="#speciation-scheme">Speciation scheme</a></li>
+<li><a class="reference internal" href="#species-stagnation-scheme">Species stagnation scheme</a></li>
+<li><a class="reference internal" href="#reproduction-scheme">Reproduction scheme</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="xor_example.html" title="previous chapter">Overview of the basic XOR example (xor2.py)</a></li>
+      <li>Next: <a href="activation.html" title="next chapter">Overview of builtin activation functions</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/customization.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, CodeReclaimers, LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/customization.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

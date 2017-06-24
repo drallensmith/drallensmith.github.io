@@ -1,0 +1,144 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Glossary &#8212; NEAT-Python 0.91 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.91',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Reproduction Interface" href="reproduction-interface.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="glossary">
+<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<dl class="glossary docutils">
+<dt id="term-activation-function">activation function<dt id="term-aggregation-function">aggregation function<dt id="term-bias">bias<dt id="term-response">response</dt>
+<dd>These are the attributes of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>. They determine the output of a node as follows:
+(TODO: Replace with proper mathematical formatting) activation_function(bias + (response*aggregation_function(input_connections)))
+For available activation functions, see <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
+<dt id="term-connection">connection</dt>
+<dd>These connect between <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a>, and give rise to the <em>network</em> in the term <code class="docutils literal"><span class="pre">neural</span> <span class="pre">network</span></code>. Connections have two attributes,
+their <a class="reference internal" href="#term-weight"><span class="xref std std-term">weight</span></a> and whether or not they are <a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a>; both are determined by their <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a>.</dd>
+<dt id="term-continuous-time">continuous time<dt id="term-discrete-time">discrete time</dt>
+<dd>A discrete time neural network proceeds in time steps, with processing at one <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> followed by going through <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a>
+to other nodes followed by processing at those other nodes. A continuous time neural network, such as the <a class="reference internal" href="ctrnn.html"><span class="doc">ctrnn</span></a> (continuous
+time <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network) implemented in NEAT-Python, simulates a continuous process via differential equations (or other methods).</dd>
+<dt id="term-feedforward">feedforward</dt>
+<dd>A neural network that is not <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> is feedforward - it has no loops. (Note that this means that it has no memory - no ability to take into account
+past events.) It can thus be described as a <a class="reference external" href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG (Directed Acyclic Graph)</a>.</dd>
+<dt id="term-gene">gene</dt>
+<dd>Blah [link!]</dd>
+<dt id="term-genome">genome</dt>
+<dd>Blah [include program documentation links…]</dd>
+<dt id="term-genomic-distance">genomic distance</dt>
+<dd>Blah [link!]</dd>
+<dt id="term-hidden-node">hidden node</dt>
+<dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> other than <a class="reference internal" href="#term-input-node"><span class="xref std std-term">input nodes</span></a> and <a class="reference internal" href="#term-output-node"><span class="xref std std-term">output nodes</span></a>. In the original
+<abbr title="NeuroEvolution of Augmenting Topologies">NEAT</abbr> <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
+more complexity as necessary - thus “Augmenting Topologies”.</dd>
+<dt id="term-input-node">input node</dt>
+<dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> through which the network receives inputs. They cannot be deleted (although connections from them can be),
+cannot be the output end of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>, and have: no <a class="reference internal" href="#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a>; a fixed <a class="reference internal" href="#term-bias"><span class="xref std std-term">bias</span></a> of 0; a fixed <a class="reference internal" href="#term-response"><span class="xref std std-term">response</span></a> multiplier
+of 1; and a fixed <a class="reference internal" href="#term-activation-function"><span class="xref std std-term">activation function</span></a> of <code class="docutils literal"><span class="pre">identity</span></code>.</dd>
+<dt id="term-node">node</dt>
+<dd>Also known as a neuron (as in a <em>neural</em> network). They are of three types:
+<a class="reference internal" href="#term-input-node"><span class="xref std std-term">input</span></a>, <a class="reference internal" href="#term-hidden-node"><span class="xref std std-term">hidden</span></a>, and <a class="reference internal" href="#term-output-node"><span class="xref std std-term">output</span></a>. Nodes have one or more attributes, such
+as an <a class="reference internal" href="#term-activation-function"><span class="xref std std-term">activation function</span></a>; all are determined by their <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a>.</dd>
+<dt id="term-output-node">output node</dt>
+<dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> to which the network delivers outputs. They cannot be deleted (although connections to them can be) but
+can otherwise be altered normally.</dd>
+<dt id="term-recurrent">recurrent</dt>
+<dd>A recurrent neural network has cycles in its topography. These may be a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> having a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a> back to itself, with (for a
+<a class="reference internal" href="#term-discrete-time"><span class="xref std std-term">discrete time</span></a> neural network) the prior time period’s output being provided to the node as one of its inputs. They may also have longer cycles,
+such as with output from node A going into node B (via a connection) and an output from node B going (via another connection) into node A. (This
+gives it a possibly-useful memory - an ability to take into account past events - unlike a <a class="reference internal" href="#term-feedforward"><span class="xref std std-term">feedforward</span></a> neural network; however, it also makes it
+harder to analyze.)</dd>
+<dt id="term-weight">weight<dt id="term-enabled">enabled</dt>
+<dd>These are the attributes of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>. If a connection is enabled, then the input to it (from a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>) is
+multiplied by the weight then sent to the output (to a node - possibly the same node, for a <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network).
+If a connection is not enabled, then the output is 0; genes for such connections are the equivalent of <a class="reference external" href="http://pseudogene.org/background.php">pseudogenes</a> that, as in <a class="reference external" href="https://en.wikipedia.org/wiki/In_vivo">in vivo</a> evolution, can be reactivated at a later time.</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="reproduction-interface.html" title="previous chapter">Reproduction Interface</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/glossary.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, CodeReclaimers, LLC.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/glossary.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
