@@ -45,7 +45,7 @@
 <dl class="glossary docutils">
 <dt id="term-activation-function">activation function<dt id="term-aggregation-function">aggregation function<dt id="term-bias">bias<dt id="term-response">response</dt>
 <dd>These are the attributes of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>. They determine the output of a node as follows:
-<span class="math">\(\begin{equation}\operatorname{activation_function}(bias + (response * \operatorname{aggregation_function}(input_connections)))\end{equation}\)</span>
+<span class="math">\(\begin{equation}\operatorname{activation}(bias + (response * \operatorname{aggregation}(inputs)))\end{equation}\)</span>
 For available activation functions, see <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
 <dt id="term-connection">connection</dt>
 <dd>These connect between <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a>, and give rise to the <em>network</em> in the term <code class="docutils literal"><span class="pre">neural</span> <span class="pre">network</span></code>. Connections have two attributes,
@@ -53,7 +53,7 @@ their <a class="reference internal" href="#term-weight"><span class="xref std st
 <dt id="term-continuous-time">continuous-time<dt id="term-discrete-time">discrete-time</dt>
 <dd>A discrete-time neural network (which should be assumed unless specified otherwise) proceeds in time steps, with processing at one <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>
 followed by going through <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a> to other nodes followed by processing at those other nodes, eventually giving the output.
-A continuous=time neural network, such as the <a class="reference internal" href="ctrnn.html"><span class="doc">ctrnn</span></a> (continuous-time <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network) implemented in NEAT-Python,
+A continuous-time neural network, such as the <a class="reference internal" href="ctrnn.html"><span class="doc">ctrnn</span></a> (continuous-time <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network) implemented in NEAT-Python,
 simulates a continuous process via differential equations (or other methods).</dd>
 <dt id="term-feedforward">feedforward<dt id="term-feed-forward">feed-forward</dt>
 <dd>A neural network that is not <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> is feedforward - it has no loops. (Note that this means that it has no memory - no ability to take into account
@@ -68,7 +68,7 @@ TODO: Add links.</dd>
 further, put in links, etc…</dd>
 <dt id="term-hidden-node">hidden node</dt>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> other than <a class="reference internal" href="#term-input-node"><span class="xref std std-term">input nodes</span></a> and <a class="reference internal" href="#term-output-node"><span class="xref std std-term">output nodes</span></a>. In the original
-<abbr title="NeuroEvolution of Augmenting Topologies">NEAT</abbr> <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
+NEAT (NeuroEvolution of Augmenting Topologies) <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
 more complexity as necessary - thus “Augmenting Topologies”.</dd>
 <dt id="term-input-node">input node</dt>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> through which the network receives inputs. They cannot be deleted (although connections from them can be),
