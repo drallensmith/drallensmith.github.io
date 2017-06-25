@@ -1,0 +1,5 @@
+<map id="inheritance544526dc2a" name="inheritance544526dc2a">
+<area shape="rect" id="node1" href="#genes.BaseGene" target="_top" title="genes.BaseGene" alt="" coords="5,31,131,56"/>
+<area shape="rect" id="node2" href="#genes.DefaultConnectionGene" target="_top" title="genes.DefaultConnectionGene" alt="" coords="179,5,383,31"/>
+<area shape="rect" id="node3" href="#genes.DefaultNodeGene" target="_top" title="genes.DefaultNodeGene" alt="" coords="196,55,365,80"/>
+</map>

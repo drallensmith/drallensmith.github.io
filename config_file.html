@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Configuration file description &#8212; NEAT-Python 0.91 documentation</title>
+    <title>Configuration file description &#8212; NEAT-Python 0.91-github documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.91',
+        VERSION:     '0.91-github',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -45,8 +45,9 @@
 <h1>Configuration file description<a class="headerlink" href="#configuration-file-description" title="Permalink to this headline">¶</a></h1>
 <p>The configuration file is in the format described in the <a class="reference external" href="https://docs.python.org/2/library/configparser.html">Python ConfigParser documentation</a> as “a basic configuration file parser language
 which provides a structure similar to what you would find on Microsoft Windows INI files.”</p>
-<p>All settings must be explicitly enumerated in the configuration file.  This makes it less likely
-that library code changes will result in your project silently using different NEAT settings.  However,
+<p>Most settings must be explicitly enumerated in the configuration file.  (This makes it less likely
+that library code changes will result in your project silently using different NEAT settings. There are some defaults, as noted below, and
+insofar as possible new configuration parameters will default to the existing behavior.)  However,
 it is not necessary that they appear in any certain order.</p>
 <p>Note that the <cite>Config</cite> constructor also requires you to explicitly specify the types that will be used
 for the NEAT simulation.  This, again, is to help avoid silent changes in behavior.</p>
@@ -57,8 +58,7 @@ itself.  This section is always required.</p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt><em>fitness_criterion</em></dt>
-<dd>The function used to compute the termination criterion from the set of genome fitnesses.  Allowable
-values are: <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">mean</span></code></dd>
+<dd>The function used to compute the termination criterion from the set of genome fitnesses.  Allowable values are: <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">mean</span></code></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -88,12 +88,12 @@ required for your particular implementation.</p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt><em>species_fitness_func</em></dt>
-<dd>The function used to compute species fitness.  Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, <code class="docutils literal"><span class="pre">median</span></code></dd>
+<dd>The function used to compute species fitness.  <strong>This defaults to “mean“.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, <code class="docutils literal"><span class="pre">median</span></code></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>max_stagnation</em></dt>
-<dd>Species that have not shown improvement in more than this number of generations will be considered stagnant and removed.</dd>
+<dd>Species that have not shown improvement in more than this number of generations will be considered stagnant and removed. <strong>This defaults to 15.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -101,7 +101,7 @@ required for your particular implementation.</p>
 <dd>The number of species that will be protected from stagnation; mainly intended to prevent
 total extinctions caused by all species becoming stagnant before new species arise.  For example,
 a <code class="docutils literal"><span class="pre">species_elitism</span></code> setting of 3 will prevent the 3 species with the highest species fitness from
-being removed for stagnation regardless of the amount of time they have not shown improvement.</dd>
+being removed for stagnation regardless of the amount of time they have not shown improvement. <strong>This defaults to 0.</strong></dd>
 </dl>
 </li>
 </ul>
@@ -115,12 +115,12 @@ required for your particular implementation.</p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt><em>elitism</em></dt>
-<dd>The number of most-fit individuals in each species that will be preserved as-is from one generation to the next.</dd>
+<dd>The number of most-fit individuals in each species that will be preserved as-is from one generation to the next. <strong>This defaults to 0.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>survival_threshold</em></dt>
-<dd>The fraction for each species allowed to reproduce each generation.</dd>
+<dd>The fraction for each species allowed to reproduce each generation. <strong>This defaults to 0.2.</strong></dd>
 </dl>
 </li>
 </ul>
@@ -131,10 +131,11 @@ required for your particular implementation.</p>
 This section is only necessary if you specify this class as the genome implementation when
 creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
-<ul class="simple">
+<ul class="simple" id="index-0">
 <li><dl class="first docutils">
 <dt><em>activation_default</em></dt>
-<dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> assigned to new <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>.</dd>
+<dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> assigned to new <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “activation_options“
+will be chosen at random.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -145,13 +146,16 @@ Valid values are in [0.0, 1.0].</dd>
 </li>
 <li><dl class="first docutils">
 <dt><em>activation_options</em></dt>
-<dd>A space-separated list of the activation functions that may be used by nodes.  The
+<dd>A space-separated list of the activation functions that may be used by nodes.  <strong>This defaults to “sigmoid“.</strong> The
 available functions can be found here: <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-1">
 <li><dl class="first docutils">
 <dt><em>aggregation_default</em></dt>
-<dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> assigned to new nodes. The aggregation function combines the inputs.</dd>
+<dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> assigned to new nodes. <strong>If none is given, or “random“ is specified, one of the “aggregation_options“
+will be chosen at random.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -162,7 +166,7 @@ Valid values are in [0.0, 1.0].</dd>
 </li>
 <li><dl class="first docutils">
 <dt><em>aggregation_options</em></dt>
-<dd>A space-separated list of the aggregation functions that may be used by nodes.  The
+<dd>A space-separated list of the aggregation functions that may be used by nodes.  <strong>This defaults to “sum“.</strong> The
 available functions are: <code class="docutils literal"><span class="pre">sum</span></code>, <code class="docutils literal"><span class="pre">product</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code></dd>
 </dl>
 </li>
@@ -203,7 +207,7 @@ available functions are: <code class="docutils literal"><span class="pre">sum</s
 </li>
 <li><dl class="first docutils">
 <dt><em>compatibility_threshold</em></dt>
-<dd>Individuals whose <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> is less than this threshold are considered to be in the same species.</dd>
+<dd>Individuals whose <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> is less than this threshold are considered to be in the same <a class="reference internal" href="glossary.html#term-species"><span class="xref std std-term">species</span></a>.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -228,10 +232,15 @@ available functions are: <code class="docutils literal"><span class="pre">sum</s
 </li>
 <li><dl class="first docutils">
 <dt><em>enabled_default</em></dt>
-<dd>The default <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of newly created connections (including in newly-created <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genomes</span></a>).  Valid values are <cite>True</cite>
-and <cite>False</cite>.</dd>
+<dd>The default <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of newly created connections.  Valid values are <cite>True</cite> and <cite>False</cite>.</dd>
 </dl>
 </li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">“Newly created connections” include ones in newly-created genomes, if those have initial connections.</p>
+</div>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt><em>enabled_mutate_rate</em></dt>
 <dd>The probability that mutation will replace (50/50 chance of <cite>True</cite> or <cite>False</cite>) the enabled status of a connection.
@@ -247,7 +256,7 @@ Otherwise they may be (but are not forced to be) recurrent.</dd>
 <li><dl class="first docutils">
 <dt><em>initial_connection</em></dt>
 <dd>Specifies the initial connectivity of newly-created genomes.  There are four allowed values:<ul class="last">
-<li><code class="docutils literal"><span class="pre">unconnected</span></code> - No <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> are initially present.</li>
+<li><code class="docutils literal"><span class="pre">unconnected</span></code> - No <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> are initially present. <strong>This is the default.</strong></li>
 <li><code class="docutils literal"><span class="pre">fs_neat</span></code> - One randomly-chosen <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> has one connection to each <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and
 <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a>. (This is the FS-NEAT scheme.)</li>
 <li><code class="docutils literal"><span class="pre">full</span></code> - Each <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> is connected to all <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>,

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Continuous-time recurrent neural network implementation &#8212; NEAT-Python 0.91 documentation</title>
+    <title>Continuous-time recurrent neural network implementation &#8212; NEAT-Python 0.91-github documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.91',
+        VERSION:     '0.91-github',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Genome Interface" href="genome-interface.html" />
+    <link rel="next" title="Module summaries" href="module_summaries.html" />
     <link rel="prev" title="Overview of builtin activation functions" href="activation.html" />
    
   
@@ -43,7 +43,7 @@
             
   <div class="section" id="continuous-time-recurrent-neural-network-implementation">
 <h1>Continuous-time recurrent neural network implementation<a class="headerlink" href="#continuous-time-recurrent-neural-network-implementation" title="Permalink to this headline">¶</a></h1>
-<p>The default continuous-time recurrent neural network (CTRNN) implementation in neat-python
+<p id="index-0">The default <a class="reference internal" href="glossary.html#term-continuous-time"><span class="xref std std-term">continuous-time</span></a> <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network (CTRNN) implementation in neat-python
 is modeled as a system of ordinary differential equations, with neuron potentials as the
 dependent variables.</p>
 <p><span class="math">\(\tau_i \frac{d y_i}{dt} = -y_i + f_i\left(\beta_i + \sum\limits_{j \in A_i} w_{ij} y_j\right)\)</span></p>
@@ -51,10 +51,10 @@ dependent variables.</p>
 <ul class="simple">
 <li><span class="math">\(\tau_i\)</span> is the time constant of neuron <span class="math">\(i\)</span>.</li>
 <li><span class="math">\(y_i\)</span> is the potential of neuron <span class="math">\(i\)</span>.</li>
-<li><span class="math">\(f_i\)</span> is the activation function of neuron <span class="math">\(i\)</span>.</li>
-<li><span class="math">\(\beta_i\)</span> is the bias of neuron <span class="math">\(i\)</span>.</li>
+<li><span class="math">\(f_i\)</span> is the <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> of neuron <span class="math">\(i\)</span>.</li>
+<li><span class="math">\(\beta_i\)</span> is the <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a> of neuron <span class="math">\(i\)</span>.</li>
 <li><span class="math">\(A_i\)</span> is the set of indices of neurons that provide input to neuron <span class="math">\(i\)</span>.</li>
-<li><span class="math">\(w_{ij}\)</span> is the weight of the connection from neuron <span class="math">\(j\)</span> to neuron <span class="math">\(i\)</span>.</li>
+<li><span class="math">\(w_{ij}\)</span> is the <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a> of the <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> from neuron <span class="math">\(j\)</span> to neuron <span class="math">\(i\)</span>.</li>
 </ul>
 <p>The time evolution of the network is computed using the forward Euler method:</p>
 <p><span class="math">\(y_i(t+\Delta t) = y_i(t) + \Delta t \frac{d y_i}{dt}\)</span></p>
@@ -70,7 +70,7 @@ dependent variables.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="activation.html" title="previous chapter">Overview of builtin activation functions</a></li>
-      <li>Next: <a href="genome-interface.html" title="next chapter">Genome Interface</a></li>
+      <li>Next: <a href="module_summaries.html" title="next chapter">Module summaries</a></li>
   </ul></li>
 </ul>
 </div>

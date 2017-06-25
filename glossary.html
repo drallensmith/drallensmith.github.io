@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Glossary &#8212; NEAT-Python 0.91 documentation</title>
+    <title>Glossary &#8212; NEAT-Python 0.91-github documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.91',
+        VERSION:     '0.91-github',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -45,24 +45,27 @@
 <dl class="glossary docutils">
 <dt id="term-activation-function">activation function<dt id="term-aggregation-function">aggregation function<dt id="term-bias">bias<dt id="term-response">response</dt>
 <dd>These are the attributes of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>. They determine the output of a node as follows:
-(TODO: Replace with proper mathematical formatting) activation_function(bias + (response*aggregation_function(input_connections)))
+<span class="math">\(\begin{equation}\operatorname{activation_function}(bias + (response * \operatorname{aggregation_function}(input_connections)))\end{equation}\)</span>
 For available activation functions, see <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
 <dt id="term-connection">connection</dt>
 <dd>These connect between <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a>, and give rise to the <em>network</em> in the term <code class="docutils literal"><span class="pre">neural</span> <span class="pre">network</span></code>. Connections have two attributes,
 their <a class="reference internal" href="#term-weight"><span class="xref std std-term">weight</span></a> and whether or not they are <a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a>; both are determined by their <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a>.</dd>
-<dt id="term-continuous-time">continuous time<dt id="term-discrete-time">discrete time</dt>
-<dd>A discrete time neural network proceeds in time steps, with processing at one <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> followed by going through <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a>
-to other nodes followed by processing at those other nodes. A continuous time neural network, such as the <a class="reference internal" href="ctrnn.html"><span class="doc">ctrnn</span></a> (continuous
-time <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network) implemented in NEAT-Python, simulates a continuous process via differential equations (or other methods).</dd>
-<dt id="term-feedforward">feedforward</dt>
+<dt id="term-continuous-time">continuous-time<dt id="term-discrete-time">discrete-time</dt>
+<dd>A discrete-time neural network (which should be assumed unless specified otherwise) proceeds in time steps, with processing at one <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>
+followed by going through <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a> to other nodes followed by processing at those other nodes, eventually giving the output.
+A continuous=time neural network, such as the <a class="reference internal" href="ctrnn.html"><span class="doc">ctrnn</span></a> (continuous-time <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network) implemented in NEAT-Python,
+simulates a continuous process via differential equations (or other methods).</dd>
+<dt id="term-feedforward">feedforward<dt id="term-feed-forward">feed-forward</dt>
 <dd>A neural network that is not <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> is feedforward - it has no loops. (Note that this means that it has no memory - no ability to take into account
 past events.) It can thus be described as a <a class="reference external" href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG (Directed Acyclic Graph)</a>.</dd>
 <dt id="term-gene">gene</dt>
-<dd>Blah [link!]</dd>
+<dd>The information coding (in the current implementation) for a particular aspect (<a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> or <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>) of a neural network phenotype.
+TODO: Add links.</dd>
 <dt id="term-genome">genome</dt>
-<dd>Blah [include program documentation links…]</dd>
+<dd>The set of <a class="reference internal" href="#term-gene"><span class="xref std std-term">genes</span></a> that together code for a (neural network) phenotype. TODO: Add appropriate links.</dd>
 <dt id="term-genomic-distance">genomic distance</dt>
-<dd>Blah [link!]</dd>
+<dd>An approximate measure of the difference between <a class="reference internal" href="#term-genome"><span class="xref std std-term">genomes</span></a>, used in dividing the population into <a class="reference internal" href="#term-species"><span class="xref std std-term">species</span></a>. TODO: Explain
+further, put in links, etc…</dd>
 <dt id="term-hidden-node">hidden node</dt>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> other than <a class="reference internal" href="#term-input-node"><span class="xref std std-term">input nodes</span></a> and <a class="reference internal" href="#term-output-node"><span class="xref std std-term">output nodes</span></a>. In the original
 <abbr title="NeuroEvolution of Augmenting Topologies">NEAT</abbr> <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
@@ -80,10 +83,14 @@ as an <a class="reference internal" href="#term-activation-function"><span class
 can otherwise be altered normally.</dd>
 <dt id="term-recurrent">recurrent</dt>
 <dd>A recurrent neural network has cycles in its topography. These may be a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> having a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a> back to itself, with (for a
-<a class="reference internal" href="#term-discrete-time"><span class="xref std std-term">discrete time</span></a> neural network) the prior time period’s output being provided to the node as one of its inputs. They may also have longer cycles,
+<a class="reference internal" href="#term-discrete-time"><span class="xref std std-term">discrete-time</span></a> neural network) the prior time period’s output being provided to the node as one of its inputs. They may also have longer cycles,
 such as with output from node A going into node B (via a connection) and an output from node B going (via another connection) into node A. (This
 gives it a possibly-useful memory - an ability to take into account past events - unlike a <a class="reference internal" href="#term-feedforward"><span class="xref std std-term">feedforward</span></a> neural network; however, it also makes it
-harder to analyze.)</dd>
+harder to work with in some respects.)</dd>
+<dt id="term-species">species</dt>
+<dd>Subdivisions of the population into groups of similar (by the <a class="reference internal" href="#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> measure) individuals (<a class="reference internal" href="#term-genome"><span class="xref std std-term">genomes</span></a>),
+which compete among themselves but share fitness relative to the rest of the population. This is, among other things, a mechanism to try to avoid the
+quick elimination of high-potential topological mutants that have an initial poor fitness prior to smaller “tuning” changes. TODO: Add links.</dd>
 <dt id="term-weight">weight<dt id="term-enabled">enabled</dt>
 <dd>These are the attributes of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>. If a connection is enabled, then the input to it (from a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>) is
 multiplied by the weight then sent to the output (to a node - possibly the same node, for a <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network).
