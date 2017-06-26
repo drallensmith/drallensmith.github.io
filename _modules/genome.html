@@ -295,6 +295,14 @@
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>
             <span class="k">return</span>
 
+        <span class="c1"># Don&#39;t allow connections between two output nodes</span>
+        <span class="k">if</span> <span class="n">in_node</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">output_keys</span> <span class="ow">and</span> <span class="n">out_node</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">output_keys</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Don&#39;t allow connections between two input nodes</span>
+        <span class="k">if</span> <span class="n">in_node</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">input_keys</span> <span class="ow">and</span> <span class="n">out_node</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">input_keys</span><span class="p">:</span>
+            <span class="k">return</span>
+
         <span class="c1"># For feed-forward networks, avoid creating cycles.</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">feed_forward</span> <span class="ow">and</span> <span class="n">creates_cycle</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)),</span> <span class="n">key</span><span class="p">):</span>
             <span class="k">return</span>
