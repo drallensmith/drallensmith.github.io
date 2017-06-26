@@ -42,19 +42,26 @@
           <div class="body" role="main">
             
   <div class="section" id="configuration-file-description">
-<h1>Configuration file description<a class="headerlink" href="#configuration-file-description" title="Permalink to this headline">¶</a></h1>
-<p>The configuration file is in the format described in the <a class="reference external" href="https://docs.python.org/2/library/configparser.html">Python ConfigParser documentation</a> as “a basic configuration file parser language
-which provides a structure similar to what you would find on Microsoft Windows INI files.”</p>
+<span id="configuration-file-description-label"></span><h1>Configuration file description<a class="headerlink" href="#configuration-file-description" title="Permalink to this headline">¶</a></h1>
+<p>The configuration file is in the format described in the Python <a class="reference external" href="https://docs.python.org/3.5/library/configparser.html#module-configparser" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">configparser</span></code></a> documentation
+as “a basic configuration file parser language which provides a structure similar to what you would find on Microsoft Windows INI files.”</p>
 <p>Most settings must be explicitly enumerated in the configuration file.  (This makes it less likely
 that library code changes will result in your project silently using different NEAT settings. There are some defaults, as noted below, and
-insofar as possible new configuration parameters will default to the existing behavior.)  However,
-it is not necessary that they appear in any certain order.</p>
-<p>Note that the <cite>Config</cite> constructor also requires you to explicitly specify the types that will be used
+insofar as possible new configuration parameters will default to the existing behavior.)</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Work on ways to make the existing defaults more integrated with the configuration code. This may involve a third, optional (defaulting to <code class="docutils literal"><span class="pre">None</span></code>)
+parameter for <a class="reference internal" href="module_summaries.html#config.ConfigParameter" title="config.ConfigParameter"><code class="xref any py py-class docutils literal"><span class="pre">ConfigParameter</span></code></a>, giving a default. Such a mechanism will be needed to convert the configuration in <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> and
+<a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> to match that in other classes/modules. It would also be needed to add, for instance, an alternative uniform-distribution initialization
+for various parameters such as weight and bias, without requiring all configuration files to be changed to specify the gaussian distribution currently in use.</p>
+</div>
+<p>Note that the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor also requires you to explicitly specify the types that will be used
 for the NEAT simulation.  This, again, is to help avoid silent changes in behavior.</p>
+<p>The configuration file is in several sections, of which at least one is required. However, there are no requirements for ordering within these sections, or for ordering of the sections themselves.</p>
 <div class="section" id="neat-section">
 <h2>[NEAT] section<a class="headerlink" href="#neat-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">NEAT</span></code> section specifies parameters particular to the generic NEAT algorithm or the experiment
-itself.  This section is always required.</p>
+itself.  This section is always required, and is handled by the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> class itself.</p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt><em>fitness_criterion</em></dt>
@@ -75,17 +82,17 @@ itself.  This section is always required.</p>
 <ul class="simple" id="reset-on-extinction-label">
 <li><dl class="first docutils">
 <dt><em>reset_on_extinction</em></dt>
-<dd>If this evaluates to <cite>True</cite>, when all species simultaneously become extinct due to stagnation, a new random
-population will be created. If <cite>False</cite>, a <cite>CompleteExtinctionException</cite> will be thrown.</dd>
+<dd>If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, when all species simultaneously become extinct due to stagnation, a new random
+population will be created. If <code class="docutils literal"><span class="pre">False</span></code>, a <a class="reference internal" href="module_summaries.html#population.CompleteExtinctionException" title="population.CompleteExtinctionException"><code class="xref any py py-exc docutils literal"><span class="pre">CompleteExtinctionException</span></code></a> will be thrown.</dd>
 </dl>
 </li>
 </ul>
 </div>
 <div class="section" id="defaultstagnation-section">
 <h2>[DefaultStagnation] section<a class="headerlink" href="#defaultstagnation-section" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">DefaultStagnation</span></code> section specifies parameters for the builtin <cite>DefaultStagnation</cite> class.
+<p>The <code class="docutils literal"><span class="pre">DefaultStagnation</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> class.
 This section is only necessary if you specify this class as the stagnation implementation when
-creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
+creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
 <ul class="simple">
 <li><dl class="first docutils">
@@ -107,12 +114,16 @@ being removed for stagnation regardless of the amount of time they have not show
 </dl>
 </li>
 </ul>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last"><a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.write_config" title="stagnation.DefaultStagnation.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.write_config</span></code></a> uses a default of 15 for <code class="docutils literal"><span class="pre">species_elitism</span></code>, but the default by <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.parse_config" title="stagnation.DefaultStagnation.parse_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.parse_config</span></code></a> is 0, which will override.</p>
+</div>
 </div>
 <div class="section" id="defaultreproduction-section">
 <h2>[DefaultReproduction] section<a class="headerlink" href="#defaultreproduction-section" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">DefaultReproduction</span></code> section specifies parameters for the builtin <cite>DefaultReproduction</cite> class.
+<p>The <code class="docutils literal"><span class="pre">DefaultReproduction</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> class.
 This section is only necessary if you specify this class as the reproduction implementation when
-creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
+creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
 <ul class="simple">
 <li><dl class="first docutils">
@@ -126,14 +137,18 @@ required for your particular implementation.</p>
 </dl>
 </li>
 </ul>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">There is also a <code class="docutils literal"><span class="pre">min_species_size</span></code> configuration parameter, defaulting to 2, although it is not written out by <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction.write_config" title="reproduction.DefaultReproduction.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultReproduction.write_config</span></code></a>.</p>
+</div>
 </div>
 <div class="section" id="defaultgenome-section">
 <h2>[DefaultGenome] section<a class="headerlink" href="#defaultgenome-section" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">DefaultGenome</span></code> section specifies parameters for the builtin <cite>DefaultGenome</cite> class.
+<p>The <code class="docutils literal"><span class="pre">DefaultGenome</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenome</span></code></a> class.
 This section is only necessary if you specify this class as the genome implementation when
-creating the <cite>Config</cite> instance; otherwise you need to include whatever configuration (if any) is
+creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
-<ul class="simple" id="index-0">
+<ul class="simple" id="index-3">
 <li><dl class="first docutils">
 <dt><em>activation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> assigned to new <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “activation_options“
@@ -153,7 +168,7 @@ available functions can be found here: <a class="reference internal" href="activ
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-1">
+<ul class="simple" id="index-4">
 <li><dl class="first docutils">
 <dt><em>aggregation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> assigned to new nodes. <strong>If none is given, or “random“ is specified, one of the “aggregation_options“
@@ -172,6 +187,8 @@ Valid values are in [0.0, 1.0].</dd>
 available functions are: <code class="docutils literal"><span class="pre">sum</span></code>, <code class="docutils literal"><span class="pre">product</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code></dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-5">
 <li><dl class="first docutils">
 <dt><em>bias_init_mean</em></dt>
 <dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a> values for new nodes.</dd>
@@ -207,6 +224,8 @@ available functions are: <code class="docutils literal"><span class="pre">sum</s
 <dd>The probability that mutation will replace the bias of a node with a newly chosen random value (as if it were a new node).</dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-6">
 <li><dl class="first docutils">
 <dt><em>compatibility_threshold</em></dt>
 <dd>Individuals whose <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> is less than this threshold are considered to be in the same <a class="reference internal" href="glossary.html#term-species"><span class="xref std std-term">species</span></a>.</dd>
@@ -234,7 +253,7 @@ available functions are: <code class="docutils literal"><span class="pre">sum</s
 </li>
 <li><dl class="first docutils">
 <dt><em>enabled_default</em></dt>
-<dd>The default <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of newly created connections.  Valid values are <cite>True</cite> and <cite>False</cite>.</dd>
+<dd>The default <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of newly created connections.  Valid values are <code class="docutils literal"><span class="pre">True</span></code> and <code class="docutils literal"><span class="pre">False</span></code>.</dd>
 </dl>
 </li>
 </ul>
@@ -245,13 +264,13 @@ available functions are: <code class="docutils literal"><span class="pre">sum</s
 <ul class="simple">
 <li><dl class="first docutils">
 <dt><em>enabled_mutate_rate</em></dt>
-<dd>The probability that mutation will replace (50/50 chance of <cite>True</cite> or <cite>False</cite>) the enabled status of a connection.
+<dd>The probability that mutation will replace (50/50 chance of <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>) the enabled status of a connection.
 Valid values are in [0.0, 1.0].</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>feed_forward</em></dt>
-<dd>If this evaluates to <cite>True</cite>, generated networks will not be allowed to have <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> connections (they will be <a class="reference internal" href="glossary.html#term-feedforward"><span class="xref std std-term">feedforward</span></a>).
+<dd>If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, generated networks will not be allowed to have <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> connections (they will be <a class="reference internal" href="glossary.html#term-feedforward"><span class="xref std std-term">feedforward</span></a>).
 Otherwise they may be (but are not forced to be) recurrent.</dd>
 </dl>
 </li>
@@ -294,6 +313,8 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 <dd>The number of <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>, to which the network delivers outputs.</dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-7">
 <li><dl class="first docutils">
 <dt><em>response_init_mean</em></dt>
 <dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multipliers for new nodes.</dd>
@@ -329,6 +350,8 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 <dd>The probability that mutation will replace the response multiplier of a node with a newly chosen random value (as if it were a new node).</dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-8">
 <li><dl class="first docutils">
 <dt><em>weight_init_mean</em></dt>
 <dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a> values for new connections.</dd>

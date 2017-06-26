@@ -63,21 +63,21 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># TODO: Create a separate configuration class instead of using a dict (for consistency with other types).</span>
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DefaultReproduction.parse_config"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
         <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;elitism&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
                   <span class="s1">&#39;survival_threshold&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
                   <span class="s1">&#39;min_species_size&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
         <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">config</span>
+        <span class="k">return</span> <span class="n">config</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DefaultReproduction.write_config"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.write_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
         <span class="n">elitism</span> <span class="o">=</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;elitism&#39;</span><span class="p">]</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;elitism            = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elitism</span><span class="p">))</span>
         <span class="n">survival_threshold</span> <span class="o">=</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;survival_threshold&#39;</span><span class="p">]</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;survival_threshold = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">survival_threshold</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;survival_threshold = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">survival_threshold</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">reporters</span><span class="p">,</span> <span class="n">stagnation</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">elitism</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;elitism&#39;</span><span class="p">))</span>
@@ -88,7 +88,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation</span> <span class="o">=</span> <span class="n">stagnation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome_type</span><span class="p">,</span> <span class="n">genome_config</span><span class="p">,</span> <span class="n">num_genomes</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultReproduction.create_new"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.create_new">[docs]</a>    <span class="k">def</span> <span class="nf">create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome_type</span><span class="p">,</span> <span class="n">genome_config</span><span class="p">,</span> <span class="n">num_genomes</span><span class="p">):</span>
         <span class="n">new_genomes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_genomes</span><span class="p">):</span>
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
@@ -97,7 +97,7 @@
             <span class="n">new_genomes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">new_genomes</span>
+        <span class="k">return</span> <span class="n">new_genomes</span></div>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">compute_spawn</span><span class="p">(</span><span class="n">adjusted_fitness</span><span class="p">,</span> <span class="n">previous_sizes</span><span class="p">,</span> <span class="n">pop_size</span><span class="p">,</span> <span class="n">min_species_size</span><span class="p">):</span>
@@ -130,7 +130,7 @@
 
         <span class="k">return</span> <span class="n">spawn_amounts</span>
 
-    <span class="k">def</span> <span class="nf">reproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">pop_size</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultReproduction.reproduce"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.reproduce">[docs]</a>    <span class="k">def</span> <span class="nf">reproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">pop_size</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
         <span class="c1"># TODO: I don&#39;t like this modification of the species and stagnation objects,</span>
         <span class="c1"># because it requires internal knowledge of the objects.</span>
 
@@ -222,7 +222,7 @@
                 <span class="n">new_population</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">[</span><span class="n">gid</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">parent1_id</span><span class="p">,</span> <span class="n">parent2_id</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">new_population</span></div>
+        <span class="k">return</span> <span class="n">new_population</span></div></div>
 </pre></div>
 
           </div>

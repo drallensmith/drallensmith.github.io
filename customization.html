@@ -48,43 +48,42 @@ makes it easier to implement common variations of the algorithm as mentioned in 
 you find that you’d like to be able to customize something not shown here, please submit an issue on GitHub.</p>
 <div class="section" id="new-activation-functions">
 <h2>New activation functions<a class="headerlink" href="#new-activation-functions" title="Permalink to this headline">¶</a></h2>
-<p>New activation functions are registered with your <cite>Config</cite> instance, prior to creation of the <cite>Population</cite> instance,
-as follows:</p>
+<p>New activation functions are registered with your <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> instance, prior to creation of the
+<a class="reference internal" href="module_summaries.html#population.Population" title="population.Population"><code class="xref py py-class docutils literal"><span class="pre">Population</span></code></a> instance, as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sinc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span>
 
 <span class="n">config</span><span class="o">.</span><span class="n">genome_config</span><span class="o">.</span><span class="n">add_activation</span><span class="p">(</span><span class="s1">&#39;my_sinc_function&#39;</span><span class="p">,</span> <span class="n">sinc</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The first argument to <cite>add_activation</cite> is the name by which this activation function will be referred to in the
+<p>The first argument to <code class="docutils literal"><span class="pre">add_activation</span></code> is the name by which this activation function will be referred to in the
 configuration settings file.</p>
 <p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/tree/master/examples/memory-fixed">memory-fixed</a> example.</p>
-<p>NOTE: This method is only valid when using the <cite>DefaultGenome</cite> implementation–different genome implementations
+<p>NOTE: This method is only valid when using the <a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">DefaultGenome</span></code></a> implementation–different genome implementations
 may require a different method of registration.</p>
 </div>
 <div class="section" id="reporting-logging">
 <h2>Reporting/logging<a class="headerlink" href="#reporting-logging" title="Permalink to this headline">¶</a></h2>
 <p>The Population class makes calls to a collection of zero or more reporters at fixed points during the evolution
 process.  The user can add a custom reporter to this collection by calling Population.add_reporter and providing
-it with an object which implements the same interface as <cite>BaseReporter</cite>.</p>
-<p><cite>StdOutReporter</cite> and <cite>StatisticsReporter</cite> in <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/neat/reporting.py#L56">reporting.py</a> may be useful as examples of the
-behavior you can add using a reporter.</p>
+it with an object which implements the same interface as <a class="reference internal" href="module_summaries.html#reporting.BaseReporter" title="reporting.BaseReporter"><code class="xref any py py-class docutils literal"><span class="pre">BaseReporter</span></code></a> (in <a class="reference internal" href="module_summaries.html#module-reporting" title="reporting: Makes possible reporter classes, which are triggered on particular events and may provide information to the user, may do something else such as checkpointing, or may do both."><code class="xref py py-mod docutils literal"><span class="pre">reporting.py</span></code></a>), probably partially by subclassing it.</p>
+<p><a class="reference internal" href="module_summaries.html#reporting.StdOutReporter" title="reporting.StdOutReporter"><code class="xref py py-class docutils literal"><span class="pre">StdOutReporter</span></code></a>, <a class="reference internal" href="module_summaries.html#statistics.StatisticsReporter" title="statistics.StatisticsReporter"><code class="xref py py-class docutils literal"><span class="pre">StatisticsReporter</span></code></a>, and <a class="reference internal" href="module_summaries.html#checkpoint.Checkpointer" title="checkpoint.Checkpointer"><code class="xref py py-class docutils literal"><span class="pre">Checkpointer</span></code></a> may be useful as examples of the behavior you can add using a reporter.</p>
 <p>TODO: document reporter interface</p>
 </div>
 <div class="section" id="new-genome-types">
 <h2>New genome types<a class="headerlink" href="#new-genome-types" title="Permalink to this headline">¶</a></h2>
 <p>To use a different genome type, you can create a custom class whose interface matches that of
-<cite>DefaultGenome</cite> (the minimum genome type interface is documented here: <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a>)
-and pass this as the <cite>genome_type</cite> argument to the <cite>Config</cite> constructor.</p>
+<a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenome</span></code></a> (the minimum genome type interface is documented here: <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a>)
+and pass this as the <code class="docutils literal"><span class="pre">genome_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
 <p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/circuits/evolve.py">circuit evolution</a> example.</p>
-<p>Alternatively, you can subclass <cite>DefaultGenome</cite> in cases where you need to just add some extra behavior.
+<p>Alternatively, you can subclass <a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenome</span></code></a> in cases where you need to just add some extra behavior.
 This is done in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/openai-lander/evolve.py">OpenAI lander</a> example to
-add an evolvable per-genome reward discount value.</p>
+add an evolvable per-genome reward discount value. It is also done in the <a class="reference internal" href="module_summaries.html#module-iznn" title="iznn: Implements a spiking neural network (closer to in vivo neural networks) based on Izhikevich's 2003 model."><code class="xref py py-mod docutils literal"><span class="pre">iznn</span></code></a> setup, with <a class="reference internal" href="module_summaries.html#iznn.IZGenome" title="iznn.IZGenome"><code class="xref py py-class docutils literal"><span class="pre">IZGenome</span></code></a>.</p>
 </div>
 <div class="section" id="speciation-scheme">
 <h2>Speciation scheme<a class="headerlink" href="#speciation-scheme" title="Permalink to this headline">¶</a></h2>
 <p>To use a different speciation scheme, you can create a custom class whose interface matches that of
-<cite>DefaultSpeciesSet</cite> and pass this as the <cite>species_set_type</cite> argument to the <cite>Config</cite> constructor.</p>
+<a class="reference internal" href="module_summaries.html#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref any py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> and pass this as the <code class="docutils literal"><span class="pre">species_set_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
 <p>TODO: document species set interface</p>
 <p>TODO: include example</p>
 </div>
@@ -92,19 +91,18 @@ add an evolvable per-genome reward discount value.</p>
 <h2>Species stagnation scheme<a class="headerlink" href="#species-stagnation-scheme" title="Permalink to this headline">¶</a></h2>
 <p>The default species stagnation scheme is a simple fixed stagnation limit–when a species exhibits
 no improvement for a fixed number of generations, all its members are removed from the simulation. This
-behavior is encapsulated in the <cite>DefaultStagnation</cite> class.</p>
+behavior is encapsulated in the <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> class.</p>
 <p>To use a different species stagnation scheme, you must create a custom class whose interface matches that
-of <cite>DefaultStagnation</cite>, and provide it as the <cite>stagnation_type</cite> argument to the <cite>Config</cite> constructor.</p>
+of <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a>, and provide it as the <code class="docutils literal"><span class="pre">stagnation_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
 <p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/picture2d/interactive.py">interactive 2D image</a> example.</p>
 <p>TODO: document stagnation interface</p>
 </div>
 <div class="section" id="reproduction-scheme">
 <h2>Reproduction scheme<a class="headerlink" href="#reproduction-scheme" title="Permalink to this headline">¶</a></h2>
 <p>The default reproduction scheme uses explicit fitness sharing.  This behavior is encapsulated in the
-<cite>DefaultReproduction</cite> class.  The minimum reproduction type interface is documented here: <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a></p>
+<a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> class.  The minimum reproduction type interface is documented here: <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a></p>
 <p>To use a different reproduction scheme, you must create a custom class whose interface matches that
-of <cite>DefaultReproduction</cite>, and provide it as the <cite>reproduction_type</cite> argument to the <cite>Config</cite> constructor.</p>
-<p>TODO: document reproduction interface</p>
+of <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a>, and provide it as the <code class="docutils literal"><span class="pre">reproduction_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
 <p>TODO: include example</p>
 </div>
 </div>

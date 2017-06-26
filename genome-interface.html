@@ -47,28 +47,21 @@
 <p class="first admonition-title">Todo</p>
 <p class="last">I will be coming back to this after I go through the module summaries; it is currently in a partially-revised state.</p>
 </div>
-<p>This is an outline of the minimal interface that is expected to be present on genome objects.</p>
+<p id="index-1">This is an outline of the minimal interface that is expected to be present on genome objects; example genome objects can be seen in <a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">DefaultGenome</span></code></a> and <a class="reference internal" href="module_summaries.html#iznn.IZGenome" title="iznn.IZGenome"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZGenome</span></code></a>.</p>
 <div class="section" id="class-methods">
 <h2>Class Methods<a class="headerlink" href="#class-methods" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="parse_config">
-<code class="descname">parse_config</code><span class="sig-paren">(</span><em>cls</em>, <em>param_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a dictionary of configuration items, returns an object that will later be passed to the <cite>write_config</cite> method. This configuration object is considered to be opaque by the rest of the library.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="write_config">
-<code class="descname">write_config</code><span class="sig-paren">(</span><em>cls</em>, <em>f</em>, <em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#write_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a file-like object and the configuration object created by parse_config. This method should write the configuration item definitions to the given file.</p>
-</dd></dl>
-
+<blockquote>
+<div><p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.parse_config" title="genome.DefaultGenome.parse_config"><code class="xref py py-meth docutils literal"><span class="pre">parse_config(cls,</span> <span class="pre">param_dict)</span></code></a></p>
+<p>Takes a dictionary of configuration items, returns an object that will later be passed to the <cite>write_config</cite> method. This configuration object is considered to be opaque by the rest of the library.</p>
+<p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.write_config" title="genome.DefaultGenome.write_config"><code class="xref py py-meth docutils literal"><span class="pre">write_config(cls,</span> <span class="pre">f,</span> <span class="pre">config)</span></code></a></p>
+<p>Takes a file-like object and the configuration object created by parse_config. This method should write the configuration item definitions to the given file.</p>
+</div></blockquote>
 </div>
 <div class="section" id="initialization-reproduction">
 <h2>Initialization/Reproduction<a class="headerlink" href="#initialization-reproduction" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a unique genome instance identifier.  The initializer should create the following members:</p>
+<blockquote>
+<div><p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">__init__(self,</span> <span class="pre">key)</span></code></a></p>
+<p>Takes a unique genome instance identifier.  The initializer should create the following members:</p>
 <blockquote>
 <div><ul class="simple">
 <li><cite>key</cite></li>
@@ -77,44 +70,27 @@
 <li><cite>fitness</cite></li>
 </ul>
 </div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="configure_new">
-<code class="descname">configure_new</code><span class="sig-paren">(</span><em>self</em>, <em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#configure_new" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configure the genome as a new random genome based on the given configuration from the top-level <cite>Config</cite> object.</p>
-</dd></dl>
-
+<p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.configure_new" title="genome.DefaultGenome.configure_new"><code class="xref py py-meth docutils literal"><span class="pre">configure_new(self,</span> <span class="pre">config)</span></code></a></p>
+<p>Configure the genome as a new random genome based on the given configuration from the top-level <cite>Config</cite> object.</p>
+</div></blockquote>
 </div>
 <div class="section" id="crossover-mutation">
 <h2>Crossover/Mutation<a class="headerlink" href="#crossover-mutation" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="configure_crossover">
-<code class="descname">configure_crossover</code><span class="sig-paren">(</span><em>self</em>, <em>genome1</em>, <em>genome2</em>, <em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#configure_crossover" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configure the genome as a child of the given parent genomes.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mutate">
-<code class="descname">mutate</code><span class="sig-paren">(</span><em>self</em>, <em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#mutate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply mutation operations to the genome, using the given configuration.</p>
-</dd></dl>
-
+<blockquote>
+<div><p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.configure_crossover" title="genome.DefaultGenome.configure_crossover"><code class="xref py py-meth docutils literal"><span class="pre">configure_crossover(self,</span> <span class="pre">genome1,</span> <span class="pre">genome2,</span> <span class="pre">config)</span></code></a></p>
+<p>Configure the genome as a child of the given parent genomes.</p>
+<p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.mutate" title="genome.DefaultGenome.mutate"><code class="xref py py-meth docutils literal"><span class="pre">mutate(self,</span> <span class="pre">config)</span></code></a></p>
+<p>Apply mutation operations to the genome, using the given configuration.</p>
+</div></blockquote>
 </div>
-<div class="section" id="speciation">
-<span id="index-1"></span><h2>Speciation<a class="headerlink" href="#speciation" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
-<dt id="distance">
-<code class="descname">distance</code><span class="sig-paren">(</span><em>self</em>, <em>other</em>, <em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the genomic distance between this genome and the other. This distance value is used to compute genome compatibility for speciation.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="size">
-<code class="descname">size</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a measure of genome complexity. This object is currently only given to reporters at the end of a generation to indicate the complexity of the highest-fitness genome.  In the DefaultGenome class, this method currently returns (number of nodes, number of enabled connections).</p>
-</dd></dl>
-
+<div class="section" id="speciation-misc">
+<span id="index-2"></span><h2>Speciation/Misc<a class="headerlink" href="#speciation-misc" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.distance" title="genome.DefaultGenome.distance"><code class="xref py py-meth docutils literal"><span class="pre">distance(self,</span> <span class="pre">other,</span> <span class="pre">config)</span></code></a></p>
+<p>Returns the genomic distance between this genome and the other. This distance value is used to compute genome compatibility for speciation.</p>
+<p><a class="reference internal" href="module_summaries.html#genome.DefaultGenome.size" title="genome.DefaultGenome.size"><code class="xref py py-meth docutils literal"><span class="pre">size(self)</span></code></a></p>
+<p>Returns a measure of genome complexity. This object is currently only given to reporters at the end of a generation to indicate the complexity of the highest-fitness genome.  In the DefaultGenome class, this method currently returns (number of nodes, number of enabled connections).</p>
+</div></blockquote>
 </div>
 </div>
 
@@ -130,7 +106,7 @@
 <li><a class="reference internal" href="#class-methods">Class Methods</a></li>
 <li><a class="reference internal" href="#initialization-reproduction">Initialization/Reproduction</a></li>
 <li><a class="reference internal" href="#crossover-mutation">Crossover/Mutation</a></li>
-<li><a class="reference internal" href="#speciation">Speciation</a></li>
+<li><a class="reference internal" href="#speciation-misc">Speciation/Misc</a></li>
 </ul>
 </li>
 </ul>
