@@ -145,15 +145,15 @@
 <span class="sd">        4. The input values are applied to the input pins unmodified.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DefaultGenome.parse_config"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
         <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;node_gene_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DefaultNodeGene</span>
         <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;connection_gene_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DefaultConnectionGene</span>
-        <span class="k">return</span> <span class="n">DefaultGenomeConfig</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DefaultGenomeConfig</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DefaultGenome.write_config"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.write_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="c1"># Unique identifier for a genome instance.</span>
@@ -166,7 +166,7 @@
         <span class="c1"># Fitness results.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">configure_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.configure_new"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.configure_new">[docs]</a>    <span class="k">def</span> <span class="nf">configure_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Configure a new genome based on the given configuration.&quot;&quot;&quot;</span>
 
         <span class="c1"># Create node genes for the output pins.</span>
@@ -187,9 +187,9 @@
         <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">initial_connection</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connect_full</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">initial_connection</span> <span class="o">==</span> <span class="s1">&#39;partial&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">connect_partial</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect_partial</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">configure_crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.configure_crossover"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.configure_crossover">[docs]</a>    <span class="k">def</span> <span class="nf">configure_crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Configure a new genome by crossover from two parent genomes. &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&gt;</span> <span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
             <span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span> <span class="o">=</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span>
@@ -218,9 +218,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ng1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Homologous gene: combine genes from both parents.</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ng1</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">ng2</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ng1</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">ng2</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.mutate"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.mutate">[docs]</a>    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Mutates this genome. &quot;&quot;&quot;</span>
 
         <span class="c1"># TODO: Make a configuration item to choose whether or not multiple</span>
@@ -243,7 +243,7 @@
 
         <span class="c1"># Mutate node genes (bias, response, etc.).</span>
         <span class="k">for</span> <span class="n">ng</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">ng</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="n">ng</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">new_id</span> <span class="o">=</span> <span class="mi">0</span>
@@ -335,7 +335,7 @@
             <span class="n">key</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.distance"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the genetic distance between this genome and the other. This distance value</span>
 <span class="sd">        is used to compute genome compatibility for speciation.</span>
@@ -381,12 +381,12 @@
             <span class="n">connection_distance</span> <span class="o">=</span> <span class="n">conn_sum</span> <span class="o">/</span> <span class="n">max_conn</span>
 
         <span class="n">distance</span> <span class="o">=</span> <span class="n">node_distance</span> <span class="o">+</span> <span class="n">connection_distance</span>
-        <span class="k">return</span> <span class="n">distance</span>
+        <span class="k">return</span> <span class="n">distance</span></div>
 
-    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.size"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Returns genome &#39;complexity&#39;, taken to be (number of nodes, number of enabled connections)&#39;&#39;&#39;</span>
         <span class="n">num_enabled_connections</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">1</span> <span class="k">for</span> <span class="n">cg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">cg</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">])</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="n">num_enabled_connections</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="n">num_enabled_connections</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Nodes:&quot;</span>

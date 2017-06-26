@@ -59,16 +59,16 @@
     <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">key</span>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseGene.parse_config"><a class="viewcode-back" href="../module_summaries.html#genes.BaseGene.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="k">pass</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseGene.get_config_params"><a class="viewcode-back" href="../module_summaries.html#genes.BaseGene.get_config_params">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_config_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__gene_attributes__</span><span class="p">:</span>
             <span class="n">params</span> <span class="o">+=</span> <span class="n">a</span><span class="o">.</span><span class="n">get_config_params</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">params</span>
+        <span class="k">return</span> <span class="n">params</span></div>
 
     <span class="k">def</span> <span class="nf">init_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gene_attributes__</span><span class="p">:</span>
