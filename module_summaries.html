@@ -43,7 +43,11 @@
             
   <div class="section" id="module-summaries">
 <h1>Module summaries<a class="headerlink" href="#module-summaries" title="Permalink to this headline">¶</a></h1>
-<p>TODO: Finish putting in modules; add links; fix problem with width of displayed linked highlighted source code.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Finish putting in modules; add links; fix problem with width of displayed linked highlighted source code (possibly done); go over parameters as used in code to make sure
+are described correctly.</p>
+</div>
 <span class="target" id="module-activations"></span><div class="section" id="activations">
 <h2>activations<a class="headerlink" href="#activations" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -73,7 +77,7 @@
 </map>
 <dl class="class">
 <dt id="attributes.BaseAttribute">
-<em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">BaseAttribute</code><span class="sig-paren">(</span><em>self</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BaseAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BaseAttribute" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">BaseAttribute</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BaseAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BaseAttribute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Superclass for the type-specialized attribute subclasses.</p>
 </dd></dl>
 
@@ -102,7 +106,7 @@
 <blockquote>
 <div><dl class="class">
 <dt id="checkpoint.Checkpointer">
-<em class="property">class </em><code class="descclassname">checkpoint.</code><code class="descname">Checkpointer</code><span class="sig-paren">(</span><em>self</em>, <em>generation_interval=100</em>, <em>time_interval_seconds=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/checkpoint.html#Checkpointer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#checkpoint.Checkpointer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">checkpoint.</code><code class="descname">Checkpointer</code><span class="sig-paren">(</span><em>generation_interval=100</em>, <em>time_interval_seconds=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/checkpoint.html#Checkpointer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#checkpoint.Checkpointer" title="Permalink to this definition">¶</a></dt>
 <dd><p>A reporter class that performs checkpointing using <cite>pickle</cite> to save and restore populations (and other aspects of the simulation state).</p>
 </dd></dl>
 
@@ -113,7 +117,7 @@
 <blockquote>
 <div><dl class="class">
 <dt id="config.ConfigParameter">
-<em class="property">class </em><code class="descclassname">config.</code><code class="descname">ConfigParameter</code><span class="sig-paren">(</span><em>self</em>, <em>name</em>, <em>value_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">config.</code><code class="descname">ConfigParameter</code><span class="sig-paren">(</span><em>name</em>, <em>value_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does initial handling of a particular configuration parameter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -131,7 +135,7 @@
 
 <dl class="class">
 <dt id="config.Config">
-<em class="property">class </em><code class="descclassname">config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>self</em>, <em>genome_type</em>, <em>reproduction_type</em>, <em>species_set_type</em>, <em>stagnation_type</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.Config" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>genome_type</em>, <em>reproduction_type</em>, <em>species_set_type</em>, <em>stagnation_type</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.Config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A simple container for user-configurable parameters of NEAT. The four parameters ending in <code class="docutils literal"><span class="pre">_type</span></code> may be the defaults or user-provided objects, which must make available the methods <cite>parse_config</cite> and <cite>write_config</cite>, plus others depending on which object it is.</p>
 </dd></dl>
 
@@ -142,13 +146,13 @@
 <blockquote>
 <div><dl class="class">
 <dt id="ctrnn.CTRNNNodeEval">
-<em class="property">class </em><code class="descclassname">ctrnn.</code><code class="descname">CTRNNNodeEval</code><span class="sig-paren">(</span><em>self</em>, <em>time_constant</em>, <em>activation</em>, <em>aggregation</em>, <em>bias</em>, <em>response</em>, <em>links</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNNNodeEval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNNNodeEval" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ctrnn.</code><code class="descname">CTRNNNodeEval</code><span class="sig-paren">(</span><em>time_constant</em>, <em>activation</em>, <em>aggregation</em>, <em>bias</em>, <em>response</em>, <em>links</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNNNodeEval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNNNodeEval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets up the basic ctrnn nodes.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="ctrnn.CTRNN">
-<em class="property">class </em><code class="descclassname">ctrnn.</code><code class="descname">CTRNN</code><span class="sig-paren">(</span><em>self</em>, <em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ctrnn.</code><code class="descname">CTRNN</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets up the ctrnn network itself.</p>
 </dd></dl>
 
@@ -163,7 +167,7 @@
 </map>
 <dl class="class">
 <dt id="genes.BaseGene">
-<em class="property">class </em><code class="descclassname">genes.</code><code class="descname">BaseGene</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genes.html#BaseGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genes.BaseGene" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">genes.</code><code class="descname">BaseGene</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genes.html#BaseGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genes.BaseGene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handles functions shared by multiple types of genes (both node and connection), including crossover and calling mutation methods.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -199,13 +203,13 @@
 </map>
 <dl class="class">
 <dt id="genome.DefaultGenomeConfig">
-<em class="property">class </em><code class="descclassname">genome.</code><code class="descname">DefaultGenomeConfig</code><span class="sig-paren">(</span><em>self</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenomeConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenomeConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">genome.</code><code class="descname">DefaultGenomeConfig</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenomeConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenomeConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does the configuration for the DefaultGenome class.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="genome.DefaultGenome">
-<em class="property">class </em><code class="descclassname">genome.</code><code class="descname">DefaultGenome</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">genome.</code><code class="descname">DefaultGenome</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome" title="Permalink to this definition">¶</a></dt>
 <dd><p>The provided genome class.</p>
 </dd></dl>
 
@@ -277,7 +281,7 @@
 <blockquote>
 <div><dl class="class">
 <dt id="indexer.Indexer">
-<em class="property">class </em><code class="descclassname">indexer.</code><code class="descname">Indexer</code><span class="sig-paren">(</span><em>self</em>, <em>first</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/indexer.html#Indexer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#indexer.Indexer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">indexer.</code><code class="descname">Indexer</code><span class="sig-paren">(</span><em>first</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/indexer.html#Indexer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#indexer.Indexer" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Initializes an Indexer instance with the internal ID counter set to <cite>first</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -292,7 +296,7 @@
 </div></blockquote>
 <dl class="method">
 <dt id="indexer.Indexer.get_next">
-<code class="descname">get_next</code><span class="sig-paren">(</span><em>self</em>, <em>result=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/indexer.html#Indexer.get_next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#indexer.Indexer.get_next" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_next</code><span class="sig-paren">(</span><em>result=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/indexer.html#Indexer.get_next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#indexer.Indexer.get_next" title="Permalink to this definition">¶</a></dt>
 <dd><p>If <cite>result</cite> is not None, then we return it unmodified.  Otherwise, we return the next ID and increment our internal counter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -335,7 +339,7 @@
 
 <dl class="class">
 <dt id="iznn.IZNeuron">
-<em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNeuron</code><span class="sig-paren">(</span><em>self</em>, <em>bias</em>, <em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNeuron</code><span class="sig-paren">(</span><em>bias</em>, <em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets up and simulates the iznn nodes (neurons). TODO: Currently has some numerical stability problems; the time-step should be adjustable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -357,7 +361,7 @@
 
 <dl class="class">
 <dt id="iznn.IZNN">
-<em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNN</code><span class="sig-paren">(</span><em>self</em>, <em>neurons</em>, <em>inputs</em>, <em>outputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNN</code><span class="sig-paren">(</span><em>neurons</em>, <em>inputs</em>, <em>outputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets up the network itself and simulates it using the connections and neurons.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -437,7 +441,7 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <blockquote>
 <div><dl class="class">
 <dt id="nn.feed_forward.FeedForwardNetwork">
-<em class="property">class </em><code class="descclassname">nn.feed_forward.</code><code class="descname">FeedForwardNetwork</code><span class="sig-paren">(</span><em>self</em>, <em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nn.feed_forward.</code><code class="descname">FeedForwardNetwork</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork" title="Permalink to this definition">¶</a></dt>
 <dd><p>A straightforward feed-forward neural network NEAT implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -467,7 +471,7 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <blockquote>
 <div><dl class="class">
 <dt id="nn.recurrent.RecurrentNetwork">
-<em class="property">class </em><code class="descclassname">nn.recurrent.</code><code class="descname">RecurrentNetwork</code><span class="sig-paren">(</span><em>self</em>, <em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/recurrent.html#RecurrentNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.recurrent.RecurrentNetwork" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nn.recurrent.</code><code class="descname">RecurrentNetwork</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/recurrent.html#RecurrentNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.recurrent.RecurrentNetwork" title="Permalink to this definition">¶</a></dt>
 <dd><p>A recurrent (but otherwise straightforward) neural network NEAT implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -491,14 +495,61 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 </dd></dl>
 
 </div></blockquote>
+<span class="target" id="module-parallel"></span></div>
+<div class="section" id="parallel">
+<h2>parallel<a class="headerlink" href="#parallel" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="class">
+<dt id="parallel.ParallelEvaluator">
+<em class="property">class </em><code class="descclassname">parallel.</code><code class="descname">ParallelEvaluator</code><span class="sig-paren">(</span><em>num_workers</em>, <em>eval_function</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parallel.html#ParallelEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parallel.ParallelEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_workers</strong> (<em>int</em>) – How many workers to have in the <cite>Pool</cite> (uses the standard <cite>multiprocessing</cite> module)</li>
+<li><strong>eval_function</strong> (<em>function</em>) – eval_function should take one argument (a genome object) and return a single float (the genome’s fitness)</li>
+<li><strong>timeout</strong> (<em>int</em><em> or </em><em>None</em>) – How long (in seconds) each subprocess will be given before an exception is raised (unlimited if <cite>None</cite>).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div></blockquote>
+<span class="target" id="module-population"></span></div>
+<div class="section" id="population">
+<h2>population<a class="headerlink" href="#population" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="exception">
+<dt id="population.CompleteExtinctionException">
+<em class="property">exception </em><code class="descclassname">population.</code><code class="descname">CompleteExtinctionException</code><a class="reference internal" href="_modules/population.html#CompleteExtinctionException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#population.CompleteExtinctionException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised on complete extinction (all species removed due to stagnation) unless <a class="reference internal" href="config_file.html#reset-on-extinction-label"><span class="std std-ref">reset_on_extinction</span></a> is set.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="population.Population">
+<em class="property">class </em><code class="descclassname">population.</code><code class="descname">Population</code><span class="sig-paren">(</span><em>config</em>, <em>initial_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/population.html#Population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#population.Population" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements the core evolution algorithm:
+1. Evaluate fitness of all genomes.
+2. Check to see if the termination criterion is satisfied; exit if it is.
+3. Generate the next generation from the current population.
+4. Partition the new generation into species based on genetic similarity.
+5. Go to 1.</p>
+</dd></dl>
+
+</div></blockquote>
 <span class="target" id="module-reporting"></span></div>
 <div class="section" id="reporting">
 <h2>reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><img src="_images/inheritance-926e246636a6671bead943d231c8315faae704dd.png" alt="Inheritance diagram of neat.reporting, checkpoint.Checkpointer" usemap="#inheritance707b9df52b" class="inheritance"/>
-<map id="inheritance707b9df52b" name="inheritance707b9df52b">
-<area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="checkpoint.Checkpointer" alt="" coords="261,29,429,55"/>
+<div><img src="_images/inheritance-a2651cd17b4ef290701c18fea77cf913bc001577.png" alt="Inheritance diagram of neat.reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancefbf9afab76" class="inheritance"/>
+<map id="inheritancefbf9afab76" name="inheritancefbf9afab76">
+<area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="checkpoint.Checkpointer" alt="" coords="261,5,429,31"/>
 <area shape="rect" id="node2" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="5,55,196,80"/>
+<area shape="rect" id="node5" href="#statistics.StatisticsReporter" target="_top" title="statistics.StatisticsReporter" alt="" coords="253,104,436,129"/>
 </map>
 <dl class="class">
 <dt id="reporting.ReporterSet">
@@ -514,7 +565,7 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 
 <dl class="class">
 <dt id="reporting.StdOutReporter">
-<em class="property">class </em><code class="descclassname">reporting.</code><code class="descname">StdOutReporter</code><span class="sig-paren">(</span><em>self</em>, <em>show_species_detail</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#StdOutReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.StdOutReporter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">reporting.</code><code class="descname">StdOutReporter</code><span class="sig-paren">(</span><em>show_species_detail</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#StdOutReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.StdOutReporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses print to output information about the run; an example reporter class.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -524,6 +575,147 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+</div></blockquote>
+<span class="target" id="module-reproduction"></span></div>
+<div class="section" id="reproduction">
+<h2>reproduction<a class="headerlink" href="#reproduction" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="class">
+<dt id="reproduction.DefaultReproduction">
+<em class="property">class </em><code class="descclassname">reproduction.</code><code class="descname">DefaultReproduction</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em>, <em>stagnation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents. Implements the default NEAT-python reproduction
+scheme: explicit fitness sharing with fixed-time species stagnation.</p>
+</dd></dl>
+
+</div></blockquote>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Summarize the class parameters; possibly put in the class and/or static methods.</p>
+</div>
+<span class="target" id="module-six_util"></span></div>
+<div class="section" id="six-util">
+<h2>six_util<a class="headerlink" href="#six-util" title="Permalink to this headline">¶</a></h2>
+<p>This Python 2/3 portability code was copied from the <cite>six</cite> module to avoid adding it as a dependency.</p>
+<blockquote>
+<div><dl class="function">
+<dt id="six_util.iterkeys">
+<code class="descclassname">six_util.</code><code class="descname">iterkeys</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/six_util.html#iterkeys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#six_util.iterkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns an iterator over the keys of dict d.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>d</strong> (<em>dict</em>) – Dictionary to iterate over</li>
+<li><strong>kw</strong> – The function of this parameter is unclear.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="six_util.iteritems">
+<code class="descclassname">six_util.</code><code class="descname">iteritems</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/six_util.html#iteritems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#six_util.iteritems" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns an iterator over the (key, value) pairs of dict d.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>d</strong> (<em>dict</em>) – Dictionary to iterate over</li>
+<li><strong>kw</strong> – The function of this parameter is unclear.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="six_util.itervalues">
+<code class="descclassname">six_util.</code><code class="descname">itervalues</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/six_util.html#itervalues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#six_util.itervalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns an iterator over the values of dict d.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>d</strong> (<em>dict</em>) – Dictionary to iterate over</li>
+<li><strong>kw</strong> – The function of this parameter is unclear.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div></blockquote>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add at least some methods to the below for DefaultSpeciesSet.</p>
+</div>
+<span class="target" id="module-species"></span></div>
+<div class="section" id="species">
+<h2>species<a class="headerlink" href="#species" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="class">
+<dt id="species.Species">
+<em class="property">class </em><code class="descclassname">species.</code><code class="descname">Species</code><span class="sig-paren">(</span><em>key</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#Species"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.Species" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a species and contains data about it such as members, fitness, and time stagnating.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> (<em>int</em>) – Identifier</li>
+<li><strong>generation</strong> (<em>int</em>) – Initial generation of appearance</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="species.GenomeDistanceCache">
+<em class="property">class </em><code class="descclassname">species.</code><code class="descname">GenomeDistanceCache</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#GenomeDistanceCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.GenomeDistanceCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Caches genomic distance information to avoid repeated lookups. Called as a method with a pair of genomes to retrieve the distance.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="species.DefaultSpeciesSet">
+<em class="property">class </em><code class="descclassname">species.</code><code class="descname">DefaultSpeciesSet</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates the default speciation scheme by configuring it and performing the speciation function (placing genomes into species by genetic similarity).</p>
+</dd></dl>
+
+</div></blockquote>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add at least some methods to the below for DefaultStagnation. NOTE: Code has changed on github for this (and other parts); will need to update.</p>
+</div>
+<span class="target" id="module-stagnation"></span></div>
+<div class="section" id="stagnation">
+<h2>stagnation<a class="headerlink" href="#stagnation" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="class">
+<dt id="stagnation.DefaultStagnation">
+<em class="property">class </em><code class="descclassname">stagnation.</code><code class="descname">DefaultStagnation</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keeps track of whether species are making progress and removes ones that, for a configurable number of generations, are not.</p>
+</dd></dl>
+
+</div></blockquote>
+<span class="target" id="module-statistics"></span></div>
+<div class="section" id="statistics">
+<h2>statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="class">
+<dt id="statistics.StatisticsReporter">
+<em class="property">class </em><code class="descclassname">statistics.</code><code class="descname">StatisticsReporter</code><span class="sig-paren">(</span><em>BaseReporter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gathers (via the reporting interface) and provides (to callers and/or to a file) information on genome and species fitness, which are the most-fit genomes, etc.</p>
 </dd></dl>
 
 </div></blockquote>
@@ -552,7 +744,14 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <li><a class="reference internal" href="#math-util">math_util</a></li>
 <li><a class="reference internal" href="#nn-feed-forward">nn.feed_forward</a></li>
 <li><a class="reference internal" href="#nn-recurrent">nn.recurrent</a></li>
+<li><a class="reference internal" href="#parallel">parallel</a></li>
+<li><a class="reference internal" href="#population">population</a></li>
 <li><a class="reference internal" href="#reporting">reporting</a></li>
+<li><a class="reference internal" href="#reproduction">reproduction</a></li>
+<li><a class="reference internal" href="#six-util">six_util</a></li>
+<li><a class="reference internal" href="#species">species</a></li>
+<li><a class="reference internal" href="#stagnation">stagnation</a></li>
+<li><a class="reference internal" href="#statistics">statistics</a></li>
 </ul>
 </li>
 </ul>

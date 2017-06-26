@@ -1,0 +1,5 @@
+<map id="inheritancefbf9afab76" name="inheritancefbf9afab76">
+<area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="checkpoint.Checkpointer" alt="" coords="261,5,429,31"/>
+<area shape="rect" id="node2" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="5,55,196,80"/>
+<area shape="rect" id="node5" href="#statistics.StatisticsReporter" target="_top" title="statistics.StatisticsReporter" alt="" coords="253,104,436,129"/>
+</map>
