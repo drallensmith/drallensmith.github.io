@@ -77,9 +77,9 @@ XOR function:</p>
 </tbody>
 </table>
 <div class="section" id="fitness-function">
-<h2>Fitness function<a class="headerlink" href="#fitness-function" title="Permalink to this headline">¶</a></h2>
+<span id="index-0"></span><h2>Fitness function<a class="headerlink" href="#fitness-function" title="Permalink to this headline">¶</a></h2>
 <p>The key thing you need to figure out for a given problem is how to measure the fitness of the genomes that are produced
-by NEAT.  Fitness is expected to be a Python float value.  If genome A solves your problem more successfully than genome B,
+by NEAT.  Fitness is expected to be a Python <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a> value.  If genome A solves your problem more successfully than genome B,
 then the fitness value of A should be greater than the value of B.  The absolute magnitude and signs of these fitnesses
 are not important, only their relative values.</p>
 <p>In this example, we create a feed-forward neural network based on the genome, and then for each case in the
@@ -96,19 +96,19 @@ a fitness for each genome and assign this value to the genome’s <code class="d
 <p>Once you have implemented a fitness function, you mostly just need some additional boilerplate code that carries out
 the following steps:</p>
 <ul class="simple">
-<li>Create a <code class="docutils literal"><span class="pre">neat.config.Config</span></code> object from the configuration file (described in <a class="reference internal" href="config_file.html"><span class="doc">Configuration file description</span></a>).</li>
-<li>Create a <code class="docutils literal"><span class="pre">neat.population.Population</span></code> object using the <code class="docutils literal"><span class="pre">Config</span></code> object created above.</li>
+<li>Create a <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">neat.config.Config</span></code></a> object from the configuration file (described in the <a class="reference internal" href="config_file.html"><span class="doc">Configuration file description</span></a>).</li>
+<li>Create a <a class="reference internal" href="module_summaries.html#population.Population" title="population.Population"><code class="xref py py-class docutils literal"><span class="pre">neat.population.Population</span></code></a> object using the <code class="docutils literal"><span class="pre">Config</span></code> object created above.</li>
 <li>Call the <code class="docutils literal"><span class="pre">run</span></code> method on the <code class="docutils literal"><span class="pre">Population</span></code> object, giving it your fitness function and the maximum number of generations you want NEAT to run.</li>
 </ul>
 <p>After these three things are completed, NEAT will run until either you reach the specified number of generations, or
-at least one genome achieves the <code class="docutils literal"><span class="pre">fitness_threshold</span></code> value you specified in your config file.</p>
+at least one genome achieves the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness_threshold</span></a> value you specified in your config file.</p>
 </div>
 <div class="section" id="getting-the-results">
 <h2>Getting the results<a class="headerlink" href="#getting-the-results" title="Permalink to this headline">¶</a></h2>
 <p>Once the call to the population object’s <code class="docutils literal"><span class="pre">run</span></code> method has returned, you can query the <code class="docutils literal"><span class="pre">statistics</span></code> member of the
-population (a <cite>StatisticsReporter</cite> object) to get the best genome(s) seen during the run.  In this example, we take the
-‘winner’ genome to be that returned by <cite>pop.statistics.best_genome()</cite>.</p>
-<p>Other information from the default statistics object includes per-generation average fitness, cross-validation fitness,
+population (a <a class="reference internal" href="module_summaries.html#statistics.StatisticsReporter" title="statistics.StatisticsReporter"><code class="xref py py-class docutils literal"><span class="pre">neat.statistics.StatisticsReporter</span></code></a> object) to get the best genome(s) seen during the run.
+In this example, we take the ‘winner’ genome to be that returned by <code class="docutils literal"><span class="pre">pop.statistics.best_genome()</span></code>.</p>
+<p>Other information available from the default statistics object includes per-generation average fitness, cross-validation fitness,
 and the best N genomes (with or without duplicates).</p>
 </div>
 <div class="section" id="visualizations">

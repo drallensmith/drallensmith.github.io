@@ -81,7 +81,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">last_generation_checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_generation</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_time_checkpoint</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Checkpointer.save_checkpoint"><a class="viewcode-back" href="../module_summaries.html#checkpoint.Checkpointer.save_checkpoint">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">save_checkpoint</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Save the current simulation state. &quot;&quot;&quot;</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;neat-checkpoint-</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">generation</span><span class="p">)</span>
@@ -89,15 +89,15 @@
 
         <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">compresslevel</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">generation</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">getstate</span><span class="p">())</span>
-            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Checkpointer.restore_checkpoint"><a class="viewcode-back" href="../module_summaries.html#checkpoint.Checkpointer.restore_checkpoint">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">restore_checkpoint</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Resumes the simulation from a previous saved point.&#39;&#39;&#39;</span>
         <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">generation</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">rndstate</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
             <span class="n">random</span><span class="o">.</span><span class="n">setstate</span><span class="p">(</span><span class="n">rndstate</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">neat</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">generation</span><span class="p">))</span></div>
+            <span class="k">return</span> <span class="n">neat</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">generation</span><span class="p">))</span></div></div>
 
 
 </pre></div>

@@ -44,9 +44,12 @@
 <h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
 <dl class="glossary docutils">
 <dt id="term-activation-function">activation function<dt id="term-aggregation-function">aggregation function<dt id="term-bias">bias<dt id="term-response">response</dt>
-<dd>These are the attributes of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>. They determine the output of a node as follows:
+<dd>These are the <a class="reference internal" href="#term-attributes"><span class="xref std std-term">attributes</span></a> of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>. They determine the output of a node as follows:
 <span class="math">\(\begin{equation}\operatorname{activation}(bias + (response * \operatorname{aggregation}(inputs)))\end{equation}\)</span>
 For available activation functions, see <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
+<dt id="term-attributes">attributes</dt>
+<dd>These are the properties of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> (such as its <a class="reference internal" href="#term-activation-function"><span class="xref std std-term">activation function</span></a>) or <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a> (such as whether it is <a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a> or not)
+determined by its associated <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a> (in the default implementation, in the <a class="reference internal" href="module_summaries.html#module-attributes" title="attributes: Deals with :term:`attributes` used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> module).</dd>
 <dt id="term-connection">connection</dt>
 <dd>These connect between <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a>, and give rise to the <em>network</em> in the term <code class="docutils literal"><span class="pre">neural</span> <span class="pre">network</span></code>. Connections have two attributes,
 their <a class="reference internal" href="#term-weight"><span class="xref std std-term">weight</span></a> and whether or not they are <a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a>; both are determined by their <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a>.</dd>
@@ -70,6 +73,8 @@ further, put in links, etc…</dd>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> other than <a class="reference internal" href="#term-input-node"><span class="xref std std-term">input nodes</span></a> and <a class="reference internal" href="#term-output-node"><span class="xref std std-term">output nodes</span></a>. In the original
 NEAT (NeuroEvolution of Augmenting Topologies) <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
 more complexity as necessary - thus “Augmenting Topologies”.</dd>
+<dt id="term-homologous">homologous</dt>
+<dd>Descended from a common ancestor; two genes in NEAT from different genomes are either homologous or disjoint/excess. TODO: Explain further.</dd>
 <dt id="term-input-node">input node</dt>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> through which the network receives inputs. They cannot be deleted (although connections from them can be),
 cannot be the output end of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>, and have: no <a class="reference internal" href="#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a>; a fixed <a class="reference internal" href="#term-bias"><span class="xref std std-term">bias</span></a> of 0; a fixed <a class="reference internal" href="#term-response"><span class="xref std std-term">response</span></a> multiplier
@@ -92,7 +97,7 @@ harder to work with in some respects.)</dd>
 which compete among themselves but share fitness relative to the rest of the population. This is, among other things, a mechanism to try to avoid the
 quick elimination of high-potential topological mutants that have an initial poor fitness prior to smaller “tuning” changes. TODO: Add links.</dd>
 <dt id="term-weight">weight<dt id="term-enabled">enabled</dt>
-<dd>These are the attributes of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>. If a connection is enabled, then the input to it (from a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>) is
+<dd>These are the <a class="reference internal" href="#term-attributes"><span class="xref std std-term">attributes</span></a> of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>. If a connection is enabled, then the input to it (from a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>) is
 multiplied by the weight then sent to the output (to a node - possibly the same node, for a <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network).
 If a connection is not enabled, then the output is 0; genes for such connections are the equivalent of <a class="reference external" href="http://pseudogene.org/background.php">pseudogenes</a> that, as in <a class="reference external" href="https://en.wikipedia.org/wiki/In_vivo">in vivo</a> evolution, can be reactivated at a later time.</dd>
 </dl>

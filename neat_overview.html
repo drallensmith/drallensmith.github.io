@@ -49,21 +49,21 @@ detailed description of the algorithm, you should probably go read some of <a cl
 idea.  Most of them are pretty short, and do a good job of explaining concepts (or at least pointing
 you to other references that will).  <a class="reference external" href="http://nn.cs.utexas.edu/downloads/papers/stanley.cec02.pdf">The initial NEAT paper</a> is only 6 pages long, and Section II should be enough
 if you just want a high-level overview.</p>
-<p>In the current implementation of NEAT-Python, a population of individual genomes is maintained.  Each genome contains
-two sets of genes that describe how to build an artificial neural network:</p>
+<p>In the current implementation of NEAT-Python, a population of individual <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genomes</span></a> is maintained.  Each genome contains
+two sets of <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">genes</span></a> that describe how to build an artificial neural network:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">Node</span></a> genes, each of which specifies a single neuron.</li>
 <li><a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">Connection</span></a> genes, each of which specifies a single connection between neurons.</li>
 </ol>
 </div></blockquote>
-<p>To evolve a solution to a problem, the user must provide a fitness function which computes a single real number
+<p id="index-0">To evolve a solution to a problem, the user must provide a fitness function which computes a single real number
 indicating the quality of an individual genome: better ability to solve the problem means a higher score.  The algorithm
 progresses through a user-specified number of generations, with each generation being produced by reproduction (either
 sexual or asexual) and mutation of the most fit individuals of the previous generation.</p>
 <p>The reproduction and mutation operations may add nodes and/or connections to genomes, so as the algorithm proceeds
 genomes (and the neural networks they produce) may become more and more complex.  When the preset number of generations
-is reached, or when at least one individual exceeds the user-specified fitness threshold, the algorithm terminates.</p>
+is reached, or when at least one individual exceeds the user-specified <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a>, the algorithm terminates.</p>
 </div>
 
 

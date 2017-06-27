@@ -111,13 +111,13 @@
                            <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;activation&#39;</span><span class="p">),</span>
                            <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;aggregation&#39;</span><span class="p">)]</span>
 
-    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultNodeGene.distance"><a class="viewcode-back" href="../module_summaries.html#genes.DefaultNodeGene.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">activation</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">+=</span> <span class="mf">1.0</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregation</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">aggregation</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">+=</span> <span class="mf">1.0</span>
-        <span class="k">return</span> <span class="n">d</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span></div>
+        <span class="k">return</span> <span class="n">d</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span></div></div>
 
 
 <span class="c1"># TODO: Do an ablation study to determine whether the enabled setting is</span>
@@ -127,11 +127,11 @@
     <span class="n">__gene_attributes__</span> <span class="o">=</span> <span class="p">[</span><span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">),</span>
                            <span class="n">BoolAttribute</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">)]</span>
 
-    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultConnectionGene.distance"><a class="viewcode-back" href="../module_summaries.html#genes.DefaultConnectionGene.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">+=</span> <span class="mf">1.0</span>
-        <span class="k">return</span> <span class="n">d</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span></div>
+        <span class="k">return</span> <span class="n">d</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span></div></div>
 
 </pre></div>
 
