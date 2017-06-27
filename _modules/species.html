@@ -97,16 +97,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">genome_to_species</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># TODO: Create a separate configuration class instead of using a dict (for consistency with other types).</span>
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DefaultSpeciesSet.parse_config"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">])}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">])}</span></div>
 
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DefaultSpeciesSet.write_config"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.write_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
         <span class="n">compatibility_threshold</span> <span class="o">=</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">]</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;compatibility_threshold = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">compatibility_threshold</span><span class="p">))</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;compatibility_threshold = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">compatibility_threshold</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="nf">speciate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultSpeciesSet.speciate"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.speciate">[docs]</a>    <span class="k">def</span> <span class="nf">speciate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Place genomes into species by genetic similarity.</span>
 
@@ -179,14 +179,14 @@
 
         <span class="n">gdmean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">itervalues</span><span class="p">(</span><span class="n">distances</span><span class="o">.</span><span class="n">distances</span><span class="p">))</span>
         <span class="n">gdstdev</span> <span class="o">=</span> <span class="n">stdev</span><span class="p">(</span><span class="n">itervalues</span><span class="p">(</span><span class="n">distances</span><span class="o">.</span><span class="n">distances</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Mean genetic distance </span><span class="si">{0:.3f}</span><span class="s1">, standard deviation </span><span class="si">{1:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gdmean</span><span class="p">,</span> <span class="n">gdstdev</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Mean genetic distance </span><span class="si">{0:.3f}</span><span class="s1">, standard deviation </span><span class="si">{1:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gdmean</span><span class="p">,</span> <span class="n">gdstdev</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="nf">get_species_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_id</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_to_species</span><span class="p">[</span><span class="n">individual_id</span><span class="p">]</span>
+<div class="viewcode-block" id="DefaultSpeciesSet.get_species_id"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.get_species_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_species_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_to_species</span><span class="p">[</span><span class="n">individual_id</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">get_species</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_id</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultSpeciesSet.get_species"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.get_species">[docs]</a>    <span class="k">def</span> <span class="nf">get_species</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individual_id</span><span class="p">):</span>
         <span class="n">sid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_to_species</span><span class="p">[</span><span class="n">individual_id</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">sid</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">sid</span><span class="p">]</span></div></div>
 </pre></div>
 
           </div>
