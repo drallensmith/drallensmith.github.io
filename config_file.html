@@ -53,7 +53,9 @@ insofar as possible new configuration parameters will default to the existing be
 <p class="last">Work on ways to make the existing defaults more integrated with the configuration code. This may involve a third, optional (defaulting to <code class="docutils literal"><span class="pre">None</span></code>)
 parameter for <a class="reference internal" href="module_summaries.html#config.ConfigParameter" title="config.ConfigParameter"><code class="xref any py py-class docutils literal"><span class="pre">ConfigParameter</span></code></a>, giving a default. Such a mechanism will be needed to convert the configuration in <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> and
 <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> to match that in other classes/modules. It would also be needed to add, for instance, an alternative uniform-distribution initialization
-for various parameters such as weight and bias, without requiring all configuration files to be changed to specify the gaussian distribution currently in use.</p>
+for various parameters such as weight and bias, without requiring all configuration files to be changed to specify the gaussian distribution currently in
+use. Another example would be for a configuration file variable for whether more than one addition/connection mutation would take place at a time,
+as mentioned in genome.py.</p>
 </div>
 <p>Note that the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor also requires you to explicitly specify the types that will be used
 for the NEAT simulation.  This, again, is to help avoid silent changes in behavior.</p>
@@ -102,6 +104,12 @@ required for your particular implementation.</p>
 <dd>The function used to compute species fitness.  <strong>This defaults to “mean“.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, <code class="docutils literal"><span class="pre">median</span></code></dd>
 </dl>
 </li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is <strong>not</strong> used for calculating species fitness for apportioning reproduction (which always uses <code class="docutils literal"><span class="pre">mean</span></code>).</p>
+</div>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt><em>max_stagnation</em></dt>
 <dd>Species that have not shown improvement in more than this number of generations will be considered stagnant and removed. <strong>This defaults to 15.</strong></dd>

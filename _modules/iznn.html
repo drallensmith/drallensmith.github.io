@@ -118,7 +118,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fired</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
 
-    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt_msec</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNeuron.advance"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNeuron.advance">[docs]</a>    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt_msec</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Advances simulation time by the given time step in milliseconds.</span>
 
@@ -146,14 +146,14 @@
             <span class="c1"># Output spike and reset.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fired</span> <span class="o">=</span> <span class="mf">1.0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span></div>
 
-    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNeuron.reset"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNeuron.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resets all state variables.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fired</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span></div></div>
 
 
 <div class="viewcode-block" id="IZNN"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN">[docs]</a><span class="k">class</span> <span class="nc">IZNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -163,23 +163,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_values</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">set_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNN.set_inputs"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.set_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">set_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assign input voltages.&quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">input_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
-    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNN.reset"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reset all neurons to their default state.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">n</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="n">n</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">get_time_step_msec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNN.get_time_step_msec"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.get_time_step_msec">[docs]</a>    <span class="k">def</span> <span class="nf">get_time_step_msec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO: Investigate performance or numerical stability issues that may</span>
         <span class="c1"># result from using this hard-coded time step.</span>
-        <span class="k">return</span> <span class="mf">0.05</span>
+        <span class="k">return</span> <span class="mf">0.05</span></div>
 
-    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt_msec</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNN.advance"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.advance">[docs]</a>    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt_msec</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="p">):</span>
             <span class="n">n</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">bias</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
@@ -194,7 +194,7 @@
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="p">):</span>
             <span class="n">n</span><span class="o">.</span><span class="n">advance</span><span class="p">(</span><span class="n">dt_msec</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fired</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fired</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="IZNN.create"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.create">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">genome</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>

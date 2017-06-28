@@ -59,7 +59,7 @@
 <dl class="function">
 <dt id="activations.validate_activation">
 <code class="descclassname">activations.</code><code class="descname">validate_activation</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#validate_activation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.validate_activation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks to make sure its parameter is a function that takes a single argument.</p>
+<dd><p>Checks to make sure its parameter is a function that takes a single argument. TODO: Currently raises a deprecation warning due to changes in <a class="reference external" href="https://docs.python.org/3.5/library/inspect.html#module-inspect" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">inspect</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -195,7 +195,7 @@ set up with the rest of the previous state.</p>
 <dl class="function">
 <dt id="config.write_pretty_params">
 <code class="descclassname">config.</code><code class="descname">write_pretty_params</code><span class="sig-paren">(</span><em>f</em>, <em>config</em>, <em>params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#write_pretty_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.write_pretty_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints configuration parameters to <a class="reference external" href="https://docs.python.org/3.5/library/compileall.html#cmdoption-compileall-arg-file" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">file</span></code></a> f.</p>
+<dd><p>Prints configuration parameters to <a class="reference external" href="https://docs.python.org/3.5/library/compileall.html#cmdoption-compileall-arg-file" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">file</span></code></a> object f.</p>
 </dd></dl>
 
 <dl class="class">
@@ -213,7 +213,7 @@ must make available the methods <code class="docutils literal"><span class="pre"
 <li><strong>reproduction_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the reproduction class used, such as <code class="xref py py-class docutils literal"><span class="pre">DefaultReproduction</span></code>. See <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a> for the needed interface.</li>
 <li><strong>species_set_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the species set class used, such as <code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code>.</li>
 <li><strong>stagnation_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the stagnation class used, such as <code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code>.</li>
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Configuration file to be opened, read, processed by a parser from the <a class="reference external" href="https://docs.python.org/3.5/library/configparser.html#module-configparser" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">configparser</span></code></a> module, the <code class="docutils literal"><span class="pre">NEAT</span></code> section handled by <code class="docutils literal"><span class="pre">Config</span></code>, and then other sections passed to the <code class="docutils literal"><span class="pre">parse_config</span></code> methods of the appropriate classes.</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Pathname for configuration file to be opened, read, processed by a parser from the <a class="reference external" href="https://docs.python.org/3.5/library/configparser.html#module-configparser" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">configparser</span></code></a> module, the <code class="docutils literal"><span class="pre">NEAT</span></code> section handled by <code class="docutils literal"><span class="pre">Config</span></code>, and then other sections passed to the <code class="docutils literal"><span class="pre">parse_config</span></code> methods of the appropriate classes.</li>
 </ul>
 </td>
 </tr>
@@ -240,6 +240,10 @@ the <code class="docutils literal"><span class="pre">NEAT</span></code> paramete
 </dd></dl>
 
 </div></blockquote>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Give more information about parameters for ctrnn.</p>
+</div>
 <span class="target" id="module-ctrnn"></span></div>
 <div class="section" id="ctrnn">
 <h2>ctrnn<a class="headerlink" href="#ctrnn" title="Permalink to this headline">¶</a></h2>
@@ -247,17 +251,53 @@ the <code class="docutils literal"><span class="pre">NEAT</span></code> paramete
 <div><dl class="class">
 <dt id="ctrnn.CTRNNNodeEval">
 <em class="property">class </em><code class="descclassname">ctrnn.</code><code class="descname">CTRNNNodeEval</code><span class="sig-paren">(</span><em>time_constant</em>, <em>activation</em>, <em>aggregation</em>, <em>bias</em>, <em>response</em>, <em>links</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNNNodeEval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNNNodeEval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets up the basic ctrnn nodes.</p>
+<dd><p>Sets up the basic <a class="reference internal" href="ctrnn.html"><span class="doc">Continuous-time recurrent neural network implementation</span></a> nodes.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="ctrnn.CTRNN">
 <em class="property">class </em><code class="descclassname">ctrnn.</code><code class="descname">CTRNN</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets up the ctrnn network itself.</p>
+<dd><p>Sets up the <a class="reference internal" href="ctrnn.html"><span class="doc">Continuous-time recurrent neural network implementation</span></a> network itself.</p>
+<dl class="method">
+<dt id="ctrnn.CTRNN.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the time and all node activations to 0 (necessary due to otherwise retaining state via recurrent connections).</p>
+</dd></dl>
+
+<p>..py:method:: advance(inputs, advance_time, time_step=None)</p>
+<blockquote>
+<div><p>Advance the simulation by the given amount of time, assuming that inputs are
+constant at the given values during the simulated time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param list inputs:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param float advance_time:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">How much time to advance the network before returning the resulting outputs.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param float time_step:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">How much time per step to advance the network; the default of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">None</span></code></a> will currently result in an error, but it is planned to determine it automatically.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">return:</th><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="staticmethod">
+<dt id="ctrnn.CTRNN.create">
+<em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em>, <em>time_constant</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives a genome and returns its phenotype (a <a class="reference internal" href="#ctrnn.CTRNN" title="ctrnn.CTRNN"><code class="xref py py-class docutils literal"><span class="pre">CTRNN</span></code></a>). The <code class="docutils literal"><span class="pre">time_constant</span></code> is used for the <a class="reference internal" href="#ctrnn.CTRNNNodeEval" title="ctrnn.CTRNNNodeEval"><code class="xref py py-class docutils literal"><span class="pre">CTRNNNodeEval</span></code></a> initializations.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-genes"><span id="index-2"></span></span></div>
+<span class="target" id="index-3"></span><span class="target" id="module-genes"><span id="index-4"></span></span></div>
 <div class="section" id="genes">
 <h2>genes<a class="headerlink" href="#genes" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -268,12 +308,12 @@ the <code class="docutils literal"><span class="pre">NEAT</span></code> paramete
 <dl class="class">
 <dt id="genes.BaseGene">
 <em class="property">class </em><code class="descclassname">genes.</code><code class="descname">BaseGene</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genes.html#BaseGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genes.BaseGene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Handles functions shared by multiple types of genes (both node and connection), including crossover and calling mutation methods.</p>
+<dd><p>Handles functions shared by multiple types of genes (both <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> and <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a>), including crossover and calling mutation methods.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The gene identifier. <strong>For connection genes, genetic distances use the identifiers of the connected nodes, not the connection gene’s identifier.</strong></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The gene identifier. <strong>For connection genes, determining whether they are homologous (for genomic distance determination) uses the identifiers of the connected nodes, not the connection gene’s identifier.</strong></td>
 </tr>
 </tbody>
 </table>
@@ -356,11 +396,11 @@ the final result is multiplied by the configured <a class="reference internal" h
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-3">
+<div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
 <p class="last">Explain more regarding parameters, required functions of the below; put in links referencing genome-interface.</p>
 </div>
-<span class="target" id="module-genome"><span id="index-4"></span></span></div>
+<span class="target" id="module-genome"></span></div>
 <div class="section" id="genome">
 <h2>genome<a class="headerlink" href="#genome" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -418,18 +458,30 @@ do the rest of the configuration.</p>
 <dt id="genome.DefaultGenome.write_config">
 <em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.write_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Saves configuration using <a class="reference internal" href="#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenomeConfig</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>f</strong> (<em>file</em>) – File object to write to.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object (here, a <a class="reference internal" href="#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenomeConfig</span></code></a> instance).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="genome.DefaultGenome.configure_new">
 <code class="descname">configure_new</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.configure_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.configure_new" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Configure a new genome based on the given configuration.</p>
+<dd><p>Required interface method. Configures a new genome (itself) based on the given configuration object.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="genome.DefaultGenome.configure_crossover">
 <code class="descname">configure_crossover</code><span class="sig-paren">(</span><em>genome1</em>, <em>genome2</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.configure_crossover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.configure_crossover" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Configure a new genome by crossover from two parent genomes.</p>
+<dd><p>Required interface method. Configures a new genome (itself) by crossover from two parent genomes.</p>
 </dd></dl>
 
 <dl class="method">
@@ -441,8 +493,9 @@ do the rest of the configuration.</p>
 <dl class="method">
 <dt id="genome.DefaultGenome.distance">
 <code class="descname">distance</code><span class="sig-paren">(</span><em>other</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Returns the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> between this genome and the other. This distance value is used to compute
-genome compatibility for <a class="reference internal" href="#module-species" title="species: Divides the population into genome-based species."><code class="xref py py-mod docutils literal"><span class="pre">speciation</span></code></a>. Uses the <code class="xref py py-meth docutils literal"><span class="pre">DefaultNodeGene.distance()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">DefaultConnectionGene.distance()</span></code> methods for
+<dd><p>Required interface method. Returns the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> between this genome and the other. This <span class="target" id="index-6"></span>distance
+value is used to compute genome compatibility for <a class="reference internal" href="#module-species" title="species: Divides the population into genome-based species."><code class="xref py py-mod docutils literal"><span class="pre">speciation</span></code></a>. Uses the
+<code class="xref py py-meth docutils literal"><span class="pre">DefaultNodeGene.distance()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">DefaultConnectionGene.distance()</span></code> methods for
 <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> pairs, and the configured <a class="reference internal" href="config_file.html#compatibility-disjoint-coefficient-label"><span class="std std-ref">compatibility_disjoint_coefficient</span></a> for disjoint/excess genes.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -592,9 +645,20 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 </dd></dl>
 
 </div></blockquote>
+<div class="admonition-todo admonition" id="index-7">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add methods for the below.</p>
+</div>
 <span class="target" id="module-iznn"></span></div>
 <div class="section" id="iznn">
 <h2>iznn<a class="headerlink" href="#iznn" title="Permalink to this headline">¶</a></h2>
+<p>This module implements a spiking neural network. Neurons are based on the model described by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Izhikevich</span><span class="p">,</span> <span class="n">E</span><span class="o">.</span> <span class="n">M</span><span class="o">.</span>
+<span class="n">Simple</span> <span class="n">Model</span> <span class="n">of</span> <span class="n">Spiking</span> <span class="n">Neurons</span>
+<span class="n">IEEE</span> <span class="n">TRANSACTIONS</span> <span class="n">ON</span> <span class="n">NEURAL</span> <span class="n">NETWORKS</span><span class="p">,</span> <span class="n">VOL</span><span class="o">.</span> <span class="mi">14</span><span class="p">,</span> <span class="n">NO</span><span class="o">.</span> <span class="mi">6</span><span class="p">,</span> <span class="n">NOVEMBER</span> <span class="mi">2003</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="http://www.izhikevich.org/publications/spikes.pdf">http://www.izhikevich.org/publications/spikes.pdf</a>.</p>
 <blockquote>
 <div><img src="_images/inheritance-2684ce28c41dd71a62ce9a7996f4a4b66abe6871.png" alt="Inheritance diagram of iznn" usemap="#inheritance88c83b859f" class="inheritance"/>
 <map id="inheritance88c83b859f" name="inheritance88c83b859f">
@@ -619,7 +683,7 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <dl class="class">
 <dt id="iznn.IZNeuron">
 <em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNeuron</code><span class="sig-paren">(</span><em>bias</em>, <em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets up and simulates the iznn nodes (neurons). TODO: Currently has some numerical stability problems; the time-step should be adjustable.</p>
+<dd><p>Sets up and simulates the iznn nodes (neurons).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -636,6 +700,26 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="iznn.IZNeuron.advance">
+<code class="descname">advance</code><span class="sig-paren">(</span><em>dt_msec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron.advance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron.advance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advances simulation time for the neuron by the given time step in milliseconds. TODO: Currently has some numerical stability problems.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dt_msec</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Time step in milliseconds.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="iznn.IZNeuron.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rests all state variables.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -648,13 +732,67 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>neurons</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The IZNeuron instances needed.</li>
-<li><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The input keys.</li>
-<li><strong>outputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The output keys.</li>
+<li><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> keys.</li>
+<li><strong>outputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a> keys.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="iznn.IZNN.set_inputs">
+<code class="descname">set_inputs</code><span class="sig-paren">(</span><em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.set_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.set_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns input voltages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>)</em>) – The input voltages for the <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="iznn.IZNN.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset all neurons to their default state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="iznn.IZNN.get_time_step_msec">
+<code class="descname">get_time_step_msec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.get_time_step_msec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.get_time_step_msec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a suggested time step; currently hardwired to 0.05 - investigation of this (particularly effects on numerical stability issues) is planned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Suggested time step in milliseconds.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="iznn.IZNN.advance">
+<code class="descname">advance</code><span class="sig-paren">(</span><em>dt_msec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.advance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.advance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advances simulation time for all neurons in the network by the input number of milliseconds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dt_msec</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – How many milliseconds to advance the network.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="iznn.IZNN.create">
 <em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.create" title="Permalink to this definition">¶</a></dt>
@@ -663,7 +801,17 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns object:</th><td class="field-body">An IZNN instance.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – An IZGenome instance.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An IZNN instance.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -721,7 +869,7 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <div><dl class="class">
 <dt id="nn.feed_forward.FeedForwardNetwork">
 <em class="property">class </em><code class="descclassname">nn.feed_forward.</code><code class="descname">FeedForwardNetwork</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork" title="Permalink to this definition">¶</a></dt>
-<dd><p>A straightforward (no pun intended) feed-forward neural network NEAT implementation.</p>
+<dd><p>A straightforward (no pun intended) <a class="reference internal" href="glossary.html#term-feed-forward"><span class="xref std std-term">feed-forward</span></a> neural network NEAT implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -735,6 +883,24 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="nn.feed_forward.FeedForwardNetwork.activate">
+<code class="descname">activate</code><span class="sig-paren">(</span><em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork.activate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feeds the inputs into the network and returns the resulting outputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The values for the <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="nn.feed_forward.FeedForwardNetwork.create">
 <em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork.create" title="Permalink to this definition">¶</a></dt>
@@ -751,7 +917,7 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <div><dl class="class">
 <dt id="nn.recurrent.RecurrentNetwork">
 <em class="property">class </em><code class="descclassname">nn.recurrent.</code><code class="descname">RecurrentNetwork</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>node_evals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/recurrent.html#RecurrentNetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.recurrent.RecurrentNetwork" title="Permalink to this definition">¶</a></dt>
-<dd><p>A recurrent (but otherwise straightforward) neural network NEAT implementation.</p>
+<dd><p>A <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> (but otherwise straightforward) neural network NEAT implementation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -765,6 +931,30 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="nn.recurrent.RecurrentNetwork.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/recurrent.html#RecurrentNetwork.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.recurrent.RecurrentNetwork.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets all node activations to 0 (necessary due to otherwise retaining state via recurrent connections).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nn.recurrent.RecurrentNetwork.activate">
+<code class="descname">activate</code><span class="sig-paren">(</span><em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/recurrent.html#RecurrentNetwork.activate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.recurrent.RecurrentNetwork.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feeds the inputs into the network and returns the resulting outputs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The values for the <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="nn.recurrent.RecurrentNetwork.create">
 <em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/recurrent.html#RecurrentNetwork.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.recurrent.RecurrentNetwork.create" title="Permalink to this definition">¶</a></dt>
@@ -798,11 +988,11 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-5">
+<div class="admonition-todo admonition" id="index-8">
 <p class="first admonition-title">Todo</p>
 <p class="last">Put in more about calls to rest of program?</p>
 </div>
-<span class="target" id="module-population"><span id="index-6"></span></span></div>
+<span class="target" id="module-population"><span id="index-9"></span></span></div>
 <div class="section" id="population">
 <h2>population<a class="headerlink" href="#population" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -871,10 +1061,6 @@ or the configuration object.</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-7">
-<p class="first admonition-title">Todo</p>
-<p class="last">Put in reporter interface, clarify when called (e.g., <code class="docutils literal"><span class="pre">found_solution</span></code> is not called on reaching the max generation, only on satisfaction of the fitness criterion).</p>
-</div>
 <span class="target" id="module-reporting"></span></div>
 <div class="section" id="reporting">
 <h2>reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h2>
@@ -894,7 +1080,126 @@ or the configuration object.</p>
 <dl class="class">
 <dt id="reporting.BaseReporter">
 <em class="property">class </em><code class="descclassname">reporting.</code><code class="descname">BaseReporter</code><a class="reference internal" href="_modules/reporting.html#BaseReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Definition of the reporter interface expected by ReporterSet. Inheriting from it will provide a set of <code class="docutils literal"><span class="pre">dummy</span></code> methods to be overridden as desired.</p>
+<dd><p>Definition of the reporter interface expected by ReporterSet. Inheriting from it will provide a set of <code class="docutils literal"><span class="pre">dummy</span></code> methods to be overridden as desired, as follows.</p>
+<dl class="method">
+<dt id="reporting.BaseReporter.start_generation">
+<code class="descname">start_generation</code><span class="sig-paren">(</span><em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.start_generation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.start_generation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called (by <code class="xref py py-meth docutils literal"><span class="pre">Population.run()</span></code>) at the start of each generation, prior to the invocation of the fitness function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The generation number.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.end_generation">
+<code class="descname">end_generation</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.end_generation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.end_generation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called (by <code class="xref py py-meth docutils literal"><span class="pre">Population.run()</span></code>) at the end of each generation, after reproduction and speciation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – <code class="xref py py-class docutils literal"><span class="pre">Config</span></code> configuration object.</li>
+<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a><em>)</em>) – Current population, as a dict of unique genome ID/key vs genome.</li>
+<li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Current species set object, such as a <code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.post_evaluate">
+<code class="descname">post_evaluate</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em>, <em>best_genome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.post_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.post_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called (by <code class="xref py py-meth docutils literal"><span class="pre">Population.run()</span></code>) after the fitness function is finished.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – <code class="xref py py-class docutils literal"><span class="pre">Config</span></code> configuration object.</li>
+<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a><em>)</em>) – Current population, as a dict of unique genome ID/key vs genome.</li>
+<li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Current species set object, such as a <code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code>.</li>
+<li><strong>best_genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. Ties are resolved pseudorandomly (by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a> ordering).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.post_reproduction">
+<code class="descname">post_reproduction</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.post_reproduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.post_reproduction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not currently called, either by <code class="xref py py-meth docutils literal"><span class="pre">Population.run()</span></code> or by <code class="xref py py-class docutils literal"><span class="pre">DefaultReproduction</span></code>. Note: New members of the population likely will not have a set species.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.complete_extinction">
+<code class="descname">complete_extinction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.complete_extinction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.complete_extinction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called (by <code class="xref py py-meth docutils literal"><span class="pre">Population.run()</span></code>) if complete extinction (due to stagnation) occurs, prior to
+(depending on the <a class="reference internal" href="config_file.html#reset-on-extinction-label"><span class="std std-ref">reset_on_extinction</span></a> configuration setting)
+a new population being created or a <code class="xref py py-exc docutils literal"><span class="pre">CompleteExtinctionException</span></code> being raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.found_solution">
+<code class="descname">found_solution</code><span class="sig-paren">(</span><em>config</em>, <em>generation</em>, <em>best</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.found_solution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.found_solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called (by <code class="xref py py-meth docutils literal"><span class="pre">Population.run()</span></code>) prior to exiting if the configured <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> is met.
+(Note: Not called upon reaching the generation maximum and exiting for this reason.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – <code class="xref py py-class docutils literal"><span class="pre">Config</span></code> configuration object.</li>
+<li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Generation number.</li>
+<li><strong>best</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. Ties are resolved pseudorandomly (by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a> ordering).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.species_stagnant">
+<code class="descname">species_stagnant</code><span class="sig-paren">(</span><em>sid</em>, <em>species</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.species_stagnant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.species_stagnant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called (by py:meth:<a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultReproduction.reproduce</span></code></a>) for each species considered stagnant by the stagnation class (such as <code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sid</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The species id/key.</li>
+<li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The <code class="xref py py-class docutils literal"><span class="pre">Species</span></code> object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="reporting.BaseReporter.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Miscellaneous informational messages, from multiple parts of the library.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Message to be handled.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -912,7 +1217,7 @@ or the configuration object.</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-8">
+<div class="admonition-todo admonition" id="index-10">
 <p class="first admonition-title">Todo</p>
 <p class="last">Add links to configuration file.</p>
 </div>
@@ -930,7 +1235,7 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Configuration object, in this case a dictionary.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Configuration object, in this implementation a dictionary.</li>
 <li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code> object.</li>
 <li><strong>stagnation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code> object - current code partially depends on internals of this class (a TODO is noted to correct this)</li>
 </ul>
@@ -965,7 +1270,7 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>f</strong> (<em>file</em>) – File to write to.</li>
+<li><strong>f</strong> (<em>file</em>) – File object to write to.</li>
 <li><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of current parameters in this implementation; more generally, reproduction config object.</li>
 </ul>
 </td>
@@ -999,6 +1304,26 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="reproduction.DefaultReproduction.compute_spawn">
+<em class="property">static </em><code class="descname">compute_spawn</code><span class="sig-paren">(</span><em>adjusted_fitness</em>, <em>previous_sizes</em>, <em>pop_size</em>, <em>min_species_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.compute_spawn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.compute_spawn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apportions desired number of members per species according to fitness (adjusted by <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduce()</span></code></a> to a 0-1 scale) from out of the desired population size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>adjusted_fitness</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>)</em>) – Mean fitness for species members, adjusted to 0-1 scale.</li>
+<li><strong>previous_sizes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – Number of members of species in population prior to reproduction.</li>
+<li><strong>pop_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Desired population size, as input to <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduce()</span></code></a>.</li>
+<li><strong>min_species_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Minimum number of members per species; can result in population size being above <code class="docutils literal"><span class="pre">pop_size</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="reproduction.DefaultReproduction.reproduce">
 <code class="descname">reproduce</code><span class="sig-paren">(</span><em>config</em>, <em>species</em>, <em>pop_size</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.reproduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.reproduce" title="Permalink to this definition">¶</a></dt>
@@ -1012,7 +1337,7 @@ should use the stagnation instance given to the initializer to remove species de
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <code class="xref py py-class docutils literal"><span class="pre">Config</span></code> instance.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <code class="xref py py-class docutils literal"><span class="pre">SpeciesSet</span></code> instance. As well as depending on some of the <code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code> internals, this method also depends on some of those of the <code class="docutils literal"><span class="pre">SpeciesSet</span></code> and its referenced species objects.</li>
-<li><strong>pop_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Population desired.</li>
+<li><strong>pop_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Population size desired.</li>
 <li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Generation count.</li>
 </ul>
 </td>
@@ -1020,7 +1345,7 @@ should use the stagnation instance given to the initializer to remove species de
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">New population, as a dict of unique genome ID/key vs genome.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</p>
 </td>
 </tr>
 </tbody>
@@ -1090,7 +1415,7 @@ should use the stagnation instance given to the initializer to remove species de
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-species"><span id="index-9"></span></span></div>
+<span class="target" id="module-species"><span id="index-11"></span></span></div>
 <div class="section" id="species">
 <h2>species<a class="headerlink" href="#species" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -1163,7 +1488,7 @@ time-consuming parts of the library, although most fitness functions are likely 
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>f</strong> (<em>file</em>) – File to write to.</li>
+<li><strong>f</strong> (<em>file</em>) – File object to write to.</li>
 <li><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of current parameters in this implementation; more generally, stagnation config object.</li>
 </ul>
 </td>
@@ -1214,7 +1539,7 @@ in <code class="xref py py-meth docutils literal"><span class="pre">DefaultRepro
 <dl class="method">
 <dt id="species.DefaultSpeciesSet.get_species">
 <code class="descname">get_species</code><span class="sig-paren">(</span><em>individual_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet.get_species"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet.get_species" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves species object for a given genome id.</p>
+<dd><p>Retrieves species object for a given genome id. May become a required interface method, and useful for some fitness functions already.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1232,7 +1557,7 @@ in <code class="xref py py-meth docutils literal"><span class="pre">DefaultRepro
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-10">
+<div class="admonition-todo admonition" id="index-12">
 <p class="first admonition-title">Todo</p>
 <p class="last">Add more methods to the below for DefaultStagnation; try to figure out which ones are required interface methods; links re config file.</p>
 </div>
@@ -1249,7 +1574,7 @@ in <code class="xref py py-meth docutils literal"><span class="pre">DefaultRepro
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object; in this implementation, a <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a>, but should be treated as opaque outside this class.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object; in this implementation, a <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a>, but should be treated as opaque outside this class.</li>
 <li><strong>reporters</strong> (<em>class</em>) – A <code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code> with reporters that may need activating; not currently used.</li>
 </ul>
 </td>
@@ -1284,7 +1609,7 @@ configuration file.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>f</strong> (<em>file</em>) – File to write to.</li>
+<li><strong>f</strong> (<em>file</em>) – File object to write to.</li>
 <li><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of current parameters in this implementation; more generally, stagnation config object.</li>
 </ul>
 </td>
@@ -1296,6 +1621,10 @@ configuration file.</p>
 </dd></dl>
 
 </div></blockquote>
+<div class="admonition-todo admonition" id="index-13">
+<p class="first admonition-title">Todo</p>
+<p class="last">Give more information about what is available from the below.</p>
+</div>
 <span class="target" id="module-statistics"></span></div>
 <div class="section" id="statistics">
 <h2>statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
