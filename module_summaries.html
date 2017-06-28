@@ -264,30 +264,32 @@ the <code class="docutils literal"><span class="pre">NEAT</span></code> paramete
 <dd><p>Resets the time and all node activations to 0 (necessary due to otherwise retaining state via recurrent connections).</p>
 </dd></dl>
 
-<p>..py:method:: advance(inputs, advance_time, time_step=None)</p>
-<blockquote>
-<div><p>Advance the simulation by the given amount of time, assuming that inputs are
+<dl class="method">
+<dt id="ctrnn.CTRNN.advance">
+<code class="descname">advance</code><span class="sig-paren">(</span><em>inputs</em>, <em>advance_time</em>, <em>time_step=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN.advance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN.advance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Advance the simulation by the given amount of time, assuming that inputs are
 constant at the given values during the simulated time.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param list inputs:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The values for the <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>.</li>
+<li><strong>advance_time</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – How much time to advance the network before returning the resulting outputs.</li>
+<li><strong>time_step</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – How much time per step to advance the network; the default of <code class="docutils literal"><span class="pre">None</span></code> will currently result in an error, but it is planned to determine it automatically.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">param float advance_time:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body">How much time to advance the network before returning the resulting outputs.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The values for the <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param float time_step:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">How much time per step to advance the network; the default of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">None</span></code></a> will currently result in an error, but it is planned to determine it automatically.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">return:</th><td class="field-body">The values for the <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">list</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
+</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="ctrnn.CTRNN.create">
 <em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em>, <em>time_constant</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ctrnn.html#CTRNN.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ctrnn.CTRNN.create" title="Permalink to this definition">¶</a></dt>
@@ -398,7 +400,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 </div></blockquote>
 <div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
-<p class="last">Explain more regarding parameters, required functions of the below; put in links referencing genome-interface.</p>
+<p class="last">Explain more regarding parameters, required functions of the below.</p>
 </div>
 <span class="target" id="module-genome"></span></div>
 <div class="section" id="genome">
@@ -683,7 +685,7 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <dl class="class">
 <dt id="iznn.IZNeuron">
 <em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNeuron</code><span class="sig-paren">(</span><em>bias</em>, <em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets up and simulates the iznn nodes (neurons).</p>
+<dd><p>Sets up and simulates the iznn <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a> (neurons).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -717,7 +719,7 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <dl class="method">
 <dt id="iznn.IZNeuron.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rests all state variables.</p>
+<dd><p>Resets all state variables.</p>
 </dd></dl>
 
 </dd></dl>
@@ -731,7 +733,7 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>neurons</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The IZNeuron instances needed.</li>
+<li><strong>neurons</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – The <a class="reference internal" href="#iznn.IZNeuron" title="iznn.IZNeuron"><code class="xref py py-class docutils literal"><span class="pre">IZNeuron</span></code></a> instances needed.</li>
 <li><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> keys.</li>
 <li><strong>outputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a> keys.</li>
 </ul>
@@ -756,7 +758,7 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <dl class="method">
 <dt id="iznn.IZNN.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reset all neurons to their default state.</p>
+<dd><p>Resets all neurons to their default state.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1034,7 +1036,7 @@ is <code class="docutils literal"><span class="pre">None</span></code>, run unti
 <p>The return value of the fitness function is ignored, but it must assign
 a Python <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a> to the <code class="docutils literal"><span class="pre">fitness</span></code> member of each genome.</p>
 <p>The fitness function is free to maintain external state, perform
-evaluations in :py:mod::<a class="reference internal" href="#module-parallel" title="parallel: Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once."><code class="xref any py py-mod docutils literal"><span class="pre">parallel</span></code></a>, etc.</p>
+evaluations in <a class="reference internal" href="#module-parallel" title="parallel: Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once."><code class="xref py py-mod docutils literal"><span class="pre">parallel</span></code></a>, etc.</p>
 <p>It is assumed that the fitness function does not modify the list of genomes,
 the genomes themselves (apart from updating the fitness member),
 or the configuration object.</p>
@@ -1126,7 +1128,7 @@ or the configuration object.</p>
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – <code class="xref py py-class docutils literal"><span class="pre">Config</span></code> configuration object.</li>
 <li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a><em>)</em>) – Current population, as a dict of unique genome ID/key vs genome.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Current species set object, such as a <code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code>.</li>
-<li><strong>best_genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. Ties are resolved pseudorandomly (by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a> ordering).</li>
+<li><strong>best_genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. Ties are resolved pseudorandomly (by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> ordering).</li>
 </ul>
 </td>
 </tr>
@@ -1160,7 +1162,7 @@ a new population being created or a <code class="xref py py-exc docutils literal
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – <code class="xref py py-class docutils literal"><span class="pre">Config</span></code> configuration object.</li>
 <li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Generation number.</li>
-<li><strong>best</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. Ties are resolved pseudorandomly (by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a> ordering).</li>
+<li><strong>best</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. Ties are resolved pseudorandomly (by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> ordering).</li>
 </ul>
 </td>
 </tr>
@@ -1221,7 +1223,7 @@ a new population being created or a <code class="xref py py-exc docutils literal
 <p class="first admonition-title">Todo</p>
 <p class="last">Add links to configuration file.</p>
 </div>
-<span class="target" id="module-reproduction"></span></div>
+<span class="target" id="module-reproduction"><span id="index-11"></span></span></div>
 <div class="section" id="reproduction">
 <h2>reproduction<a class="headerlink" href="#reproduction" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -1313,7 +1315,7 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>adjusted_fitness</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>)</em>) – Mean fitness for species members, adjusted to 0-1 scale.</li>
+<li><strong>adjusted_fitness</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>)</em>) – Mean fitness for species members, adjusted to 0-1 scale (see below).</li>
 <li><strong>previous_sizes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – Number of members of species in population prior to reproduction.</li>
 <li><strong>pop_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Desired population size, as input to <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduce()</span></code></a>.</li>
 <li><strong>min_species_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Minimum number of members per species; can result in population size being above <code class="docutils literal"><span class="pre">pop_size</span></code>.</li>
@@ -1329,7 +1331,9 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <code class="descname">reproduce</code><span class="sig-paren">(</span><em>config</em>, <em>species</em>, <em>pop_size</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.reproduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.reproduce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Creates the population to be used in the next generation from the given configuration instance, SpeciesSet instance, desired size of the
 population, and current generation number.  This method is called after all genomes have been evaluated and their <code class="docutils literal"><span class="pre">fitness</span></code> member assigned.  This method
-should use the stagnation instance given to the initializer to remove species deemed to have stagnated.</p>
+should use the stagnation instance given to the initializer to remove species deemed to have stagnated. Note: Determines relative fitnesses by transforming into
+(ideally) a 0-1 scale; however, if the top and bottom fitnesses are not at least 1 apart, the range may be less than 0-1, as a check against dividing by a too-small
+number. TODO: Make minimum difference configurable (defaulting to 1 to preserve compatibility).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1415,14 +1419,14 @@ should use the stagnation instance given to the initializer to remove species de
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-species"><span id="index-11"></span></span></div>
+<span class="target" id="module-species"><span id="index-12"></span></span></div>
 <div class="section" id="species">
 <h2>species<a class="headerlink" href="#species" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><dl class="class">
 <dt id="species.Species">
 <em class="property">class </em><code class="descclassname">species.</code><code class="descname">Species</code><span class="sig-paren">(</span><em>key</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#Species"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.Species" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a <a class="reference internal" href="glossary.html#term-species"><span class="xref std std-term">species</span></a> and contains data about it such as members, fitness, and time stagnating (note: :py:class::<a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> manipulates many of these).</p>
+<dd><p>Represents a <a class="reference internal" href="glossary.html#term-species"><span class="xref std std-term">species</span></a> and contains data about it such as members, fitness, and time stagnating (note: <code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code> manipulates many of these).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1557,7 +1561,7 @@ in <code class="xref py py-meth docutils literal"><span class="pre">DefaultRepro
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-12">
+<div class="admonition-todo admonition" id="index-13">
 <p class="first admonition-title">Todo</p>
 <p class="last">Add more methods to the below for DefaultStagnation; try to figure out which ones are required interface methods; links re config file.</p>
 </div>
@@ -1621,22 +1625,235 @@ configuration file.</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-13">
-<p class="first admonition-title">Todo</p>
-<p class="last">Give more information about what is available from the below.</p>
-</div>
 <span class="target" id="module-statistics"></span></div>
 <div class="section" id="statistics">
 <h2>statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <blockquote>
-<div><dl class="class">
+<div><ul class="simple">
+<li>The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module, and it is assumed that fitnesses (as given by the <span class="target" id="index-14"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting.</li>
+<li>Currently keeps accumulating information in memory, which may be a problem in long runs.</li>
+<li>Generally reports or records a per-generation list of values; the numeric position in the list may not correspond to the generation number if there has been a restart, such as via the <a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses :py:mod:`pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpoint</span></code></a> module.</li>
+</ul>
+</div></blockquote>
+<dl class="last class">
 <dt id="statistics.StatisticsReporter">
 <em class="property">class </em><code class="descclassname">statistics.</code><code class="descname">StatisticsReporter</code><span class="sig-paren">(</span><em>BaseReporter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gathers (via the reporting interface) and provides (to callers and/or to a file) information on genome and species fitness, which are the most-fit genomes, etc.
-Note: Keeps accumulating information in memory currently, which may be a problem in long runs.</p>
+<dd><p>Gathers (via the reporting interface) and provides (to callers and/or to a file) the most-fit genomes and information on genome and species fitness and species sizes.</p>
+<dl class="method">
+<dt id="statistics.StatisticsReporter.post_evaluate">
+<code class="descname">post_evaluate</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em>, <em>best_genome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.post_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.post_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called as part of the <code class="xref py py-class docutils literal"><span class="pre">BaseReporter</span></code> interface after the evaluation at the start of each generation; see <code class="xref py py-meth docutils literal"><span class="pre">BaseReporter.post_evaluate()</span></code>.
+Information gathered includes a copy of the best genome in each generation and the fitnesses of each member of each species.</p>
 </dd></dl>
 
-</div></blockquote>
+<dl class="method">
+<dt id="statistics.StatisticsReporter.get_fitness_stat">
+<code class="descname">get_fitness_stat</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_fitness_stat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_fitness_stat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the given function on the genome fitness data from each recorded generation and returns the resulting list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> (<em>function</em>) – A function that takes a list of scores and returns a summary statistic (or, by returning a list or tuple, multiple statistics) such as <code class="docutils literal"><span class="pre">mean</span></code> or <code class="docutils literal"><span class="pre">stdev</span></code>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of the results from function f for each generation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.get_fitness_mean">
+<code class="descname">get_fitness_mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_fitness_mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_fitness_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the per-generation average fitness. A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.get_fitness_stat" title="statistics.StatisticsReporter.get_fitness_stat"><code class="xref py py-meth docutils literal"><span class="pre">get_fitness_stat()</span></code></a> with the function being <code class="docutils literal"><span class="pre">mean</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of mean genome fitnesses for each generation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.get_fitness_stdev">
+<code class="descname">get_fitness_stdev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_fitness_stdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_fitness_stdev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the per-generation standard deviation of the fitness. A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.get_fitness_stat" title="statistics.StatisticsReporter.get_fitness_stat"><code class="xref py py-meth docutils literal"><span class="pre">get_fitness_stat()</span></code></a> with the function being <code class="docutils literal"><span class="pre">stdev</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of standard deviations of genome fitnesses for each generation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.best_unique_genomes">
+<code class="descname">best_unique_genomes</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.best_unique_genomes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.best_unique_genomes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes, with no duplication (due to the most-fit genome passing unaltered to the next generation), sorted in decreasing fitness order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Number of most-fit genomes to return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes (as genome objects).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.best_genomes">
+<code class="descname">best_genomes</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.best_genomes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.best_genomes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes, possibly with duplicates, sorted in decreasing fitness order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Number of most-fit genomes to return.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes (as genome objects).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.best_genome">
+<code class="descname">best_genome</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.best_genome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.best_genome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the most-fit genome ever seen. A wrapper around <a class="reference internal" href="#statistics.StatisticsReporter.best_genomes" title="statistics.StatisticsReporter.best_genomes"><code class="xref py py-meth docutils literal"><span class="pre">best_genomes()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The most-fit genome.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.get_species_sizes">
+<code class="descname">get_species_sizes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_species_sizes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_species_sizes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a by-generation list of lists of species sizes. Note that some values may be 0, if a species has either not yet been seen or has been removed due
+to <a class="reference internal" href="#module-stagnation" title="stagnation: Keeps track of whether species are making progress and removes ones that are not (for a configurable number of generations)."><code class="xref py py-mod docutils literal"><span class="pre">stagnation</span></code></a>; species without generational overlap may be more similar in <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> than the configured
+<a class="reference internal" href="config_file.html#compatibility-threshold-label"><span class="std std-ref">compatibility_threshold</span></a> would otherwise allow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of lists of species sizes.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.get_species_fitness">
+<code class="descname">get_species_fitness</code><span class="sig-paren">(</span><em>null_value=”</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_species_fitness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_species_fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a by-generation list of lists of species fitnesses; the fitness of a species is determined by the <code class="docutils literal"><span class="pre">mean</span></code> fitness of the genomes in the species, as with
+the reproduction distribution by <code class="xref py py-class docutils literal"><span class="pre">DefaultReproduction</span></code>. The <code class="docutils literal"><span class="pre">null_value</span></code> parameter is used for species not present in a particular generation (see above).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>null_value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – What to put in the list if the species is not present in a particular generation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of lists of species fitnesses.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a>))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.save_genome_fitness">
+<code class="descname">save_genome_fitness</code><span class="sig-paren">(</span><em>delimiter=’ ‘</em>, <em>filename=’fitness_history.csv’</em>, <em>with_cross_validation=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save_genome_fitness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save_genome_fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the population’s best and mean fitness (using the <a class="reference external" href="https://docs.python.org/3.5/library/csv.html#module-csv" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">csv</span></code></a> package). At some point in the future, cross-validation fitness may be usable (via, for instance, the
+fitness function using alternative test situations/opponents and recording this in a <code class="docutils literal"><span class="pre">cross_fitness</span></code> attribute; this can be used for, e.g., preventing overfitting);
+currently, <code class="docutils literal"><span class="pre">with_cross_validation</span></code> should always be left at its <code class="docutils literal"><span class="pre">False</span></code> default.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delimiter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Delimiter between columns in the file; note that the default is not ‘,’ as may be otherwise implied by the <code class="docutils literal"><span class="pre">csv</span></code> file extension (which refers to the package used).</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The filename to open (for writing, not appending) and write to.</li>
+<li><strong>with_cross_validation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – For future use; currently, leave at its <code class="docutils literal"><span class="pre">False</span></code> default.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.save_species_count">
+<code class="descname">save_species_count</code><span class="sig-paren">(</span><em>delimiter=’ ‘</em>, <em>filename=’speciation.csv’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save_species_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save_species_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs speciation throughout evolution, by tracking the number of genomes in each species. Uses <a class="reference internal" href="#statistics.StatisticsReporter.get_species_sizes" title="statistics.StatisticsReporter.get_species_sizes"><code class="xref py py-meth docutils literal"><span class="pre">get_species_sizes()</span></code></a>; see that method for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delimiter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Delimiter between columns in the file; note that the default is not ‘,’ as may be otherwise implied by the <code class="docutils literal"><span class="pre">csv</span></code> file extension (which refers to the package used).</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The filename to open (for writing, not appending) and write to.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.save_species_fitness">
+<code class="descname">save_species_fitness</code><span class="sig-paren">(</span><em>delimiter=’ ‘</em>, <em>null_value=’NA’</em>, <em>filename=’species_fitness.csv’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save_species_fitness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save_species_fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs species’ mean fitness throughout evolution. Uses <a class="reference internal" href="#statistics.StatisticsReporter.get_species_fitness" title="statistics.StatisticsReporter.get_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">get_species_fitness()</span></code></a>; see that method for more information on, for instance, <code class="docutils literal"><span class="pre">null_value</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delimiter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – Delimiter between columns in the file; note that the default is not ‘,’ as may be otherwise implied by the <code class="docutils literal"><span class="pre">csv</span></code> file extension (which refers to the package used).</li>
+<li><strong>null_value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – See <a class="reference internal" href="#statistics.StatisticsReporter.get_species_fitness" title="statistics.StatisticsReporter.get_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">get_species_fitness()</span></code></a>.</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The filename to open (for writing, not appending) and write to.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="statistics.StatisticsReporter.save">
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.save_genome_fitness" title="statistics.StatisticsReporter.save_genome_fitness"><code class="xref py py-meth docutils literal"><span class="pre">save_genome_fitness()</span></code></a>, <a class="reference internal" href="#statistics.StatisticsReporter.save_species_count" title="statistics.StatisticsReporter.save_species_count"><code class="xref py py-meth docutils literal"><span class="pre">save_species_count()</span></code></a>, and <a class="reference internal" href="#statistics.StatisticsReporter.save_species_fitness" title="statistics.StatisticsReporter.save_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">save_species_fitness()</span></code></a>; uses the default values for all three.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 </div>
 
