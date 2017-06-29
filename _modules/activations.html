@@ -147,19 +147,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">,</span> <span class="n">square_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">cube_activation</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+<div class="viewcode-block" id="ActivationFunctionSet.add"><a class="viewcode-back" href="../module_summaries.html#activations.ActivationFunctionSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="n">validate_activation</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
 
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="ActivationFunctionSet.get"><a class="viewcode-back" href="../module_summaries.html#activations.ActivationFunctionSet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidActivationFunction</span><span class="p">(</span><span class="s2">&quot;No such activation function: </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">f</span>
+        <span class="k">return</span> <span class="n">f</span></div>
 
-    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span></div>
+<div class="viewcode-block" id="ActivationFunctionSet.is_valid"><a class="viewcode-back" href="../module_summaries.html#activations.ActivationFunctionSet.is_valid">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span></div></div>
 </pre></div>
 
           </div>

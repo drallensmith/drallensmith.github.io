@@ -76,6 +76,59 @@
 <dt id="activations.ActivationFunctionSet">
 <em class="property">class </em><code class="descclassname">activations.</code><code class="descname">ActivationFunctionSet</code><a class="reference internal" href="_modules/activations.html#ActivationFunctionSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.ActivationFunctionSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains the list of current valid activation functions, including methods for adding and getting them.</p>
+<dl class="method">
+<dt id="activations.ActivationFunctionSet.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>name</em>, <em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#ActivationFunctionSet.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.ActivationFunctionSet.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>After validating the function (via <a class="reference internal" href="#activations.validate_activation" title="activations.validate_activation"><code class="xref any py py-func docutils literal"><span class="pre">validate_activation</span></code></a>), adds it to the available activation functions under the given name. Used
+by <a class="reference internal" href="#genome.DefaultGenomeConfig.add_activation" title="genome.DefaultGenomeConfig.add_activation"><code class="xref py py-meth docutils literal"><span class="pre">DefaultGenomeConfig.add_activation</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The name by which the function is to be known in the <a class="reference internal" href="config_file.html#activation-function-config-label"><span class="std std-ref">configuration file</span></a>.</li>
+<li><strong>function</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-function" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">function</span></code></a>) – The function to be added.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="activations.ActivationFunctionSet.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#ActivationFunctionSet.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.ActivationFunctionSet.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the named function, or raises an exception if it is not a known activation function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The name of the function.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#activations.InvalidActivationFunction" title="activations.InvalidActivationFunction"><strong>InvalidActivationFunction</strong></a> – If the function is not known.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="activations.ActivationFunctionSet.is_valid">
+<code class="descname">is_valid</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#ActivationFunctionSet.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.ActivationFunctionSet.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the named function is a known activation function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The name of the function.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether or not the function is known.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div></blockquote>
@@ -85,8 +138,9 @@
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: Suggested simplification for the below: Make __config_items__ a list of lists/tuples, with the latter containing (name, value_type, default) - no default if the last is None.
-This would also allow moving get_config_params into the BaseAttribute class, although config_item_names may require some modifications.</p>
+<p class="last">TODO: Suggested simplification for the below: Make __config_items__ a list of lists/tuples, with the latter containing (name, value_type, default) -
+no default if the last is None. This would also allow moving get_config_params into the BaseAttribute class, although config_item_names may require
+some modifications. (A default capability will be needed for future expansions of the attributes, such as different types of initializations.)</p>
 </div>
 <span class="target" id="module-attributes"></span></div>
 <div class="section" id="attributes">
@@ -102,19 +156,184 @@ This would also allow moving get_config_params into the BaseAttribute class, alt
 <dl class="class">
 <dt id="attributes.BaseAttribute">
 <em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">BaseAttribute</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BaseAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BaseAttribute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Superclass for the type-specialized attribute subclasses, used by genes (such as via the <a class="reference internal" href="#genes.BaseGene" title="genes.BaseGene"><code class="xref py py-class docutils literal"><span class="pre">genes.BaseGene</span></code></a> implementation).</p>
+<dd><p>Superclass for the type-specialized attribute subclasses, used by genes (such as via the <a class="reference internal" href="#genes.BaseGene" title="genes.BaseGene"><code class="xref py py-class docutils literal"><span class="pre">genes.BaseGene</span></code></a> implementation). Calls
+<a class="reference internal" href="#attributes.BaseAttribute.config_item_names" title="attributes.BaseAttribute.config_item_names"><code class="xref any py py-meth docutils literal"><span class="pre">config_item_names</span></code></a> to set up a listing of the names of configuration items using <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#setattr" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">setattr</span></code></a>.</p>
+<dl class="method">
+<dt id="attributes.BaseAttribute.config_item_names">
+<code class="descname">config_item_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BaseAttribute.config_item_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BaseAttribute.config_item_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a list of configuration item names by combining the attribute’s name with the attribute class’ list of <code class="docutils literal"><span class="pre">__config_items__</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of configuration item names.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="attributes.FloatAttribute">
 <em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">FloatAttribute</code><span class="sig-paren">(</span><em>BaseAttribute</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FloatAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FloatAttribute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for numeric <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attributes</span></a> such as the <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> of a <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a>; includes code for configuration, creation, and mutation.</p>
+<dl class="method">
+<dt id="attributes.FloatAttribute.get_config_params">
+<code class="descname">get_config_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FloatAttribute.get_config_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FloatAttribute.get_config_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses <a class="reference internal" href="#attributes.BaseAttribute.config_item_names" title="attributes.BaseAttribute.config_item_names"><code class="xref any py py-meth docutils literal"><span class="pre">config_item_names</span></code></a> to get its list of configuration item names, then gets a <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a>-type <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">config.ConfigParameter</span></code></a> instance for each
+and returns it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of <code class="docutils literal"><span class="pre">ConfigParameter</span></code> instances.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.FloatAttribute.clamp">
+<code class="descname">clamp</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FloatAttribute.clamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FloatAttribute.clamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the minimum and maximum values desired from <code class="docutils literal"><span class="pre">config</span></code>, then ensures that the value is between them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – The value to be clamped.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The configuration object from which the minimum and maximum desired values are to be retrieved.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The value, if it is within the desired range, or the appropriate end of the range, if it is not.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.FloatAttribute.init_value">
+<code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FloatAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FloatAttribute.init_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the attribute’s value, (currently always) using a gaussian distribution with the configured mean and standard deviation followed by <a class="reference internal" href="#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamp</span></code></a> to
+keep the result within the desired range.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The configuration object from which the mean and standard deviation values are to be retrieved.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.FloatAttribute.mutate_value">
+<code class="descname">mutate_value</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FloatAttribute.mutate_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FloatAttribute.mutate_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>May replace (as if reinitializing, using <a class="reference internal" href="#attributes.FloatAttribute.init_value" title="attributes.FloatAttribute.init_value"><code class="xref any py py-meth docutils literal"><span class="pre">init_value</span></code></a>), mutate (using a 0-mean gaussian distribution with a configured standard deviation from
+<code class="docutils literal"><span class="pre">mutate_power</span></code>), or leave alone the input value, depending on the configuration settings (of <code class="docutils literal"><span class="pre">replace_rate</span></code> and <code class="docutils literal"><span class="pre">mutate_rate</span></code>).
+TODO: Why check vs <a class="reference external" href="https://docs.python.org/3.5/library/random.html#module-random" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random</span></code></a> if the <code class="docutils literal"><span class="pre">replace_rate</span></code> and <code class="docutils literal"><span class="pre">mutate_rate</span></code> are 0? Also note that the <code class="docutils literal"><span class="pre">replace_rate</span></code> is likely to be lower, so should
+be put second.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – The current value of the attribute.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The configuration object from which the parameters are to be extracted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Either the original value, if unchanged, or the new value.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="attributes.BoolAttribute">
 <em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">BoolAttribute</code><span class="sig-paren">(</span><em>BaseAttribute</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for boolean <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attributes</span></a> such as whether a <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> is <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> or not; includes code for configuration, creation, and mutation.</p>
+<dl class="method">
+<dt id="attributes.BoolAttribute.get_config_params">
+<code class="descname">get_config_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute.get_config_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute.get_config_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses <a class="reference internal" href="#attributes.BaseAttribute.config_item_names" title="attributes.BaseAttribute.config_item_names"><code class="xref any py py-meth docutils literal"><span class="pre">config_item_names</span></code></a> to get its list of configuration item names, then gets a <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">bool</span></code></a>-type or <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a>-type <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">config.ConfigParameter</span></code></a>
+instance for each and returns it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of <code class="docutils literal"><span class="pre">ConfigParameter</span></code> instances.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.BoolAttribute.init_value">
+<code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute.init_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the attribute’s value, either using a configured default or (if the default is <code class="docutils literal"><span class="pre">None</span></code>) with a 50/50 chance of <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The configuration object from which the default parameter is to be retrieved.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.BoolAttribute.mutate_value">
+<code class="descname">mutate_value</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute.mutate_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute.mutate_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> (which is more precisely a <code class="docutils literal"><span class="pre">replace_rate</span></code>) configuration parameter, replaces the value with a
+50/50 chance of <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>; note that this has a 50% chance of leaving the value unchanged. TODO: Have different chances possible of
+mutation in each direction. Also, do not check vs <a class="reference external" href="https://docs.python.org/3.5/library/random.html#module-random" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random</span></code></a> if the <code class="docutils literal"><span class="pre">mutate_rate</span></code> is 0.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – The current value of the attribute.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The configuration object from which the <code class="docutils literal"><span class="pre">mutate_rate</span></code> parameter is to be extracted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Either the original value, if unchanged, or the new value.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)">bool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -122,6 +341,53 @@ This would also allow moving get_config_params into the BaseAttribute class, alt
 <em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">StringAttribute</code><span class="sig-paren">(</span><em>BaseAttribute</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for string attributes such as the <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> of a <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a>, which are selected from a list of options;
 includes code for configuration, creation, and mutation.</p>
+<dl class="method">
+<dt id="attributes.StringAttribute.get_config_params">
+<code class="descname">get_config_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute.get_config_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute.get_config_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses <a class="reference internal" href="#attributes.BaseAttribute.config_item_names" title="attributes.BaseAttribute.config_item_names"><code class="xref any py py-meth docutils literal"><span class="pre">config_item_names</span></code></a> to get its list of configuration item names, then gets a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>-type, <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a>-type or <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a>-type <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">config.ConfigParameter</span></code></a>
+instance for each and returns it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of <code class="docutils literal"><span class="pre">ConfigParameter</span></code> instances.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.StringAttribute.init_value">
+<code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute.init_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the attribute’s value, either using a configured default or (if the default is either <code class="docutils literal"><span class="pre">None</span></code> or <code class="docutils literal"><span class="pre">random</span></code>) with a randomly-chosen member
+of the <code class="docutils literal"><span class="pre">options</span></code> (each having an equal chance). Note: It is possible for the default value, if specifically configured, to <strong>not</strong> be one of the options.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The configuration object from which the default and, if necessary, <code class="docutils literal"><span class="pre">options</span></code> parameters are to be retrieved.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="attributes.StringAttribute.mutate_value">
+<code class="descname">mutate_value</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute.mutate_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute.mutate_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> (which is more precisely a <code class="docutils literal"><span class="pre">replace_rate</span></code>) configuration parameter, replaces the value with an
+one of the <code class="docutils literal"><span class="pre">options</span></code>, with each having an equal chance; note that this can be the same value as before. (It is possible to crudely alter the chances
+of what is chosen by listing a given option more than once, although this is inefficient given the use of the <a class="reference external" href="https://docs.python.org/3.5/library/random.html#random.choice" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random.choice</span></code></a> function.) TODO: Add
+configurable probabilities of which option is used; eventually, as with the improved version of RBF-NEAT, separate genes for the likelihoods of each
+(but always doing some change, to prevent overly-conservative evolution due to its inherent short-sightedness), allowing the genomes to control
+the distribution of options, will be desirable.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div></blockquote>
@@ -132,9 +398,9 @@ includes code for configuration, creation, and mutation.</p>
 <div><dl class="class">
 <dt id="checkpoint.Checkpointer">
 <em class="property">class </em><code class="descclassname">checkpoint.</code><code class="descname">Checkpointer</code><span class="sig-paren">(</span><em>generation_interval=100</em>, <em>time_interval_seconds=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/checkpoint.html#Checkpointer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#checkpoint.Checkpointer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A reporter class that performs checkpointing using <a class="reference external" href="https://docs.python.org/3.5/library/pickle.html#module-pickle" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">pickle</span></code></a> to save and restore populations (and other aspects of the simulation state). It saves the
-current state every <code class="docutils literal"><span class="pre">generation_interval</span></code> generations or <code class="docutils literal"><span class="pre">time_interval_seconds</span></code> seconds, whichever happens first. Subclasses <a class="reference internal" href="#reporting.BaseReporter" title="reporting.BaseReporter"><code class="xref py py-class docutils literal"><span class="pre">reporting.BaseReporter</span></code></a>.
-(The potential save point is at the end of a generation.)</p>
+<dd><p>A reporter class that performs checkpointing using <a class="reference external" href="https://docs.python.org/3.5/library/pickle.html#module-pickle" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">pickle</span></code></a> to save and restore populations (and other aspects of the simulation state). It saves
+the current state every <code class="docutils literal"><span class="pre">generation_interval</span></code> generations or <code class="docutils literal"><span class="pre">time_interval_seconds</span></code> seconds, whichever happens first.
+Subclasses <a class="reference internal" href="#reporting.BaseReporter" title="reporting.BaseReporter"><code class="xref py py-class docutils literal"><span class="pre">reporting.BaseReporter</span></code></a>. (The potential save point is at the end of a generation.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -156,8 +422,8 @@ current state every <code class="docutils literal"><span class="pre">generation_
 <dl class="staticmethod">
 <dt id="checkpoint.Checkpointer.restore_checkpoint">
 <em class="property">static </em><code class="descname">restore_checkpoint</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/checkpoint.html#Checkpointer.restore_checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#checkpoint.Checkpointer.restore_checkpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resumes the simulation from a previous saved point. Loads the specified file, sets the randomization state, and returns a <a class="reference internal" href="#population.Population" title="population.Population"><code class="xref py py-class docutils literal"><span class="pre">population.Population</span></code></a> object
-set up with the rest of the previous state.</p>
+<dd><p>Resumes the simulation from a previous saved point. Loads the specified file, sets the randomization state, and returns
+a <a class="reference internal" href="#population.Population" title="population.Population"><code class="xref py py-class docutils literal"><span class="pre">population.Population</span></code></a> object set up with the rest of the previous state.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -175,7 +441,7 @@ set up with the rest of the previous state.</p>
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-config"></span></div>
+<span class="target" id="module-config"><span id="index-2"></span></span></div>
 <div class="section" id="config">
 <h2>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -215,8 +481,8 @@ set up with the rest of the previous state.</p>
 <dt id="config.ConfigParameter.parse">
 <code class="descname">parse</code><span class="sig-paren">(</span><em>section</em>, <em>config_parser</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the supplied configuration parser (either from the <a class="reference external" href="https://docs.python.org/3.5/library/configparser.html#configparser.ConfigParser" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">configparser.ConfigParser</span></code></a> class, or - for 2.7 - the
-<a class="reference external" href="https://docs.python.org/2.7/library/configparser.html#ConfigParser.SafeConfigParser">ConfigParser.SafeConfigParser class</a>) to gather the configuration parameter from
-the appropriate configuration file <a class="reference internal" href="config_file.html#configuration-file-sections-label"><span class="std std-ref">section</span></a>. Parsing varies depending on the type.</p>
+<a class="reference external" href="https://docs.python.org/2.7/library/configparser.html#ConfigParser.SafeConfigParser">ConfigParser.SafeConfigParser class</a>) to gather the
+configuration parameter from the appropriate configuration file <a class="reference internal" href="config_file.html#configuration-file-sections-label"><span class="std std-ref">section</span></a>. Parsing varies depending on the type.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -240,8 +506,8 @@ the appropriate configuration file <a class="reference internal" href="config_fi
 <dl class="method">
 <dt id="config.ConfigParameter.interpret">
 <code class="descname">interpret</code><span class="sig-paren">(</span><em>config_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter.interpret"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter.interpret" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> of configuration parameters, as output by the configuration parser called in <a class="reference internal" href="#config.ConfigParameter.parse" title="config.ConfigParameter.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a>, and interprets them into the proper type,
-with some error-checking.</p>
+<dd><p>Takes a <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> of configuration parameters, as output by the configuration parser called in <a class="reference internal" href="#config.ConfigParameter.parse" title="config.ConfigParameter.parse"><code class="xref py py-meth docutils literal"><span class="pre">parse()</span></code></a>, and interprets them into the
+proper type, with some error-checking.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -259,7 +525,8 @@ with some error-checking.</p>
 <dl class="method">
 <dt id="config.ConfigParameter.format">
 <code class="descname">format</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter.format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter.format" title="Permalink to this definition">¶</a></dt>
-<dd><p>Depending on the type of configuration parameter, returns either a space-separated list version, for <code class="docutils literal"><span class="pre">list</span></code>  parameters, or the stringified version (using <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>), of <code class="docutils literal"><span class="pre">value</span></code>.</p>
+<dd><p>Depending on the type of configuration parameter, returns either a space-separated list version, for <code class="docutils literal"><span class="pre">list</span></code>  parameters, or the stringified version
+(using <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>), of <code class="docutils literal"><span class="pre">value</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -294,9 +561,9 @@ with some error-checking.</p>
 <dl class="class">
 <dt id="config.Config">
 <em class="property">class </em><code class="descclassname">config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>genome_type</em>, <em>reproduction_type</em>, <em>species_set_type</em>, <em>stagnation_type</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>A simple container for user-configurable parameters of NEAT. The four parameters ending in <code class="docutils literal"><span class="pre">_type</span></code> may be the built-in ones or user-provided objects, which
-must make available the methods <code class="docutils literal"><span class="pre">parse_config</span></code> and <code class="docutils literal"><span class="pre">write_config</span></code>, plus others depending on which object it is. (For more information on the objects,
-see below and <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">Customizing Behavior</span></a>.) <code class="docutils literal"><span class="pre">Config</span></code> itself takes care of the <code class="docutils literal"><span class="pre">NEAT</span></code> parameters. For a description of the configuration file,
+<dd><p>A simple container for user-configurable parameters of NEAT. The four parameters ending in <code class="docutils literal"><span class="pre">_type</span></code> may be the built-in ones or user-provided objects,
+which must make available the methods <code class="docutils literal"><span class="pre">parse_config</span></code> and <code class="docutils literal"><span class="pre">write_config</span></code>, plus others depending on which object it is. (For more information on the
+objects, see below and <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">Customizing Behavior</span></a>.) <code class="docutils literal"><span class="pre">Config</span></code> itself takes care of the <code class="docutils literal"><span class="pre">NEAT</span></code> parameters. For a description of the configuration file,
 see <a class="reference internal" href="config_file.html#configuration-file-description-label"><span class="std std-ref">Configuration file description</span></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -335,7 +602,7 @@ the <code class="docutils literal"><span class="pre">NEAT</span></code> paramete
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">Give more information about parameters for ctrnn.</p>
 </div>
@@ -394,17 +661,20 @@ constant at the given values during the simulated time.</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-3">
+<div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
 <p class="last">Put in the rest of the methods for BaseGene.</p>
 </div>
-<span class="target" id="index-4"></span><span class="target" id="module-genes"><span id="index-5"></span></span></div>
+<span class="target" id="index-5"></span><span class="target" id="index-6"></span><span class="target" id="module-genes"><span id="index-7"></span></span></div>
 <div class="section" id="genes">
 <h2>genes<a class="headerlink" href="#genes" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><img src="_images/inheritance-c1afcb2ab289a04c41e6482dd7551f028e78e27e.png" alt="Inheritance diagram of neat.genes, iznn.IZNodeGene" usemap="#inheritance809ea1a5aa" class="inheritance"/>
-<map id="inheritance809ea1a5aa" name="inheritance809ea1a5aa">
-<area shape="rect" id="node1" href="#iznn.IZNodeGene" target="_top" title="iznn.IZNodeGene" alt="" coords="261,5,388,31"/>
+<div><img src="_images/inheritance-4b8fddce96ddd906f32d8bc82707ac5d4cabb77c.png" alt="Inheritance diagram of genes, iznn.IZNodeGene" usemap="#inheritance97999d540d" class="inheritance"/>
+<map id="inheritance97999d540d" name="inheritance97999d540d">
+<area shape="rect" id="node1" href="#genes.BaseGene" target="_top" title="genes.BaseGene" alt="" coords="20,80,145,105"/>
+<area shape="rect" id="node2" href="#genes.DefaultConnectionGene" target="_top" title="genes.DefaultConnectionGene" alt="" coords="208,55,412,80"/>
+<area shape="rect" id="node3" href="#genes.DefaultNodeGene" target="_top" title="genes.DefaultNodeGene" alt="" coords="225,104,395,129"/>
+<area shape="rect" id="node4" href="#iznn.IZNodeGene" target="_top" title="iznn.IZNodeGene" alt="" coords="247,5,373,31"/>
 </map>
 <dl class="class">
 <dt id="genes.BaseGene">
@@ -427,7 +697,8 @@ constant at the given values during the simulated time.</p>
 <dl class="classmethod">
 <dt id="genes.BaseGene.get_config_params">
 <em class="property">classmethod </em><code class="descname">get_config_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/genes.html#BaseGene.get_config_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genes.BaseGene.get_config_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fetches configuration parameters from gene attributes. Used by <a class="reference internal" href="#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenomeConfig</span></code></a> to include gene parameters in its configuration parameters.</p>
+<dd><p>Fetches configuration parameters from gene attributes. Used by <a class="reference internal" href="#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenomeConfig</span></code></a> to include gene parameters in its
+configuration parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -507,18 +778,20 @@ the final result is multiplied by the configured <a class="reference internal" h
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-6">
+<div class="admonition-todo admonition" id="index-8">
 <p class="first admonition-title">Todo</p>
-<p class="last">Explain more regarding parameters of the below.</p>
+<p class="last">Explain more regarding parameters of the below; add all methods!</p>
 </div>
-<span class="target" id="module-genome"></span></div>
+<span class="target" id="index-9"></span><span class="target" id="index-10"></span><span class="target" id="index-11"></span><span class="target" id="module-genome"><span id="index-12"></span></span></div>
 <div class="section" id="genome">
 <h2>genome<a class="headerlink" href="#genome" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><img src="_images/inheritance-e1dd4bed5319b7cf2f0e4356965dc419b18661f9.png" alt="Inheritance diagram of neat.genome, iznn.IZGenome" usemap="#inheritance1b956aca4d" class="inheritance"/>
-<map id="inheritance1b956aca4d" name="inheritance1b956aca4d">
-<area shape="rect" id="node1" href="#iznn.IZGenome" target="_top" title="iznn.IZGenome" alt="" coords="289,55,403,80"/>
-<area shape="rect" id="node2" title="A genome for generalized neural networks." alt="" coords="25,55,222,80"/>
+<div><img src="_images/inheritance-2920806da65ee8b31537227a08c0686d925d43b8.png" alt="Inheritance diagram of genome, iznn.IZGenome" usemap="#inheritance43203ba1fd" class="inheritance"/>
+<map id="inheritance43203ba1fd" name="inheritance43203ba1fd">
+<area shape="rect" id="node1" href="#genome.DefaultGenome" target="_top" title="A genome for generalized neural networks." alt="" coords="25,104,191,129"/>
+<area shape="rect" id="node2" href="#genome.DefaultGenomeConfig" target="_top" title="genome.DefaultGenomeConfig" alt="" coords="5,55,211,80"/>
+<area shape="rect" id="node3" href="#iznn.IZGenome" target="_top" title="iznn.IZGenome" alt="" coords="259,5,372,31"/>
+<area shape="rect" id="node4" title="A genome for generalized neural networks." alt="" coords="9,5,207,31"/>
 </map>
 <dl class="function">
 <dt id="genome.product">
@@ -540,7 +813,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 <dd><p>Does the configuration for the DefaultGenome class. Has the <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> <code class="docutils literal"><span class="pre">aggregation_function_defs</span></code>, which defines the available
 <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation functions</span></a>, and the <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a> <code class="docutils literal"><span class="pre">allowed_connectivity</span></code>, which defines the available values for
 <a class="reference internal" href="config_file.html#initial-connection-config-label"><span class="std std-ref">initial_connection</span></a>. Includes parameters taken from the configured gene classes, such as <a class="reference internal" href="#genes.DefaultNodeGene" title="genes.DefaultNodeGene"><code class="xref py py-class docutils literal"><span class="pre">genes.DefaultNodeGene</span></code></a>,
-<a class="reference internal" href="#genes.DefaultConnectionGene" title="genes.DefaultConnectionGene"><code class="xref py py-class docutils literal"><span class="pre">genes.DefaultConnectionGene</span></code></a>, and <a class="reference internal" href="#iznn.IZNodeGene" title="iznn.IZNodeGene"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZNodeGene</span></code></a>.</p>
+<a class="reference internal" href="#genes.DefaultConnectionGene" title="genes.DefaultConnectionGene"><code class="xref py py-class docutils literal"><span class="pre">genes.DefaultConnectionGene</span></code></a>, or <a class="reference internal" href="#iznn.IZNodeGene" title="iznn.IZNodeGene"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZNodeGene</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -552,7 +825,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 <dl class="method">
 <dt id="genome.DefaultGenomeConfig.add_activation">
 <code class="descname">add_activation</code><span class="sig-paren">(</span><em>name</em>, <em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenomeConfig.add_activation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenomeConfig.add_activation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a>, as described in <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">Customizing Behavior</span></a>. Uses <a class="reference internal" href="#activations.ActivationFunctionSet" title="activations.ActivationFunctionSet"><code class="xref py py-class docutils literal"><span class="pre">ActivationFunctionSet</span></code></a>.</p>
+<dd><p>Adds a new <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a>, as described in <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">Customizing Behavior</span></a>. Uses <a class="reference internal" href="#activations.ActivationFunctionSet.add" title="activations.ActivationFunctionSet.add"><code class="xref py py-meth docutils literal"><span class="pre">ActivationFunctionSet.add</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -570,7 +843,8 @@ the final result is multiplied by the configured <a class="reference internal" h
 <dl class="method">
 <dt id="genome.DefaultGenomeConfig.save">
 <code class="descname">save</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenomeConfig.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenomeConfig.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the <a class="reference internal" href="config_file.html#initial-connection-config-label"><span class="std std-ref">initial_connection</span></a> configuration and uses <a class="reference internal" href="#config.write_pretty_params" title="config.write_pretty_params"><code class="xref py py-func docutils literal"><span class="pre">config.write_pretty_params()</span></code></a> to write out the other parameters.</p>
+<dd><p>Saves the <a class="reference internal" href="config_file.html#initial-connection-config-label"><span class="std std-ref">initial_connection</span></a> configuration and uses <a class="reference internal" href="#config.write_pretty_params" title="config.write_pretty_params"><code class="xref py py-func docutils literal"><span class="pre">config.write_pretty_params()</span></code></a> to write out the
+other parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -598,7 +872,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 <dl class="classmethod">
 <dt id="genome.DefaultGenome.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Provides default node and connection gene specifications (from <a class="reference internal" href="#module-genes" title="genes: Handles node and connection genes."><code class="xref py py-mod docutils literal"><span class="pre">genes</span></code></a>) and uses <a class="reference internal" href="#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenomeConfig</span></code></a> to
+<dd><p>Required interface method. Provides default <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> and <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> specifications (from <a class="reference internal" href="#module-genes" title="genes: Handles node and connection genes."><code class="xref py py-mod docutils literal"><span class="pre">genes</span></code></a>) and uses <a class="reference internal" href="#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenomeConfig</span></code></a> to
 do the rest of the configuration.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -653,12 +927,12 @@ do the rest of the configuration.</p>
 <dl class="method">
 <dt id="genome.DefaultGenome.distance">
 <code class="descname">distance</code><span class="sig-paren">(</span><em>other</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Returns the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> between this genome and the other. This <span class="target" id="index-7"></span>distance
+<dd><p>Required interface method. Returns the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> between this genome and the other. This <span class="target" id="index-13"></span>distance
 value is used to compute genome compatibility for <a class="reference internal" href="#module-species" title="species: Divides the population into genome-based species."><code class="xref py py-mod docutils literal"><span class="pre">speciation</span></code></a>. Uses the
 <a class="reference internal" href="#genes.DefaultNodeGene.distance" title="genes.DefaultNodeGene.distance"><code class="xref py py-meth docutils literal"><span class="pre">genes.DefaultNodeGene.distance()</span></code></a> and <a class="reference internal" href="#genes.DefaultConnectionGene.distance" title="genes.DefaultConnectionGene.distance"><code class="xref py py-meth docutils literal"><span class="pre">genes.DefaultConnectionGene.distance()</span></code></a> methods for
 <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> pairs, and the configured <a class="reference internal" href="config_file.html#compatibility-disjoint-coefficient-label"><span class="std std-ref">compatibility_disjoint_coefficient</span></a> for disjoint/excess genes.
-(Note that this is one of the most time-consuming portions of the library; optimization - such as using <a class="reference external" href="http://cython.org">cython</a> may be needed if using an
-using an unusually fast fitness function and/or an unusually large population.)</p>
+(Note that this is one of the most time-consuming portions of the library; optimization - such as using <a class="reference external" href="http://cython.org">cython</a> may be
+needed if using an using an unusually fast fitness function and/or an unusually large population.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -689,16 +963,16 @@ for reporters - they are given this information for the highest-fitness genome a
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-graphs"></span></div>
+<span class="target" id="index-14"></span><span class="target" id="index-15"></span><span class="target" id="index-16"></span><span class="target" id="module-graphs"><span id="index-17"></span></span></div>
 <div class="section" id="graphs">
 <h2>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><dl class="function">
 <dt id="graphs.creates_cycle">
 <code class="descclassname">graphs.</code><code class="descname">creates_cycle</code><span class="sig-paren">(</span><em>connections</em>, <em>test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphs.html#creates_cycle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#graphs.creates_cycle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if the addition of the <code class="docutils literal"><span class="pre">test</span></code> <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> would create a cycle, assuming that no cycle already exists in the graph represented by <code class="docutils literal"><span class="pre">connections</span></code>.
-Used to avoid <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> networks when a purely <a class="reference internal" href="glossary.html#term-feed-forward"><span class="xref std std-term">feed-forward</span></a> network is desired (e.g., as determined by the <code class="docutils literal"><span class="pre">feed_forward</span></code> setting in the
-<a class="reference internal" href="config_file.html#feed-forward-config-label"><span class="std std-ref">configuration file</span></a>.</p>
+<dd><p>Returns true if the addition of the <code class="docutils literal"><span class="pre">test</span></code> <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> would create a cycle, assuming that no cycle already exists in the graph represented
+by <code class="docutils literal"><span class="pre">connections</span></code>. Used to avoid <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> networks when a purely <a class="reference internal" href="glossary.html#term-feed-forward"><span class="xref std std-term">feed-forward</span></a> network is desired (e.g., as determined by the
+<code class="docutils literal"><span class="pre">feed_forward</span></code> setting in the <a class="reference internal" href="config_file.html#feed-forward-config-label"><span class="std std-ref">configuration file</span></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -777,7 +1051,7 @@ Used to avoid <a class="reference internal" href="glossary.html#term-recurrent">
 <div><dl class="class">
 <dt id="indexer.Indexer">
 <em class="property">class </em><code class="descclassname">indexer.</code><code class="descname">Indexer</code><span class="sig-paren">(</span><em>first</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/indexer.html#Indexer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#indexer.Indexer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes an Indexer instance with the internal ID counter set to <code class="docutils literal"><span class="pre">first</span></code>.</p>
+<dd><p>Initializes an Indexer instance with the internal ID counter set to <code class="docutils literal"><span class="pre">first</span></code>. This class functions to help with creating new (unique) identifiers/keys.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1146,11 +1420,11 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-8">
+<div class="admonition-todo admonition" id="index-18">
 <p class="first admonition-title">Todo</p>
 <p class="last">Put in more about calls to rest of program?</p>
 </div>
-<span class="target" id="module-population"><span id="index-9"></span></span></div>
+<span class="target" id="index-19"></span><span class="target" id="index-20"></span><span class="target" id="index-21"></span><span class="target" id="module-population"><span id="index-22"></span></span></div>
 <div class="section" id="population">
 <h2>population<a class="headerlink" href="#population" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -1219,15 +1493,18 @@ or the configuration object.</p>
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-reporting"></span></div>
+<span class="target" id="index-23"></span><span class="target" id="module-reporting"><span id="index-24"></span></span></div>
 <div class="section" id="reporting">
 <h2>reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><img src="_images/inheritance-a2651cd17b4ef290701c18fea77cf913bc001577.png" alt="Inheritance diagram of neat.reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancefbf9afab76" class="inheritance"/>
-<map id="inheritancefbf9afab76" name="inheritancefbf9afab76">
-<area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="checkpoint.Checkpointer" alt="" coords="261,5,429,31"/>
-<area shape="rect" id="node2" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="5,55,196,80"/>
-<area shape="rect" id="node5" href="#statistics.StatisticsReporter" target="_top" title="statistics.StatisticsReporter" alt="" coords="253,104,436,129"/>
+<div><img src="_images/inheritance-44ffed604a24d12c1593ac3178c4c2ccfac0dfe9.png" alt="Inheritance diagram of reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancef978902bcc" class="inheritance"/>
+<map id="inheritancef978902bcc" name="inheritancef978902bcc">
+<area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="checkpoint.Checkpointer" alt="" coords="251,104,419,129"/>
+<area shape="rect" id="node2" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="5,129,196,155"/>
+<area shape="rect" id="node6" href="#statistics.StatisticsReporter" target="_top" title="statistics.StatisticsReporter" alt="" coords="244,153,427,179"/>
+<area shape="rect" id="node3" href="#reporting.BaseReporter" target="_top" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="21,55,181,80"/>
+<area shape="rect" id="node5" href="#reporting.StdOutReporter" target="_top" title="reporting.StdOutReporter" alt="" coords="249,55,421,80"/>
+<area shape="rect" id="node4" href="#reporting.ReporterSet" target="_top" title="reporting.ReporterSet" alt="" coords="25,5,176,31"/>
 </map>
 <dl class="class">
 <dt id="reporting.ReporterSet">
@@ -1238,7 +1515,8 @@ or the configuration object.</p>
 <dl class="class">
 <dt id="reporting.BaseReporter">
 <em class="property">class </em><code class="descclassname">reporting.</code><code class="descname">BaseReporter</code><a class="reference internal" href="_modules/reporting.html#BaseReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Definition of the reporter interface expected by ReporterSet. Inheriting from it will provide a set of <code class="docutils literal"><span class="pre">dummy</span></code> methods to be overridden as desired, as follows.</p>
+<dd><p>Definition of the reporter interface expected by ReporterSet. Inheriting from it will provide a set of <code class="docutils literal"><span class="pre">dummy</span></code> methods to be overridden as desired,
+as follows:</p>
 <dl class="method">
 <dt id="reporting.BaseReporter.start_generation">
 <code class="descname">start_generation</code><span class="sig-paren">(</span><em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.start_generation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.start_generation" title="Permalink to this definition">¶</a></dt>
@@ -1311,7 +1589,7 @@ a new population being created or a <a class="reference internal" href="#populat
 <dt id="reporting.BaseReporter.found_solution">
 <code class="descname">found_solution</code><span class="sig-paren">(</span><em>config</em>, <em>generation</em>, <em>best</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.found_solution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.found_solution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called (by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>) prior to exiting if the configured <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> is met.
-(Note: Not called upon reaching the generation maximum and exiting for this reason.)</p>
+(Note: Not called upon reaching the generation maximum - set when calling <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a> - and exiting for this reason.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1377,7 +1655,7 @@ a new population being created or a <a class="reference internal" href="#populat
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-reproduction"><span id="index-10"></span></span></div>
+<span class="target" id="module-reproduction"><span id="index-25"></span></span></div>
 <div class="section" id="reproduction">
 <h2>reproduction<a class="headerlink" href="#reproduction" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -1393,7 +1671,7 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Configuration object, in this implementation a dictionary.</li>
 <li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> object.</li>
-<li><strong>stagnation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> object - current code partially depends on internals of this class (a TODO is noted to correct this)</li>
+<li><strong>stagnation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> object - the current code partially depends on internals of this class (a TODO is noted to correct this)</li>
 </ul>
 </td>
 </tr>
@@ -1402,7 +1680,7 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <dl class="classmethod">
 <dt id="reproduction.DefaultReproduction.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Provides defaults for <code class="docutils literal"><span class="pre">elitism</span></code>, <code class="docutils literal"><span class="pre">survival_threshold</span></code>, and <code class="docutils literal"><span class="pre">min_species_size</span></code> parameters and updates them from the
+<dd><p>Required interface method. Provides defaults for <span class="target" id="index-26"></span>elitism, <span class="target" id="index-27"></span>survival_threshold, and <span class="target" id="index-28"></span>min_species_size parameters and updates them from the
 <a class="reference internal" href="config_file.html#reproduction-config-label"><span class="std std-ref">configuration file</span></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1439,7 +1717,8 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <dl class="method">
 <dt id="reproduction.DefaultReproduction.create_new">
 <code class="descname">create_new</code><span class="sig-paren">(</span><em>genome_type</em>, <em>genome_config</em>, <em>num_genomes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.create_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.create_new" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Creates <code class="docutils literal"><span class="pre">num_genomes</span></code> new genomes of the given type using the given configuration. Also initializes ancestry information (empty tuple).</p>
+<dd><p>Required interface method. Creates <code class="docutils literal"><span class="pre">num_genomes</span></code> new genomes of the given type using the given configuration. Also initializes ancestry
+information (as an empty tuple).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1464,7 +1743,8 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <dl class="staticmethod">
 <dt id="reproduction.DefaultReproduction.compute_spawn">
 <em class="property">static </em><code class="descname">compute_spawn</code><span class="sig-paren">(</span><em>adjusted_fitness</em>, <em>previous_sizes</em>, <em>pop_size</em>, <em>min_species_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.compute_spawn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.compute_spawn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apportions desired number of members per species according to fitness (adjusted by <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduce()</span></code></a> to a 0-1 scale) from out of the desired population size.</p>
+<dd><p>Apportions desired number of members per species according to fitness (adjusted by <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduce()</span></code></a> to a 0-1 scale) from out of the
+desired population size.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1484,11 +1764,12 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <dl class="method">
 <dt id="reproduction.DefaultReproduction.reproduce">
 <code class="descname">reproduce</code><span class="sig-paren">(</span><em>config</em>, <em>species</em>, <em>pop_size</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.reproduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.reproduce" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Creates the population to be used in the next generation from the given configuration instance, SpeciesSet instance, desired size of the
-population, and current generation number.  This method is called after all genomes have been evaluated and their <code class="docutils literal"><span class="pre">fitness</span></code> member assigned.  This method
-should use the stagnation instance given to the initializer to remove species deemed to have stagnated. Note: Determines relative fitnesses by transforming into
-(ideally) a 0-1 scale; however, if the top and bottom fitnesses are not at least 1 apart, the range may be less than 0-1, as a check against dividing by a too-small
-number. TODO: Make minimum difference configurable (defaulting to 1 to preserve compatibility).</p>
+<dd><p>Required interface method. Creates the population to be used in the next generation from the given configuration instance, SpeciesSet instance,
+desired <span class="target" id="index-29"></span>size of the population, and current generation number.  This method is called after all genomes have been evaluated and their <code class="docutils literal"><span class="pre">fitness</span></code>
+member assigned.  This method should use the stagnation instance given to the initializer to remove species deemed to have stagnated.
+Note: Determines relative fitnesses by transforming into (ideally) a 0-1 scale; however, if the top and bottom fitnesses are not at least 1 apart, the
+range may be less than 0-1, as a check against dividing by a too-small number. TODO: Make minimum difference configurable (defaulting to 1 to
+preserve compatibility).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1496,7 +1777,7 @@ number. TODO: Make minimum difference configurable (defaulting to 1 to preserve 
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> instance.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> instance. As well as depending on some of the <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> internals, this method also depends on some of those of the <code class="docutils literal"><span class="pre">DefaultSpeciesSet</span></code> and its referenced species objects.</li>
-<li><strong>pop_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Population size desired.</li>
+<li><strong>pop_size</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Population size desired, such as set in the <a class="reference internal" href="config_file.html#pop-size-label"><span class="std std-ref">configuration file</span></a>.</li>
 <li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Generation count.</li>
 </ul>
 </td>
@@ -1514,11 +1795,11 @@ number. TODO: Make minimum difference configurable (defaulting to 1 to preserve 
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-11">
+<div class="admonition-todo admonition" id="index-30">
 <p class="first admonition-title">Todo</p>
-<p class="last">Better documentation for the <code class="docutils literal"><span class="pre">kw</span></code> parameter in the below. Internally, these are using <code class="docutils literal"><span class="pre">**kw</span></code> as a <strong>parameter</strong> for keys/items/values/iterkeys/iteritems/itervalues!
-Is this in case someone puts in a set of key/value pairs instead of a dictionary? The <a class="reference external" href="https://pythonhosted.org/six/">six documentation</a> just states that this parameter is
-“passed to the underlying method”, which is not helpful.</p>
+<p class="last">Better documentation for the <code class="docutils literal"><span class="pre">kw</span></code> parameter in the below. Internally, these are using <code class="docutils literal"><span class="pre">**kw</span></code> as a <strong>parameter</strong> for
+keys/items/values/iterkeys/iteritems/itervalues! Is this in case someone puts in a set of key/value pairs instead of a dictionary?
+The <a class="reference external" href="https://pythonhosted.org/six/">six documentation</a> just states that this parameter is “passed to the underlying method”, which is not helpful.</p>
 </div>
 <span class="target" id="module-six_util"></span></div>
 <div class="section" id="six-util">
@@ -1580,7 +1861,7 @@ Is this in case someone puts in a set of key/value pairs instead of a dictionary
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-species"><span id="index-12"></span></span></div>
+<span class="target" id="index-31"></span><span class="target" id="module-species"><span id="index-32"></span></span></div>
 <div class="section" id="species">
 <h2>species<a class="headerlink" href="#species" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -1606,9 +1887,9 @@ Note: <a class="reference internal" href="#stagnation.DefaultStagnation" title="
 <dl class="class">
 <dt id="species.GenomeDistanceCache">
 <em class="property">class </em><code class="descclassname">species.</code><code class="descname">GenomeDistanceCache</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#GenomeDistanceCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.GenomeDistanceCache" title="Permalink to this definition">¶</a></dt>
-<dd><p>Caches <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> information to avoid repeated lookups (the <a class="reference internal" href="#genome.DefaultGenome.distance" title="genome.DefaultGenome.distance"><code class="xref py py-meth docutils literal"><span class="pre">distance</span> <span class="pre">function</span></code></a> is among the most
-time-consuming parts of the library, although most fitness functions are likely to far outweigh this for moderate-size populations). Called as a method with a pair of
-genomes to retrieve the distance.</p>
+<dd><p>Caches <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> information to avoid repeated lookups (the <a class="reference internal" href="#genome.DefaultGenome.distance" title="genome.DefaultGenome.distance"><code class="xref py py-meth docutils literal"><span class="pre">distance</span> <span class="pre">function</span></code></a> is
+among the most time-consuming parts of the library, although many fitness functions are likely to far outweigh this for moderate-size populations).
+Called as a method with a pair of genomes to retrieve the distance.</p>
 </dd></dl>
 
 <dl class="class">
@@ -1667,10 +1948,9 @@ genomes to retrieve the distance.</p>
 <dl class="method">
 <dt id="species.DefaultSpeciesSet.speciate">
 <code class="descname">speciate</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet.speciate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet.speciate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Place genomes into species by genetic similarity (<a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>). (The current code has a <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-docstring" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">docstring</span></code></a> stating that there may
-be a problem if all old species representatives are not dropped for each generation; it is not clear how this is consistent with the code
-in <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduction.DefaultReproduction.reproduce()</span></code></a>, such as for <code class="docutils literal"><span class="pre">elitism</span></code>. Also note that this is one of the most time-consuming portions of the library;
-optimization - such as using <a class="reference external" href="http://cython.org">cython</a> may be needed if using an using an unusually fast fitness function and/or an unusually large population.)</p>
+<dd><p>Required interface method. Place genomes into species by genetic similarity (<a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>). (The current code has a <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-docstring" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">docstring</span></code></a> stating
+that there may be a problem if all old species representatives are not dropped for each generation; it is not clear how this is consistent with the code
+in <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduction.DefaultReproduction.reproduce()</span></code></a>, such as for <code class="docutils literal"><span class="pre">elitism</span></code>.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1725,9 +2005,15 @@ optimization - such as using <a class="reference external" href="http://cython.o
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-13">
+<div class="admonition-todo admonition" id="index-33">
 <p class="first admonition-title">Todo</p>
 <p class="last">Add more methods to the below for DefaultStagnation; try to figure out which ones are required interface methods; links re config file.</p>
+</div>
+<span class="target" id="index-34"></span><span class="target" id="index-35"></span><div class="admonition note" id="index-36">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: Currently, depending on the settings for <a class="reference internal" href="config_file.html#species-fitness-func-label"><span class="std std-ref">species_fitness_func</span></a> and
+<a class="reference internal" href="config_file.html#fitness-criterion-label"><span class="std std-ref">fitness_criterion</span></a>, it is possible for a species with members <strong>above</strong> the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness_threshold</span></a>
+level of fitness to be considered “stagnant” (including, in particular, because they are at the limit of fitness improvement).</p>
 </div>
 <span class="target" id="module-stagnation"></span></div>
 <div class="section" id="stagnation">
@@ -1752,8 +2038,8 @@ optimization - such as using <a class="reference external" href="http://cython.o
 <dl class="classmethod">
 <dt id="stagnation.DefaultStagnation.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Provides defaults for <code class="docutils literal"><span class="pre">species_fitness_func</span></code>, <code class="docutils literal"><span class="pre">max_stagnation</span></code>, and <code class="docutils literal"><span class="pre">species_elitism</span></code> parameters and updates them from the
-configuration file.</p>
+<dd><p>Required interface method. Provides defaults for <code class="docutils literal"><span class="pre">species_fitness_func</span></code>, <code class="docutils literal"><span class="pre">max_stagnation</span></code>, and <code class="docutils literal"><span class="pre">species_elitism</span></code> parameters and updates them
+from the configuration file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1771,7 +2057,8 @@ configuration file.</p>
 <dl class="classmethod">
 <dt id="stagnation.DefaultStagnation.write_config">
 <em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.write_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Saves parameters to new config file. <strong>Has a default of 15 for species_elitism, but will be overridden by the default of 0 in parse_config.</strong></p>
+<dd><p>Required interface method. Saves parameters to new config file. <strong>Has a default of 15 for species_elitism, but will be overridden by the default of
+0 in parse_config.</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1796,13 +2083,14 @@ configuration file.</p>
 <p class="first admonition-title">Note</p>
 <blockquote>
 <div>There are two design decisions to be aware of:
-* The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module, and it is assumed that fitnesses (as given by the <span class="target" id="index-14"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting).
+* The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module (if they were, it would far worsen existing potential memory problems - see below), and it is assumed that fitnesses (as given by the <span class="target" id="index-37"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting). Code violating this assumption (e.g., with competitive coevolution) will need to use different statistical gathering methods.
 * Generally reports or records a per-generation list of values; the numeric position in the list may not correspond to the generation number if there has been a restart, such as via the <a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses `pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpoint</span></code></a> module.
 There is also a TODO item: Currently keeps accumulating information in memory, which may be a problem in long runs.</div></blockquote>
 <dl class="last class">
 <dt id="statistics.StatisticsReporter">
 <em class="property">class </em><code class="descclassname">statistics.</code><code class="descname">StatisticsReporter</code><span class="sig-paren">(</span><em>BaseReporter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gathers (via the reporting interface) and provides (to callers and/or to a file) the most-fit genomes and information on genome and species fitness and species sizes.</p>
+<dd><p>Gathers (via the reporting interface) and provides (to callers and/or to a file) the most-fit genomes and information on genome and species fitness
+and species sizes.</p>
 <dl class="method">
 <dt id="statistics.StatisticsReporter.post_evaluate">
 <code class="descname">post_evaluate</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em>, <em>best_genome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.post_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.post_evaluate" title="Permalink to this definition">¶</a></dt>
@@ -1864,7 +2152,8 @@ Information gathered includes a copy of the best genome in each generation and t
 <dl class="method">
 <dt id="statistics.StatisticsReporter.best_unique_genomes">
 <code class="descname">best_unique_genomes</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.best_unique_genomes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.best_unique_genomes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes, with no duplication (due to the most-fit genome passing unaltered to the next generation), sorted in decreasing fitness order.</p>
+<dd><p>Returns the <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes, with no duplication (from the most-fit genome passing unaltered to the next generation), sorted in decreasing
+fitness order.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1916,8 +2205,8 @@ Information gathered includes a copy of the best genome in each generation and t
 <dl class="method">
 <dt id="statistics.StatisticsReporter.get_species_sizes">
 <code class="descname">get_species_sizes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_species_sizes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_species_sizes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a by-generation list of lists of species sizes. Note that some values may be 0, if a species has either not yet been seen or has been removed due
-to <a class="reference internal" href="#module-stagnation" title="stagnation: Keeps track of whether species are making progress and removes ones that are not (for a configurable number of generations)."><code class="xref py py-mod docutils literal"><span class="pre">stagnation</span></code></a>; species without generational overlap may be more similar in <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> than the configured
+<dd><p>Returns a by-generation list of lists of species sizes. Note that some values may be 0, if a species has either not yet been seen or has been
+removed due to <a class="reference internal" href="#module-stagnation" title="stagnation: Keeps track of whether species are making progress and removes ones that are not (for a configurable number of generations)."><code class="xref py py-mod docutils literal"><span class="pre">stagnation</span></code></a>; species without generational overlap may be more similar in <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> than the configured
 <a class="reference internal" href="config_file.html#compatibility-threshold-label"><span class="std std-ref">compatibility_threshold</span></a> would otherwise allow.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1934,9 +2223,9 @@ to <a class="reference internal" href="#module-stagnation" title="stagnation: Ke
 <dl class="method">
 <dt id="statistics.StatisticsReporter.get_species_fitness">
 <code class="descname">get_species_fitness</code><span class="sig-paren">(</span><em>null_value=”</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_species_fitness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_species_fitness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a by-generation list of lists of species fitnesses; the fitness of a species is determined by the <code class="docutils literal"><span class="pre">mean</span></code> fitness of the genomes in the species, as with
-the reproduction distribution by <a class="reference internal" href="#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref py py-class docutils literal"><span class="pre">reproduction.DefaultReproduction</span></code></a>. The <code class="docutils literal"><span class="pre">null_value</span></code> parameter is used for species not present in a particular
-generation (see <a class="reference internal" href="#statistics.StatisticsReporter.get_species_sizes" title="statistics.StatisticsReporter.get_species_sizes"><code class="xref py py-meth docutils literal"><span class="pre">above</span></code></a>).</p>
+<dd><p>Returns a by-generation list of lists of species fitnesses; the fitness of a species is determined by the <code class="docutils literal"><span class="pre">mean</span></code> fitness of the genomes in the species,
+as with the reproduction distribution by <a class="reference internal" href="#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref py py-class docutils literal"><span class="pre">reproduction.DefaultReproduction</span></code></a>. The <code class="docutils literal"><span class="pre">null_value</span></code> parameter is used for species not present in a
+particular generation (see <a class="reference internal" href="#statistics.StatisticsReporter.get_species_sizes" title="statistics.StatisticsReporter.get_species_sizes"><code class="xref py py-meth docutils literal"><span class="pre">above</span></code></a>).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1954,9 +2243,9 @@ generation (see <a class="reference internal" href="#statistics.StatisticsReport
 <dl class="method">
 <dt id="statistics.StatisticsReporter.save_genome_fitness">
 <code class="descname">save_genome_fitness</code><span class="sig-paren">(</span><em>delimiter=’ ‘</em>, <em>filename=’fitness_history.csv’</em>, <em>with_cross_validation=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save_genome_fitness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save_genome_fitness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the population’s best and mean fitness (using the <a class="reference external" href="https://docs.python.org/3.5/library/csv.html#module-csv" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">csv</span></code></a> package). At some point in the future, cross-validation fitness may be usable (via, for instance, the
-fitness function using alternative test situations/opponents and recording this in a <code class="docutils literal"><span class="pre">cross_fitness</span></code> attribute; this can be used for, e.g., preventing overfitting);
-currently, <code class="docutils literal"><span class="pre">with_cross_validation</span></code> should always be left at its <code class="docutils literal"><span class="pre">False</span></code> default.</p>
+<dd><p>Saves the population’s best and mean fitness (using the <a class="reference external" href="https://docs.python.org/3.5/library/csv.html#module-csv" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">csv</span></code></a> package). At some point in the future, cross-validation fitness may be usable (via, for
+instance, the fitness function using alternative test situations/opponents and recording this in a <code class="docutils literal"><span class="pre">cross_fitness</span></code> attribute; this can be used for, e.g.,
+preventing overfitting); currently, <code class="docutils literal"><span class="pre">with_cross_validation</span></code> should always be left at its <code class="docutils literal"><span class="pre">False</span></code> default.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1975,7 +2264,8 @@ currently, <code class="docutils literal"><span class="pre">with_cross_validatio
 <dl class="method">
 <dt id="statistics.StatisticsReporter.save_species_count">
 <code class="descname">save_species_count</code><span class="sig-paren">(</span><em>delimiter=’ ‘</em>, <em>filename=’speciation.csv’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save_species_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save_species_count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs speciation throughout evolution, by tracking the number of genomes in each species. Uses <a class="reference internal" href="#statistics.StatisticsReporter.get_species_sizes" title="statistics.StatisticsReporter.get_species_sizes"><code class="xref py py-meth docutils literal"><span class="pre">get_species_sizes()</span></code></a>; see that method for more information.</p>
+<dd><p>Logs speciation throughout evolution, by tracking the number of genomes in each species. Uses <a class="reference internal" href="#statistics.StatisticsReporter.get_species_sizes" title="statistics.StatisticsReporter.get_species_sizes"><code class="xref py py-meth docutils literal"><span class="pre">get_species_sizes()</span></code></a>; see that method for
+more information.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1993,7 +2283,8 @@ currently, <code class="docutils literal"><span class="pre">with_cross_validatio
 <dl class="method">
 <dt id="statistics.StatisticsReporter.save_species_fitness">
 <code class="descname">save_species_fitness</code><span class="sig-paren">(</span><em>delimiter=’ ‘</em>, <em>null_value=’NA’</em>, <em>filename=’species_fitness.csv’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save_species_fitness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save_species_fitness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs species’ mean fitness throughout evolution. Uses <a class="reference internal" href="#statistics.StatisticsReporter.get_species_fitness" title="statistics.StatisticsReporter.get_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">get_species_fitness()</span></code></a>; see that method for more information on, for instance, <code class="docutils literal"><span class="pre">null_value</span></code>.</p>
+<dd><p>Logs species’ mean fitness throughout evolution. Uses <a class="reference internal" href="#statistics.StatisticsReporter.get_species_fitness" title="statistics.StatisticsReporter.get_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">get_species_fitness()</span></code></a>; see that method for more information on, for
+instance, <code class="docutils literal"><span class="pre">null_value</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2012,7 +2303,8 @@ currently, <code class="docutils literal"><span class="pre">with_cross_validatio
 <dl class="method">
 <dt id="statistics.StatisticsReporter.save">
 <code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.save_genome_fitness" title="statistics.StatisticsReporter.save_genome_fitness"><code class="xref py py-meth docutils literal"><span class="pre">save_genome_fitness()</span></code></a>, <a class="reference internal" href="#statistics.StatisticsReporter.save_species_count" title="statistics.StatisticsReporter.save_species_count"><code class="xref py py-meth docutils literal"><span class="pre">save_species_count()</span></code></a>, and <a class="reference internal" href="#statistics.StatisticsReporter.save_species_fitness" title="statistics.StatisticsReporter.save_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">save_species_fitness()</span></code></a>; uses the default values for all three.</p>
+<dd><p>A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.save_genome_fitness" title="statistics.StatisticsReporter.save_genome_fitness"><code class="xref py py-meth docutils literal"><span class="pre">save_genome_fitness()</span></code></a>, <a class="reference internal" href="#statistics.StatisticsReporter.save_species_count" title="statistics.StatisticsReporter.save_species_count"><code class="xref py py-meth docutils literal"><span class="pre">save_species_count()</span></code></a>, and <a class="reference internal" href="#statistics.StatisticsReporter.save_species_fitness" title="statistics.StatisticsReporter.save_species_fitness"><code class="xref py py-meth docutils literal"><span class="pre">save_species_fitness()</span></code></a>;
+uses the default values for all three.</p>
 </dd></dl>
 
 </dd></dl>

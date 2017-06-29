@@ -64,26 +64,36 @@ for the NEAT simulation.  This, again, is to help avoid silent changes in behavi
 <h2>[NEAT] section<a class="headerlink" href="#neat-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">NEAT</span></code> section specifies parameters particular to the generic NEAT algorithm or the experiment
 itself.  This section is always required, and is handled by the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> class itself.</p>
-<ul class="simple">
+<span class="target" id="fitness-criterion-label"></span><ul class="simple" id="index-0">
 <li><dl class="first docutils">
 <dt><em>fitness_criterion</em></dt>
 <dd>The function used to compute the termination criterion from the set of genome fitnesses.  Allowable values are: <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">mean</span></code></dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="fitness-threshold-label">
+<span class="target" id="fitness-threshold-label"></span><span class="target" id="index-1"></span><ul class="simple" id="index-2">
 <li><dl class="first docutils">
 <dt><em>fitness_threshold</em></dt>
-<dd>When the fitness computed by <code class="docutils literal"><span class="pre">fitness_criterion</span></code> meets or exceeds this threshold, the evolution process will terminate.</dd>
+<dd>When the fitness computed by <code class="docutils literal"><span class="pre">fitness_criterion</span></code> meets or exceeds this threshold, the evolution process will terminate, with a call to
+any registered reporting class’ <a class="reference internal" href="module_summaries.html#reporting.BaseReporter.found_solution" title="reporting.BaseReporter.found_solution"><code class="xref py py-meth docutils literal"><span class="pre">found_solution</span></code></a> method.</dd>
 </dl>
 </li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">found_solution</span></code> method is <strong>not</strong> called if the maximum number of generations is reached without the above threshold being passed.
+TODO: Allow the above to be <code class="docutils literal"><span class="pre">None</span></code>, provided a maximum number of generations is passed to <a class="reference internal" href="module_summaries.html#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>, and
+if so call <code class="docutils literal"><span class="pre">found_solution</span></code> upon termination by a maximum number of generations. Alternatively, this could be done by allowing <code class="docutils literal"><span class="pre">fitness_criterion</span></code>
+to be <code class="docutils literal"><span class="pre">None</span></code>, or a new configuration parameter introduced.</p>
+</div>
+<span class="target" id="pop-size-label"></span><ul class="simple" id="index-3">
 <li><dl class="first docutils">
 <dt><em>pop_size</em></dt>
 <dd>The number of individuals in each generation.</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="reset-on-extinction-label">
+<span class="target" id="reset-on-extinction-label"></span><ul class="simple" id="index-4">
 <li><dl class="first docutils">
 <dt><em>reset_on_extinction</em></dt>
 <dd>If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, when all species simultaneously become extinct due to stagnation, a new random
@@ -91,14 +101,14 @@ population will be created. If <code class="docutils literal"><span class="pre">
 </dl>
 </li>
 </ul>
-<span class="target" id="index-0"></span></div>
+<span class="target" id="index-5"></span></div>
 <div class="section" id="defaultstagnation-section">
-<span id="index-1"></span><h2>[DefaultStagnation] section<a class="headerlink" href="#defaultstagnation-section" title="Permalink to this headline">¶</a></h2>
+<span id="index-6"></span><h2>[DefaultStagnation] section<a class="headerlink" href="#defaultstagnation-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">DefaultStagnation</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> class.
 This section is only necessary if you specify this class as the stagnation implementation when
 creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
-<ul class="simple">
+<span class="target" id="species-fitness-func-label"></span><ul class="simple" id="index-7">
 <li><dl class="first docutils">
 <dt><em>species_fitness_func</em></dt>
 <dd>The function used to compute species fitness.  <strong>This defaults to “mean“.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, <code class="docutils literal"><span class="pre">median</span></code></dd>
@@ -109,12 +119,14 @@ required for your particular implementation.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This is <strong>not</strong> used for calculating species fitness for apportioning reproduction (which always uses <code class="docutils literal"><span class="pre">mean</span></code>).</p>
 </div>
-<ul class="simple">
+<ul class="simple" id="index-8">
 <li><dl class="first docutils">
 <dt><em>max_stagnation</em></dt>
 <dd>Species that have not shown improvement in more than this number of generations will be considered stagnant and removed. <strong>This defaults to 15.</strong></dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-9">
 <li><dl class="first docutils">
 <dt><em>species_elitism</em></dt>
 <dd>The number of species that will be protected from stagnation; mainly intended to prevent
@@ -129,19 +141,21 @@ being removed for stagnation regardless of the amount of time they have not show
 <p class="last">TODO: <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.write_config" title="stagnation.DefaultStagnation.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.write_config</span></code></a> uses a default of 15 for <code class="docutils literal"><span class="pre">species_elitism</span></code>, but the default by <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.parse_config" title="stagnation.DefaultStagnation.parse_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.parse_config</span></code></a> is 0,
 which will override.</p>
 </div>
-<span class="target" id="index-2"></span></div>
+<span class="target" id="index-10"></span></div>
 <div class="section" id="defaultreproduction-section">
-<span id="reproduction-config-label"></span><span id="index-3"></span><h2>[DefaultReproduction] section<a class="headerlink" href="#defaultreproduction-section" title="Permalink to this headline">¶</a></h2>
+<span id="reproduction-config-label"></span><span id="index-11"></span><h2>[DefaultReproduction] section<a class="headerlink" href="#defaultreproduction-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">DefaultReproduction</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> class.
 This section is only necessary if you specify this class as the reproduction implementation when
 creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
-<ul class="simple">
+<ul class="simple" id="index-12">
 <li><dl class="first docutils">
 <dt><em>elitism</em></dt>
 <dd>The number of most-fit individuals in each species that will be preserved as-is from one generation to the next. <strong>This defaults to 0.</strong></dd>
 </dl>
 </li>
+</ul>
+<ul class="simple" id="index-13">
 <li><dl class="first docutils">
 <dt><em>survival_threshold</em></dt>
 <dd>The fraction for each species allowed to reproduce each generation. <strong>This defaults to 0.2.</strong></dd>
@@ -150,16 +164,17 @@ required for your particular implementation.</p>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: There is also a <code class="docutils literal"><span class="pre">min_species_size</span></code> configuration parameter, defaulting to 2, although it is not written out by <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction.write_config" title="reproduction.DefaultReproduction.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultReproduction.write_config</span></code></a>.</p>
+<p class="last">TODO: There is also a <span class="target" id="index-14"></span>min_species_size configuration parameter, defaulting to 2, although it is not written out by
+<a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction.write_config" title="reproduction.DefaultReproduction.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultReproduction.write_config</span></code></a>.</p>
 </div>
-<span class="target" id="index-4"></span></div>
+<span class="target" id="index-15"></span></div>
 <div class="section" id="defaultgenome-section">
-<span id="index-5"></span><h2>[DefaultGenome] section<a class="headerlink" href="#defaultgenome-section" title="Permalink to this headline">¶</a></h2>
+<span id="index-16"></span><h2>[DefaultGenome] section<a class="headerlink" href="#defaultgenome-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">DefaultGenome</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref any py py-class docutils literal"><span class="pre">DefaultGenome</span></code></a> class.
 This section is only necessary if you specify this class as the genome implementation when
 creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
 required for your particular implementation.</p>
-<span id="index-6"></span><ul class="simple" id="activation-function-config-label">
+<span id="index-17"></span><ul class="simple" id="activation-function-config-label">
 <li><dl class="first docutils">
 <dt><em>activation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> assigned to new <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “activation_options“
@@ -179,7 +194,7 @@ built-in available functions can be found in <a class="reference internal" href=
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-7">
+<ul class="simple" id="index-18">
 <li><dl class="first docutils">
 <dt><em>aggregation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> assigned to new nodes. <strong>If none is given, or “random“ is specified, one of the “aggregation_options“
@@ -199,7 +214,7 @@ available functions (defined in <a class="reference internal" href="module_summa
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-8">
+<ul class="simple" id="index-19">
 <li><dl class="first docutils">
 <dt><em>bias_init_mean</em></dt>
 <dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a> values for new nodes.</dd>
@@ -236,21 +251,21 @@ available functions (defined in <a class="reference internal" href="module_summa
 </dl>
 </li>
 </ul>
-<span class="target" id="compatibility-threshold-label"></span><ul class="simple" id="index-9">
+<span class="target" id="compatibility-threshold-label"></span><span class="target" id="index-20"></span><ul class="simple" id="index-21">
 <li><dl class="first docutils">
 <dt><em>compatibility_threshold</em></dt>
 <dd>Individuals whose <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> is less than this threshold are considered to be in the same <a class="reference internal" href="glossary.html#term-species"><span class="xref std std-term">species</span></a>.</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="compatibility-disjoint-coefficient-label">
+<span class="target" id="compatibility-disjoint-coefficient-label"></span><ul class="simple" id="index-22">
 <li><dl class="first docutils">
 <dt><em>compatibility_disjoint_coefficient</em></dt>
 <dd>The coefficient for the <a class="reference internal" href="glossary.html#term-disjoint"><span class="xref std std-term">disjoint</span></a> and <a class="reference internal" href="glossary.html#term-excess"><span class="xref std std-term">excess</span></a> <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> counts’ contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>.</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="compatibility-weight-coefficient-label">
+<span class="target" id="compatibility-weight-coefficient-label"></span><ul class="simple" id="index-23">
 <li><dl class="first docutils">
 <dt><em>compatibility_weight_coefficient</em></dt>
 <dd>The coefficient for each <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>, <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a>, or <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier difference’s contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>
@@ -275,6 +290,8 @@ disjoint or excess <a class="reference internal" href="glossary.html#term-node">
 <dd>The probability that mutation will delete an existing connection. Valid values are in [0.0, 1.0].</dd>
 </dl>
 </li>
+</ul>
+<span class="target" id="enabled-default-label"></span><span class="target" id="index-24"></span><span class="target" id="index-25"></span><ul class="simple" id="index-26">
 <li><dl class="first docutils">
 <dt><em>enabled_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> status of newly created connections.  Valid values are <code class="docutils literal"><span class="pre">True</span></code> and <code class="docutils literal"><span class="pre">False</span></code>.</dd>
@@ -294,7 +311,7 @@ Valid values are in [0.0, 1.0].</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="feed-forward-config-label">
+<span class="target" id="feed-forward-config-label"></span><span class="target" id="index-27"></span><ul class="simple" id="index-28">
 <li><dl class="first docutils">
 <dt><em>feed_forward</em></dt>
 <dd>If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, generated networks will not be allowed to have <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> connections (they will be <a class="reference internal" href="glossary.html#term-feedforward"><span class="xref std std-term">feedforward</span></a>).
@@ -302,10 +319,11 @@ Otherwise they may be (but are not forced to be) recurrent.</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="initial-connection-config-label">
+<span class="target" id="initial-connection-config-label"></span><span class="target" id="index-29"></span><ul class="simple" id="index-30">
 <li><dl class="first docutils">
 <dt><em>initial_connection</em></dt>
-<dd>Specifies the initial connectivity of newly-created genomes.  There are four allowed values:<ul class="last">
+<dd>Specifies the initial connectivity of newly-created genomes.  (Note the effects on settings other than <code class="docutils literal"><span class="pre">unconnected</span></code> of the
+<a class="reference internal" href="#enabled-default-label"><span class="std std-ref">enabled_default</span></a> setting.) There are four allowed values:<ul class="last">
 <li><code class="docutils literal"><span class="pre">unconnected</span></code> - No <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> are initially present. <strong>This is the default.</strong></li>
 <li><code class="docutils literal"><span class="pre">fs_neat</span></code> - One randomly-chosen <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> has one connection to each <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and
 <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a>. (This is the FS-NEAT scheme.)</li>
@@ -343,7 +361,7 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-10">
+<ul class="simple" id="index-31">
 <li><dl class="first docutils">
 <dt><em>response_init_mean</em></dt>
 <dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multipliers for new nodes.</dd>
@@ -380,7 +398,7 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-11">
+<ul class="simple" id="index-32">
 <li><dl class="first docutils">
 <dt><em>weight_init_mean</em></dt>
 <dd>The mean of the normal distribution used to select <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a> values for new connections.</dd>
