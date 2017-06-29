@@ -49,21 +49,31 @@
 For available activation functions, see <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a></dd>
 <dt id="term-attributes">attributes</dt>
 <dd>These are the properties of a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> (such as its <a class="reference internal" href="#term-activation-function"><span class="xref std std-term">activation function</span></a>) or <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a> (such as whether it is <a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a> or not)
-determined by its associated <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a> (in the default implementation, in the <a class="reference internal" href="module_summaries.html#module-attributes" title="attributes: Deals with :term:`attributes` used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> module).</dd>
+determined by its associated <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a> (in the default implementation, in the <a class="reference internal" href="module_summaries.html#module-attributes" title="attributes: Deals with attributes used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> module).</dd>
 <dt id="term-connection">connection</dt>
-<dd>These connect between <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a>, and give rise to the <em>network</em> in the term <code class="docutils literal"><span class="pre">neural</span> <span class="pre">network</span></code>. Connections have two attributes,
-their <a class="reference internal" href="#term-weight"><span class="xref std std-term">weight</span></a> and whether or not they are <a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a>; both are determined by their <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a>.</dd>
+<dd>These connect between <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a>, and give rise to the <em>network</em> in the term <code class="docutils literal"><span class="pre">neural</span> <span class="pre">network</span></code>. For non-loopback (directly <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a>)
+connections, they are equivalent to biological synapses. Connections have two attributes, their <a class="reference internal" href="#term-weight"><span class="xref std std-term">weight</span></a> and whether or not they are
+<a class="reference internal" href="#term-enabled"><span class="xref std std-term">enabled</span></a>; both are determined by their <a class="reference internal" href="#term-gene"><span class="xref std std-term">gene</span></a>.</dd>
 <dt id="term-continuous-time">continuous-time<dt id="term-discrete-time">discrete-time</dt>
 <dd>A discrete-time neural network (which should be assumed unless specified otherwise) proceeds in time steps, with processing at one <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>
 followed by going through <a class="reference internal" href="#term-connection"><span class="xref std std-term">connections</span></a> to other nodes followed by processing at those other nodes, eventually giving the output.
 A continuous-time neural network, such as the <a class="reference internal" href="ctrnn.html"><span class="doc">ctrnn</span></a> (continuous-time <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network) implemented in NEAT-Python,
 simulates a continuous process via differential equations (or other methods).</dd>
+<dt id="term-crossover">crossover</dt>
+<dd>The process in sexual reproduction in which two <a class="reference internal" href="#term-genome"><span class="xref std std-term">genomes</span></a> are combined. This involves the combination of <a class="reference internal" href="#term-homologous"><span class="xref std std-term">homologous</span></a>
+genes and the copying (from the highest-fitness genome) of <a class="reference internal" href="#term-disjoint"><span class="xref std std-term">disjoint/excess</span></a> genes. TODO: Add links.</dd>
+<dt id="term-disjoint">disjoint<dt id="term-excess">excess</dt>
+<dd>These are genes in NEAT not descended from a common ancestor - i.e., not <a class="reference internal" href="#term-homologous"><span class="xref std std-term">homologous</span></a> This implementation of NEAT, like most, does
+not distinguish between disjoint and excess genes. TODO: Explain further.</dd>
 <dt id="term-feedforward">feedforward<dt id="term-feed-forward">feed-forward</dt>
 <dd>A neural network that is not <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> is feedforward - it has no loops. (Note that this means that it has no memory - no ability to take into account
 past events.) It can thus be described as a <a class="reference external" href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG (Directed Acyclic Graph)</a>.</dd>
 <dt id="term-gene">gene</dt>
 <dd>The information coding (in the current implementation) for a particular aspect (<a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> or <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>) of a neural network phenotype.
 TODO: Add links.</dd>
+<dt id="term-genetic-distance">genetic distance</dt>
+<dd>The distance between two <a class="reference internal" href="#term-homologous"><span class="xref std std-term">homologous</span></a> <a class="reference internal" href="#term-gene"><span class="xref std std-term">genes</span></a>, added up as part of the <a class="reference internal" href="#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>. Also sometimes used as
+a synonym for <a class="reference internal" href="#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>.</dd>
 <dt id="term-genome">genome</dt>
 <dd>The set of <a class="reference internal" href="#term-gene"><span class="xref std std-term">genes</span></a> that together code for a (neural network) phenotype. TODO: Add appropriate links.</dd>
 <dt id="term-genomic-distance">genomic distance</dt>
@@ -74,7 +84,8 @@ further, put in links, etc…</dd>
 NEAT (NeuroEvolution of Augmenting Topologies) <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
 more complexity as necessary - thus “Augmenting Topologies”.</dd>
 <dt id="term-homologous">homologous</dt>
-<dd>Descended from a common ancestor; two genes in NEAT from different genomes are either homologous or disjoint/excess. TODO: Explain further.</dd>
+<dd>Descended from a common ancestor; two genes in NEAT from different genomes are either homologous or <cite>:term:`disjoint</cite>/excess.
+TODO: Explain further.</dd>
 <dt id="term-input-node">input node</dt>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> through which the network receives inputs. They cannot be deleted (although connections from them can be),
 cannot be the output end of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>, and have: no <a class="reference internal" href="#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a>; a fixed <a class="reference internal" href="#term-bias"><span class="xref std std-term">bias</span></a> of 0; a fixed <a class="reference internal" href="#term-response"><span class="xref std std-term">response</span></a> multiplier
@@ -99,7 +110,9 @@ quick elimination of high-potential topological mutants that have an initial poo
 <dt id="term-weight">weight<dt id="term-enabled">enabled</dt>
 <dd>These are the <a class="reference internal" href="#term-attributes"><span class="xref std std-term">attributes</span></a> of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>. If a connection is enabled, then the input to it (from a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>) is
 multiplied by the weight then sent to the output (to a node - possibly the same node, for a <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network).
-If a connection is not enabled, then the output is 0; genes for such connections are the equivalent of <a class="reference external" href="http://pseudogene.org/background.php">pseudogenes</a> that, as in <a class="reference external" href="https://en.wikipedia.org/wiki/In_vivo">in vivo</a> evolution, can be reactivated at a later time.</dd>
+If a connection is not enabled, then the output is 0; genes for such connections are the equivalent of <a class="reference external" href="http://pseudogene.org/background.php">pseudogenes</a> that, as in <a class="reference external" href="https://en.wikipedia.org/wiki/In_vivo">in vivo</a> evolution, can be reactivated at a later time.
+(Some versions of NEAT give a chance, such as 25%, that a disabled connection will be enabled during <a class="reference internal" href="#term-crossover"><span class="xref std std-term">crossover</span></a>; in the future, this may be
+implemented as an option in this implementation.)</dd>
 </dl>
 <p><a class="reference internal" href="index.html#toc-label"><span class="std std-ref">Table of Contents</span></a></p>
 </div>

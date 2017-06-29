@@ -246,16 +246,25 @@ available functions (defined in <a class="reference internal" href="module_summa
 <ul class="simple" id="compatibility-disjoint-coefficient-label">
 <li><dl class="first docutils">
 <dt><em>compatibility_disjoint_coefficient</em></dt>
-<dd>The coefficient for the disjoint+excess <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> counts’ contribution to the genomic distance.</dd>
+<dd>The coefficient for the <a class="reference internal" href="glossary.html#term-disjoint"><span class="xref std std-term">disjoint</span></a> and <a class="reference internal" href="glossary.html#term-excess"><span class="xref std std-term">excess</span></a> <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> counts’ contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>.</dd>
 </dl>
 </li>
 </ul>
 <ul class="simple" id="compatibility-weight-coefficient-label">
 <li><dl class="first docutils">
 <dt><em>compatibility_weight_coefficient</em></dt>
-<dd>The coefficient for each <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>, <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a>, or <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier difference’s contribution to the genomic distance.</dd>
+<dd>The coefficient for each <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>, <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a>, or <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier difference’s contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>
+(for <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a> or <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a>). This is also used as the value to add for differences
+in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a>, <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation functions</span></a>, or <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a>/disabled status.</dd>
 </dl>
 </li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is currently possible for two <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> nodes or connections to have a higher contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> than a
+disjoint or excess <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> or <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a>, depending on their <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attributes</span></a> and the settings of the above parameters.</p>
+</div>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt><em>conn_add_prob</em></dt>
 <dd>The probability that mutation will add a <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> between existing <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. Valid values are in [0.0, 1.0].</dd>
@@ -274,7 +283,8 @@ available functions (defined in <a class="reference internal" href="module_summa
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">“Newly created connections” include ones in newly-created genomes, if those have initial connections.</p>
+<p class="last">“Newly created connections” include ones in newly-created genomes, if those have initial connections
+(from the setting of the <a class="reference internal" href="#initial-connection-config-label"><span class="std std-ref">initial_connection</span></a> variable).</p>
 </div>
 <ul class="simple">
 <li><dl class="first docutils">
