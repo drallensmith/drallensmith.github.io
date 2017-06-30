@@ -245,11 +245,11 @@
         <span class="k">for</span> <span class="n">ng</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">ng</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.get_new_node_key"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.get_new_node_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">new_id</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">new_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
             <span class="n">new_id</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">new_id</span>
+        <span class="k">return</span> <span class="n">new_id</span></div>
 
     <span class="k">def</span> <span class="nf">mutate_add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>

@@ -71,7 +71,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">misses</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome0</span><span class="p">,</span> <span class="n">genome1</span><span class="p">):</span>
+<div class="viewcode-block" id="GenomeDistanceCache.__call__"><a class="viewcode-back" href="../module_summaries.html#species.GenomeDistanceCache.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome0</span><span class="p">,</span> <span class="n">genome1</span><span class="p">):</span>
         <span class="n">g0</span> <span class="o">=</span> <span class="n">genome0</span><span class="o">.</span><span class="n">key</span>
         <span class="n">g1</span> <span class="o">=</span> <span class="n">genome1</span><span class="o">.</span><span class="n">key</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distances</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">g0</span><span class="p">,</span> <span class="n">g1</span><span class="p">))</span>
@@ -84,7 +84,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="k">return</span> <span class="n">d</span></div>
+        <span class="k">return</span> <span class="n">d</span></div></div>
 
 
 <div class="viewcode-block" id="DefaultSpeciesSet"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet">[docs]</a><span class="k">class</span> <span class="nc">DefaultSpeciesSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
