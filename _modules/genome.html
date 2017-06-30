@@ -50,6 +50,7 @@
 <span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">write_pretty_params</span>
 <span class="kn">from</span> <span class="nn">neat.genes</span> <span class="k">import</span> <span class="n">DefaultConnectionGene</span><span class="p">,</span> <span class="n">DefaultNodeGene</span>
 <span class="kn">from</span> <span class="nn">neat.graphs</span> <span class="k">import</span> <span class="n">creates_cycle</span>
+<span class="kn">from</span> <span class="nn">neat.indexer</span> <span class="k">import</span> <span class="n">Indexer</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">iterkeys</span>
 
 
@@ -120,8 +121,17 @@
 
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_connection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allowed_connectivity</span>
 
-        <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span></div></div>
+        <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="DefaultGenomeConfig.get_new_node_key"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenomeConfig.get_new_node_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;node_indexer&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="n">node_dict</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">new_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="n">new_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node_dict</span>
+
+        <span class="k">return</span> <span class="n">new_id</span></div></div>
 
 <div class="viewcode-block" id="DefaultGenome"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome">[docs]</a><span class="k">class</span> <span class="nc">DefaultGenome</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -176,7 +186,7 @@
         <span class="c1"># Add hidden nodes if requested.</span>
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">num_hidden</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">num_hidden</span><span class="p">):</span>
-                <span class="n">node_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_new_node_key</span><span class="p">()</span>
+                <span class="n">node_key</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
                 <span class="k">assert</span> <span class="n">node_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span>
                 <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">node_key</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
@@ -245,19 +255,13 @@
         <span class="k">for</span> <span class="n">ng</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
             <span class="n">ng</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DefaultGenome.get_new_node_key"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.get_new_node_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">new_id</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="n">new_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="n">new_id</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">new_id</span></div>
-
-    <span class="k">def</span> <span class="nf">mutate_add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.mutate_add_node"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.mutate_add_node">[docs]</a>    <span class="k">def</span> <span class="nf">mutate_add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
         <span class="c1"># Choose a random connection to split</span>
         <span class="n">conn_to_split</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-        <span class="n">new_node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_new_node_key</span><span class="p">()</span>
+        <span class="n">new_node_id</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
         <span class="n">ng</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">new_node_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">new_node_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">ng</span>
 
@@ -268,18 +272,18 @@
 
         <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="o">=</span> <span class="n">conn_to_split</span><span class="o">.</span><span class="n">key</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">new_node_id</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">new_node_id</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">conn_to_split</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">new_node_id</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">conn_to_split</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">input_key</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.add_connection"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.add_connection">[docs]</a>    <span class="k">def</span> <span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">input_key</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
         <span class="c1"># TODO: Add validation of this connection addition.</span>
         <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_key</span><span class="p">,</span> <span class="n">output_key</span><span class="p">)</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">connection_gene_type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">init_attributes</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">enabled</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span></div>
 
-    <span class="k">def</span> <span class="nf">mutate_add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.mutate_add_connection"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.mutate_add_connection">[docs]</a>    <span class="k">def</span> <span class="nf">mutate_add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Attempt to add a new connection, the only restriction being that the output</span>
 <span class="sd">        node cannot be one of the network input pins.</span>
@@ -308,9 +312,9 @@
             <span class="k">return</span>
 
         <span class="n">cg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">in_node</span><span class="p">,</span> <span class="n">out_node</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">cg</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">cg</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cg</span></div>
 
-    <span class="k">def</span> <span class="nf">mutate_delete_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.mutate_delete_node"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.mutate_delete_node">[docs]</a>    <span class="k">def</span> <span class="nf">mutate_delete_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="c1"># Do nothing if there are no non-output nodes.</span>
         <span class="n">available_nodes</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">output_keys</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">available_nodes</span><span class="p">:</span>
@@ -328,12 +332,12 @@
 
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">del_key</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="n">del_key</span>
+        <span class="k">return</span> <span class="n">del_key</span></div>
 
-    <span class="k">def</span> <span class="nf">mutate_delete_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.mutate_delete_connection"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.mutate_delete_connection">[docs]</a>    <span class="k">def</span> <span class="nf">mutate_delete_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="DefaultGenome.distance"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -388,7 +392,7 @@
         <span class="n">num_enabled_connections</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">1</span> <span class="k">for</span> <span class="n">cg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">cg</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">])</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="n">num_enabled_connections</span></div>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultGenome.__str__"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Nodes:&quot;</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">ng</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">):</span>
             <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">ng</span><span class="p">)</span>
@@ -397,19 +401,19 @@
         <span class="n">connections</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="n">s</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DefaultGenome.create_node"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.create_node">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">create_node</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">node_id</span><span class="p">):</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">node_gene_type</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
         <span class="n">node</span><span class="o">.</span><span class="n">init_attributes</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">node</span>
+        <span class="k">return</span> <span class="n">node</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DefaultGenome.create_connection"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.create_connection">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span><span class="p">):</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">connection_gene_type</span><span class="p">((</span><span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span><span class="p">))</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">init_attributes</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">connection</span>
+        <span class="k">return</span> <span class="n">connection</span></div>
 
     <span class="k">def</span> <span class="nf">connect_fs_neat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Randomly connect one input to all hidden and output nodes (FS-NEAT). &quot;&quot;&quot;</span>
