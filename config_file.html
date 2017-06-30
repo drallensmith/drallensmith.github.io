@@ -330,15 +330,20 @@ the enabled status of a connection. Valid values are in [0.0, 1.0].</dd>
 <li><dl class="first docutils">
 <dt><em>initial_connection</em></dt>
 <dd>Specifies the initial connectivity of newly-created genomes.  (Note the effects on settings other than <code class="docutils literal"><span class="pre">unconnected</span></code> of the
-<a class="reference internal" href="#enabled-default-label"><span class="std std-ref">enabled_default</span></a> parameter.) There are four allowed values:<ul class="last">
+<a class="reference internal" href="#enabled-default-label"><span class="std std-ref">enabled_default</span></a> parameter.) There are seven allowed values:<ul class="last">
 <li><code class="docutils literal"><span class="pre">unconnected</span></code> - No <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> are initially present. <strong>This is the default.</strong></li>
 <li><code class="docutils literal"><span class="pre">fs_neat_nohidden</span></code> - One randomly-chosen <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> has one connection to each <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a>. (This is one version of the
 FS-NEAT scheme.)</li>
 <li><code class="docutils literal"><span class="pre">fs_neat_hidden</span></code> - One randomly-chosen <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> has one connection to each <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and
 <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a>. (This is another version of the FS-NEAT scheme. If there are no hidden nodes, it is the same as <code class="docutils literal"><span class="pre">fs_neat_nohidden</span></code>.)</li>
-<li><code class="docutils literal"><span class="pre">full</span></code> - Each <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> is connected to all <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>,
-and each hidden node is connected to all output nodes. (Note: This does not include <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a> connections.)</li>
-<li><code class="docutils literal"><span class="pre">partial</span> <span class="pre">#</span></code> - As for <code class="docutils literal"><span class="pre">full</span></code>, but each connection has a probability of being present determined by the number (valid values are in [0.0, 1.0]).</li>
+<li><code class="docutils literal"><span class="pre">full_nodirect</span></code> - Each <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> is connected to all <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> nodes, if there are any, and each hidden node is
+connected to all <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>; otherwise, each input node is connected to all <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>.</li>
+<li><code class="docutils literal"><span class="pre">full_direct</span></code> - Each <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> is connected to all <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden</span></a> and <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>,
+and each hidden node is connected to all output nodes.</li>
+<li><code class="docutils literal"><span class="pre">partial_nodirect</span> <span class="pre">#</span></code> - As for <code class="docutils literal"><span class="pre">full_nodirect</span></code>, but each connection has a probability of being present determined by the number
+(valid values are in [0.0, 1.0]).</li>
+<li><code class="docutils literal"><span class="pre">partial_direct</span> <span class="pre">#</span></code> - as for <code class="docutils literal"><span class="pre">full_direct</span></code>, but each connection has a probability of being present determined by the number
+(valid values are in [0.0, 1.0]).</li>
 </ul>
 </dd>
 </dl>
