@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="installation.html" />
-    <link rel="prev" title="Welcome to NEAT-Python’s documentation!" href="index.html" />
+    <link rel="prev" title="Welcome to NEAT-Python&#39;s documentation!" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -63,11 +63,13 @@ progresses through a user-specified number of generations, with each generation 
 sexual or asexual) and mutation of the most fit individuals of the previous generation.</p>
 <p>The reproduction and mutation operations may add nodes and/or connections to genomes, so as the algorithm proceeds
 genomes (and the neural networks they produce) may become more and more complex.  When the preset number of generations
-is reached, or when at least one individual exceeds the user-specified <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a>, the algorithm terminates.</p>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">Explain speciation (including <a class="reference internal" href="glossary.html#term-genetic-distance"><span class="xref std std-term">genetic distance</span></a> determination). Also explain disjoint+excess vs homologous for not only distance but crossover.</p>
-</div>
+is reached, or when at least one individual (for a <a class="reference internal" href="config_file.html#fitness-criterion-label"><span class="std std-ref">fitness_criterion</span></a> of <code class="docutils literal"><span class="pre">max</span></code>; others are configurable)
+exceeds the user-specified <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a>, the algorithm terminates.</p>
+<span class="target" id="index-1"></span><span class="target" id="index-2"></span><p id="index-3">One difficulty in this setup is with the implementation of <a class="reference internal" href="glossary.html#term-crossover"><span class="xref std std-term">crossover</span></a> - how does one do a crossover between two networks of differing structure?
+NEAT handles this by keeping track of the origins of the nodes, with an <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">identifying number</span></a> (new, higher numbers are generated for each additional node). Those derived from a common ancestor (that are <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a>) are matched up for crossover, and connections are matched if the
+nodes they connect have common ancestry. (There are variations in exactly how this is done depending on the implementation of NEAT; this paragraph describes how it is done in this implementation.)</p>
+<span class="target" id="index-4"></span><span class="target" id="index-5"></span><p id="index-6">Another potential difficulty is that a structural mutation - as opposed to mutations in, for instance, the <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weights</span></a> of the connections - such as the addition of a node or connection can, while being promising for the future, be disruptive in the short-term (until it has been fine-tuned by less-disruptive
+mutations). How NEAT deals with this is by dividing genomes into species, which have a close <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> due to similarity, then having competition most intense within species, not between species (fitness sharing). How is genomic distance measured? It uses a combination of the number of non-homologous nodes and connections with measures of how much homologous nodes and connections have diverged since their common origin. (Non-homologous nodes and connections are termed <a class="reference internal" href="glossary.html#term-disjoint"><span class="xref std std-term">disjoint</span></a> or <a class="reference internal" href="glossary.html#term-excess"><span class="xref std std-term">excess</span></a>, depending on whether the <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">numbers</span></a> are from the same range or beyond that range; like most NEAT implementations, this one makes no distinction between the two.)</p>
 </div>
 
 
@@ -79,7 +81,7 @@ is reached, or when at least one individual exceeds the user-specified <a class=
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to NEAT-Python’s documentation!</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to NEAT-Python's documentation!</a></li>
       <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
   </ul></li>
 </ul>
