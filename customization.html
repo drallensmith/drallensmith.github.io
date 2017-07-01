@@ -45,7 +45,7 @@
 <span id="customization-label"></span><h1>Customizing Behavior<a class="headerlink" href="#customizing-behavior" title="Permalink to this headline">¶</a></h1>
 <p>NEAT-Python allows the user to provide drop-in replacements for some parts of the NEAT algorithm, which hopefully
 makes it easier to implement common variations of the algorithm as mentioned in the literature.  If
-you find that you'd like to be able to customize something not shown here, please submit an issue on GitHub.</p>
+you find that you’d like to be able to customize something not shown here, please submit an issue on GitHub.</p>
 <div class="section" id="new-activation-functions">
 <span id="index-0"></span><h2>New activation functions<a class="headerlink" href="#new-activation-functions" title="Permalink to this headline">¶</a></h2>
 <p>New <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a> are registered with your <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> instance, prior to creation of the
@@ -96,7 +96,7 @@ add an evolvable per-genome reward discount value. It is also done in the <a cla
 </div>
 <div class="section" id="species-stagnation-scheme">
 <span id="index-5"></span><h2>Species stagnation scheme<a class="headerlink" href="#species-stagnation-scheme" title="Permalink to this headline">¶</a></h2>
-<p>The default species stagnation scheme is a simple fixed stagnation limit--when a species exhibits
+<p>The default species stagnation scheme is a simple fixed stagnation limit–when a species exhibits
 no improvement for a fixed number of generations, all its members are removed from the simulation. This
 behavior is encapsulated in the <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span> <span class="pre">class</span></code></a>.</p>
 <p>To use a different species stagnation scheme, you must create a custom class whose interface matches that

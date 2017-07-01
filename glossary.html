@@ -82,11 +82,11 @@ a synonym for <a class="reference internal" href="#term-genomic-distance"><span 
 <a class="reference internal" href="module_summaries.html#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenome</span></code></a> and <a class="reference internal" href="module_summaries.html#iznn.IZGenome" title="iznn.IZGenome"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZGenome</span></code></a>, and the object interface is described in <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a>.</dd>
 <dt id="term-genomic-distance">genomic distance</dt>
 <dd>An approximate measure of the difference between <a class="reference internal" href="#term-genome"><span class="xref std std-term">genomes</span></a>, used in dividing the population into <a class="reference internal" href="#term-species"><span class="xref std std-term">species</span></a>. TODO: Explain
-further, put in links, etc...</dd>
+further, put in links, etc…</dd>
 <dt id="term-hidden-node">hidden node</dt>
 <dd>These are the <a class="reference internal" href="#term-node"><span class="xref std std-term">nodes</span></a> other than <a class="reference internal" href="#term-input-node"><span class="xref std std-term">input nodes</span></a> and <a class="reference internal" href="#term-output-node"><span class="xref std std-term">output nodes</span></a>. In the original
 NEAT (NeuroEvolution of Augmenting Topologies) <a class="reference internal" href="neat_overview.html"><span class="doc">algorithm</span></a>, networks start with no hidden nodes, and evolve
-more complexity as necessary - thus &quot;Augmenting Topologies&quot;.</dd>
+more complexity as necessary - thus “Augmenting Topologies”.</dd>
 <dt id="term-homologous">homologous</dt>
 <dd>Descended from a common ancestor; two genes in NEAT from different genomes are either homologous or <a class="reference internal" href="#term-disjoint"><span class="xref std std-term">disjoint</span></a>/excess. In NEAT, two
 genes that are homologous will have the same <a class="reference internal" href="#term-key"><span class="xref std std-term">key</span></a>/id. For <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> genes, the key is an <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">int</span></code></a> incremented with each newly-created node;
@@ -113,14 +113,14 @@ as an <a class="reference internal" href="#term-activation-function"><span class
 them can be) but can otherwise be <a class="reference internal" href="#term-mutation"><span class="xref std std-term">mutated</span></a> normally.</dd>
 <dt id="term-recurrent">recurrent</dt>
 <dd>A recurrent neural network has cycles in its topography. These may be a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a> having a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a> back to itself, with (for a
-<a class="reference internal" href="#term-discrete-time"><span class="xref std std-term">discrete-time</span></a> neural network) the prior time period's output being provided to the node as one of its inputs. They may also have longer cycles,
+<a class="reference internal" href="#term-discrete-time"><span class="xref std std-term">discrete-time</span></a> neural network) the prior time period’s output being provided to the node as one of its inputs. They may also have longer cycles,
 such as with output from node A going into node B (via a connection) and an output from node B going (via another connection) into node A. (This
 gives it a possibly-useful memory - an ability to take into account past events - unlike a <a class="reference internal" href="#term-feedforward"><span class="xref std std-term">feedforward</span></a> neural network; however, it also makes it
 harder to work with in some respects.)</dd>
 <dt id="term-species">species</dt>
 <dd>Subdivisions of the population into groups of similar (by the <a class="reference internal" href="#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> measure) individuals (<a class="reference internal" href="#term-genome"><span class="xref std std-term">genomes</span></a>),
 which compete among themselves but share fitness relative to the rest of the population. This is, among other things, a mechanism to try to avoid the
-quick elimination of high-potential topological mutants that have an initial poor fitness prior to smaller &quot;tuning&quot; changes. TODO: Add links!</dd>
+quick elimination of high-potential topological mutants that have an initial poor fitness prior to smaller “tuning” changes. TODO: Add links!</dd>
 <dt id="term-weight">weight<dt id="term-enabled">enabled</dt>
 <dd>These are the <a class="reference internal" href="#term-attributes"><span class="xref std std-term">attributes</span></a> of a <a class="reference internal" href="#term-connection"><span class="xref std std-term">connection</span></a>. If a connection is enabled, then the input to it (from a <a class="reference internal" href="#term-node"><span class="xref std std-term">node</span></a>) is
 multiplied by the weight then sent to the output (to a node - possibly the same node, for a <a class="reference internal" href="#term-recurrent"><span class="xref std std-term">recurrent</span></a> neural network).

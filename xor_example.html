@@ -83,13 +83,13 @@ by NEAT.  Fitness is expected to be a Python <a class="reference external" href=
 then the fitness value of A should be greater than the value of B.  The absolute magnitude and signs of these fitnesses
 are not important, only their relative values.</p>
 <p>In this example, we create a <a class="reference internal" href="glossary.html#term-feed-forward"><span class="xref std std-term">feed-forward</span></a> neural network based on the genome, and then for each case in the
-table above, we provide that network with the inputs, and compute the network's output.  The error for each genome
+table above, we provide that network with the inputs, and compute the network’s output.  The error for each genome
 is <span class="math">\(1 - \sum_i (e_i - a_i)^2\)</span> between the expected (<span class="math">\(e_i\)</span>) and actual (<span class="math">\(a_i\)</span>) outputs, so that if the
 network produces exactly the expected output, its fitness is 1, otherwise it is a value less than 1, with the fitness
 value decreasing the more incorrect the network responses are.</p>
 <p>This fitness computation is implemented in the <code class="docutils literal"><span class="pre">eval_genomes</span></code> function.  This function takes two arguments: a list
 of genomes (the current population) and the active configuration.  neat-python expects the fitness function to calculate
-a fitness for each genome and assign this value to the genome's <code class="docutils literal"><span class="pre">fitness</span></code> member.</p>
+a fitness for each genome and assign this value to the genome’s <code class="docutils literal"><span class="pre">fitness</span></code> member.</p>
 </div>
 <div class="section" id="running-neat">
 <h2>Running NEAT<a class="headerlink" href="#running-neat" title="Permalink to this headline">¶</a></h2>
@@ -105,9 +105,9 @@ at least one genome achieves the <a class="reference internal" href="config_file
 </div>
 <div class="section" id="getting-the-results">
 <h2>Getting the results<a class="headerlink" href="#getting-the-results" title="Permalink to this headline">¶</a></h2>
-<p>Once the call to the population object's <code class="docutils literal"><span class="pre">run</span></code> method has returned, you can query the <code class="docutils literal"><span class="pre">statistics</span></code> member of the
+<p>Once the call to the population object’s <code class="docutils literal"><span class="pre">run</span></code> method has returned, you can query the <code class="docutils literal"><span class="pre">statistics</span></code> member of the
 population (a <a class="reference internal" href="module_summaries.html#statistics.StatisticsReporter" title="statistics.StatisticsReporter"><code class="xref py py-class docutils literal"><span class="pre">neat.statistics.StatisticsReporter</span></code></a> object) to get the best genome(s) seen during the run.
-In this example, we take the 'winner' genome to be that returned by <code class="docutils literal"><span class="pre">pop.statistics.best_genome()</span></code>.</p>
+In this example, we take the ‘winner’ genome to be that returned by <code class="docutils literal"><span class="pre">pop.statistics.best_genome()</span></code>.</p>
 <p>Other information available from the default statistics object includes per-generation mean fitness, per-generation standard deviation of fitness,
 and the best N genomes (with or without duplicates).</p>
 </div>
@@ -122,7 +122,7 @@ of a network described by a genome.</p>
 <p>NOTE: This page shows the source and configuration file for the current version of neat-python available on
 GitHub.  If you are using the version 0.91 installed from PyPI, make sure you get the script and config file from
 the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/releases/tag/v0.91">archived source for that release</a>.</p>
-<p>Here's the entire example:</p>
+<p>Here’s the entire example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">2-input XOR example -- this is most likely the simplest possible example.</span>
 <span class="sd">&quot;&quot;&quot;</span>

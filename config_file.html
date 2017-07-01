@@ -44,7 +44,7 @@
   <div class="section" id="configuration-file-description">
 <span id="configuration-file-description-label"></span><h1>Configuration file description<a class="headerlink" href="#configuration-file-description" title="Permalink to this headline">¶</a></h1>
 <p>The configuration file is in the format described in the Python <a class="reference external" href="https://docs.python.org/3.5/library/configparser.html#module-configparser" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">configparser</span></code></a> documentation
-as &quot;a basic configuration file parser language which provides a structure similar to what you would find on Microsoft Windows INI files.&quot;</p>
+as “a basic configuration file parser language which provides a structure similar to what you would find on Microsoft Windows INI files.”</p>
 <p>Most settings must be explicitly enumerated in the configuration file.  (This makes it less likely
 that library code changes will result in your project silently using different NEAT settings. There are some defaults, as noted below, and
 insofar as possible new configuration parameters will default to the existing behavior.)</p>
@@ -75,7 +75,7 @@ itself.  This section is always required, and is handled by the <a class="refere
 <li><dl class="first docutils">
 <dt><em>fitness_threshold</em></dt>
 <dd>When the fitness computed by <code class="docutils literal"><span class="pre">fitness_criterion</span></code> meets or exceeds this threshold, the evolution process will terminate, with a call to
-any registered reporting class' <a class="reference internal" href="module_summaries.html#reporting.BaseReporter.found_solution" title="reporting.BaseReporter.found_solution"><code class="xref py py-meth docutils literal"><span class="pre">found_solution</span></code></a> method.</dd>
+any registered reporting class’ <a class="reference internal" href="module_summaries.html#reporting.BaseReporter.found_solution" title="reporting.BaseReporter.found_solution"><code class="xref py py-meth docutils literal"><span class="pre">found_solution</span></code></a> method.</dd>
 </dl>
 </li>
 </ul>
@@ -111,7 +111,7 @@ required for your particular implementation.</p>
 <span class="target" id="species-fitness-func-label"></span><ul class="simple" id="index-7">
 <li><dl class="first docutils">
 <dt><em>species_fitness_func</em></dt>
-<dd>The function used to compute species fitness.  <strong>This defaults to ``mean``.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, and
+<dd>The function used to compute species fitness.  <strong>This defaults to “mean“.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, and
 <a class="reference internal" href="module_summaries.html#math_util.median" title="math_util.median"><code class="xref py py-func docutils literal"><span class="pre">median</span></code></a></dd>
 </dl>
 </li>
@@ -179,13 +179,13 @@ required for your particular implementation.</p>
 <li><dl class="first docutils">
 <dt><em>activation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attribute</span></a> <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.init_value" title="attributes.StringAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">assigned</span></code></a> to new
-<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or ``random`` is specified, one of the ``activation_options`` will be
+<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “activation_options“ will be
 :py:meth:`chosen &lt;attributes.StringAttribute.init_value&gt;` at random.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>activation_mutate_rate</em></dt>
-<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the node's activation function with a
+<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the node’s activation function with a
 <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.mutate_value" title="attributes.StringAttribute.mutate_value"><code class="xref py py-meth docutils literal"><span class="pre">randomly-determined</span></code></a> member of the <code class="docutils literal"><span class="pre">activation_options</span></code>.
 Valid values are in [0.0, 1.0].</dd>
 </dl>
@@ -201,20 +201,20 @@ built-in available functions can be found in <a class="reference internal" href=
 <li><dl class="first docutils">
 <dt><em>aggregation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attribute</span></a> <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.init_value" title="attributes.StringAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">assigned</span></code></a> to new
-<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or ``random`` is specified, one of the ``aggregation_options`` will be
+<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “aggregation_options“ will be
 :py:meth:`chosen &lt;attributes.StringAttribute.init_value&gt;` at random.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>aggregation_mutate_rate</em></dt>
-<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the node's aggregation function with a
+<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the node’s aggregation function with a
 <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.mutate_value" title="attributes.StringAttribute.mutate_value"><code class="xref py py-meth docutils literal"><span class="pre">randomly-determined</span></code></a> member of the <code class="docutils literal"><span class="pre">aggregation_options</span></code>.
 Valid values are in [0.0, 1.0].</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>aggregation_options</em></dt>
-<dd>A space-separated list of the aggregation functions that may be used by nodes.  <strong>This defaults to ``sum``.</strong> The
+<dd>A space-separated list of the aggregation functions that may be used by nodes.  <strong>This defaults to “sum“.</strong> The
 available functions (defined in <a class="reference internal" href="module_summaries.html#genome.DefaultGenomeConfig" title="genome.DefaultGenomeConfig"><code class="xref any py py-class docutils literal"><span class="pre">genome.DefaultGenomeConfig</span></code></a>) are: <code class="docutils literal"><span class="pre">sum</span></code>, <a class="reference internal" href="module_summaries.html#genome.product" title="genome.product"><code class="xref py py-func docutils literal"><span class="pre">product</span></code></a>, <code class="docutils literal"><span class="pre">min</span></code>, and <code class="docutils literal"><span class="pre">max</span></code></dd>
 </dl>
 </li>
@@ -268,14 +268,14 @@ random value (as if it were a new node).</dd>
 <span class="target" id="compatibility-disjoint-coefficient-label"></span><span class="target" id="index-32"></span><ul class="simple" id="index-33">
 <li><dl class="first docutils">
 <dt><em>compatibility_disjoint_coefficient</em></dt>
-<dd>The coefficient for the <a class="reference internal" href="glossary.html#term-disjoint"><span class="xref std std-term">disjoint</span></a> and <a class="reference internal" href="glossary.html#term-excess"><span class="xref std std-term">excess</span></a> <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> counts' contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>.</dd>
+<dd>The coefficient for the <a class="reference internal" href="glossary.html#term-disjoint"><span class="xref std std-term">disjoint</span></a> and <a class="reference internal" href="glossary.html#term-excess"><span class="xref std std-term">excess</span></a> <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a> counts’ contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>.</dd>
 </dl>
 </li>
 </ul>
 <span class="target" id="compatibility-weight-coefficient-label"></span><span class="target" id="index-34"></span><span class="target" id="index-35"></span><ul class="simple" id="index-36">
 <li><dl class="first docutils">
 <dt><em>compatibility_weight_coefficient</em></dt>
-<dd>The coefficient for each <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>, <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a>, or <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier difference's contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>
+<dd>The coefficient for each <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>, <a class="reference internal" href="glossary.html#term-bias"><span class="xref std std-term">bias</span></a>, or <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier difference’s contribution to the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>
 (for <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a> or <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a>). This is also used as the value to add for differences
 in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a>, <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation functions</span></a>, or <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a>/disabled status.</dd>
 </dl>
@@ -307,7 +307,7 @@ disjoint or excess <a class="reference internal" href="glossary.html#term-node">
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">&quot;Newly created connections&quot; include ones in newly-created genomes, if those have initial connections
+<p class="last">“Newly created connections” include ones in newly-created genomes, if those have initial connections
 (from the setting of the <a class="reference internal" href="#initial-connection-config-label"><span class="std std-ref">initial_connection</span></a> variable).</p>
 </div>
 <ul class="simple" id="index-44">

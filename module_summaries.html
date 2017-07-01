@@ -1325,9 +1325,34 @@ connections to hidden nodes, if any). Implements the <code class="docutils liter
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="genome.DefaultGenome.compute_full_connections">
+<code class="descname">compute_full_connections</code><span class="sig-paren">(</span><em>config</em>, <em>direct</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.compute_full_connections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.compute_full_connections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute connections for a fully-connected feed-forward genome–each input connected to all hidden nodes (and output nodes if <code class="docutils literal"><span class="pre">direct</span></code> is set or
+there are no hidden nodes), each hidden node connected to all output nodes. (Recurrent genomes will also include node self-connections.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The genome configuration object</li>
+<li><strong>direct</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether or not, if there are <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden nodes</span></a>, to include links directly from input to output.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of connections, as (input <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">key</span></a>, output key) tuples</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>,<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>))</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Waiting here since uncertain on exactly what will happen re full/partial connectivity specifications. (May wind up merging the above also.)</p>
+<p class="last">Waiting here since uncertain on exactly what will happen re full/partial connectivity specifications. (May wind up merging fs_neat ones above also.)</p>
 </div>
 </dd></dl>
 
