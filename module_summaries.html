@@ -46,7 +46,8 @@
 <span class="target" id="module-activations"><span id="index-0"></span></span><div class="section" id="activations">
 <h2>activations<a class="headerlink" href="#activations" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><dl class="exception">
+<div><p>Has the built-in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a> and code for using them and adding new user-defined ones.</p>
+<dl class="exception">
 <dt id="activations.InvalidActivationFunction">
 <em class="property">exception </em><code class="descclassname">activations.</code><code class="descname">InvalidActivationFunction</code><span class="sig-paren">(</span><em>Exception</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#InvalidActivationFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.InvalidActivationFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception called if an activation function being added is invalid according to the <a class="reference internal" href="#activations.validate_activation" title="activations.validate_activation"><code class="xref any py py-func docutils literal"><span class="pre">validate_activation</span></code></a> function.</p>
@@ -130,15 +131,17 @@ by <a class="reference internal" href="#genome.DefaultGenomeConfig.add_activatio
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: Suggested simplification for the below: Make <code class="docutils literal"><span class="pre">__config_items__</span></code> a list of lists/tuples, with the latter containing (name, value_type, default) -
+<p class="last">TODO: Suggested simplification for the below: Make <code class="docutils literal"><span class="pre">__config_items__</span></code> a list of lists, with the latter containing [name, value_type, default] -
 no default if the last is None. This would also allow moving get_config_params into the BaseAttribute class, although config_item_names may require
-some modifications. (A default capability will be needed for future expansions of the attributes, such as different types of initializations.)</p>
+some modifications. (A default capability will be needed for future expansions of the attributes, such as different types of initializations, and for
+enabling better handling of the current activation/aggregation function defaults.)</p>
 </div>
 <span class="target" id="module-attributes"></span></div>
 <div class="section" id="attributes">
 <h2>attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><img src="_images/inheritance-4a822d5882324ff178248a7c4205a91173dead11.png" alt="Inheritance diagram of attributes" usemap="#inheritance199b63f8fc" class="inheritance"/>
+<div><p>Deals with <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attributes</span></a> used by <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">genes</span></a>.</p>
+<img src="_images/inheritance-4a822d5882324ff178248a7c4205a91173dead11.png" alt="Inheritance diagram of attributes" usemap="#inheritance199b63f8fc" class="inheritance"/>
 <map id="inheritance199b63f8fc" name="inheritance199b63f8fc">
 <area shape="rect" id="node1" href="#attributes.BaseAttribute" target="_top" title="attributes.BaseAttribute" alt="" coords="5,55,165,80"/>
 <area shape="rect" id="node2" href="#attributes.BoolAttribute" target="_top" title="attributes.BoolAttribute" alt="" coords="217,5,375,31"/>
@@ -387,11 +390,12 @@ due to its inherent short-sightedness), allowing the genomes to control the dist
 <div class="section" id="checkpoint">
 <h2>checkpoint<a class="headerlink" href="#checkpoint" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><dl class="class">
+<div><p>Uses <a class="reference external" href="https://docs.python.org/3.5/library/pickle.html#module-pickle" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">pickle</span></code></a> to save and restore populations (and other aspects of the simulation state).</p>
+<dl class="class">
 <dt id="checkpoint.Checkpointer">
 <em class="property">class </em><code class="descclassname">checkpoint.</code><code class="descname">Checkpointer</code><span class="sig-paren">(</span><em>generation_interval=100</em>, <em>time_interval_seconds=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/checkpoint.html#Checkpointer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#checkpoint.Checkpointer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A reporter class that performs checkpointing using <a class="reference external" href="https://docs.python.org/3.5/library/pickle.html#module-pickle" title="(in Python v3.5)"><code class="xref py py-mod docutils literal"><span class="pre">pickle</span></code></a> to save and restore populations (and other aspects of the simulation state). It saves
-the current state every <code class="docutils literal"><span class="pre">generation_interval</span></code> generations or <code class="docutils literal"><span class="pre">time_interval_seconds</span></code> seconds, whichever happens first.
+<dd><p>A reporter class that performs checkpointing, saving and restoring the simulation state (including population, randomization, and other aspects).
+It saves the current state every <code class="docutils literal"><span class="pre">generation_interval</span></code> generations or <code class="docutils literal"><span class="pre">time_interval_seconds</span></code> seconds, whichever happens first.
 Subclasses <a class="reference internal" href="#reporting.BaseReporter" title="reporting.BaseReporter"><code class="xref py py-class docutils literal"><span class="pre">reporting.BaseReporter</span></code></a>. (The potential save point is at the end of a generation.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

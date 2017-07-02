@@ -82,9 +82,9 @@ any registered reporting class’ <a class="reference internal" href="module_sum
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The <code class="docutils literal"><span class="pre">found_solution</span></code> method is <strong>not</strong> called if the maximum number of generations is reached without the above threshold being passed.
-TODO: Allow the above to be <code class="docutils literal"><span class="pre">None</span></code>, provided a maximum number of generations is passed to <a class="reference internal" href="module_summaries.html#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>, and
-if so call <code class="docutils literal"><span class="pre">found_solution</span></code> upon termination by a maximum number of generations. Alternatively, this could be done by allowing <code class="docutils literal"><span class="pre">fitness_criterion</span></code>
-to be <code class="docutils literal"><span class="pre">None</span></code>, or a new configuration parameter introduced.</p>
+TODO: Add a new configuration parameter to ignore the above, provided a maximum number of generations is passed
+to <a class="reference internal" href="module_summaries.html#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>, and if so call <code class="docutils literal"><span class="pre">found_solution</span></code> upon termination by a maximum number of generations. (Passing a value
+of <code class="docutils literal"><span class="pre">None</span></code>, which was my first thought, will not work because that will be identical to no configuration of fitness_threshold in the config file.)</p>
 </div>
 <span class="target" id="pop-size-label"></span><ul class="simple" id="index-3">
 <li><dl class="first docutils">
