@@ -46,7 +46,7 @@
 <span class="target" id="module-activations"><span id="index-0"></span></span><div class="section" id="activations">
 <h2>activations<a class="headerlink" href="#activations" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><p>Has the built-in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a> and code for using them and adding new user-defined ones.</p>
+<div><p>Has the built-in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a>, code for using them, and code for adding new user-defined ones.</p>
 <dl class="exception">
 <dt id="activations.InvalidActivationFunction">
 <em class="property">exception </em><code class="descclassname">activations.</code><code class="descname">InvalidActivationFunction</code><span class="sig-paren">(</span><em>Exception</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#InvalidActivationFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.InvalidActivationFunction" title="Permalink to this definition">¶</a></dt>
@@ -1200,7 +1200,7 @@ chance - turn its enabled attribute to <code class="docutils literal"><span clas
 <dt id="genome.DefaultGenome.distance">
 <code class="descname">distance</code><span class="sig-paren">(</span><em>other</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Returns the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> between this genome and the other.
-This distance value is used to compute genome compatibility for <a class="reference internal" href="#module-species" title="species: Divides the population into genome-based species."><code class="xref py py-mod docutils literal"><span class="pre">speciation</span></code></a>. Uses (by default) the
+This distance value is used to compute genome compatibility for <a class="reference internal" href="#module-species" title="species: Divides the population into species based on genomic distances."><code class="xref py py-mod docutils literal"><span class="pre">speciation</span></code></a>. Uses (by default) the
 <a class="reference internal" href="#genes.DefaultNodeGene.distance" title="genes.DefaultNodeGene.distance"><code class="xref py py-meth docutils literal"><span class="pre">genes.DefaultNodeGene.distance()</span></code></a> and <a class="reference internal" href="#genes.DefaultConnectionGene.distance" title="genes.DefaultConnectionGene.distance"><code class="xref py py-meth docutils literal"><span class="pre">genes.DefaultConnectionGene.distance()</span></code></a> methods for
 <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> pairs, and the configured <a class="reference internal" href="config_file.html#compatibility-disjoint-coefficient-label"><span class="std std-ref">compatibility_disjoint_coefficient</span></a> for
 disjoint/excess genes. (Note that this is one of the most time-consuming portions of the library; optimization - such as using
@@ -1365,7 +1365,8 @@ there are no hidden nodes), each hidden node connected to all output nodes. (Rec
 <div class="section" id="graphs">
 <h2>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><dl class="function">
+<div><p>Directed graph algorithm implementations.</p>
+<dl class="function">
 <dt id="graphs.creates_cycle">
 <code class="descclassname">graphs.</code><code class="descname">creates_cycle</code><span class="sig-paren">(</span><em>connections</em>, <em>test</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/graphs.html#creates_cycle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#graphs.creates_cycle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the addition of the <code class="docutils literal"><span class="pre">test</span></code> <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a> would create a cycle, assuming that no cycle already exists in the graph represented
@@ -1446,7 +1447,8 @@ by <code class="docutils literal"><span class="pre">connections</span></code>. U
 <div class="section" id="indexer">
 <span id="index-50"></span><h2>indexer<a class="headerlink" href="#indexer" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><dl class="class">
+<div><p>Helps with creating new <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">identifiers/keys</span></a>.</p>
+<dl class="class">
 <dt id="indexer.Indexer">
 <em class="property">class </em><code class="descclassname">indexer.</code><code class="descname">Indexer</code><span class="sig-paren">(</span><em>first</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/indexer.html#Indexer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#indexer.Indexer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes an Indexer instance with the internal ID counter set to <code class="docutils literal"><span class="pre">first</span></code>. This class functions to help with creating new (unique) identifiers/keys.</p>
@@ -1799,7 +1801,8 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <div class="section" id="parallel">
 <h2>parallel<a class="headerlink" href="#parallel" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><dl class="class">
+<div><p>Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once.</p>
+<dl class="class">
 <dt id="parallel.ParallelEvaluator">
 <em class="property">class </em><code class="descclassname">parallel.</code><code class="descname">ParallelEvaluator</code><span class="sig-paren">(</span><em>num_workers</em>, <em>eval_function</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parallel.html#ParallelEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parallel.ParallelEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once.</p>
@@ -1823,7 +1826,8 @@ The softmax is defined as follows: <span class="math">\(\begin{equation}v_i = \e
 <div class="section" id="population">
 <h2>population<a class="headerlink" href="#population" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><span class="target" id="index-56"></span><dl class="exception">
+<div><p>Implements the core evolution algorithm.</p>
+<span class="target" id="index-56"></span><dl class="exception">
 <dt id="population.CompleteExtinctionException">
 <em class="property">exception </em><code class="descclassname">population.</code><code class="descname">CompleteExtinctionException</code><a class="reference internal" href="_modules/population.html#CompleteExtinctionException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#population.CompleteExtinctionException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised on complete extinction (all species removed due to stagnation) unless <a class="reference internal" href="config_file.html#reset-on-extinction-label"><span class="std std-ref">reset_on_extinction</span></a> is set.</p>
@@ -2405,7 +2409,8 @@ The <a class="reference external" href="https://pythonhosted.org/six/">six docum
 <div class="section" id="species">
 <h2>species<a class="headerlink" href="#species" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><dl class="class">
+<div><p>Divides the population into species based on <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distances</span></a>.</p>
+<dl class="class">
 <dt id="species.Species">
 <em class="property">class </em><code class="descclassname">species.</code><code class="descname">Species</code><span class="sig-paren">(</span><em>key</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#Species"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.Species" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a <a class="reference internal" href="glossary.html#term-species"><span class="xref std std-term">species</span></a> and contains data about it such as members, fitness, and time stagnating.
@@ -2842,7 +2847,7 @@ fitness order.</p>
 <dt id="statistics.StatisticsReporter.get_species_sizes">
 <code class="descname">get_species_sizes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_species_sizes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_species_sizes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a by-generation list of lists of species sizes. Note that some values may be 0, if a species has either not yet been seen or has been
-removed due to <a class="reference internal" href="#module-stagnation" title="stagnation: Keeps track of whether species are making progress and removes ones that are not (for a configurable number of generations)."><code class="xref py py-mod docutils literal"><span class="pre">stagnation</span></code></a>; species without generational overlap may be more similar in <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> than the configured
+removed due to <a class="reference internal" href="#module-stagnation" title="stagnation: Keeps track of whether species are making progress and helps remove ones that are not (for a configurable number of generations)."><code class="xref py py-mod docutils literal"><span class="pre">stagnation</span></code></a>; species without generational overlap may be more similar in <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> than the configured
 <a class="reference internal" href="config_file.html#compatibility-threshold-label"><span class="std std-ref">compatibility_threshold</span></a> would otherwise allow.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
