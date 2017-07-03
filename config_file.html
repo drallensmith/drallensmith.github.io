@@ -179,8 +179,7 @@ required for your particular implementation.</p>
 <li><dl class="first docutils">
 <dt><em>activation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attribute</span></a> <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.init_value" title="attributes.StringAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">assigned</span></code></a> to new
-<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “activation_options“ will be
-:py:meth:`chosen &lt;attributes.StringAttribute.init_value&gt;` at random.</strong></dd>
+<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “activation_options“ will be chosen at random.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -192,7 +191,7 @@ Valid values are in [0.0, 1.0].</dd>
 </li>
 <li><dl class="first docutils">
 <dt><em>activation_options</em></dt>
-<dd>A space-separated list of the activation functions that may be used by nodes.  <strong>This defaults to :ref:`sigmoid &lt;sigmoid-label&gt;`.</strong> The
+<dd>A space-separated list of the activation functions that may be used by nodes.  <strong>This defaults to</strong> <a class="reference internal" href="activation.html#sigmoid-label"><span class="std std-ref">sigmoid</span></a>. The
 built-in available functions can be found in <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a>; more can be added as described in <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">Customizing Behavior</span></a>.</dd>
 </dl>
 </li>
@@ -201,8 +200,7 @@ built-in available functions can be found in <a class="reference internal" href=
 <li><dl class="first docutils">
 <dt><em>aggregation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attribute</span></a> <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.init_value" title="attributes.StringAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">assigned</span></code></a> to new
-<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “aggregation_options“ will be
-:py:meth:`chosen &lt;attributes.StringAttribute.init_value&gt;` at random.</strong></dd>
+<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random“ is specified, one of the “aggregation_options“ will be chosen at random.</strong></dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -233,12 +231,12 @@ available functions (defined in <a class="reference internal" href="module_summa
 </li>
 <li><dl class="first docutils">
 <dt><em>bias_max_value</em></dt>
-<dd>The maximum allowed bias value.  Biases above this value will be :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
+<dd>The maximum allowed bias value.  Biases above this value will be <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>bias_min_value</em></dt>
-<dd>The minimum allowed bias value.  Biases below this value will be :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
+<dd>The minimum allowed bias value.  Biases below this value will be <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -253,7 +251,7 @@ available functions (defined in <a class="reference internal" href="module_summa
 </li>
 <li><dl class="first docutils">
 <dt><em>bias_replace_rate</em></dt>
-<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the bias of a node with a newly :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.mutate_value" title="attributes.FloatAttribute.mutate_value"><code class="xref any py py-meth docutils literal"><span class="pre">chosen</span></code></a>
+<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the bias of a node with a newly <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.mutate_value" title="attributes.FloatAttribute.mutate_value"><code class="xref py py-meth docutils literal"><span class="pre">chosen</span></code></a>
 random value (as if it were a new node).</dd>
 </dl>
 </li>
@@ -400,12 +398,12 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 </li>
 <li><dl class="first docutils">
 <dt><em>response_max_value</em></dt>
-<dd>The maximum allowed response multiplier. Response multipliers above this value will be :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
+<dd>The maximum allowed response multiplier. Response multipliers above this value will be <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>response_min_value</em></dt>
-<dd>The minimum allowed response multiplier. Response multipliers below this value will be :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
+<dd>The minimum allowed response multiplier. Response multipliers below this value will be <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -420,7 +418,7 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 </li>
 <li><dl class="first docutils">
 <dt><em>response_replace_rate</em></dt>
-<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the response multiplier of a node with a newly :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.mutate_value" title="attributes.FloatAttribute.mutate_value"><code class="xref any py py-meth docutils literal"><span class="pre">chosen</span></code></a>
+<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the response multiplier of a node with a newly <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.mutate_value" title="attributes.FloatAttribute.mutate_value"><code class="xref py py-meth docutils literal"><span class="pre">chosen</span></code></a>
 random value (as if it were a new node).</dd>
 </dl>
 </li>
@@ -439,12 +437,12 @@ random value (as if it were a new node).</dd>
 </li>
 <li><dl class="first docutils">
 <dt><em>weight_max_value</em></dt>
-<dd>The maximum allowed weight value. Weights above this value will be :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
+<dd>The maximum allowed weight value. Weights above this value will be <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt><em>weight_min_value</em></dt>
-<dd>The minimum allowed weight value. Weights below this value will be :py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref any py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
+<dd>The minimum allowed weight value. Weights below this value will be <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.clamp" title="attributes.FloatAttribute.clamp"><code class="xref py py-meth docutils literal"><span class="pre">clamped</span></code></a> to this value.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
@@ -459,7 +457,7 @@ random value (as if it were a new node).</dd>
 </li>
 <li><dl class="first docutils">
 <dt><em>weight_replace_rate</em></dt>
-<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the weight of a connection with a newly py:meth::<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.mutate_value" title="attributes.FloatAttribute.mutate_value"><code class="xref any py py-meth docutils literal"><span class="pre">chosen</span></code></a>
+<dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will replace the weight of a connection with a newly py:meth:<a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.mutate_value" title="attributes.FloatAttribute.mutate_value"><code class="xref any py py-meth docutils literal"><span class="pre">chosen</span></code></a>
 random value (as if it were a new connection).</dd>
 </dl>
 </li>
