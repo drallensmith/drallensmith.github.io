@@ -131,10 +131,11 @@ by <a class="reference internal" href="#genome.DefaultGenomeConfig.add_activatio
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: Suggested simplification for the below: Make <code class="docutils literal"><span class="pre">__config_items__</span></code> a list of lists, with the latter containing [name, value_type, default] -
+<p>TODO: Suggested simplification for the below: Make <code class="docutils literal"><span class="pre">__config_items__</span></code> a list of lists, with the latter containing [name, value_type, default] -
 no default if the last is None. This would also allow moving get_config_params into the BaseAttribute class, although config_item_names may require
 some modifications. (A default capability will be needed for future expansions of the attributes, such as different types of initializations, and for
 enabling better handling of the current activation/aggregation function defaults.)</p>
+<p class="last">The above is mostly done in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch.</p>
 </div>
 <span class="target" id="module-attributes"></span></div>
 <div class="section" id="attributes">
@@ -240,8 +241,8 @@ keep the result within the desired range.</p>
 <code class="descname">mutate_value</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FloatAttribute.mutate_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FloatAttribute.mutate_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>May replace (as if reinitializing, using <a class="reference internal" href="#attributes.FloatAttribute.init_value" title="attributes.FloatAttribute.init_value"><code class="xref any py py-meth docutils literal"><span class="pre">init_value</span></code></a>), mutate (using a 0-mean gaussian distribution with a configured standard
 deviation from <code class="docutils literal"><span class="pre">mutate_power</span></code>), or leave alone the input value, depending on the configuration settings (of <code class="docutils literal"><span class="pre">replace_rate</span></code> and <code class="docutils literal"><span class="pre">mutate_rate</span></code>).
-TODO: Why check vs <a class="reference external" href="https://docs.python.org/3.5/library/random.html#module-random" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random</span></code></a> if the <code class="docutils literal"><span class="pre">replace_rate</span></code> and <code class="docutils literal"><span class="pre">mutate_rate</span></code> are 0? Also note that the <code class="docutils literal"><span class="pre">replace_rate</span></code> is likely to be lower, so should
-be checked second.</p>
+TODO: Note that the <code class="docutils literal"><span class="pre">replace_rate</span></code> is likely to be lower, so should be checked second. (Done in the
+<a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -378,7 +379,8 @@ of the <code class="docutils literal"><span class="pre">options</span></code> (e
 <dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> (which is more precisely a <code class="docutils literal"><span class="pre">replace_rate</span></code>) configuration parameter, replaces
 the value with an one of the <code class="docutils literal"><span class="pre">options</span></code>, with each having an equal chance; note that this can be the same value as before. (It is possible to crudely
 alter the chances of what is chosen by listing a given option more than once, although this is inefficient given the use of the <a class="reference external" href="https://docs.python.org/3.5/library/random.html#random.choice" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random.choice</span></code></a> function.)
-TODO: Do not check vs <a class="reference external" href="https://docs.python.org/3.5/library/random.html#module-random" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random</span></code></a> if the <code class="docutils literal"><span class="pre">mutate_rate</span></code> is 0. (Longer-term, add configurable probabilities of which option is used; eventually, as with the
+TODO: Do not check vs <a class="reference external" href="https://docs.python.org/3.5/library/random.html#module-random" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random</span></code></a> if the <code class="docutils literal"><span class="pre">mutate_rate</span></code> is 0 (done in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a>
+branch). (Longer-term, add configurable probabilities of which option is used; eventually, as with the
 improved version of RBF-NEAT, separate genes for the likelihoods of each (but always doing some change, to prevent overly-conservative evolution
 due to its inherent short-sightedness), allowing the genomes to control the distribution of options, will be desirable.)</p>
 </dd></dl>
@@ -2222,7 +2224,7 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Configuration object, in this implementation a dictionary.</li>
 <li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> object.</li>
-<li><strong>stagnation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> object - the current code partially depends on internals of this class (a TODO is noted to correct this)</li>
+<li><strong>stagnation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> object - the current code partially depends on internals of this class (a TODO is noted to correct this).</li>
 </ul>
 </td>
 </tr>
@@ -2231,8 +2233,9 @@ scheme: explicit fitness sharing with fixed-time species stagnation. For class r
 <dl class="classmethod">
 <dt id="reproduction.DefaultReproduction.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Provides defaults for <span class="target" id="index-68"></span>elitism, <span class="target" id="index-69"></span>survival_threshold, and <span class="target" id="index-70"></span>min_species_size parameters and updates them from the
-<a class="reference internal" href="config_file.html#reproduction-config-label"><span class="std std-ref">configuration file</span></a>.</p>
+<dd><p>Required interface method. Provides defaults for <span class="target" id="index-68"></span>elitism, <span class="target" id="index-69"></span>survival_threshold, and <span class="target" id="index-70"></span>min_species_size parameters and updates
+them from the <a class="reference internal" href="config_file.html#reproduction-config-label"><span class="std std-ref">configuration file</span></a>. TODO: Use a separate configuration class, for consistency with other types
+(mostly done in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2530,7 +2533,9 @@ this for moderate-size populations.)</p>
 <dl class="classmethod">
 <dt id="species.DefaultSpeciesSet.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet.parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Currently, the only configuration parameter is the <a class="reference internal" href="config_file.html#compatibility-threshold-label"><span class="std std-ref">compatibility_threshold</span></a>.</p>
+<dd><p>Required interface method. Currently, the only configuration parameter is the <a class="reference internal" href="config_file.html#compatibility-threshold-label"><span class="std std-ref">compatibility_threshold</span></a>. TODO:
+Use a separate configuration class, for consistency with other types
+(mostly done in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2656,7 +2661,8 @@ level of fitness to be considered “stagnant” (including, most problematicall
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.parse_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Provides defaults for <a class="reference internal" href="config_file.html#species-fitness-func-label"><span class="std std-ref">species_fitness_func</span></a>,
 <a class="reference internal" href="config_file.html#max-stagnation-label"><span class="std std-ref">max_stagnation</span></a>, and <a class="reference internal" href="config_file.html#species-elitism-label"><span class="std std-ref">species_elitism</span></a> parameters and updates them
-from the configuration file.</p>
+from the configuration file. TODO: Use a separate configuration class, for consistency with other types
+(mostly done in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2697,7 +2703,7 @@ from the configuration file.</p>
 <a class="reference internal" href="config_file.html#max-stagnation-label"><span class="std std-ref">max_stagnation</span></a> generations, and - unless it would result in the number of species dropping below the configured
 <a class="reference internal" href="config_file.html#species-elitism-label"><span class="std std-ref">species_elitism</span></a> if they were removed, in which case the highest-fitness species are spared - returns a list with
 stagnant species marked for removal. TODO: Currently interacts directly with the internals of the <a class="reference internal" href="#species.Species" title="species.Species"><code class="xref py py-class docutils literal"><span class="pre">species.Species</span></code></a> object.
-Also, currently both checks for num_non_stagnant to stop marking stagnant <strong>and</strong> does not allow the top <code class="docutils literal"><span class="pre">species_elitism</span></code> species to be
+Also, currently <strong>both</strong> checks for num_non_stagnant to stop marking stagnant <strong>and</strong> does not allow the top <code class="docutils literal"><span class="pre">species_elitism</span></code> species to be
 marked stagnant. While the latter could admittedly help with the problem mentioned above, the ordering of species fitness is using the
 fitness gotten from the <code class="docutils literal"><span class="pre">species_fitness_func</span></code> (and thus may miss high-fitness members of overall low-fitness species, depending on the
 function in use).</p>

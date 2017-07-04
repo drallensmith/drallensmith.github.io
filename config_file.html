@@ -50,12 +50,13 @@ that library code changes will result in your project silently using different N
 insofar as possible new configuration parameters will default to the existing behavior.)</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: Work on ways to make the existing defaults more integrated with the configuration code. This may involve a third, optional (defaulting to <code class="docutils literal"><span class="pre">None</span></code>)
+<p>TODO: Work on ways to make the existing defaults more integrated with the configuration code. This may involve a third, optional (defaulting to <code class="docutils literal"><span class="pre">None</span></code>)
 parameter for <a class="reference internal" href="module_summaries.html#config.ConfigParameter" title="config.ConfigParameter"><code class="xref any py py-class docutils literal"><span class="pre">ConfigParameter</span></code></a>, giving a default. Such a mechanism will be needed to convert the configuration in <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> and
 <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> to match that in other classes/modules. It would also be needed to add, for instance, an alternative uniform-distribution initialization
 for various parameters such as weight and bias, without requiring all configuration files to be changed to specify the gaussian distribution currently in
 use. Another example would be for a configuration file variable for whether more than one addition/connection <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> can take place at a time,
 as mentioned in genome.py.</p>
+<p class="last">The above is mostly done in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch.</p>
 </div>
 <p>Note that the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor also requires you to explicitly specify the types that will be used
 for the NEAT simulation.  This, again, is to help avoid silent changes in behavior.</p>
@@ -84,7 +85,8 @@ any registered reporting class’ <a class="reference internal" href="module_sum
 <p class="last">The <code class="docutils literal"><span class="pre">found_solution</span></code> method is <strong>not</strong> called if the maximum number of generations is reached without the above threshold being passed.
 TODO: Add a new configuration parameter to ignore the above, provided a maximum number of generations is passed
 to <a class="reference internal" href="module_summaries.html#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>, and if so call <code class="docutils literal"><span class="pre">found_solution</span></code> upon termination by a maximum number of generations. (Passing a value
-of <code class="docutils literal"><span class="pre">None</span></code>, which was my first thought, will not work because that will be identical to no configuration of fitness_threshold in the config file.)</p>
+of <code class="docutils literal"><span class="pre">None</span></code>, which was my first thought, will not work because that will be identical to no configuration of fitness_threshold in the config file, or at least
+will be too confusing, if it is passed as a string.)</p>
 </div>
 <span class="target" id="pop-size-label"></span><ul class="simple" id="index-3">
 <li><dl class="first docutils">
@@ -139,8 +141,9 @@ being removed for stagnation regardless of the amount of time they have not show
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.write_config" title="stagnation.DefaultStagnation.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.write_config</span></code></a> uses a default of 15 for <code class="docutils literal"><span class="pre">species_elitism</span></code>, but the default by <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.parse_config" title="stagnation.DefaultStagnation.parse_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.parse_config</span></code></a> is 0,
+<p>TODO: <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.write_config" title="stagnation.DefaultStagnation.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.write_config</span></code></a> uses a default of 15 for <code class="docutils literal"><span class="pre">species_elitism</span></code>, but the default by <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation.parse_config" title="stagnation.DefaultStagnation.parse_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultStagnation.parse_config</span></code></a> is 0,
 which will override.</p>
+<p class="last">The above is handled in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch.</p>
 </div>
 <span class="target" id="index-10"></span></div>
 <div class="section" id="defaultreproduction-section">
@@ -165,8 +168,9 @@ required for your particular implementation.</p>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: There is also a <span class="target" id="index-14"></span>min_species_size configuration parameter, defaulting to 2, although it is not written out by
+<p>TODO: There is also a <span class="target" id="index-14"></span>min_species_size configuration parameter, defaulting to 2, although it is not written out by
 <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction.write_config" title="reproduction.DefaultReproduction.write_config"><code class="xref any py py-meth docutils literal"><span class="pre">DefaultReproduction.write_config</span></code></a>.</p>
+<p class="last">The above is handled in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch, although documentation is needed.</p>
 </div>
 <span class="target" id="index-15"></span></div>
 <div class="section" id="defaultgenome-section">
@@ -350,7 +354,11 @@ have <a class="reference internal" href="glossary.html#term-recurrent"><span cla
 </dl>
 </li>
 </ul>
-<span class="target" id="index-50"></span><span id="index-51"></span><ul class="simple" id="node-add-prob-label">
+<div class="admonition-todo admonition" id="index-50">
+<p class="first admonition-title">Todo</p>
+<p class="last">The changes to fs_neat, full, and partial should be noted under a “versionchanged” for something like 0.92.</p>
+</div>
+<span class="target" id="index-51"></span><span id="index-52"></span><ul class="simple" id="node-add-prob-label">
 <li><dl class="first docutils">
 <dt><em>node_add_prob</em></dt>
 <dd>The probability that <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">mutation</span></a> will add a new <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> (essentially replacing an existing connection,
@@ -363,28 +371,28 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 </dl>
 </li>
 </ul>
-<span class="target" id="num-nodes-config-label"></span><ul class="simple" id="index-52">
+<span class="target" id="num-nodes-config-label"></span><ul class="simple" id="index-53">
 <li><dl class="first docutils">
 <dt><em>num_hidden</em></dt>
 <dd>The number of <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden nodes</span></a> to add to each genome in the initial population.</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-53">
+<ul class="simple" id="index-54">
 <li><dl class="first docutils">
 <dt><em>num_inputs</em></dt>
 <dd>The number of <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a>, through which the network receives inputs.</dd>
 </dl>
 </li>
 </ul>
-<ul class="simple" id="index-54">
+<ul class="simple" id="index-55">
 <li><dl class="first docutils">
 <dt><em>num_outputs</em></dt>
 <dd>The number of <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a>, to which the network delivers outputs.</dd>
 </dl>
 </li>
 </ul>
-<span class="target" id="index-55"></span><span class="target" id="index-56"></span><span class="target" id="index-57"></span><ul class="simple" id="index-58">
+<span class="target" id="index-56"></span><span class="target" id="index-57"></span><span class="target" id="index-58"></span><ul class="simple" id="index-59">
 <li><dl class="first docutils">
 <dt><em>response_init_mean</em></dt>
 <dd>The mean of the normal/gaussian distribution used to <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.init_value" title="attributes.FloatAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">select</span></code></a> <a class="reference internal" href="glossary.html#term-response"><span class="xref std std-term">response</span></a> multiplier
@@ -423,7 +431,7 @@ random value (as if it were a new node).</dd>
 </dl>
 </li>
 </ul>
-<span class="target" id="index-59"></span><span class="target" id="index-60"></span><span class="target" id="index-61"></span><ul class="simple" id="index-62">
+<span class="target" id="index-60"></span><span class="target" id="index-61"></span><span class="target" id="index-62"></span><ul class="simple" id="index-63">
 <li><dl class="first docutils">
 <dt><em>weight_init_mean</em></dt>
 <dd>The mean of the normal/gaussian distribution used to <a class="reference internal" href="module_summaries.html#attributes.FloatAttribute.init_value" title="attributes.FloatAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">select</span></code></a> <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>
