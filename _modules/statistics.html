@@ -52,6 +52,10 @@
 <span class="c1"># (Maybe periodically write blocks of history to disk, or log stats in a database?)</span>
 
 <div class="viewcode-block" id="StatisticsReporter"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter">[docs]</a><span class="k">class</span> <span class="nc">StatisticsReporter</span><span class="p">(</span><span class="n">BaseReporter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gathers (via the reporting interface) and provides (to callers and/or a file) the most-fit genomes and</span>
+<span class="sd">    information on genome/species fitness and species sizes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">BaseReporter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">most_fit_genomes</span> <span class="o">=</span> <span class="p">[]</span>
@@ -104,12 +108,12 @@
         <span class="n">best_unique</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">most_fit_genomes</span><span class="p">:</span>
             <span class="n">best_unique</span><span class="p">[</span><span class="n">g</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span>
-        <span class="n">best_unique</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">best_unique</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">best_unique_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">best_unique</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
         <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="n">genome</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">genome</span><span class="o">.</span><span class="n">fitness</span>
 
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">best_unique</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">best_unique_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="StatisticsReporter.best_genomes"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter.best_genomes">[docs]</a>    <span class="k">def</span> <span class="nf">best_genomes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the n most fit genomes ever seen.&quot;&quot;&quot;</span>

@@ -40,12 +40,14 @@
           <div class="body" role="main">
             
   <h1>Source code for six_util</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Instead of adding six as a dependency, this code was copied from the six implementation.</span>
+<span class="sd">six is Copyright (c) 2010-2015 Benjamin Peterson</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="c1"># TODO: Perhaps rename this to platform.py or something and add OS-specific hardware detection.</span>
 
-<span class="c1"># Instead of adding six as a dependency, this code was copied from the six implementation.</span>
-<span class="c1"># six is Copyright (c) 2010-2015 Benjamin Peterson</span>
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">iterkeys</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">))</span>

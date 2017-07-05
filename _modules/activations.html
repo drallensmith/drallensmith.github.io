@@ -40,9 +40,10 @@
           <div class="body" role="main">
             
   <h1>Source code for activations</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
+<span></span><span class="sd">&quot;&quot;&quot;Has the built-in activation functions, code for using them, and code for adding new user-defined ones&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">types</span>
 
 
 <span class="k">def</span> <span class="nf">sigmoid_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -83,10 +84,12 @@
 
 
 <span class="k">def</span> <span class="nf">inv_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">z</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">z</span>
+    <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span> <span class="c1"># handle overflows</span>
         <span class="k">return</span> <span class="mf">0.0</span>
-
-    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">z</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">z</span>
 
 
 <span class="k">def</span> <span class="nf">log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -115,16 +118,18 @@
     <span class="k">return</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">3</span>
 
 
-<div class="viewcode-block" id="InvalidActivationFunction"><a class="viewcode-back" href="../module_summaries.html#activations.InvalidActivationFunction">[docs]</a><span class="k">class</span> <span class="nc">InvalidActivationFunction</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="InvalidActivationFunction"><a class="viewcode-back" href="../module_summaries.html#activations.InvalidActivationFunction">[docs]</a><span class="k">class</span> <span class="nc">InvalidActivationFunction</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="validate_activation"><a class="viewcode-back" href="../module_summaries.html#activations.validate_activation">[docs]</a><span class="k">def</span> <span class="nf">validate_activation</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">function</span><span class="p">,</span>
+                      <span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">BuiltinFunctionType</span><span class="p">,</span>
+                       <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">,</span>
+                       <span class="n">types</span><span class="o">.</span><span class="n">LambdaType</span><span class="p">)):</span>
         <span class="k">raise</span> <span class="n">InvalidActivationFunction</span><span class="p">(</span><span class="s2">&quot;A function object is required.&quot;</span><span class="p">)</span>
 
-    <span class="n">args</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">function</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># avoid deprecated use of `inspect`</span>
         <span class="k">raise</span> <span class="n">InvalidActivationFunction</span><span class="p">(</span><span class="s2">&quot;A single-argument function is required.&quot;</span><span class="p">)</span></div>
 
 

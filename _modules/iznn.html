@@ -63,6 +63,7 @@
 <span class="c1"># c: the after-spike reset value of the membrane potential</span>
 <span class="c1"># d: after-spike reset of the recovery variable</span>
 <span class="c1"># The following parameter sets produce some known spiking behaviors:</span>
+<span class="c1"># pylint: disable=bad-whitespace</span>
 <span class="n">REGULAR_SPIKING_PARAMS</span>        <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">65.0</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mf">8.00</span><span class="p">}</span>
 <span class="n">INTRINSICALLY_BURSTING_PARAMS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">55.0</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mf">4.00</span><span class="p">}</span>
 <span class="n">CHATTERING_PARAMS</span>             <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">50.0</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mf">2.00</span><span class="p">}</span>
@@ -76,6 +77,8 @@
 
 
 <div class="viewcode-block" id="IZNodeGene"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNodeGene">[docs]</a><span class="k">class</span> <span class="nc">IZNodeGene</span><span class="p">(</span><span class="n">BaseGene</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Contains attributes for the iznn node genes and determines genomic distances.&quot;&quot;&quot;</span>
+    
     <span class="n">__gene_attributes__</span> <span class="o">=</span> <span class="p">[</span><span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;bias&#39;</span><span class="p">),</span>
                            <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">),</span>
                            <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">),</span>
@@ -97,10 +100,18 @@
 
 
 <div class="viewcode-block" id="IZNeuron"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNeuron">[docs]</a><span class="k">class</span> <span class="nc">IZNeuron</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sets up and simulates the iznn nodes (neurons).&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        a, b, c, d are the parameters of the Izhikevich model.</span>
-<span class="sd">        inputs: list of (input key, weight) pairs for incoming connections</span>
+
+<span class="sd">        :param float bias: The bias of the neuron.</span>
+<span class="sd">        :param float a: The time-scale of the recovery variable.</span>
+<span class="sd">        :param float b: The sensitivity of the recovery variable.</span>
+<span class="sd">        :param float c: The after-spike reset value of the membrane potential.</span>
+<span class="sd">        :param float d: The after-spike reset value of the recovery variable.</span>
+<span class="sd">        :param inputs: A list of (input key, weight) pairs for incoming connections.</span>
+<span class="sd">        :type inputs: list(tuple(int, float))</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
@@ -175,6 +186,7 @@
             <span class="n">n</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="IZNN.get_time_step_msec"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.get_time_step_msec">[docs]</a>    <span class="k">def</span> <span class="nf">get_time_step_msec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=no-self-use</span>
         <span class="c1"># TODO: Investigate performance or numerical stability issues that may</span>
         <span class="c1"># result from using this hard-coded time step.</span>
         <span class="k">return</span> <span class="mf">0.05</span></div>
