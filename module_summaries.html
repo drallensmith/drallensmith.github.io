@@ -51,6 +51,9 @@
 <dt id="activations.InvalidActivationFunction">
 <em class="property">exception </em><code class="descclassname">activations.</code><code class="descname">InvalidActivationFunction</code><span class="sig-paren">(</span><em>TypeError</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#InvalidActivationFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.InvalidActivationFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception called if an activation function being added is invalid according to the <a class="reference internal" href="#activations.validate_activation" title="activations.validate_activation"><code class="xref any py py-func docutils literal"><span class="pre">validate_activation</span></code></a> function.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-github: </span>Base of exception changed to more-precise TypeError.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -443,6 +446,7 @@ a <a class="reference internal" href="#population.Population" title="population.
 <span class="target" id="index-4"></span><span class="target" id="index-5"></span><span class="target" id="index-6"></span><span class="target" id="module-config"><span id="index-7"></span></span></div>
 <div class="section" id="config">
 <h2>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h2>
+<p>Does general configuration parsing; used by other classes for their configuration.</p>
 <blockquote>
 <div><dl class="class">
 <dt id="config.ConfigParameter">
@@ -1004,6 +1008,9 @@ other parameters.</p>
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-github: </span>Moved from DefaultGenome so no longer only single-genome-instance unique.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -1179,6 +1186,9 @@ are no connections, call <a class="reference internal" href="#genome.DefaultGeno
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-github: </span>Output nodes not allowed to be connected together.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1358,6 +1368,9 @@ there are no hidden nodes), each hidden node connected to all output nodes. (Rec
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-github: </span>“Direct” added to help with documentation vs program conflict; connect_fs_neat, connect_full, connect_partial split up.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -2330,7 +2343,8 @@ them from the <a class="reference internal" href="config_file.html#reproduction-
 <dl class="classmethod">
 <dt id="reproduction.DefaultReproduction.write_config">
 <em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.write_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Saves <code class="docutils literal"><span class="pre">elitism</span></code> and <code class="docutils literal"><span class="pre">survival_threshold</span></code> (but not <code class="docutils literal"><span class="pre">min_species_size</span></code>) parameters to new config file.</p>
+<dd><p>Required interface method. Saves <code class="docutils literal"><span class="pre">elitism</span></code> and <code class="docutils literal"><span class="pre">survival_threshold</span></code> (but not <code class="docutils literal"><span class="pre">min_species_size</span></code>) parameters to new config file. (Inconsistency
+re <code class="docutils literal"><span class="pre">min_species_size</span></code> fixed in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2758,7 +2772,7 @@ from the configuration file. TODO: Use a separate configuration class, for consi
 <dt id="stagnation.DefaultStagnation.write_config">
 <em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.write_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Saves parameters to new config file. TODO: Has a default of 15 for species_elitism, but will be overridden by the default of
-0 in parse_config.</p>
+0 in parse_config (fixed in the <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/config_work">config_work</a> branch).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2802,6 +2816,9 @@ function in use).</p>
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-github: </span>Species sorted to avoid marking best-performing as stagnant even with <code class="docutils literal"><span class="pre">species_elitism</span></code>.</p>
+</div>
 </dd></dl>
 
 </dd></dl>
