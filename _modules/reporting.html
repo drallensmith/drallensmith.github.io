@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>reporting &#8212; NEAT-Python 0.91-config_work documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -164,6 +161,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generation time: </span><span class="si">{0:.3f}</span><span class="s2"> sec&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elapsed</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">post_evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">best_genome</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=no-self-use</span>
         <span class="n">fitnesses</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">fitness</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="n">population</span><span class="p">)]</span>
         <span class="n">fit_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">fitnesses</span><span class="p">)</span>
         <span class="n">fit_std</span> <span class="o">=</span> <span class="n">stdev</span><span class="p">(</span><span class="n">fitnesses</span><span class="p">)</span>
@@ -219,7 +217,7 @@
       &copy;2015-2017, CodeReclaimers, LLC.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
     </div>
