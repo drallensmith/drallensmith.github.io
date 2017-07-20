@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>stagnation &#8212; NEAT-Python 0.91-github documentation</title>
+    <title>stagnation &#8212; NEAT-Python 0.91-config_work documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-github',
+        VERSION:     '0.91-config_work',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,39 +42,30 @@
   <h1>Source code for stagnation</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">sys</span>
 
+<span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">DefaultClassConfig</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span>
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">stat_functions</span>
 
 <span class="c1"># TODO: Add a method for the user to change the &quot;is stagnant&quot; computation.</span>
 
-
 <div class="viewcode-block" id="DefaultStagnation"><a class="viewcode-back" href="../module_summaries.html#stagnation.DefaultStagnation">[docs]</a><span class="k">class</span> <span class="nc">DefaultStagnation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <div class="viewcode-block" id="DefaultStagnation.parse_config"><a class="viewcode-back" href="../module_summaries.html#stagnation.DefaultStagnation.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;species_fitness_func&#39;</span><span class="p">:</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;max_stagnation&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-                  <span class="s1">&#39;species_elitism&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">config</span></div>
+        <span class="k">return</span> <span class="n">DefaultClassConfig</span><span class="p">(</span><span class="n">param_dict</span><span class="p">,</span>
+                                  <span class="p">[</span><span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;species_fitness_func&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">),</span>
+                                   <span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;max_stagnation&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+                                   <span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;species_elitism&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span></div>
 
 <div class="viewcode-block" id="DefaultStagnation.write_config"><a class="viewcode-back" href="../module_summaries.html#stagnation.DefaultStagnation.write_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="n">fitness_func</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;species_fitness_func&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;species_fitness_func = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fitness_func</span><span class="p">))</span>
-        <span class="n">max_stagnation</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;max_stagnation&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;max_stagnation       = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_stagnation</span><span class="p">))</span>
-        <span class="n">species_elitism</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;species_elitism&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;species_elitism      = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">species_elitism</span><span class="p">))</span></div>
+        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">reporters</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">max_stagnation</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;max_stagnation&#39;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">species_fitness</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;species_fitness_func&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">species_elitism</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;species_elitism&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_config</span> <span class="o">=</span> <span class="n">config</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">species_fitness_func</span> <span class="o">=</span> <span class="n">stat_functions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species_fitness</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">species_fitness_func</span> <span class="o">=</span> <span class="n">stat_functions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">species_fitness_func</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_fitness_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unexpected species fitness: </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species_fitness</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unexpected species fitness func: </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">species_fitness_func</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="n">reporters</span>
 
@@ -107,13 +98,10 @@
             <span class="c1"># will be marked as stagnant first.</span>
             <span class="n">stagnant_time</span> <span class="o">=</span> <span class="n">generation</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">last_improved</span>
             <span class="n">is_stagnant</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="n">num_non_stagnant</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_elitism</span><span class="p">:</span>
-                <span class="n">is_stagnant</span> <span class="o">=</span> <span class="n">stagnant_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_stagnation</span>
+            <span class="k">if</span> <span class="n">num_non_stagnant</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_config</span><span class="o">.</span><span class="n">species_elitism</span><span class="p">:</span>
+                <span class="n">is_stagnant</span> <span class="o">=</span> <span class="n">stagnant_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_config</span><span class="o">.</span><span class="n">max_stagnation</span>
                 
-            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">species_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">idx</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_elitism</span><span class="p">:</span>
-                <span class="n">is_stagnant</span> <span class="o">=</span> <span class="kc">False</span>
-
-            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">species_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">idx</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_elitism</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">species_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">idx</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_config</span><span class="o">.</span><span class="n">species_elitism</span><span class="p">:</span>
                 <span class="n">is_stagnant</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="k">if</span> <span class="n">is_stagnant</span><span class="p">:</span>

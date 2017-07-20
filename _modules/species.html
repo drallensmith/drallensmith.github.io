@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>species &#8212; NEAT-Python 0.91-github documentation</title>
+    <title>species &#8212; NEAT-Python 0.91-config_work documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-github',
+        VERSION:     '0.91-config_work',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -41,6 +41,7 @@
             
   <h1>Source code for species</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Divides the population into species based on genomic distances.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">DefaultClassConfig</span>
 <span class="kn">from</span> <span class="nn">neat.indexer</span> <span class="k">import</span> <span class="n">Indexer</span>
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">iterkeys</span><span class="p">,</span> <span class="n">itervalues</span>
@@ -87,25 +88,24 @@
 
         <span class="k">return</span> <span class="n">d</span></div></div>
 
-
 <div class="viewcode-block" id="DefaultSpeciesSet"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet">[docs]</a><span class="k">class</span> <span class="nc">DefaultSpeciesSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Encapsulates the default speciation scheme. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">reporters</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="n">reporters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genome_to_species</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="c1"># TODO: Create a separate configuration class instead of using a dict (for consistency with other types).</span>
 <div class="viewcode-block" id="DefaultSpeciesSet.parse_config"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">])}</span></div>
+        <span class="k">return</span> <span class="n">DefaultClassConfig</span><span class="p">(</span><span class="n">param_dict</span><span class="p">,</span>
+                                  <span class="p">[</span><span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span></div>
 
 <div class="viewcode-block" id="DefaultSpeciesSet.write_config"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.write_config">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
-        <span class="n">compatibility_threshold</span> <span class="o">=</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">]</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;compatibility_threshold = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">compatibility_threshold</span><span class="p">))</span></div>
+    <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DefaultSpeciesSet.speciate"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.speciate">[docs]</a>    <span class="k">def</span> <span class="nf">speciate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -119,7 +119,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">population</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
 
-        <span class="n">compatibility_threshold</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">species_set_config</span><span class="p">[</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">]</span>
+        <span class="n">compatibility_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="o">.</span><span class="n">compatibility_threshold</span>
 
         <span class="c1"># Find the best representatives for each existing species.</span>
         <span class="n">unspeciated</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="n">population</span><span class="p">))</span>

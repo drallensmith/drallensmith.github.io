@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>population &#8212; NEAT-Python 0.91-github documentation</title>
+    <title>population &#8212; NEAT-Python 0.91-config_work documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-github',
+        VERSION:     '0.91-config_work',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -73,13 +73,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">fitness_criterion</span> <span class="o">=</span> <span class="nb">min</span>
         <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">fitness_criterion</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fitness_criterion</span> <span class="o">=</span> <span class="n">mean</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unexpected fitness_criterion: </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">fitness_criterion</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">no_fitness_termination</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unexpected fitness_criterion: </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">fitness_criterion</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">initial_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Create a population from scratch, then partition into species.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reproduction</span><span class="o">.</span><span class="n">create_new</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">genome_type</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">genome_config</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">pop_size</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">species_set_type</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">species_set_type</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">species_set_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="o">.</span><span class="n">speciate</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -112,6 +112,10 @@
 <span class="sd">        the genomes themselves (apart from updating the fitness member),</span>
 <span class="sd">        or the configuration object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">no_fitness_termination</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot have no generational limit with no fitness termination&quot;</span><span class="p">)</span>
+
         <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
             <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -132,11 +136,12 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_genome</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">best</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_genome</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">best_genome</span> <span class="o">=</span> <span class="n">best</span>
 
-            <span class="c1"># End if the fitness threshold is reached.</span>
-            <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness_criterion</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">fitness</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">fv</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fitness_threshold</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">found_solution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">,</span> <span class="n">best</span><span class="p">)</span>
-                <span class="k">break</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">no_fitness_termination</span><span class="p">:</span>
+                <span class="c1"># End if the fitness threshold is reached.</span>
+                <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness_criterion</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">fitness</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">fv</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">fitness_threshold</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">found_solution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">,</span> <span class="n">best</span><span class="p">)</span>
+                    <span class="k">break</span>
 
             <span class="c1"># Create the next generation from the current generation.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reproduction</span><span class="o">.</span><span class="n">reproduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">,</span>
@@ -161,6 +166,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">end_generation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">no_fitness_termination</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">found_solution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_genome</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_genome</span></div></div>
 </pre></div>
