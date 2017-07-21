@@ -3744,7 +3744,8 @@ uses the default values for all three.</p>
 <dt id="threaded.ThreadedEvaluator.__del__">
 <code class="descname">__del__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/threaded.html#ThreadedEvaluator.__del__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threaded.ThreadedEvaluator.__del__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attempts to take care of removing each worker thread, but deliberately calling <code class="docutils literal"><span class="pre">self.stop()</span></code> in the threads may be needed.
-TODO: Avoid reference cycles to ensure this method is called. (Perhaps use <a class="reference external" href="https://docs.python.org/3.5/library/weakref.html#module-weakref" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">weakref</span></code></a>, depending on what the cycles are?)</p>
+TODO: Avoid reference cycles to ensure this method is called. (Perhaps use <a class="reference external" href="https://docs.python.org/3.5/library/weakref.html#module-weakref" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">weakref</span></code></a>, depending on what the cycles are?
+Note that weakref is not compatible with saving via <a class="reference external" href="https://docs.python.org/3.5/library/pickle.html#module-pickle" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">pickle</span></code></a>, so all of them will need to be removed prior to any save.)</p>
 </dd></dl>
 
 <dl class="method">

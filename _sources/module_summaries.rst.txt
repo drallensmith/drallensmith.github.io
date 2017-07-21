@@ -2188,7 +2188,8 @@ Runs evaluation functions in parallel threads (using the python library module `
     .. py:method:: __del__()
 
       Attempts to take care of removing each worker thread, but deliberately calling ``self.stop()`` in the threads may be needed.
-      TODO: Avoid reference cycles to ensure this method is called. (Perhaps use `weakref`, depending on what the cycles are?)
+      TODO: Avoid reference cycles to ensure this method is called. (Perhaps use `weakref`, depending on what the cycles are?
+      Note that weakref is not compatible with saving via `pickle`, so all of them will need to be removed prior to any save.)
 
     .. py:method:: start()
 
