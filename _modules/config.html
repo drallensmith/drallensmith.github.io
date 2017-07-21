@@ -49,6 +49,7 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">ConfigParser</span> <span class="k">import</span> <span class="n">SafeConfigParser</span> <span class="k">as</span> <span class="n">ConfigParser</span>
 
+<span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iterkeys</span>
 
 <div class="viewcode-block" id="ConfigParameter"><a class="viewcode-back" href="../module_summaries.html#config.ConfigParameter">[docs]</a><span class="k">class</span> <span class="nc">ConfigParameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Contains information about one configuration item.&quot;&quot;&quot;</span>
@@ -131,6 +132,10 @@
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">longest_name</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">))))</span></div>
 
 
+<div class="viewcode-block" id="UnknownConfigItemError"><a class="viewcode-back" href="../module_summaries.html#config.UnknownConfigItemError">[docs]</a><span class="k">class</span> <span class="nc">UnknownConfigItemError</span><span class="p">(</span><span class="ne">NameError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error for unknown configuration option - partially to catch typos.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
 <div class="viewcode-block" id="DefaultClassConfig"><a class="viewcode-back" href="../module_summaries.html#config.DefaultClassConfig">[docs]</a><span class="k">class</span> <span class="nc">DefaultClassConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Replaces at least some boilerplate configuration code</span>
@@ -139,8 +144,16 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">,</span> <span class="n">param_list</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="n">param_list</span>
+        <span class="n">param_list_names</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">interpret</span><span class="p">(</span><span class="n">param_dict</span><span class="p">))</span>
+            <span class="n">param_list_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">unknown_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iterkeys</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">param_list_names</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">unknown_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unknown_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">UnknownConfigItemError</span><span class="p">(</span><span class="s2">&quot;Unknown configuration items:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                                             <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unknown_list</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">UnknownConfigItemError</span><span class="p">(</span><span class="s2">&quot;Unknown configuration item </span><span class="si">{!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unknown_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 
 <div class="viewcode-block" id="DefaultClassConfig.save"><a class="viewcode-back" href="../module_summaries.html#config.DefaultClassConfig.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
         <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span></div></div>
