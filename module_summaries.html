@@ -857,7 +857,10 @@ see <a class="reference internal" href="config_file.html#configuration-file-desc
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If any of the objects lack a <code class="docutils literal"><span class="pre">parse_config</span></code> method.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If any of the objects lack a <code class="docutils literal"><span class="pre">parse_config</span></code> method.</li>
+<li><a class="reference internal" href="#config.UnknownConfigItemError" title="config.UnknownConfigItemError"><strong>UnknownConfigItemError</strong></a> – If an option in the <code class="docutils literal"><span class="pre">NEAT</span></code> section of the configuration file is not recognized.</li>
+</ul>
 </td>
 </tr>
 </tbody>
