@@ -860,13 +860,14 @@ see <a class="reference internal" href="config_file.html#configuration-file-desc
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If any of the objects lack a <code class="docutils literal"><span class="pre">parse_config</span></code> method.</li>
 <li><a class="reference internal" href="#config.UnknownConfigItemError" title="config.UnknownConfigItemError"><strong>UnknownConfigItemError</strong></a> – If an option in the <code class="docutils literal"><span class="pre">NEAT</span></code> section of the configuration file is not recognized.</li>
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#DeprecationWarning" title="(in Python v3.5)"><strong>DeprecationWarning</strong></a> – If a default is used for one of the <code class="docutils literal"><span class="pre">NEAT</span></code> section options.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Added default capabilities.</p>
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Added default capabilities, UnknownConfigItemError.</p>
 </div>
 <dl class="method">
 <dt id="config.Config.save">
