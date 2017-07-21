@@ -44,9 +44,9 @@
     <span class="kn">import</span> <span class="nn">threading</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
     <span class="kn">import</span> <span class="nn">dummy_threading</span> <span class="k">as</span> <span class="nn">threading</span>
-    <span class="n">have_threads</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">HAVE_THREADS</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">have_threads</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">HAVE_THREADS</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># pylint: disable=import-error</span>
@@ -74,7 +74,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">have_threads</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_THREADS</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No threads available; use ParallelEvaluator, not ThreadedEvaluator&quot;</span><span class="p">,</span>
                   <span class="n">file</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
 
