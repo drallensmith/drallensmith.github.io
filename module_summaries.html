@@ -975,40 +975,40 @@ constant at the given values during the simulated time.</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-13">
-<p class="first admonition-title">Todo</p>
-<p class="last">The below needs checking! Also, perhaps MODE_SERVER and MODE_CLIENT would be preferable?
-As well as issues of sensitivity, server/client terms appear more likely to get people to cooperate with borrowing machine time…</p>
-</div>
-<span class="target" id="index-14"></span><span class="target" id="index-15"></span><span class="target" id="index-16"></span><span class="target" id="module-distributed"><span id="index-17"></span></span></div>
+<span class="target" id="index-13"></span><span class="target" id="index-14"></span><span class="target" id="index-15"></span><span class="target" id="module-distributed"><span id="index-16"></span></span></div>
 <div class="section" id="distributed">
 <h2>distributed<a class="headerlink" href="#distributed" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><p>Distributed evaluation of genomes.</p>
+<div class="admonition-todo admonition" id="index-17">
+<p class="first admonition-title">Todo</p>
+<p class="last">Perhaps MODE_SERVER and MODE_CLIENT would be preferable? As well as issues of sensitivity, server/client terms appear
+more likely to get people to cooperate with borrowing machine time… MODE_MASTER and MODE_SLAVE would be kept in as
+synonyms, and is_master as a wrapper for is_server (or whatever).</p>
+</div>
 <p class="rubric">About <a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>:</p>
 <p>The <a class="reference internal" href="glossary.html#term-master-compute-node"><span class="xref std std-term">master compute node</span></a> (the node which creates and mutates genomes) and the <a class="reference internal" href="glossary.html#term-slave-node"><span class="xref std std-term">slave compute nodes</span></a> (the nodes which
 evaluate genomes) can execute the same script. The role of a compute node is determined using the <code class="docutils literal"><span class="pre">mode</span></code> argument of the DistributedEvaluator. If the
-mode is MODE_AUTO, the <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref any py py-func docutils literal"><span class="pre">host_is_local()</span></code></a> function is used to check if the <code class="docutils literal"><span class="pre">addr</span></code> argument points to the localhost. If it does, the compute node starts
-as a master node, otherwise as a slave node. If <code class="docutils literal"><span class="pre">mode</span></code> is MODE_MASTER, the compute node always starts as a master node. If <code class="docutils literal"><span class="pre">mode</span></code> is
-MODE_SLAVE, the compute node will always start as a slave node.</p>
+mode is <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, the <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref any py py-func docutils literal"><span class="pre">host_is_local()</span></code></a> function is used to check if the <code class="docutils literal"><span class="pre">addr</span></code> argument points to the localhost. If it does, the compute
+node starts as a master node, and otherwise as a slave node. If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_MASTER" title="distributed.MODE_MASTER"><code class="xref py py-data docutils literal"><span class="pre">MODE_MASTER</span></code></a>, the compute node always starts as a master
+node. If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_SLAVE" title="distributed.MODE_SLAVE"><code class="xref py py-data docutils literal"><span class="pre">MODE_SLAVE</span></code></a>, the compute node will always start as a slave node.</p>
 <p>There can only be one master node per NEAT, but any number of slave nodes. The master node will not evaluate any genomes, which means you will
 always need at least two compute nodes (one master and at least one slave).</p>
 <p>You can run any number of compute nodes on the same physical machine (or VM). However, if a machine has both a master node and one or more slave
-nodes, MODE_AUTO cannot be used for those slave nodes - MODE_SLAVE will need to be specified.</p>
+nodes, <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a> cannot be used for those slave nodes - <a class="reference internal" href="#distributed.MODE_SLAVE" title="distributed.MODE_SLAVE"><code class="xref py py-data docutils literal"><span class="pre">MODE_SLAVE</span></code></a> will need to be specified.</p>
 <p class="rubric">Usage:</p>
 <ol class="arabic simple">
 <li>Import modules and define the evaluation logic (the <code class="docutils literal"><span class="pre">eval_genome</span></code> function). (After this, check for <code class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></code>, and put the rest of the code inside the body of the statement, or in subroutines called from it.)</li>
 <li>Load config and create a <a class="reference internal" href="#population.Population" title="population.Population"><code class="xref py py-class docutils literal"><span class="pre">population</span></code></a> - here, the variable <code class="docutils literal"><span class="pre">p</span></code>.</li>
 <li>If required, create and add <a class="reference internal" href="#module-reporting" title="reporting: Makes possible reporter classes, which are triggered on particular events and may provide information to the user, may do something else such as checkpointing, or may do both."><code class="xref py py-mod docutils literal"><span class="pre">reporters</span></code></a>.</li>
-<li>Create a <a class="reference internal" href="#distributed.DistributedEvaluator" title="distributed.DistributedEvaluator"><code class="xref py py-class docutils literal"><span class="pre">DistributedEvaluator(addr_of_master_node,</span> <span class="pre">'some_password',</span> <span class="pre">eval_function,</span> <span class="pre">mode=MODE_AUTO)</span></code></a> - here, the variable <code class="docutils literal"><span class="pre">de</span></code>.</li>
+<li>Create a <a class="reference internal" href="#distributed.DistributedEvaluator" title="distributed.DistributedEvaluator"><code class="xref py py-class docutils literal"><span class="pre">DistributedEvaluator(addr_of_master_node,</span> <span class="pre">b'some_password',</span> <span class="pre">eval_function,</span> <span class="pre">mode=MODE_AUTO)</span></code></a> - here, the variable <code class="docutils literal"><span class="pre">de</span></code>.</li>
 <li>Call <a class="reference internal" href="#distributed.DistributedEvaluator.start" title="distributed.DistributedEvaluator.start"><code class="xref py py-meth docutils literal"><span class="pre">de.start(exit_on_stop=True)</span></code></a>. The <code class="docutils literal"><span class="pre">start()</span></code> call will block on the slave nodes and call <a class="reference external" href="https://docs.python.org/3.5/library/sys.html#sys.exit">sys.exit(0)</a> when the NEAT evolution finishes. This means that the following code will only be executed on the master node.</li>
 <li>Start the evaluation using <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">p.run(de.evaluate,</span> <span class="pre">number_of_generations)</span></code></a>.</li>
-<li>Stop the slave nodes using py:meth:<a class="reference internal" href="#distributed.DistributedEvaluator.stop" title="distributed.DistributedEvaluator.stop"><code class="xref any py py-meth docutils literal"><span class="pre">de.stop()</span></code></a>.</li>
+<li>Stop the slave nodes using <a class="reference internal" href="#distributed.DistributedEvaluator.stop" title="distributed.DistributedEvaluator.stop"><code class="xref py py-meth docutils literal"><span class="pre">de.stop()</span></code></a>.</li>
 <li>You are done. You may want to save the winning genome or show some statistics.</li>
 </ol>
-<blockquote>
-<div>See <code class="file docutils literal"><span class="pre">examples/xor/evolve-feedforward-distributed.py</span></code> for a complete example. Note: Contains a number of private methods (starting with <code class="docutils literal"><span class="pre">_</span></code>),
-which are not documented below.</div></blockquote>
+<p>See <code class="file docutils literal"><span class="pre">examples/xor/evolve-feedforward-distributed.py</span></code> for a complete example. Note: Contains a number of private methods (starting with <code class="docutils literal"><span class="pre">_</span></code>),
+which are not documented below.</p>
 <dl class="data">
 <dt id="distributed.MODE_AUTO">
 <code class="descclassname">distributed.</code><code class="descname">MODE_AUTO</code><a class="headerlink" href="#distributed.MODE_AUTO" title="Permalink to this definition">¶</a></dt>
@@ -1022,22 +1022,16 @@ which are not documented below.</div></blockquote>
 <dl class="data">
 <dt id="distributed.MODE_SLAVE">
 <code class="descclassname">distributed.</code><code class="descname">MODE_SLAVE</code><a class="headerlink" href="#distributed.MODE_SLAVE" title="Permalink to this definition">¶</a></dt>
-<dt>
-<code class="descname">Values that are used for the ``mode`` argument of :py:class:`DistributedEvaluator`. MODE_AUTO uses :py:func:`host_is_local()` and the specified</code></dt>
-<dt>
-<code class="descname">``addr`` of the :term:`master node` to decide the mode; the other two specify it.</code></dt>
-<dd></dd></dl>
+<dd><p>Values - which should be treated as constants - that are used for the <code class="docutils literal"><span class="pre">mode</span></code> argument of <a class="reference internal" href="#distributed.DistributedEvaluator" title="distributed.DistributedEvaluator"><code class="xref py py-class docutils literal"><span class="pre">DistributedEvaluator</span></code></a>. MODE_AUTO
+uses <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a> and the specified <code class="docutils literal"><span class="pre">addr</span></code> of the <a class="reference internal" href="glossary.html#term-master-node"><span class="xref std std-term">master node</span></a> to decide the mode; the other two specify it.</p>
+</dd></dl>
 
 <dl class="exception">
-<dt id="distributed.RoleError">
-<em class="property">exception </em><code class="descclassname">distributed.</code><code class="descname">RoleError</code><span class="sig-paren">(</span><em>RuntimeError</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#RoleError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.RoleError" title="Permalink to this definition">¶</a></dt>
-<dt>
-<code class="descname">An exception raised when a role-specific method is being called without being in the role (mode) - either a master-specific method</code></dt>
-<dt>
-<code class="descname">called by a :term:`slave node` or a slave-specific method called by a :term:`master node`. TODO: Perhaps this should be ModeError, to be</code></dt>
-<dt>
-<code class="descname">clearer?</code></dt>
-<dd></dd></dl>
+<dt id="distributed.ModeError">
+<em class="property">exception </em><code class="descclassname">distributed.</code><code class="descname">ModeError</code><span class="sig-paren">(</span><em>RuntimeError</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ModeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ModeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>An exception raised when a mode-specific method is being called without being in the mode - either a master-specific method
+called by a <a class="reference internal" href="glossary.html#term-slave-node"><span class="xref std std-term">slave node</span></a> or a slave-specific method called by a <a class="reference internal" href="glossary.html#term-master-node"><span class="xref std std-term">master node</span></a>.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="distributed.host_is_local">
@@ -1101,13 +1095,13 @@ which are not documented below.</div></blockquote>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>addr</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – Should be a tuple of (hostname, port) pointing to the machine running the DistributedEvaluator in master mode. If mode is MODE_AUTO, the mode is determined by checking whether the hostname points to this host or not (via <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a>).</li>
-<li><strong>authkey</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bytes" title="(in Python v3.5)"><em>bytes</em></a>) – The password used to restrict access to the manager. All DistributedEvaluators need to use the same authkey. Defaults to the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Process.authkey">authkey attribute</a> of <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.current_process">multiprocessing.current_process()</a>; however, this will not be the same for processes on different machines, including virtual machines.</li>
+<li><strong>addr</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – Should be a tuple of (hostname, port) pointing to the machine running the DistributedEvaluator in master mode. If mode is <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, the mode is determined by checking whether the hostname points to this host or not (via <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a>).</li>
+<li><strong>authkey</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a>) – The password used to restrict access to the manager. All DistributedEvaluators need to use the same authkey. Note that this needs to be a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a> object for Python 3.X, and should be in 2.7 for compatibility (identical in 2.7 to a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a> object).</li>
 <li><strong>eval_function</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-function" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">function</span></code></a>) – The eval_function should take two arguments - a genome object and a config object - and return a single <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a> (the genome’s fitness) Note that this is not the same as how a fitness function is called by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">Population.run</span></code></a>, nor by <a class="reference internal" href="#parallel.ParallelEvaluator" title="parallel.ParallelEvaluator"><code class="xref py py-class docutils literal"><span class="pre">ParallelEvaluator</span></code></a> (although it is more similar to the latter).</li>
 <li><strong>slave_chunksize</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The number of <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genomes</span></a> that will be sent to a <a class="reference internal" href="glossary.html#term-slave-node"><span class="xref std std-term">slave node</span></a> at any one time.</li>
 <li><strong>num_workers</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – The number of worker processes per <a class="reference internal" href="glossary.html#term-slave-node"><span class="xref std std-term">slave node</span></a>, used for evaluating genomes. If None, will use <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.cpu_count">multiprocessing.cpu_count()</a>  to determine the number of processes (see further below regarding this default). If 1 (for a slave node), including if there is no usable result from <code class="docutils literal"><span class="pre">multiprocessing.cpu_count()</span></code>, then the process creating the DistributedEvaluator instance will also do the evaluations.</li>
 <li><strong>worker_timeout</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – specifies the timeout (in seconds) for a slave node getting the results from a worker subprocess; if None, there is no timeout.</li>
-<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Specifies the mode to run in - must be one of <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref any py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a> (the default), <a class="reference internal" href="#distributed.MODE_MASTER" title="distributed.MODE_MASTER"><code class="xref any py py-data docutils literal"><span class="pre">MODE_MASTER</span></code></a>, or <a class="reference internal" href="#distributed.MODE_SLAVE" title="distributed.MODE_SLAVE"><code class="xref any py py-data docutils literal"><span class="pre">MODE_SLAVE</span></code></a>.</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Specifies the mode to run in - must be one of <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a> (the default), <a class="reference internal" href="#distributed.MODE_MASTER" title="distributed.MODE_MASTER"><code class="xref py py-data docutils literal"><span class="pre">MODE_MASTER</span></code></a>, or <a class="reference internal" href="#distributed.MODE_SLAVE" title="distributed.MODE_SLAVE"><code class="xref py py-data docutils literal"><span class="pre">MODE_SLAVE</span></code></a>.</li>
 </ul>
 </td>
 </tr>
@@ -1176,7 +1170,7 @@ manager and waits for tasks.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="#distributed.RoleError" title="distributed.RoleError"><strong>RoleError</strong></a> – If not the <a class="reference internal" href="glossary.html#term-master-node"><span class="xref std std-term">master node</span></a> (not in MODE_MASTER).</li>
+<li><a class="reference internal" href="#distributed.ModeError" title="distributed.ModeError"><strong>ModeError</strong></a> – If not the <a class="reference internal" href="glossary.html#term-master-node"><span class="xref std std-term">master node</span></a> (not in <a class="reference internal" href="#distributed.MODE_MASTER" title="distributed.MODE_MASTER"><code class="xref py py-data docutils literal"><span class="pre">MODE_MASTER</span></code></a>).</li>
 <li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If not yet <a class="reference internal" href="#distributed.DistributedEvaluator.start" title="distributed.DistributedEvaluator.start"><code class="xref py py-meth docutils literal"><span class="pre">started</span></code></a>.</li>
 </ul>
 </td>
@@ -1200,7 +1194,7 @@ genomes. Must not be called by <a class="reference internal" href="glossary.html
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#distributed.RoleError" title="distributed.RoleError"><strong>RoleError</strong></a> – If not the <a class="reference internal" href="glossary.html#term-master-node"><span class="xref std std-term">master node</span></a> (not in MODE_MASTER).</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#distributed.ModeError" title="distributed.ModeError"><strong>ModeError</strong></a> – If not the <a class="reference internal" href="glossary.html#term-master-node"><span class="xref std std-term">master node</span></a> (not in <a class="reference internal" href="#distributed.MODE_MASTER" title="distributed.MODE_MASTER"><code class="xref py py-data docutils literal"><span class="pre">MODE_MASTER</span></code></a>).</p>
 </td>
 </tr>
 </tbody>
@@ -1211,6 +1205,9 @@ genomes. Must not be called by <a class="reference internal" href="glossary.html
 
 <div class="versionadded">
 <p><span class="versionmodified">New in version 0.91-github.</span></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Pylint, documentation, other changes (e.g., RoleError to ModeError).</p>
 </div>
 </div></blockquote>
 <span class="target" id="module-genes"></span></div>
@@ -3085,18 +3082,18 @@ preserve compatibility).</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-114">
-<p class="first admonition-title">Todo</p>
-<p class="last">Better documentation for the <code class="docutils literal"><span class="pre">kw</span></code> parameter in the below. Internally, these are using <code class="docutils literal"><span class="pre">**kw</span></code> as a <strong>parameter</strong> for
-keys/items/values/iterkeys/iteritems/itervalues! Is this in case someone puts in a set of key/value pairs instead of a dictionary?
-The <a class="reference external" href="https://pythonhosted.org/six/">six documentation</a> just states that this parameter is “passed to the underlying method”, which is not helpful.</p>
-</div>
 <span class="target" id="module-six_util"></span></div>
 <div class="section" id="six-util">
 <h2>six_util<a class="headerlink" href="#six-util" title="Permalink to this headline">¶</a></h2>
 <p>This Python 2/3 portability code was copied from the <a class="reference external" href="https://pythonhosted.org/six/">six module</a> to avoid adding it as a dependency.</p>
 <blockquote>
-<div><dl class="function">
+<div><div class="admonition-todo admonition" id="index-114">
+<p class="first admonition-title">Todo</p>
+<p class="last">Better documentation for the <code class="docutils literal"><span class="pre">kw</span></code> parameter in the below. Internally, these are using <code class="docutils literal"><span class="pre">**kw</span></code> as a <strong>parameter</strong> for
+keys/items/values/iterkeys/iteritems/itervalues! Is this in case someone puts in a set of key/value pairs instead of a dictionary?
+The <a class="reference external" href="https://pythonhosted.org/six/">six documentation</a> just states that this parameter is “passed to the underlying method”, which is not helpful.</p>
+</div>
+<dl class="function">
 <dt id="six_util.iterkeys">
 <code class="descclassname">six_util.</code><code class="descname">iterkeys</code><span class="sig-paren">(</span><em>d</em>, <em>**kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/six_util.html#iterkeys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#six_util.iterkeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns an iterator over the keys of dict d.</p>
@@ -3372,17 +3369,18 @@ functions already.</p>
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="index-121"></span><span class="target" id="index-122"></span><span class="target" id="index-123"></span><div class="admonition note" id="index-124">
+<span class="target" id="index-121"></span><span class="target" id="module-stagnation"><span id="index-122"></span></span></div>
+<div class="section" id="stagnation">
+<h2>stagnation<a class="headerlink" href="#stagnation" title="Permalink to this headline">¶</a></h2>
+<p>Keeps track of whether species are making progress and helps remove ones that are not.</p>
+<blockquote>
+<div><span class="target" id="index-123"></span><span class="target" id="index-124"></span><span class="target" id="index-125"></span><div class="admonition note" id="index-126">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Currently, depending on the settings for <a class="reference internal" href="config_file.html#species-fitness-func-label"><span class="std std-ref">species_fitness_func</span></a> and
 <a class="reference internal" href="config_file.html#fitness-criterion-label"><span class="std std-ref">fitness_criterion</span></a>, it is possible for a species with members <strong>above</strong> the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness_threshold</span></a>
 level of fitness to be considered “stagnant” (including, most problematically, because they are at the limit of fitness improvement).</p>
 </div>
-<span class="target" id="module-stagnation"></span></div>
-<div class="section" id="stagnation">
-<h2>stagnation<a class="headerlink" href="#stagnation" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><span class="target" id="index-125"></span><span class="target" id="index-126"></span><dl class="class">
+<dl class="class">
 <dt id="stagnation.DefaultStagnation">
 <em class="property">class </em><code class="descclassname">stagnation.</code><code class="descname">DefaultStagnation</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keeps track of whether species are making progress and helps remove ones that, for a
@@ -3721,16 +3719,12 @@ uses the default values for all three.</p>
 </dd></dl>
 
 </div></blockquote>
-<div class="admonition-todo admonition" id="index-130">
-<p class="first admonition-title">Todo</p>
-<p class="last">The below needs checking!</p>
-</div>
 <span class="target" id="module-threaded"></span></div>
 <div class="section" id="threaded">
 <h2>threaded<a class="headerlink" href="#threaded" title="Permalink to this headline">¶</a></h2>
 <p>Runs evaluation functions in parallel threads (using the python library module <a class="reference external" href="https://docs.python.org/3.5/library/threading.html">threading</a>) in order to evaluate multiple genomes at once. Probably preferable to <a class="reference internal" href="#module-parallel" title="parallel: Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once."><code class="xref py py-mod docutils literal"><span class="pre">parallel</span></code></a> for python implementations without a <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-GIL">GIL</a> (Global Interpreter Lock).</p>
 <blockquote>
-<div><span class="target" id="index-131"></span><span class="target" id="index-132"></span><dl class="class">
+<div><span class="target" id="index-130"></span><span class="target" id="index-131"></span><dl class="class">
 <dt id="threaded.ThreadedEvaluator">
 <em class="property">class </em><code class="descclassname">threaded.</code><code class="descname">ThreadedEvaluator</code><span class="sig-paren">(</span><em>num_workers</em>, <em>eval_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/threaded.html#ThreadedEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threaded.ThreadedEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs evaluation functions in parallel threads in order to evaluate multiple genomes at once.</p>

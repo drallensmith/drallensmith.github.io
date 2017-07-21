@@ -65,15 +65,14 @@
 <span class="sd">  the code inside the body of the statement.)</span>
 <span class="sd">2. Load config and create a population - here, the variable ``p``.</span>
 <span class="sd">3. If required, create and add reporters.</span>
-<span class="sd">4. Create a ``DistributedEvaluator(addr_of_master_node, &#39;some_password&#39;,</span>
+<span class="sd">4. Create a ``DistributedEvaluator(addr_of_master_node, b&#39;some_password&#39;,</span>
 <span class="sd">  eval_function, mode=MODE_AUTO)`` - here, the variable ``de``.</span>
 <span class="sd">5. Call ``de.start(exit_on_stop=True)``. The `start()` call will block on the</span>
 <span class="sd">  slave nodes and call `sys.exit(0)` when the NEAT evolution finishes. This</span>
 <span class="sd">  means that the following code will only be executed on the master node.</span>
 <span class="sd">6. Start the evaluation using ``p.run(de.evaluate, number_of_generations)``.</span>
 <span class="sd">7. Stop the slave nodes using ``de.stop()``.</span>
-<span class="sd">8. You are done. You may want to save the winning genome or show some</span>
-<span class="sd">  statistics.</span>
+<span class="sd">8. You are done. You may want to save the winning genome or show some statistics.</span>
 
 <span class="sd">See ``examples/xor/evolve-feedforward-distributed.py`` for a complete example.</span>
 
@@ -113,18 +112,18 @@
 <span class="c1"># Thanks to Eli Bendersky for making his code open for use.</span>
 
 
-<span class="c1"># modes to determine the role of a machine</span>
+<span class="c1"># modes to determine the role of a compute node</span>
 <span class="c1"># the master handles the evolution of the genomes</span>
 <span class="c1"># the slave handles the evaluation of the genomes</span>
-<span class="n">MODE_AUTO</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># auto-determine server role</span>
+<span class="n">MODE_AUTO</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># auto-determine mode</span>
 <span class="n">MODE_MASTER</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># enforce master mode</span>
 <span class="n">MODE_SLAVE</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># enforce slave mode</span>
 
 
-<div class="viewcode-block" id="RoleError"><a class="viewcode-back" href="../module_summaries.html#distributed.RoleError">[docs]</a><span class="k">class</span> <span class="nc">RoleError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+<div class="viewcode-block" id="ModeError"><a class="viewcode-back" href="../module_summaries.html#distributed.ModeError">[docs]</a><span class="k">class</span> <span class="nc">ModeError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An exception raised when a role-specific method is being</span>
-<span class="sd">    called without being in the role (mode) - either a master-specific method</span>
+<span class="sd">    An exception raised when a mode-specific method is being</span>
+<span class="sd">    called without being in the mode - either a master-specific method</span>
 <span class="sd">    called by a slave node or a slave-specific method called by a master node.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
@@ -190,10 +189,10 @@
 <span class="sd">        the mode is determined by checking whether the hostname points to this</span>
 <span class="sd">        host or not.</span>
 <span class="sd">        ``authkey`` is the password used to restrict access to the manager; see</span>
-<span class="sd">        `multiprocessing.managers` for more information. All DistributedEvaluators</span>
-<span class="sd">        need to use the same authkey. Defaults to</span>
-<span class="sd">        `multiprocessing.current_process()`.authkey; however, this will not be the</span>
-<span class="sd">        same for processes on different machines, including virtual machines.</span>
+<span class="sd">        ``Authentication Keys`` in the `multiprocessing` manual for more information.</span>
+<span class="sd">        All DistributedEvaluators need to use the same authkey. Note that this needs</span>
+<span class="sd">        to be a `bytes` object for Python 3.X, and should be in 2.7 for compatibility</span>
+<span class="sd">        (identical in 2.7 to a `str` object).</span>
 <span class="sd">        ``eval_function`` should take two arguments (a genome object and the</span>
 <span class="sd">        configuration) and return a single float (the genome&#39;s fitness).</span>
 <span class="sd">        &#39;slave_chunksize&#39; specifies the number of genomes that will be sent to</span>
@@ -266,7 +265,7 @@
 <div class="viewcode-block" id="DistributedEvaluator.stop"><a class="viewcode-back" href="../module_summaries.html#distributed.DistributedEvaluator.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shutdown</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Stops all slaves.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">MODE_MASTER</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RoleError</span><span class="p">(</span><span class="s2">&quot;Not in master mode!&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ModeError</span><span class="p">(</span><span class="s2">&quot;Not in master mode!&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Not yet started!&quot;</span><span class="p">)</span>
         <span class="n">stopevent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">get_stopevent</span><span class="p">()</span>
@@ -381,7 +380,7 @@
 <span class="sd">        DistributedEvaluator is not in master mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="n">MODE_MASTER</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RoleError</span><span class="p">(</span><span class="s2">&quot;Not in master mode!&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ModeError</span><span class="p">(</span><span class="s2">&quot;Not in master mode!&quot;</span><span class="p">)</span>
         <span class="n">stopevent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">get_stopevent</span><span class="p">()</span>
         <span class="n">tasks</span> <span class="o">=</span> <span class="p">[(</span><span class="n">genome_id</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="k">for</span> <span class="n">genome_id</span><span class="p">,</span> <span class="n">genome</span> <span class="ow">in</span> <span class="n">genomes</span><span class="p">]</span>
         <span class="n">id2genome</span> <span class="o">=</span> <span class="p">{</span><span class="n">genome_id</span><span class="p">:</span> <span class="n">genome</span> <span class="k">for</span> <span class="n">genome_id</span><span class="p">,</span> <span class="n">genome</span> <span class="ow">in</span> <span class="n">genomes</span><span class="p">}</span>
