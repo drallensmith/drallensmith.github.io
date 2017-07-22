@@ -1,0 +1,6 @@
+<map id="inheritance43203ba1fd" name="inheritance43203ba1fd">
+<area shape="rect" id="node1" href="#genome.DefaultGenome" target="_top" title="A genome for generalized neural networks." alt="" coords="25,104,191,129"/>
+<area shape="rect" id="node2" href="#genome.DefaultGenomeConfig" target="_top" title="Sets up and holds configuration information for the DefaultGenome class." alt="" coords="5,55,211,80"/>
+<area shape="rect" id="node3" href="#iznn.IZGenome" target="_top" title="iznn.IZGenome" alt="" coords="259,5,372,31"/>
+<area shape="rect" id="node4" title="A genome for generalized neural networks." alt="" coords="9,5,207,31"/>
+</map>
