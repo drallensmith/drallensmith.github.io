@@ -63,6 +63,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">activation_defs</span> <span class="o">=</span> <span class="n">ActivationFunctionSet</span><span class="p">()</span>
         <span class="c1"># ditto for aggregation functions - name difference for backward compatibility</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aggregation_function_defs</span> <span class="o">=</span> <span class="n">AggregationFunctionSet</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aggregation_defs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregation_function_defs</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;num_inputs&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
                         <span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;num_outputs&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>

@@ -71,7 +71,7 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
   .. note::
 
     :term:`Non-enabled <enabled>` :term:`connections <connection>` will, by all methods currently included in NEAT-Python, *not* be included among
-    the numbers, even as 0s.
+    the numbers input to these functions, even as 0s.
 
   .. py:function:: product_aggregation(x)
 
@@ -169,7 +169,7 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
       After validating the function (via `validate_aggregation`), adds it to the available activation functions under the given name. Used
       by :py:meth:`DefaultGenomeConfig.add_activation <genome.DefaultGenomeConfig.add_activation>`. TODO: Check for whether
       the function needs `reduce <functools.reduce>`, or at least offer a form of this function (or extra argument for it, defaulting to false)
-      that will appropriately "wrap" the input function.
+      and/or its interface in :py:mod:`genome`, that will appropriately "wrap" the input function.
 
       :param str name: The name by which the function is to be known in the :ref:`configuration file <aggregation-function-config-label>`.
       :param function: The function to be added.
@@ -403,8 +403,9 @@ Uses :py:mod:`pickle` to save and restore populations (and other aspects of the 
 
     A reporter class that performs checkpointing, saving and restoring the simulation state (including population, randomization, and other aspects).
     It saves the current state every ``generation_interval`` generations or ``time_interval_seconds`` seconds, whichever happens first.
-    Subclasses :py:class:`reporting.BaseReporter`. (The potential save point is at the end of a generation.) If there is a need to check for when the
-    last generation for which a checkpoint was saved, access ``last_generation_checkpoint``; if -1, none have been saved.
+    Subclasses :py:class:`reporting.BaseReporter`. (The potential save point is at the end of a generation.) If there is a need to check the
+    last generation for which a checkpoint was saved, such as to determine which file to load, access ``last_generation_checkpoint``; if -1, none have
+    been saved.
 
     :param generation_interval: If not None, maximum number of generations between checkpoints.
     :type generation_interval: :pytypes:`int <typesnumeric>` or None
@@ -803,7 +804,7 @@ genes
     Handles functions shared by multiple types of genes (both :term:`node` and :term:`connection`), including :term:`crossover` and
     calling :term:`mutation` methods.
 
-    :param key: The gene :term:`identifier <key>`. Note: For connection genes, determining whether they are :term:`homologous` (for :term:`genomic distance` and :term:`crossover` determination) uses the identifiers of the connected nodes, not the connection gene's identifier.
+    :param key: The gene :term:`identifier <key>`. Note: For connection genes, determining whether they are :term:`homologous` (for :term:`genomic distance` and :term:`crossover` determination) uses the (ordered) identifiers of the connected nodes, not the connection gene's identifier.
     :type key: :pytypes:`int <typesnumeric>`
 
     .. py:method:: __str__()

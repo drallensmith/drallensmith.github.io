@@ -142,7 +142,7 @@ by <a class="reference internal" href="#genome.DefaultGenomeConfig.add_activatio
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">Non-enabled</span></a> <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> will, by all methods currently included in NEAT-Python, <em>not</em> be included among
-the numbers, even as 0s.</p>
+the numbers input to these functions, even as 0s.</p>
 </div>
 <dl class="function">
 <dt id="aggregations.product_aggregation">
@@ -319,7 +319,7 @@ function is requested by name via <a class="reference internal" href="#aggregati
 <dd><p>After validating the function (via <a class="reference internal" href="#aggregations.validate_aggregation" title="aggregations.validate_aggregation"><code class="xref any py py-func docutils literal"><span class="pre">validate_aggregation</span></code></a>), adds it to the available activation functions under the given name. Used
 by <a class="reference internal" href="#genome.DefaultGenomeConfig.add_activation" title="genome.DefaultGenomeConfig.add_activation"><code class="xref py py-meth docutils literal"><span class="pre">DefaultGenomeConfig.add_activation</span></code></a>. TODO: Check for whether
 the function needs <a class="reference external" href="https://docs.python.org/3.5/library/functools.html#functools.reduce" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">reduce</span></code></a>, or at least offer a form of this function (or extra argument for it, defaulting to false)
-that will appropriately “wrap” the input function.</p>
+and/or its interface in <a class="reference internal" href="#module-genome" title="genome: Handles genomes (individuals in the population)."><code class="xref py py-mod docutils literal"><span class="pre">genome</span></code></a>, that will appropriately “wrap” the input function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -696,8 +696,9 @@ due to its inherent short-sightedness), allowing the genomes to control the dist
 <em class="property">class </em><code class="descclassname">checkpoint.</code><code class="descname">Checkpointer</code><span class="sig-paren">(</span><em>generation_interval=100</em>, <em>time_interval_seconds=300</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/checkpoint.html#Checkpointer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#checkpoint.Checkpointer" title="Permalink to this definition">¶</a></dt>
 <dd><p>A reporter class that performs checkpointing, saving and restoring the simulation state (including population, randomization, and other aspects).
 It saves the current state every <code class="docutils literal"><span class="pre">generation_interval</span></code> generations or <code class="docutils literal"><span class="pre">time_interval_seconds</span></code> seconds, whichever happens first.
-Subclasses <a class="reference internal" href="#reporting.BaseReporter" title="reporting.BaseReporter"><code class="xref py py-class docutils literal"><span class="pre">reporting.BaseReporter</span></code></a>. (The potential save point is at the end of a generation.) If there is a need to check for when the
-last generation for which a checkpoint was saved, access <code class="docutils literal"><span class="pre">last_generation_checkpoint</span></code>; if -1, none have been saved.</p>
+Subclasses <a class="reference internal" href="#reporting.BaseReporter" title="reporting.BaseReporter"><code class="xref py py-class docutils literal"><span class="pre">reporting.BaseReporter</span></code></a>. (The potential save point is at the end of a generation.) If there is a need to check the
+last generation for which a checkpoint was saved, such as to determine which file to load, access <code class="docutils literal"><span class="pre">last_generation_checkpoint</span></code>; if -1, none have
+been saved.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1331,7 +1332,7 @@ calling <a class="reference internal" href="glossary.html#term-mutation"><span c
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>) – The gene <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">identifier</span></a>. Note: For connection genes, determining whether they are <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> (for <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> and <a class="reference internal" href="glossary.html#term-crossover"><span class="xref std std-term">crossover</span></a> determination) uses the identifiers of the connected nodes, not the connection gene’s identifier.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>) – The gene <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">identifier</span></a>. Note: For connection genes, determining whether they are <a class="reference internal" href="glossary.html#term-homologous"><span class="xref std std-term">homologous</span></a> (for <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> and <a class="reference internal" href="glossary.html#term-crossover"><span class="xref std std-term">crossover</span></a> determination) uses the (ordered) identifiers of the connected nodes, not the connection gene’s identifier.</td>
 </tr>
 </tbody>
 </table>
