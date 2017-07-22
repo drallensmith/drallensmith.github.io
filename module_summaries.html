@@ -508,7 +508,7 @@ also added.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) – The value to be clamped.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the minimum and maximum desired values are to be retrieved.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the minimum and maximum desired values are to be retrieved.</li>
 </ul>
 </td>
 </tr>
@@ -531,7 +531,7 @@ keep the result within the desired range, or a uniform distribution, depending o
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the mean, standard deviation, and initialization distribution type values are to be retrieved.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the mean, standard deviation, and initialization distribution type values are to be retrieved.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new value.</td>
 </tr>
@@ -555,7 +555,7 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) – The current value of the attribute.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the parameters are to be extracted.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the parameters are to be extracted.</li>
 </ul>
 </td>
 </tr>
@@ -584,7 +584,7 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the default parameter is to be retrieved.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the default parameter is to be retrieved.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new value.</td>
 </tr>
@@ -606,7 +606,7 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – The current value of the attribute.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the <code class="docutils literal"><span class="pre">mutate_rate</span></code> and other parameters are to be extracted.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the <code class="docutils literal"><span class="pre">mutate_rate</span></code> and other parameters are to be extracted.</li>
 </ul>
 </td>
 </tr>
@@ -640,7 +640,7 @@ randomly-chosen member of the <code class="docutils literal"><span class="pre">o
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the default and, if necessary, <code class="docutils literal"><span class="pre">options</span></code> parameters are to be retrieved.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the default and, if necessary, <code class="docutils literal"><span class="pre">options</span></code> parameters are to be retrieved.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new value.</td>
 </tr>
@@ -657,7 +657,7 @@ randomly-chosen member of the <code class="docutils literal"><span class="pre">o
 the value with one of the <code class="docutils literal"><span class="pre">options</span></code>, with each having an equal chance; note that this can be the same value as before.
 (It is possible to crudely alter the chances of what is chosen by listing a given option more than once, although this is inefficient given the use of the
 <a class="reference external" href="https://docs.python.org/3.5/library/random.html#random.choice" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random.choice</span></code></a> function.)
-TODO: Longer-term, add configurable probabilities of which option is used; eventually, as with the
+TODO: Add configurable probabilities of which option is used. Longer-term, as with the
 improved version of RBF-NEAT, separate genes for the likelihoods of each (but always doing some change, to prevent overly-conservative evolution
 due to its inherent short-sightedness), allowing the genomes to control the distribution of options, will be desirable.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -666,7 +666,7 @@ due to its inherent short-sightedness), allowing the genomes to control the dist
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The current value of the attribute.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">object</a>) – The configuration object from which the <code class="docutils literal"><span class="pre">options</span></code> and other parameters are to be extracted.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The configuration object from which the <code class="docutils literal"><span class="pre">options</span></code> and other parameters are to be extracted.</li>
 </ul>
 </td>
 </tr>
@@ -813,7 +813,7 @@ configuration parameter from the appropriate configuration file <a class="refere
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The configuration parameter value, in stringified form unless a list.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a>)</p>
 </td>
 </tr>
 </tbody>
@@ -829,13 +829,13 @@ proper type, with some error-checking.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>config_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Configuration parameters as output by the configuration parser.</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>config_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>)</em>) – Configuration parameters as output by the configuration parser.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The configuration parameter value</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a> or list</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a> or list(str)</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
@@ -862,6 +862,10 @@ proper type, with some error-checking.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (str or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a> or <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a> or list) – Configuration parameter value to be formatted.</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">String version.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a></td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -878,8 +882,8 @@ proper type, with some error-checking.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-file-object">file</a>) – File object to be written to.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object from which parameter values are to be fetched (using <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#getattr" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">getattr</span></code></a>).</li>
-<li><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – List of <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">ConfigParameter</span></code></a> instances giving the names of interest and the types of parameters.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object from which parameter values are to be fetched (using <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#getattr" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">getattr</span></code></a>).</li>
+<li><strong>params</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – List of <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">ConfigParameter</span></code></a> instances giving the names of interest and the types of parameters.</li>
 </ul>
 </td>
 </tr>
@@ -900,13 +904,14 @@ proper type, with some error-checking.</p>
 <dt id="config.DefaultClassConfig">
 <em class="property">class </em><code class="descclassname">config.</code><code class="descname">DefaultClassConfig</code><span class="sig-paren">(</span><em>param_dict</em>, <em>param_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#DefaultClassConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.DefaultClassConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces at least some boilerplate configuration code for reproduction, species_set, and stagnation classes. TODO: Find a way to put <code class="docutils literal"><span class="pre">write_config()</span></code>
-into this class also. This would be simple if it were a normal method, but it is called as a class method.</p>
+into this class also. This would be simple if it were a normal method, but it is called as a class method; perhaps inheriting from DefaultClassConfig
+would work?</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>param_dict</strong> (dict(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#objects-values-and-types">value</a>)) – Dictionary of configuration parameters from config file.</li>
+<li><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>)</em>) – Dictionary of configuration parameters from config file.</li>
 <li><strong>param_list</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – List of <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref any py py-class docutils literal"><span class="pre">ConfigParameter</span></code></a> instances; used to know what parameters are of interest to the calling class.</li>
 </ul>
 </td>
@@ -950,17 +955,17 @@ respective classes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>genome_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the genome class used, such as <a class="reference internal" href="#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenome</span></code></a> or <a class="reference internal" href="#iznn.IZGenome" title="iznn.IZGenome"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZGenome</span></code></a>. See <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a> for the needed interface.</li>
-<li><strong>reproduction_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the reproduction class used, such as <a class="reference internal" href="#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref py py-class docutils literal"><span class="pre">reproduction.DefaultReproduction</span></code></a>. See <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a> for the needed interface.</li>
-<li><strong>species_set_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the species set class used, such as <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">species.DefaultSpeciesSet</span></code></a>.</li>
-<li><strong>stagnation_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Specifies the stagnation class used, such as <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">stagnation.DefaultStagnation</span></code></a>.</li>
+<li><strong>genome_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-class">class</a>) – Specifies the genome class used, such as <a class="reference internal" href="#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenome</span></code></a> or <a class="reference internal" href="#iznn.IZGenome" title="iznn.IZGenome"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZGenome</span></code></a>. See <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a> for the needed interface.</li>
+<li><strong>reproduction_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-class">class</a>) – Specifies the reproduction class used, such as <a class="reference internal" href="#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref py py-class docutils literal"><span class="pre">reproduction.DefaultReproduction</span></code></a>. See <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a> for the needed interface.</li>
+<li><strong>species_set_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-class">class</a>) – Specifies the species set class used, such as <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">species.DefaultSpeciesSet</span></code></a>.</li>
+<li><strong>stagnation_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-class">class</a>) – Specifies the stagnation class used, such as <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">stagnation.DefaultStagnation</span></code></a>.</li>
 <li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – <p>Pathname for configuration file to be opened, read, processed by a parser from the <a class="reference external" href="https://docs.python.org/3.5/library/configparser.html#configparser.ConfigParser" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">configparser.ConfigParser</span></code></a> class (or, for 2.7, the <a class="reference external" href="https://docs.python.org/2.7/library/configparser.html#ConfigParser.SafeConfigParser">ConfigParser.SafeConfigParser class</a>), the <code class="docutils literal"><span class="pre">NEAT</span></code> section handled by <code class="docutils literal"><span class="pre">Config</span></code>, and then other sections passed to the <code class="docutils literal"><span class="pre">parse_config</span></code> methods of the appropriate classes.</p>
 </li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If any of the objects lack a <code class="docutils literal"><span class="pre">parse_config</span></code> method.</li>
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If any of the <code class="docutils literal"><span class="pre">_type</span></code> classes lack a <code class="docutils literal"><span class="pre">parse_config</span></code> method.</li>
 <li><a class="reference internal" href="#config.UnknownConfigItemError" title="config.UnknownConfigItemError"><strong>UnknownConfigItemError</strong></a> – If an option in the <code class="docutils literal"><span class="pre">NEAT</span></code> section of the configuration file is not recognized.</li>
 <li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#DeprecationWarning" title="(in Python v3.5)"><strong>DeprecationWarning</strong></a> – If a default is used for one of the <code class="docutils literal"><span class="pre">NEAT</span></code> section options.</li>
 </ul>
@@ -1048,11 +1053,17 @@ constant at the given values during the simulated time.</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a>)</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#NotImplementedError" title="(in Python v3.5)"><strong>NotImplementedError</strong></a> – If a <code class="docutils literal"><span class="pre">time_step</span></code> is not given.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#NotImplementedError" title="(in Python v3.5)"><strong>NotImplementedError</strong></a> – If a <code class="docutils literal"><span class="pre">time_step</span></code> is not given.</li>
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If the number of <code class="docutils literal"><span class="pre">inputs</span></code> does not match the number of <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input nodes</span></a></li>
+</ul>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Exception changed to more-specific RuntimeError.</p>
+</div>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -1064,8 +1075,8 @@ constant at the given values during the simulated time.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenome</span></code></a> instance.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">config.Config</span></code></a> instance.</li>
+<li><strong>genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#genome.DefaultGenome" title="genome.DefaultGenome"><code class="xref py py-class docutils literal"><span class="pre">genome.DefaultGenome</span></code></a> instance.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">config.Config</span></code></a> instance.</li>
 <li><strong>time_constant</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) – Used for the <a class="reference internal" href="#ctrnn.CTRNNNodeEval" title="ctrnn.CTRNNNodeEval"><code class="xref py py-class docutils literal"><span class="pre">CTRNNNodeEval</span></code></a> initializations.</li>
 </ul>
 </td>
@@ -1177,7 +1188,10 @@ called by a <a class="reference internal" href="glossary.html#term-slave-node"><
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of chunks containing (as a list) at most <code class="docutils literal"><span class="pre">chunksize</span></code> elements of data.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>))</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>))</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If <code class="docutils literal"><span class="pre">chunksize</span></code> is not 1+ or is not an integer</p>
 </td>
 </tr>
 </tbody>
@@ -1291,8 +1305,8 @@ genomes. Must not be called by <a class="reference internal" href="glossary.html
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>genomes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – Dictionary of (<a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">genome_id</span></a>, genome)</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object.</li>
+<li><strong>genomes</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – Dictionary of (<a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">genome_id</span></a>, genome)</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object.</li>
 </ul>
 </td>
 </tr>
@@ -1388,7 +1402,7 @@ Used by <a class="reference internal" href="#genome.DefaultGenomeConfig" title="
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of configuration parameters (as <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">config.ConfigParameter</span></code></a> instances) for the gene attributes.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(instance)</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -1404,7 +1418,7 @@ Used by <a class="reference internal" href="#genome.DefaultGenomeConfig" title="
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object to be used by the appropriate <a class="reference internal" href="#module-attributes" title="attributes: Deals with attributes used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> class.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object to be used by the appropriate <a class="reference internal" href="#module-attributes" title="attributes: Deals with attributes used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> class.</td>
 </tr>
 </tbody>
 </table>
@@ -1421,7 +1435,7 @@ Used by <a class="reference internal" href="#genome.DefaultGenomeConfig" title="
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object to be used by the appropriate <a class="reference internal" href="#module-attributes" title="attributes: Deals with attributes used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> class.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object to be used by the appropriate <a class="reference internal" href="#module-attributes" title="attributes: Deals with attributes used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a> class.</td>
 </tr>
 </tbody>
 </table>
@@ -1456,7 +1470,7 @@ the same <a class="reference internal" href="glossary.html#term-key"><span class
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new gene, with the same key/id, with other attributes being copied randomly (50/50 chance) from each parent gene.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-object">object</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
 </tr>
 </tbody>
 </table>
@@ -1480,7 +1494,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The other <code class="docutils literal"><span class="pre">DefaultNodeGene</span></code>.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The genome configuration object.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The genome configuration object.</li>
 </ul>
 </td>
 </tr>
@@ -1512,7 +1526,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The other <code class="docutils literal"><span class="pre">DefaultConnectionGene</span></code>.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – The genome configuration object.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The genome configuration object.</li>
 </ul>
 </td>
 </tr>
@@ -1527,7 +1541,7 @@ the final result is multiplied by the configured <a class="reference internal" h
 </dd></dl>
 
 <div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-config_work: </span><code class="docutils literal"><span class="pre">__gene_attributes__</span></code> changed to <code class="docutils literal"><span class="pre">_gene_attributes</span></code>, since it is not a Python internal variable. Other changes made due to addition of
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span><code class="docutils literal"><span class="pre">__gene_attributes__</span></code> changed to <code class="docutils literal"><span class="pre">_gene_attributes</span></code>, since it is not a Python internal variable. Updates also made due to addition of
 default capabilities to <a class="reference internal" href="#module-attributes" title="attributes: Deals with attributes used by genes."><code class="xref py py-mod docutils literal"><span class="pre">attributes</span></code></a>.</p>
 </div>
 </dd></dl>
@@ -1552,12 +1566,12 @@ values for <a class="reference internal" href="config_file.html#initial-connecti
 as <a class="reference internal" href="#genes.DefaultNodeGene" title="genes.DefaultNodeGene"><code class="xref py py-class docutils literal"><span class="pre">genes.DefaultNodeGene</span></code></a>, <a class="reference internal" href="#genes.DefaultConnectionGene" title="genes.DefaultConnectionGene"><code class="xref py py-class docutils literal"><span class="pre">genes.DefaultConnectionGene</span></code></a>, or <a class="reference internal" href="#iznn.IZNodeGene" title="iznn.IZNodeGene"><code class="xref py py-class docutils literal"><span class="pre">iznn.IZNodeGene</span></code></a>. The
 <a class="reference internal" href="#activations.ActivationFunctionSet" title="activations.ActivationFunctionSet"><code class="xref py py-class docutils literal"><span class="pre">activations.ActivationFunctionSet</span></code></a> instance is available via its <code class="docutils literal"><span class="pre">activation_defs</span></code> attribute, and the
 <a class="reference internal" href="#aggregations.AggregationFunctionSet" title="aggregations.AggregationFunctionSet"><code class="xref py py-class docutils literal"><span class="pre">aggregations.AggregationFunctionSet</span></code></a> instance is available via its <code class="docutils literal"><span class="pre">aggregation_defs</span></code> - or, for compatibility,
-<code class="docutils literal"><span class="pre">aggregation_function_defs</span></code> - attributes.</p>
+<code class="docutils literal"><span class="pre">aggregation_function_defs</span></code> - attributes. TODO: Check for unused configuration parameters from the config file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Parameters from configuration file and DefaultGenome initialization (by parse_config).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>)</em>) – Parameters from configuration file and DefaultGenome initialization (by parse_config).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If <code class="docutils literal"><span class="pre">initial_connection</span></code> or <a class="reference internal" href="config_file.html#structural-mutation-surer-label"><span class="std std-ref">structural_mutation_surer</span></a> is invalid.</td>
 </tr>
@@ -1634,13 +1648,13 @@ versus node keys).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – A dictionary of node keys vs nodes</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node_dict</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – A dictionary of node keys vs nodes</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A currently-unused node key.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If the new id is already in the node_dict.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#AssertionError" title="(in Python v3.5)"><strong>AssertionError</strong></a> – If a newly-created id is already in the node_dict.</td>
 </tr>
 </tbody>
 </table>
@@ -2364,7 +2378,7 @@ by <code class="docutils literal"><span class="pre">connections</span></code>. U
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>neurons</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><em>instance</em><em>)</em>) – The <a class="reference internal" href="#iznn.IZNeuron" title="iznn.IZNeuron"><code class="xref py py-class docutils literal"><span class="pre">IZNeuron</span></code></a> instances needed.</li>
+<li><strong>neurons</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – The <a class="reference internal" href="#iznn.IZNeuron" title="iznn.IZNeuron"><code class="xref py py-class docutils literal"><span class="pre">IZNeuron</span></code></a> instances needed.</li>
 <li><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The <a class="reference internal" href="glossary.html#term-input-node"><span class="xref std std-term">input node</span></a> keys.</li>
 <li><strong>outputs</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – The <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output node</span></a> keys.</li>
 </ul>
@@ -2436,7 +2450,7 @@ by <code class="docutils literal"><span class="pre">connections</span></code>. U
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – An IZGenome instance.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object.</li>
 </ul>
 </td>
 </tr>
@@ -2757,7 +2771,7 @@ for python implementations without a <a class="reference external" href="https:/
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>genomes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – A dictionary of <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">genome_id</span></a> (not used) to genome instances.</li>
+<li><strong>genomes</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – A dictionary of <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">genome_id</span></a> (not used) to genome instances.</li>
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">config.Config</span></code></a> instance.</li>
 </ul>
 </td>
@@ -2795,7 +2809,7 @@ for python implementations without a <a class="reference external" href="https:/
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> configuration object.</li>
-<li><strong>initial_state</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><em>instance</em><em>, </em><em>instance</em><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – If supplied (such as by a method of the <a class="reference internal" href="#checkpoint.Checkpointer" title="checkpoint.Checkpointer"><code class="xref py py-class docutils literal"><span class="pre">Checkpointer</span></code></a> class), a tuple of (<code class="docutils literal"><span class="pre">Population</span></code>, <code class="docutils literal"><span class="pre">Species</span></code>, generation number)</li>
+<li><strong>initial_state</strong> (None or tuple(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>, int)) – If supplied (such as by a method of the <a class="reference internal" href="#checkpoint.Checkpointer" title="checkpoint.Checkpointer"><code class="xref py py-class docutils literal"><span class="pre">Checkpointer</span></code></a> class), a tuple of (<code class="docutils literal"><span class="pre">Population</span></code>, <code class="docutils literal"><span class="pre">Species</span></code>, generation number)</li>
 </ul>
 </td>
 </tr>
@@ -2917,7 +2931,7 @@ or the configuration object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> configuration instance.</li>
-<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
+<li><strong>population</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Current species set object, such as a <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> instance.</li>
 </ul>
 </td>
@@ -2936,7 +2950,7 @@ or the configuration object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> configuration instance.</li>
-<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
+<li><strong>population</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Current species set object, such as a <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> instance.</li>
 <li><strong>best_genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. (Ties are resolved pseudorandomly, by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> ordering.)</li>
 </ul>
@@ -3040,7 +3054,7 @@ desired, as follows:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> configuration instance.</li>
-<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
+<li><strong>population</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Current species set object, such as a <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> instance.</li>
 </ul>
 </td>
@@ -3059,7 +3073,7 @@ desired, as follows:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> configuration instance.</li>
-<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
+<li><strong>population</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – Current population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs genome.</li>
 <li><strong>species</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Current species set object, such as a <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> instance.</li>
 <li><strong>best_genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The currently highest-fitness <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>. (Ties are resolved pseudorandomly, by <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> ordering.)</li>
 </ul>
@@ -3241,7 +3255,7 @@ information (as an empty tuple).</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A dictionary (with the unique genome identifier as the key) of the genomes created.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>, instance)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)</p>
 </td>
 </tr>
 </tbody>
@@ -3293,7 +3307,7 @@ preserve compatibility).</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">New population, as a dict of unique genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">ID/key</span></a> vs <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a>.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>, instance)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)</p>
 </td>
 </tr>
 </tbody>
@@ -3385,7 +3399,7 @@ Note: <a class="reference internal" href="#stagnation.DefaultStagnation" title="
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">Identifier/key</span></a></li>
-<li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Initial generation of appearance</li>
+<li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Initial <a class="reference internal" href="glossary.html#term-generation"><span class="xref std std-term">generation</span></a> of appearance</li>
 </ul>
 </td>
 </tr>
@@ -3402,7 +3416,7 @@ Note: <a class="reference internal" href="#stagnation.DefaultStagnation" title="
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>representative</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A genome instance.</li>
-<li><strong>members</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – A <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> of genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">id</span></a> vs genome instance.</li>
+<li><strong>members</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – A <a class="reference external" href="https://docs.python.org/3.5/reference/expressions.html#dict" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">dictionary</span></code></a> of genome <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">id</span></a> vs genome instance.</li>
 </ul>
 </td>
 </tr>
@@ -3478,7 +3492,7 @@ library, although many fitness functions are likely to far outweigh this for mod
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A configuration object (currently unused).</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A configuration object (currently unused).</li>
 <li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> instance giving reporters to be notified about <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> statistics.</li>
 </ul>
 </td>
@@ -3541,7 +3555,7 @@ genomes by fitness will improve speciation (by making the highest-fitness member
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> instance.</li>
-<li><strong>population</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><em>instance</em><em>)</em>) – Population as per the output of <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">DefaultReproduction.reproduce</span></code></a>.</li>
+<li><strong>population</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – Population as per the output of <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">DefaultReproduction.reproduce</span></code></a>.</li>
 <li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Current <a class="reference internal" href="glossary.html#term-generation"><span class="xref std std-term">generation</span></a> number.</li>
 </ul>
 </td>
@@ -3611,8 +3625,8 @@ level of fitness to be considered “stagnant” (including, most problematicall
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – Configuration object; in this implementation, a <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> instance, but should be treated as opaque outside this class.</li>
-<li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> instance with reporters that may need activating; not currently used.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object; in this implementation, a <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> instance, but should be treated as opaque outside this class.</li>
+<li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> instance with reporters that may need activating; not currently used.</li>
 </ul>
 </td>
 </tr>
@@ -3628,7 +3642,7 @@ from the configuration file, in this implementation using <a class="reference in
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – Dictionary of parameters from configuration file.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>)</em>) – Dictionary of parameters from configuration file.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Stagnation configuration object; considered opaque by rest of code, so current type returned is not required for interface.</td>
 </tr>
@@ -3678,15 +3692,15 @@ function in use).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>species_set</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">species.DefaultSpeciesSet</span></code></a> or compatible object.</li>
+<li><strong>species_set</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">species.DefaultSpeciesSet</span></code></a> or compatible object.</li>
 <li><strong>generation</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The current generation.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of tuples of (species <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">id/key</span></a>, <a class="reference internal" href="#species.Species" title="species.Species"><code class="xref py py-class docutils literal"><span class="pre">Species</span></code></a> object, is_stagnant).</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of tuples of (species <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">id/key</span></a>, <a class="reference internal" href="#species.Species" title="species.Species"><code class="xref py py-class docutils literal"><span class="pre">Species</span></code></a> instance, is_stagnant).</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)">bool</a>))</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list(tuple(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>, bool))</p>
 </td>
 </tr>
 </tbody>
@@ -3705,10 +3719,12 @@ function in use).</p>
 <blockquote>
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">There are two design decisions to be aware of:
-* The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module (if they were, it would far worsen existing potential memory problems - see below), and it is assumed that fitnesses (as given by the <span class="target" id="index-166"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting). Code violating this assumption (e.g., with competitive coevolution) will need to use different statistical gathering methods.
-* Generally reports or records a per-generation list of values; the numeric position in the list may not correspond to the generation number if there has been a restart, such as via the <a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses `pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpoint</span></code></a> module.
-There is also a TODO item: Currently keeps accumulating information in memory, which may be a problem in long runs.</p>
+<p>There are two design decisions to be aware of:</p>
+<ul class="simple">
+<li>The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module (if they were, it would far worsen existing potential memory problems - see below), and it is assumed that fitnesses (as given by the <span class="target" id="index-166"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting). Code violating this assumption (e.g., with competitive coevolution) will need to use different statistical gathering methods.</li>
+<li>Generally reports or records a per-generation list of values; the numeric position in the list may not correspond to the generation number if there has been a restart, such as via the <a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses `pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpoint</span></code></a> module.</li>
+</ul>
+<p class="last">There is also a TODO item: Currently keeps accumulating information in memory, which may be a problem in long runs.</p>
 </div>
 <dl class="class">
 <dt id="statistics.StatisticsReporter">
@@ -3790,9 +3806,9 @@ fitness order.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Number of most-fit genomes to return.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes (as genome objects).</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes (as genome instances).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -3808,9 +3824,9 @@ fitness order.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Number of most-fit genomes to return.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes (as genome objects).</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">n</span></code> most-fit genomes (as genome instances).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)">list</a>(<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)">object</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -3826,7 +3842,7 @@ fitness order.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The most-fit genome.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-object">object</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
 </tr>
 </tbody>
 </table>
@@ -3996,8 +4012,8 @@ Note that weakref is not compatible with saving via <a class="reference external
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>genomes</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a><em>)</em>) – A dictionary of <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">genome_id</span></a> to genome objects.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#object" title="(in Python v3.5)"><em>object</em></a>) – A <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">config.Config</span></code></a> object.</li>
+<li><strong>genomes</strong> (dict(int, <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)) – A dictionary of <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">genome_id</span></a> to genome instances.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">config.Config</span></code></a> instance.</li>
 </ul>
 </td>
 </tr>
