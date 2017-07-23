@@ -578,8 +578,13 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 <span class="target" id="index-11"></span><dl class="method">
 <dt id="attributes.BoolAttribute.init_value">
 <code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute.init_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the attribute’s value using a configured <code class="docutils literal"><span class="pre">default</span></code>. TODO: Enable a random default with a 50/50 chance of <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>.
-(A default of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">None</span></code></a> will not work, since this will be taken as no default.)</p>
+<dd><p>Initializes the attribute’s value, either using a configured <code class="docutils literal"><span class="pre">default</span></code>, or (if the default is “random”) with a 50/50 chance of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#True" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">True</span></code></a> or <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#False" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">False</span></code></a>.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.91-config_work: </span>While it is possible to use “None” as an equivalent to “random”, this is too easily confusable with an actual <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">None</span></code></a>.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Ability to use “random” for a 50/50 chance of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#True" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">True</span></code></a> or <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#False" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">False</span></code></a> added.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -590,6 +595,8 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a></td>
 </tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If the default value is not recognized as standing for any of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#True" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">True</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#False" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">False</span></code></a>, “random”, or “none”.</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -597,7 +604,7 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 <span class="target" id="index-12"></span><span class="target" id="index-13"></span><span class="target" id="index-14"></span><span class="target" id="index-15"></span><dl class="method">
 <dt id="attributes.BoolAttribute.mutate_value">
 <code class="descname">mutate_value</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute.mutate_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute.mutate_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> (which is more precisely a <code class="docutils literal"><span class="pre">replace_rate</span></code>) and <code class="docutils literal"><span class="pre">rate_to_false_add</span></code> or
+<dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> and <code class="docutils literal"><span class="pre">rate_to_false_add</span></code> or
 <code class="docutils literal"><span class="pre">rate_to_true_add</span></code> configuration parameters, replaces the value with a 50/50 chance of <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>; note that this has a
 50% chance of leaving the value unchanged.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -633,9 +640,12 @@ includes code for configuration, creation, and mutation.</p>
 <span class="target" id="index-16"></span><span class="target" id="index-17"></span><span class="target" id="index-18"></span><dl class="method">
 <dt id="attributes.StringAttribute.init_value">
 <code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute.init_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the attribute’s value, either using a configured <code class="docutils literal"><span class="pre">default</span></code> or (if the default is <code class="docutils literal"><span class="pre">random</span></code>) with a
+<dd><p>Initializes the attribute’s value, either using a configured <code class="docutils literal"><span class="pre">default</span></code> or (if the default is “random”) with a
 randomly-chosen member of the <code class="docutils literal"><span class="pre">options</span></code> (each having an equal chance). Note: It is possible for the default value, if specifically configured, to
 <strong>not</strong> be one of the options.</p>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version 0.91-config_work: </span>While it is possible to use “None” as an equivalent to “random”, this is too easily confusable with an actual <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">None</span></code></a>.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -653,7 +663,7 @@ randomly-chosen member of the <code class="docutils literal"><span class="pre">o
 <span class="target" id="index-19"></span><span class="target" id="index-20"></span><span class="target" id="index-21"></span><dl class="method">
 <dt id="attributes.StringAttribute.mutate_value">
 <code class="descname">mutate_value</code><span class="sig-paren">(</span><em>value</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute.mutate_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute.mutate_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> (which is more precisely a <code class="docutils literal"><span class="pre">replace_rate</span></code>) configuration parameter, replaces
+<dd><p>With a frequency determined by the <code class="docutils literal"><span class="pre">mutate_rate</span></code> configuration parameter, replaces
 the value with one of the <code class="docutils literal"><span class="pre">options</span></code>, with each having an equal chance; note that this can be the same value as before.
 (It is possible to crudely alter the chances of what is chosen by listing a given option more than once, although this is inefficient given the use of the
 <a class="reference external" href="https://docs.python.org/3.5/library/random.html#random.choice" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">random.choice</span></code></a> function.)
@@ -758,7 +768,13 @@ a <a class="reference internal" href="#population.Population" title="population.
 <h2>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h2>
 <p>Does general configuration parsing; used by other classes for their configuration.</p>
 <blockquote>
-<div><dl class="class">
+<div><dl class="data">
+<dt id="config.BOOL_OR_STR">
+<code class="descclassname">config.</code><code class="descname">BOOL_OR_STR</code><a class="headerlink" href="#config.BOOL_OR_STR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additional type for configuration variables - either a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a> or a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>; generally, the latter are very limited in possible valid options.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="config.ConfigParameter">
 <em class="property">class </em><code class="descclassname">config.</code><code class="descname">ConfigParameter</code><span class="sig-paren">(</span><em>name</em>, <em>value_type</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does initial handling of a particular configuration parameter.</p>
@@ -768,7 +784,7 @@ a <a class="reference internal" href="#population.Population" title="population.
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The name of the configuration parameter.</li>
-<li><strong>value_type</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The type that the configuration parameter should be; must be one of <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>, or <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a>.</li>
+<li><strong>value_type</strong> – The type that the configuration parameter should be; must be one of <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>, <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a>, or <a class="reference internal" href="#config.BOOL_OR_STR" title="config.BOOL_OR_STR"><code class="xref py py-data docutils literal"><span class="pre">BOOL_OR_STR</span></code></a>.</li>
 <li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – If given, the default to use for the configuration parameter.</li>
 </ul>
 </td>

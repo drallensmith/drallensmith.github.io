@@ -39,7 +39,7 @@
   <h1>Source code for attributes</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Deals with the attributes (variable parameters) of genes&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">gauss</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">uniform</span>
-<span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span>
+<span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">BOOL_OR_STR</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iterkeys</span><span class="p">,</span> <span class="n">iteritems</span>
 
 <span class="c1"># TODO: There is probably a lot of room for simplification of these classes using metaprogramming.</span>
@@ -124,7 +124,7 @@
 
 <div class="viewcode-block" id="BoolAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.BoolAttribute">[docs]</a><span class="k">class</span> <span class="nc">BoolAttribute</span><span class="p">(</span><span class="n">BaseAttribute</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class for boolean attributes such as whether a connection is enabled or not.&quot;&quot;&quot;</span>
-    <span class="n">_config_items</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">_config_items</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">BOOL_OR_STR</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;mutate_rate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;rate_to_true_add&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
                      <span class="s2">&quot;rate_to_false_add&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]}</span>
@@ -132,10 +132,14 @@
 <div class="viewcode-block" id="BoolAttribute.init_value"><a class="viewcode-back" href="../module_summaries.html#attributes.BoolAttribute.init_value">[docs]</a>    <span class="k">def</span> <span class="nf">init_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">default</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_name</span><span class="p">)</span>
 
-<span class="c1">##        if default is None:</span>
-<span class="c1">##            return random() &lt; 0.5</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">default</span>
 
-        <span class="k">return</span> <span class="n">default</span></div>
+        <span class="k">if</span> <span class="n">default</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unknown default value </span><span class="si">{!r}</span><span class="s2"> for </span><span class="si">{!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">default</span><span class="p">,</span>
+                                                                        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="BoolAttribute.mutate_value"><a class="viewcode-back" href="../module_summaries.html#attributes.BoolAttribute.mutate_value">[docs]</a>    <span class="k">def</span> <span class="nf">mutate_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">mutate_rate</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutate_rate_name</span><span class="p">)</span>
@@ -172,7 +176,7 @@
 <div class="viewcode-block" id="StringAttribute.init_value"><a class="viewcode-back" href="../module_summaries.html#attributes.StringAttribute.init_value">[docs]</a>    <span class="k">def</span> <span class="nf">init_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">default</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_name</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">default</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">default</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">,</span><span class="s1">&#39;random&#39;</span><span class="p">):</span>
             <span class="n">options</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">options_name</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">choice</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
