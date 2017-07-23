@@ -457,16 +457,12 @@ config
 --------
 Does general configuration parsing; used by other classes for their configuration.
 
-  .. py:data:: BOOL_OR_STR
-
-    Additional type for configuration variables - either a :pytypes:`bool <typesnumeric>` or a `str`; generally, the latter are very limited in possible valid options.
-
   .. py:class:: ConfigParameter(name, value_type, default=None)
 
     Does initial handling of a particular configuration parameter.
 
     :param str name: The name of the configuration parameter.
-    :param value_type: The type that the configuration parameter should be; must be one of `str`, :pytypes:`int <typesnumeric>`, :pytypes:`bool <typesnumeric>`, :pytypes:`float <typesnumeric>`, `list`, or :py:data:`BOOL_OR_STR`.
+    :param value_type: The type that the configuration parameter should be; must be one of `str`, :pytypes:`int <typesnumeric>`, :pytypes:`bool <typesnumeric>`, :pytypes:`float <typesnumeric>`, or `list`.
     :param default: If given, the default to use for the configuration parameter.
     :type default: str or None
 

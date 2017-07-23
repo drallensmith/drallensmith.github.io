@@ -768,13 +768,7 @@ a <a class="reference internal" href="#population.Population" title="population.
 <h2>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h2>
 <p>Does general configuration parsing; used by other classes for their configuration.</p>
 <blockquote>
-<div><dl class="data">
-<dt id="config.BOOL_OR_STR">
-<code class="descclassname">config.</code><code class="descname">BOOL_OR_STR</code><a class="headerlink" href="#config.BOOL_OR_STR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Additional type for configuration variables - either a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a> or a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>; generally, the latter are very limited in possible valid options.</p>
-</dd></dl>
-
-<dl class="class">
+<div><dl class="class">
 <dt id="config.ConfigParameter">
 <em class="property">class </em><code class="descclassname">config.</code><code class="descname">ConfigParameter</code><span class="sig-paren">(</span><em>name</em>, <em>value_type</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does initial handling of a particular configuration parameter.</p>
@@ -784,7 +778,7 @@ a <a class="reference internal" href="#population.Population" title="population.
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – The name of the configuration parameter.</li>
-<li><strong>value_type</strong> – The type that the configuration parameter should be; must be one of <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>, <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a>, or <a class="reference internal" href="#config.BOOL_OR_STR" title="config.BOOL_OR_STR"><code class="xref py py-data docutils literal"><span class="pre">BOOL_OR_STR</span></code></a>.</li>
+<li><strong>value_type</strong> – The type that the configuration parameter should be; must be one of <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>, or <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a>.</li>
 <li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><em>None</em></a>) – If given, the default to use for the configuration parameter.</li>
 </ul>
 </td>
