@@ -37,7 +37,9 @@
           <div class="body" role="main">
             
   <h1>Source code for genes</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">random</span>
+<span></span><span class="sd">&quot;&quot;&quot;Handles node and connection genes.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">random</span>
 <span class="kn">from</span> <span class="nn">neat.attributes</span> <span class="k">import</span> <span class="n">FloatAttribute</span><span class="p">,</span> <span class="n">BoolAttribute</span><span class="p">,</span> <span class="n">StringAttribute</span>
 
 <span class="c1"># TODO: There is probably a lot of room for simplification of these classes using metaprogramming.</span>
@@ -45,6 +47,10 @@
 
 
 <div class="viewcode-block" id="BaseGene"><a class="viewcode-back" href="../module_summaries.html#genes.BaseGene">[docs]</a><span class="k">class</span> <span class="nc">BaseGene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles functions shared by multiple types of genes (both node and connection),</span>
+<span class="sd">    including crossover and calling mutation methods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
 
@@ -63,6 +69,12 @@
 <div class="viewcode-block" id="BaseGene.get_config_params"><a class="viewcode-back" href="../module_summaries.html#genes.BaseGene.get_config_params">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_config_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_gene_attributes&#39;</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_gene_attributes&#39;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;__gene_attributes__&#39;</span><span class="p">))</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Class &#39;</span><span class="si">{!s}</span><span class="s2">&#39; </span><span class="si">{!r}</span><span class="s2"> needs &#39;_gene_attributes&#39; not &#39;__gene_attributes__&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span><span class="bp">cls</span><span class="p">),</span>
+                <span class="ne">DeprecationWarning</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_gene_attributes</span><span class="p">:</span>
             <span class="n">params</span> <span class="o">+=</span> <span class="n">a</span><span class="o">.</span><span class="n">get_config_params</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">params</span></div>
@@ -80,6 +92,7 @@
         <span class="n">new_gene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gene_attributes</span><span class="p">:</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">new_gene</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            
 
         <span class="k">return</span> <span class="n">new_gene</span></div>
 

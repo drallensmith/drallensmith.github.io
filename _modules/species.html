@@ -85,10 +85,11 @@
 
         <span class="k">return</span> <span class="n">d</span></div></div>
 
-<div class="viewcode-block" id="DefaultSpeciesSet"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet">[docs]</a><span class="k">class</span> <span class="nc">DefaultSpeciesSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultSpeciesSet"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet">[docs]</a><span class="k">class</span> <span class="nc">DefaultSpeciesSet</span><span class="p">(</span><span class="n">DefaultClassConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Encapsulates the default speciation scheme. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">reporters</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=super-init-not-called</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="n">reporters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -99,10 +100,6 @@
     <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">DefaultClassConfig</span><span class="p">(</span><span class="n">param_dict</span><span class="p">,</span>
                                   <span class="p">[</span><span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;compatibility_threshold&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span></div>
-
-<div class="viewcode-block" id="DefaultSpeciesSet.write_config"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.write_config">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DefaultSpeciesSet.speciate"><a class="viewcode-back" href="../module_summaries.html#species.DefaultSpeciesSet.speciate">[docs]</a>    <span class="k">def</span> <span class="nf">speciate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

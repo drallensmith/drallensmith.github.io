@@ -37,7 +37,11 @@
           <div class="body" role="main">
             
   <h1>Source code for statistics</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Gathers (via the reporting interface) and provides (to callers and/or a file)</span>
+<span class="sd">the most-fit genomes and information on genome/species fitness and species sizes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">csv</span>
 
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span><span class="p">,</span> <span class="n">median2</span>
@@ -50,8 +54,8 @@
 
 <div class="viewcode-block" id="StatisticsReporter"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter">[docs]</a><span class="k">class</span> <span class="nc">StatisticsReporter</span><span class="p">(</span><span class="n">BaseReporter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Gathers (via the reporting interface) and provides (to callers and/or a file) the most-fit genomes and</span>
-<span class="sd">    information on genome/species fitness and species sizes.</span>
+<span class="sd">    Gathers (via the reporting interface) and provides (to callers and/or a file)</span>
+<span class="sd">    the most-fit genomes and information on genome/species fitness and species sizes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">BaseReporter</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -67,7 +71,8 @@
         <span class="c1">#species_cross_validation_stats = {}</span>
         <span class="k">for</span> <span class="n">sid</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">species</span><span class="p">):</span>
             <span class="n">species_stats</span><span class="p">[</span><span class="n">sid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">members</span><span class="p">))</span>
-            <span class="c1">#species_cross_validation_stats[sid] = dict((k, v.cross_fitness) for k, v in iteritems(s.members))</span>
+            <span class="c1">##species_cross_validation_stats[sid] = dict((k, v.cross_fitness) for</span>
+<span class="c1">##                                                       k, v in iteritems(s.members))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generation_statistics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">species_stats</span><span class="p">)</span></div>
         <span class="c1">#self.generation_cross_validation_statistics.append(species_cross_validation_stats)</span>
 
@@ -132,7 +137,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">save_species_count</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_species_fitness</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="StatisticsReporter.save_genome_fitness"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter.save_genome_fitness">[docs]</a>    <span class="k">def</span> <span class="nf">save_genome_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;fitness_history.csv&#39;</span><span class="p">,</span> <span class="n">with_cross_validation</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="StatisticsReporter.save_genome_fitness"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter.save_genome_fitness">[docs]</a>    <span class="k">def</span> <span class="nf">save_genome_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                            <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span>
+                            <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;fitness_history.csv&#39;</span><span class="p">,</span>
+                            <span class="n">with_cross_validation</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Saves the population&#39;s best and average fitness. &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
@@ -143,7 +151,10 @@
             <span class="k">if</span> <span class="n">with_cross_validation</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
                 <span class="n">cv_best_fitness</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">cross_fitness</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">most_fit_genomes</span><span class="p">]</span>
                 <span class="n">cv_avg_fitness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_average_cross_validation_fitness</span><span class="p">()</span>
-                <span class="k">for</span> <span class="n">best</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">cv_best</span><span class="p">,</span> <span class="n">cv_avg</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">best_fitness</span><span class="p">,</span> <span class="n">avg_fitness</span><span class="p">,</span> <span class="n">cv_best_fitness</span><span class="p">,</span> <span class="n">cv_avg_fitness</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">best</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">cv_best</span><span class="p">,</span> <span class="n">cv_avg</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">best_fitness</span><span class="p">,</span>
+                                                      <span class="n">avg_fitness</span><span class="p">,</span>
+                                                      <span class="n">cv_best_fitness</span><span class="p">,</span>
+                                                      <span class="n">cv_avg_fitness</span><span class="p">):</span>
                     <span class="n">w</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">best</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">cv_best</span><span class="p">,</span> <span class="n">cv_avg</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">best</span><span class="p">,</span> <span class="n">avg</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">best_fitness</span><span class="p">,</span> <span class="n">avg_fitness</span><span class="p">):</span>

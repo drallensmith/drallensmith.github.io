@@ -37,7 +37,12 @@
           <div class="body" role="main">
             
   <h1>Source code for reporting</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Makes possible reporter classes,</span>
+<span class="sd">which are triggered on particular events and may provide information to the user,</span>
+<span class="sd">may do something else such as checkpointing, or may do both.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">time</span>
 
@@ -48,6 +53,10 @@
 
 
 <div class="viewcode-block" id="ReporterSet"><a class="viewcode-back" href="../module_summaries.html#reporting.ReporterSet">[docs]</a><span class="k">class</span> <span class="nc">ReporterSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Keeps track of the set of reporters</span>
+<span class="sd">    and gives methods to dispatch them at appropriate points.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -146,7 +155,8 @@
                 <span class="n">f</span> <span class="o">=</span> <span class="s2">&quot;--&quot;</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">fitness</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="si">{:.1f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fitness</span><span class="p">)</span>
                 <span class="n">af</span> <span class="o">=</span> <span class="s2">&quot;--&quot;</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">adjusted_fitness</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">adjusted_fitness</span><span class="p">)</span>
                 <span class="n">st</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">last_improved</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  </span><span class="si">{: &gt;4}</span><span class="s2">  </span><span class="si">{: &gt;3}</span><span class="s2">  </span><span class="si">{: &gt;4}</span><span class="s2">  </span><span class="si">{: &gt;7}</span><span class="s2">  </span><span class="si">{: &gt;7}</span><span class="s2">  </span><span class="si">{: &gt;4}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sid</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">af</span><span class="p">,</span> <span class="n">st</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;  </span><span class="si">{: &gt;4}</span><span class="s2">  </span><span class="si">{: &gt;3}</span><span class="s2">  </span><span class="si">{: &gt;4}</span><span class="s2">  </span><span class="si">{: &gt;7}</span><span class="s2">  </span><span class="si">{: &gt;7}</span><span class="s2">  </span><span class="si">{: &gt;4}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sid</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">af</span><span class="p">,</span> <span class="n">st</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Population of </span><span class="si">{0:d}</span><span class="s1"> members in </span><span class="si">{1:d}</span><span class="s1"> species&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ng</span><span class="p">,</span> <span class="n">ns</span><span class="p">))</span>
 
@@ -167,8 +177,11 @@
         <span class="n">fit_std</span> <span class="o">=</span> <span class="n">stdev</span><span class="p">(</span><span class="n">fitnesses</span><span class="p">)</span>
         <span class="n">best_species_id</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">get_species_id</span><span class="p">(</span><span class="n">best_genome</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Population</span><span class="se">\&#39;</span><span class="s1">s average fitness: </span><span class="si">{0:3.5f}</span><span class="s1"> stdev: </span><span class="si">{1:3.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fit_mean</span><span class="p">,</span> <span class="n">fit_std</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Best fitness: </span><span class="si">{0:3.5f}</span><span class="s1"> - size: </span><span class="si">{1!r}</span><span class="s1"> - species </span><span class="si">{2}</span><span class="s1"> - id </span><span class="si">{3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">best_genome</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="n">best_genome</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
-                                                                                   <span class="n">best_species_id</span><span class="p">,</span> <span class="n">best_genome</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s1">&#39;Best fitness: </span><span class="si">{0:3.5f}</span><span class="s1"> - size: </span><span class="si">{1!r}</span><span class="s1"> - species </span><span class="si">{2}</span><span class="s1"> - id </span><span class="si">{3}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">best_genome</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span>
+                                                                                 <span class="n">best_genome</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+                                                                                 <span class="n">best_species_id</span><span class="p">,</span>
+                                                                                 <span class="n">best_genome</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">complete_extinction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_extinctions</span> <span class="o">+=</span> <span class="mi">1</span>

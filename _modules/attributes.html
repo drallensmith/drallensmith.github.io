@@ -46,6 +46,7 @@
 
 
 <div class="viewcode-block" id="BaseAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.BaseAttribute">[docs]</a><span class="k">class</span> <span class="nc">BaseAttribute</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Superclass for the type-specialized attribute subclasses, used by genes.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">default_dict</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">default_dict</span><span class="p">):</span>
@@ -63,6 +64,10 @@
                 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">iterkeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_items</span><span class="p">)]</span></div></div>
 
 <div class="viewcode-block" id="FloatAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.FloatAttribute">[docs]</a><span class="k">class</span> <span class="nc">FloatAttribute</span><span class="p">(</span><span class="n">BaseAttribute</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for numeric attributes,</span>
+<span class="sd">    such as the response of a node or the weight of a connection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_config_items</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;init_mean&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;init_stdev&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;init_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;gaussian&#39;</span><span class="p">],</span>
@@ -118,6 +123,7 @@
 
 
 <div class="viewcode-block" id="BoolAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.BoolAttribute">[docs]</a><span class="k">class</span> <span class="nc">BoolAttribute</span><span class="p">(</span><span class="n">BaseAttribute</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for boolean attributes such as whether a connection is enabled or not.&quot;&quot;&quot;</span>
     <span class="n">_config_items</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;mutate_rate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;rate_to_true_add&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
@@ -155,6 +161,10 @@
 
 
 <div class="viewcode-block" id="StringAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.StringAttribute">[docs]</a><span class="k">class</span> <span class="nc">StringAttribute</span><span class="p">(</span><span class="n">BaseAttribute</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for string attributes such as the aggregation function of a node,</span>
+<span class="sd">    which are selected from a list of options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_config_items</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">],</span>
                      <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
                      <span class="s2">&quot;mutate_rate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]}</span>

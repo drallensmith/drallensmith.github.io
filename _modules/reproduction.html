@@ -56,7 +56,7 @@
 <span class="c1"># configuration. This scheme should be adaptive so that species do not evolve</span>
 <span class="c1"># to become &quot;cautious&quot; and only make very slow progress.</span>
 
-<div class="viewcode-block" id="DefaultReproduction"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction">[docs]</a><span class="k">class</span> <span class="nc">DefaultReproduction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultReproduction"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction">[docs]</a><span class="k">class</span> <span class="nc">DefaultReproduction</span><span class="p">(</span><span class="n">DefaultClassConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements the default NEAT-python reproduction scheme:</span>
 <span class="sd">    explicit fitness sharing with fixed-time species stagnation.</span>
@@ -69,11 +69,8 @@
                                    <span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;survival_threshold&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
                                    <span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;min_species_size&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span></div>
 
-<div class="viewcode-block" id="DefaultReproduction.write_config"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.write_config">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">reporters</span><span class="p">,</span> <span class="n">stagnation</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=super-init-not-called</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="n">reporters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -93,6 +90,7 @@
 
 <div class="viewcode-block" id="DefaultReproduction.compute_spawn"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.compute_spawn">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">compute_spawn</span><span class="p">(</span><span class="n">adjusted_fitness</span><span class="p">,</span> <span class="n">previous_sizes</span><span class="p">,</span> <span class="n">pop_size</span><span class="p">,</span> <span class="n">min_species_size</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute the proper number of offspring per species (proportional to fitness).&quot;&quot;&quot;</span>
         <span class="n">af_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">adjusted_fitness</span><span class="p">)</span>
 
         <span class="n">spawn_amounts</span> <span class="o">=</span> <span class="p">[]</span>
@@ -123,6 +121,10 @@
         <span class="k">return</span> <span class="n">spawn_amounts</span></div>
 
 <div class="viewcode-block" id="DefaultReproduction.reproduce"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.reproduce">[docs]</a>    <span class="k">def</span> <span class="nf">reproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">pop_size</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles creation of genomes, either from scratch or by sexual or</span>
+<span class="sd">        asexual reproduction from parents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: I don&#39;t like this modification of the species and stagnation objects,</span>
         <span class="c1"># because it requires internal knowledge of the objects.</span>
 
@@ -193,7 +195,8 @@
                 <span class="k">continue</span>
 
             <span class="c1"># Only use the survival threshold fraction to use as parents for the next generation.</span>
-            <span class="n">repro_cutoff</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">survival_threshold</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">old_members</span><span class="p">)))</span>
+            <span class="n">repro_cutoff</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">survival_threshold</span> <span class="o">*</span>
+                                         <span class="nb">len</span><span class="p">(</span><span class="n">old_members</span><span class="p">)))</span>
             <span class="c1"># Use at least two parents no matter what the threshold fraction result is.</span>
             <span class="n">repro_cutoff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">repro_cutoff</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
             <span class="n">old_members</span> <span class="o">=</span> <span class="n">old_members</span><span class="p">[:</span><span class="n">repro_cutoff</span><span class="p">]</span>

@@ -41,7 +41,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="c1">#import sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -154,8 +154,10 @@
                                              <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unknown_list</span><span class="p">))</span>
             <span class="k">raise</span> <span class="n">UnknownConfigItemError</span><span class="p">(</span><span class="s2">&quot;Unknown configuration item </span><span class="si">{!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unknown_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 
-<div class="viewcode-block" id="DefaultClassConfig.save"><a class="viewcode-back" href="../module_summaries.html#config.DefaultClassConfig.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="DefaultClassConfig.write_config"><a class="viewcode-back" href="../module_summaries.html#config.DefaultClassConfig.write_config">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">write_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=protected-access</span>
+        <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Config"><a class="viewcode-back" href="../module_summaries.html#config.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

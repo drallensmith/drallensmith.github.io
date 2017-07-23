@@ -423,12 +423,12 @@ and/or its interface in <a class="reference internal" href="#module-genome" titl
 <h2>attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
 <p>Deals with <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attributes</span></a> used by <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">genes</span></a>.</p>
 <blockquote>
-<div><img src="_images/inheritance-4a822d5882324ff178248a7c4205a91173dead11.png" alt="Inheritance diagram of attributes" usemap="#inheritance199b63f8fc" class="inheritance"/>
+<div><img src="_images/inheritance-d89e3fce93cd38cbfb27fa8e8f2b3ca4a3182eaa.png" alt="Inheritance diagram of attributes" usemap="#inheritance199b63f8fc" class="inheritance"/>
 <map id="inheritance199b63f8fc" name="inheritance199b63f8fc">
-<area shape="rect" id="node1" href="#attributes.BaseAttribute" target="_top" title="attributes.BaseAttribute" alt="" coords="5,55,165,80"/>
-<area shape="rect" id="node2" href="#attributes.BoolAttribute" target="_top" title="attributes.BoolAttribute" alt="" coords="217,5,375,31"/>
-<area shape="rect" id="node3" href="#attributes.FloatAttribute" target="_top" title="attributes.FloatAttribute" alt="" coords="216,55,376,80"/>
-<area shape="rect" id="node4" href="#attributes.StringAttribute" target="_top" title="attributes.StringAttribute" alt="" coords="213,104,379,129"/>
+<area shape="rect" id="node1" href="#attributes.BaseAttribute" target="_top" title="Superclass for the type&#45;specialized attribute subclasses, used by genes." alt="" coords="5,55,165,80"/>
+<area shape="rect" id="node2" href="#attributes.BoolAttribute" target="_top" title="Class for boolean attributes such as whether a connection is enabled or not." alt="" coords="217,5,375,31"/>
+<area shape="rect" id="node3" href="#attributes.FloatAttribute" target="_top" title="Class for numeric attributes," alt="" coords="216,55,376,80"/>
+<area shape="rect" id="node4" href="#attributes.StringAttribute" target="_top" title="Class for string attributes such as the aggregation function of a node," alt="" coords="213,104,379,129"/>
 </map>
 <dl class="class">
 <dt id="attributes.BaseAttribute">
@@ -903,9 +903,7 @@ proper type, with some error-checking.</p>
 <dl class="class">
 <dt id="config.DefaultClassConfig">
 <em class="property">class </em><code class="descclassname">config.</code><code class="descname">DefaultClassConfig</code><span class="sig-paren">(</span><em>param_dict</em>, <em>param_list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#DefaultClassConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.DefaultClassConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replaces at least some boilerplate configuration code for reproduction, species_set, and stagnation classes. TODO: Find a way to put <code class="docutils literal"><span class="pre">write_config()</span></code>
-into this class also. This would be simple if it were a normal method, but it is called as a class method; perhaps inheriting from DefaultClassConfig
-would work?</p>
+<dd><p>Replaces at least some boilerplate configuration code for reproduction, species_set, and stagnation classes.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -921,15 +919,19 @@ would work?</p>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="config.DefaultClassConfig.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#DefaultClassConfig.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.DefaultClassConfig.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uses <a class="reference internal" href="#config.write_pretty_params" title="config.write_pretty_params"><code class="xref py py-func docutils literal"><span class="pre">write_pretty_params()</span></code></a> to output parameters of interest to the calling class.</p>
+<dl class="classmethod">
+<dt id="config.DefaultClassConfig.write_config">
+<em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#DefaultClassConfig.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.DefaultClassConfig.write_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required method (inherited by calling classes). Uses <a class="reference internal" href="#config.write_pretty_params" title="config.write_pretty_params"><code class="xref py py-func docutils literal"><span class="pre">write_pretty_params()</span></code></a> to output parameters of interest to the calling class.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-file-object">file</a>) – File object to be written to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-file-object">file</a>) – File object to be written to.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – DefaultClassConfig instance.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1329,13 +1331,15 @@ genomes. Must not be called by <a class="reference internal" href="glossary.html
 <span class="target" id="module-genes"></span></div>
 <div class="section" id="genes">
 <h2>genes<a class="headerlink" href="#genes" title="Permalink to this headline">¶</a></h2>
+<p>Handles node and connection genes.</p>
 <blockquote>
-<div><img src="_images/inheritance-7f4f05aea6748dc645f53ce94d449f2a862f200c.png" alt="Inheritance diagram of genes, iznn.IZNodeGene" usemap="#inheritance97999d540d" class="inheritance"/>
+<div><img src="_images/inheritance-081c2cfa3ce0edac2cfb8e3ff6392b52c9d891c7.png" alt="Inheritance diagram of genes, iznn.IZNodeGene" usemap="#inheritance97999d540d" class="inheritance"/>
 <map id="inheritance97999d540d" name="inheritance97999d540d">
-<area shape="rect" id="node1" href="#genes.BaseGene" target="_top" title="genes.BaseGene" alt="" coords="20,80,145,105"/>
+<area shape="rect" id="node1" href="#genes.BaseGene" target="_top" title="Handles functions shared by multiple types of genes (both node and connection)," alt="" coords="20,80,145,105"/>
 <area shape="rect" id="node2" href="#genes.DefaultConnectionGene" target="_top" title="genes.DefaultConnectionGene" alt="" coords="208,55,412,80"/>
 <area shape="rect" id="node3" href="#genes.DefaultNodeGene" target="_top" title="genes.DefaultNodeGene" alt="" coords="225,104,395,129"/>
 <area shape="rect" id="node4" href="#iznn.IZNodeGene" target="_top" title="Contains attributes for the iznn node genes and determines genomic distances." alt="" coords="247,5,373,31"/>
+<area shape="rect" id="node5" title="Handles functions shared by multiple types of genes (both node and connection)," alt="" coords="5,5,160,31"/>
 </map>
 <span class="target" id="index-42"></span><span class="target" id="index-43"></span><dl class="class">
 <dt id="genes.BaseGene">
@@ -1403,6 +1407,8 @@ Used by <a class="reference internal" href="#genome.DefaultGenomeConfig" title="
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of configuration parameters (as <a class="reference internal" href="#config.ConfigParameter" title="config.ConfigParameter"><code class="xref py py-class docutils literal"><span class="pre">config.ConfigParameter</span></code></a> instances) for the gene attributes.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#DeprecationWarning" title="(in Python v3.5)"><strong>DeprecationWarning</strong></a> – If the gene class uses <code class="docutils literal"><span class="pre">__gene_attributes__</span></code> instead of <code class="docutils literal"><span class="pre">_gene_attributes</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1550,6 +1556,7 @@ default capabilities to <a class="reference internal" href="#module-attributes" 
 <span class="target" id="module-genome"></span></div>
 <div class="section" id="genome">
 <h2>genome<a class="headerlink" href="#genome" title="Permalink to this headline">¶</a></h2>
+<p>Handles genomes (individuals in the population).</p>
 <blockquote>
 <div><img src="_images/inheritance-aeb4fcb050875d3cb1a043314e37b71ca4c3d7d9.png" alt="Inheritance diagram of genome, iznn.IZGenome" usemap="#inheritance43203ba1fd" class="inheritance"/>
 <map id="inheritance43203ba1fd" name="inheritance43203ba1fd">
@@ -1774,7 +1781,7 @@ or <a class="reference internal" href="glossary.html#term-excess"><span class="x
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>genome1</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The first parent genome.</li>
 <li><strong>genome2</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The second parent genome.</li>
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Genome configuration object.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Genome configuration object; currently ignored.</li>
 </ul>
 </td>
 </tr>
@@ -2271,13 +2278,14 @@ by <code class="docutils literal"><span class="pre">connections</span></code>. U
 </div>
 <p>See <a class="reference external" href="http://www.izhikevich.org/publications/spikes.pdf">http://www.izhikevich.org/publications/spikes.pdf</a>.</p>
 <blockquote>
-<div><img src="_images/inheritance-5f0406678a6ee69033ca4614277c8b47bbbeefb6.png" alt="Inheritance diagram of iznn" usemap="#inheritance88c83b859f" class="inheritance"/>
+<div><img src="_images/inheritance-02aa919ebe5e9ee9edea5d6049b50ba516159082.png" alt="Inheritance diagram of iznn" usemap="#inheritance88c83b859f" class="inheritance"/>
 <map id="inheritance88c83b859f" name="inheritance88c83b859f">
 <area shape="rect" id="node1" href="#iznn.IZGenome" target="_top" title="iznn.IZGenome" alt="" coords="257,153,371,179"/>
 <area shape="rect" id="node2" title="A genome for generalized neural networks." alt="" coords="5,153,203,179"/>
 <area shape="rect" id="node3" href="#iznn.IZNN" target="_top" title="iznn.IZNN" alt="" coords="63,104,145,129"/>
 <area shape="rect" id="node4" href="#iznn.IZNeuron" target="_top" title="Sets up and simulates the iznn nodes (neurons)." alt="" coords="51,55,157,80"/>
 <area shape="rect" id="node5" href="#iznn.IZNodeGene" target="_top" title="Contains attributes for the iznn node genes and determines genomic distances." alt="" coords="251,5,377,31"/>
+<area shape="rect" id="node6" title="Handles functions shared by multiple types of genes (both node and connection)," alt="" coords="27,5,181,31"/>
 </map>
 <dl class="data">
 <dt id="iznn.REGULAR_SPIKING_PARAMS">
@@ -2464,6 +2472,9 @@ by <code class="docutils literal"><span class="pre">connections</span></code>. U
 </table>
 </dd></dl>
 
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span><code class="docutils literal"><span class="pre">__gene_attributes__</span></code> changed to <code class="docutils literal"><span class="pre">_gene_attributes</span></code>, since it is not a Python internal variable.</p>
+</div>
 </dd></dl>
 
 </div></blockquote>
@@ -2865,15 +2876,16 @@ or the configuration object.</p>
 <span class="target" id="module-reporting"></span></div>
 <div class="section" id="reporting">
 <h2>reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h2>
+<p>Makes possible reporter classes, which are triggered on particular events and may provide information to the user, may do something else such as checkpointing, or may do both.</p>
 <blockquote>
-<div><img src="_images/inheritance-01670cabc89c0b7c09db1752593caacb4a4873af.png" alt="Inheritance diagram of reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancef978902bcc" class="inheritance"/>
+<div><img src="_images/inheritance-1115b8402053878279017d478cce4deb963ac2e7.png" alt="Inheritance diagram of reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancef978902bcc" class="inheritance"/>
 <map id="inheritancef978902bcc" name="inheritancef978902bcc">
 <area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="A reporter class that performs checkpointing using `pickle`" alt="" coords="251,104,419,129"/>
 <area shape="rect" id="node2" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="5,129,196,155"/>
-<area shape="rect" id="node6" href="#statistics.StatisticsReporter" target="_top" title="Gathers (via the reporting interface) and provides (to callers and/or a file) the most&#45;fit genomes and" alt="" coords="244,153,427,179"/>
+<area shape="rect" id="node6" href="#statistics.StatisticsReporter" target="_top" title="Gathers (via the reporting interface) and provides (to callers and/or a file)" alt="" coords="244,153,427,179"/>
 <area shape="rect" id="node3" href="#reporting.BaseReporter" target="_top" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="21,55,181,80"/>
 <area shape="rect" id="node5" href="#reporting.StdOutReporter" target="_top" title="reporting.StdOutReporter" alt="" coords="249,55,421,80"/>
-<area shape="rect" id="node4" href="#reporting.ReporterSet" target="_top" title="reporting.ReporterSet" alt="" coords="25,5,176,31"/>
+<area shape="rect" id="node4" href="#reporting.ReporterSet" target="_top" title="Keeps track of the set of reporters" alt="" coords="25,5,176,31"/>
 </map>
 <dl class="class">
 <dt id="reporting.ReporterSet">
@@ -3177,9 +3189,10 @@ stagnation class (such as <a class="reference internal" href="#stagnation.Defaul
 <div><dl class="class">
 <dt id="reproduction.DefaultReproduction">
 <em class="property">class </em><code class="descclassname">reproduction.</code><code class="descname">DefaultReproduction</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em>, <em>stagnation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implements the default NEAT-python reproduction scheme: explicit fitness sharing with fixed-time species stagnation. TODO: Provide some sort of
-optional cross-species performance criteria, which are then used to control stagnation and possibly the mutation rate configuration. This scheme should be
-adaptive so that species do not evolve to become “cautious” and only make very slow progress.</p>
+<dd><p>Implements the default NEAT-python reproduction scheme: explicit fitness sharing with fixed-time species stagnation. Inherits
+from <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> the required class method <a class="reference internal" href="#config.DefaultClassConfig.write_config" title="config.DefaultClassConfig.write_config"><code class="xref py py-meth docutils literal"><span class="pre">write_config</span></code></a>.
+TODO: Provide some sort of optional cross-species performance criteria, which are then used to control stagnation and possibly the mutation
+rate configuration. This scheme should be adaptive so that species do not evolve to become “cautious” and only make very slow progress.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3193,6 +3206,9 @@ adaptive so that species do not evolve to become “cautious” and only make ve
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Configuration changed to use DefaultClassConfig, instead of a dictionary, and inherit write_config.</p>
+</div>
 <dl class="classmethod">
 <dt id="reproduction.DefaultReproduction.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.parse_config" title="Permalink to this definition">¶</a></dt>
@@ -3207,27 +3223,6 @@ them from the <a class="reference internal" href="config_file.html#reproduction-
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Reproduction configuration object; considered opaque by rest of code, so current type returned is not required for interface.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DefaultClassConfig <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
-</tr>
-</tbody>
-</table>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Configuration changed to use DefaultClassConfig instead of a dictionary.</p>
-</div>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="reproduction.DefaultReproduction.write_config">
-<em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.write_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Saves configuration parameters to a new config file, in this implementation via <a class="reference internal" href="#config.DefaultClassConfig.save" title="config.DefaultClassConfig.save"><code class="xref py py-meth docutils literal"><span class="pre">config.DefaultClassConfig.save()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-file-object">file</a>) – File object to write to.</li>
-<li><strong>config</strong> (<a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Reproduction config object; considered opaque by rest of code, so current type is not required for interface.</li>
-</ul>
-</td>
 </tr>
 </tbody>
 </table>
@@ -3486,19 +3481,23 @@ library, although many fitness functions are likely to far outweigh this for mod
 <dt id="species.DefaultSpeciesSet">
 <em class="property">class </em><code class="descclassname">species.</code><code class="descname">DefaultSpeciesSet</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encapsulates the default speciation scheme by configuring it and performing the speciation function (placing genomes into species by genetic similarity).
-<a class="reference internal" href="#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref py py-class docutils literal"><span class="pre">reproduction.DefaultReproduction</span></code></a> currently depends on this having a <code class="docutils literal"><span class="pre">species</span></code> attribute consisting of a dictionary of species keys to species.</p>
+<a class="reference internal" href="#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref py py-class docutils literal"><span class="pre">reproduction.DefaultReproduction</span></code></a> currently depends on this having a <code class="docutils literal"><span class="pre">species</span></code> attribute consisting of a dictionary of species keys to species.
+Inherits from <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> the required class method <a class="reference internal" href="#config.DefaultClassConfig.write_config" title="config.DefaultClassConfig.write_config"><code class="xref py py-meth docutils literal"><span class="pre">write_config</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A configuration object (currently unused).</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A configuration object, in this implementation a <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>.</li>
 <li><strong>reporters</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – A <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> instance giving reporters to be notified about <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> statistics.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Configuration changed to use DefaultClassConfig, instead of a dictionary, and inherit write_config.</p>
+</div>
 <dl class="classmethod">
 <dt id="species.DefaultSpeciesSet.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet.parse_config" title="Permalink to this definition">¶</a></dt>
@@ -3513,27 +3512,6 @@ method provides a default for it and updates it from the configuration file, in 
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SpeciesSet configuration object; considered opaque by rest of code, so current type returned is not required for interface.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DefaultClassConfig <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
-</tr>
-</tbody>
-</table>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Configuration changed to use DefaultClassConfig instead of a dictionary.</p>
-</div>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="species.DefaultSpeciesSet.write_config">
-<em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet.write_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Saves configuration parameters to a new config file, in this implementation via <a class="reference internal" href="#config.DefaultClassConfig.save" title="config.DefaultClassConfig.save"><code class="xref py py-meth docutils literal"><span class="pre">config.DefaultClassConfig.save()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-file-object">file</a>) – File object to write to.</li>
-<li><strong>config</strong> (<a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – SpeciesSet config object; considered opaque by rest of code, so current type is not required for interface.</li>
-</ul>
-</td>
 </tr>
 </tbody>
 </table>
@@ -3619,7 +3597,8 @@ level of fitness to be considered “stagnant” (including, most problematicall
 <dt id="stagnation.DefaultStagnation">
 <em class="property">class </em><code class="descclassname">stagnation.</code><code class="descname">DefaultStagnation</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keeps track of whether species are making progress and helps remove ones that, for a
-<a class="reference internal" href="config_file.html#max-stagnation-label"><span class="std std-ref">configurable number of generations</span></a>, are not.</p>
+<a class="reference internal" href="config_file.html#max-stagnation-label"><span class="std std-ref">configurable number of generations</span></a>, are not. Inherits from <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> the required class
+method <a class="reference internal" href="#config.DefaultClassConfig.write_config" title="config.DefaultClassConfig.write_config"><code class="xref py py-meth docutils literal"><span class="pre">write_config</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3632,6 +3611,9 @@ level of fitness to be considered “stagnant” (including, most problematicall
 </tr>
 </tbody>
 </table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Configuration changed to use DefaultClassConfig, instead of a dictionary, and inherit write_config.</p>
+</div>
 <dl class="classmethod">
 <dt id="stagnation.DefaultStagnation.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.parse_config" title="Permalink to this definition">¶</a></dt>
@@ -3647,27 +3629,6 @@ from the configuration file, in this implementation using <a class="reference in
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Stagnation configuration object; considered opaque by rest of code, so current type returned is not required for interface.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DefaultClassConfig <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
-</tr>
-</tbody>
-</table>
-<div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Configuration changed to use DefaultClassConfig instead of a dictionary.</p>
-</div>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="stagnation.DefaultStagnation.write_config">
-<em class="property">classmethod </em><code class="descname">write_config</code><span class="sig-paren">(</span><em>f</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.write_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Saves configuration parameters to a new config file, in this implementation via <a class="reference internal" href="#config.DefaultClassConfig.save" title="config.DefaultClassConfig.save"><code class="xref py py-meth docutils literal"><span class="pre">config.DefaultClassConfig.save()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-file-object">file</a>) – File object to write to.</li>
-<li><strong>config</strong> (<a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a> <a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Stagnation config object; considered opaque by rest of code, so current type is not required for interface.</li>
-</ul>
-</td>
 </tr>
 </tbody>
 </table>
