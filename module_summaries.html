@@ -578,8 +578,8 @@ deviation from <code class="docutils literal"><span class="pre">mutate_power</sp
 <span class="target" id="index-11"></span><dl class="method">
 <dt id="attributes.BoolAttribute.init_value">
 <code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#BoolAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.BoolAttribute.init_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the attribute’s value, either using a configured <code class="docutils literal"><span class="pre">default</span></code> or (if the default is <code class="docutils literal"><span class="pre">None</span></code>) with a 50/50 chance of
-<code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<dd><p>Initializes the attribute’s value using a configured <code class="docutils literal"><span class="pre">default</span></code>. TODO: Enable a random default with a 50/50 chance of <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>.
+(A default of <a class="reference external" href="https://docs.python.org/3.5/library/constants.html#None" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">None</span></code></a> will not work, since this will be taken as no default.)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -633,7 +633,7 @@ includes code for configuration, creation, and mutation.</p>
 <span class="target" id="index-16"></span><span class="target" id="index-17"></span><span class="target" id="index-18"></span><dl class="method">
 <dt id="attributes.StringAttribute.init_value">
 <code class="descname">init_value</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#StringAttribute.init_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.StringAttribute.init_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the attribute’s value, either using a configured <code class="docutils literal"><span class="pre">default</span></code> or (if the default is either <code class="docutils literal"><span class="pre">None</span></code> or <code class="docutils literal"><span class="pre">random</span></code>) with a
+<dd><p>Initializes the attribute’s value, either using a configured <code class="docutils literal"><span class="pre">default</span></code> or (if the default is <code class="docutils literal"><span class="pre">random</span></code>) with a
 randomly-chosen member of the <code class="docutils literal"><span class="pre">options</span></code> (each having an equal chance). Note: It is possible for the default value, if specifically configured, to
 <strong>not</strong> be one of the options.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1097,9 +1097,9 @@ constant at the given values during the simulated time.</p>
 <div><p>Distributed evaluation of genomes.</p>
 <div class="admonition-todo admonition" id="index-39">
 <p class="first admonition-title">Todo</p>
-<p class="last">Perhaps MODE_SERVER and MODE_CLIENT would be preferable? As well as issues of sensitivity, server/client terms appear
+<p class="last">Perhaps MODE_PRIMARY and MODE_SECONDARY would be preferable? As well as issues of sensitivity, these terms appear
 more likely to get people to cooperate with borrowing machine time… MODE_MASTER and MODE_SLAVE would be kept in as
-synonyms, and is_master as a wrapper for is_server (or whatever).</p>
+synonyms, and is_master as a wrapper for is_primary (or whatever).</p>
 </div>
 <p class="rubric">About <a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>:</p>
 <p>The <a class="reference internal" href="glossary.html#term-master-compute-node"><span class="xref std std-term">master compute node</span></a> (the node which creates and mutates genomes) and the <a class="reference internal" href="glossary.html#term-slave-node"><span class="xref std std-term">slave compute nodes</span></a> (the nodes which
