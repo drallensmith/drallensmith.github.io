@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>threaded &#8212; NEAT-Python 0.91-config_work documentation</title>
+    <title>threaded &#8212; NEAT-Python 0.92 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-config_work',
+        VERSION:     '0.92',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -25,11 +25,14 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -39,6 +42,8 @@
   <h1>Source code for threaded</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Threaded evaluation of genomes&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">threading</span>
@@ -54,8 +59,6 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="c1"># pylint: disable=import-error</span>
     <span class="kn">import</span> <span class="nn">queue</span>
-
-<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">stderr</span>
 
 <div class="viewcode-block" id="ThreadedEvaluator"><a class="viewcode-back" href="../module_summaries.html#threaded.ThreadedEvaluator">[docs]</a><span class="k">class</span> <span class="nc">ThreadedEvaluator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -75,8 +78,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">HAVE_THREADS</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No threads available; use ParallelEvaluator, not ThreadedEvaluator&quot;</span><span class="p">,</span>
-                  <span class="n">file</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No threads available; use ParallelEvaluator, not ThreadedEvaluator&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ThreadedEvaluator.__del__"><a class="viewcode-back" href="../module_summaries.html#threaded.ThreadedEvaluator.__del__">[docs]</a>    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -170,7 +172,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

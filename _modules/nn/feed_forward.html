@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nn.feed_forward &#8212; NEAT-Python 0.91-config_work documentation</title>
+    <title>nn.feed_forward &#8212; NEAT-Python 0.92 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.91-config_work',
+        VERSION:     '0.92',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -25,11 +25,14 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +53,7 @@
 
 <div class="viewcode-block" id="FeedForwardNetwork.activate"><a class="viewcode-back" href="../../module_summaries.html#nn.feed_forward.FeedForwardNetwork.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Expected </span><span class="si">{0}</span><span class="s2"> inputs, got </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Expected </span><span class="si">{0:n}</span><span class="s2"> inputs, got </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)))</span>
 
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
@@ -76,13 +79,14 @@
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">layer</span><span class="p">:</span>
                 <span class="n">inputs</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">node_expr</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="c1"># TODO: This could be more efficient.</span>
-                <span class="k">for</span> <span class="n">cg</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="n">genome</span><span class="o">.</span><span class="n">connections</span><span class="p">):</span>
-                    <span class="n">inode</span><span class="p">,</span> <span class="n">onode</span> <span class="o">=</span> <span class="n">cg</span><span class="o">.</span><span class="n">key</span>
-                    <span class="k">if</span> <span class="n">onode</span> <span class="o">==</span> <span class="n">node</span> <span class="ow">and</span> <span class="n">cg</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+                <span class="n">node_expr</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># currently unused</span>
+                <span class="k">for</span> <span class="n">conn_key</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+                    <span class="n">inode</span><span class="p">,</span> <span class="n">onode</span> <span class="o">=</span> <span class="n">conn_key</span>
+                    <span class="k">if</span> <span class="n">onode</span> <span class="o">==</span> <span class="n">node</span><span class="p">:</span>
+                        <span class="n">cg</span> <span class="o">=</span> <span class="n">genome</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">conn_key</span><span class="p">]</span>
                         <span class="n">inputs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">inode</span><span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">weight</span><span class="p">))</span>
                         <span class="n">node_expr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;v[</span><span class="si">{}</span><span class="s2">] * </span><span class="si">{:.7e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inode</span><span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">weight</span><span class="p">))</span>
+
 
                 <span class="n">ng</span> <span class="o">=</span> <span class="n">genome</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
                 <span class="n">aggregation_function</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">genome_config</span><span class="o">.</span><span class="n">aggregation_function_defs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ng</span><span class="o">.</span><span class="n">aggregation</span><span class="p">)</span>
@@ -126,7 +130,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

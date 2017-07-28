@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>genes &#8212; NEAT-Python 0.91-config_work documentation</title>
+    <title>genes &#8212; NEAT-Python 0.92 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-config_work',
+        VERSION:     '0.92',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -25,11 +25,14 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -60,6 +63,7 @@
         <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">(</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrib</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="BaseGene.__lt__"><a class="viewcode-back" href="../module_summaries.html#genes.BaseGene.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">key</span><span class="p">)),</span> <span class="s2">&quot;Cannot compare keys </span><span class="si">{0!r}</span><span class="s2"> and </span><span class="si">{1!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span><span class="n">other</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">key</span></div>
 
 <div class="viewcode-block" id="BaseGene.parse_config"><a class="viewcode-back" href="../module_summaries.html#genes.BaseGene.parse_config">[docs]</a>    <span class="nd">@classmethod</span>
@@ -121,6 +125,10 @@
                         <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;activation&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">),</span>
                         <span class="n">StringAttribute</span><span class="p">(</span><span class="s1">&#39;aggregation&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">)]</span>
 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="s2">&quot;DefaultNodeGene key must be an int, not </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">BaseGene</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
 <div class="viewcode-block" id="DefaultNodeGene.distance"><a class="viewcode-back" href="../module_summaries.html#genes.DefaultNodeGene.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">activation</span><span class="p">:</span>
@@ -132,10 +140,17 @@
 
 <span class="c1"># TODO: Do an ablation study to determine whether the enabled setting is</span>
 <span class="c1"># important--presumably mutations that set the weight to near zero could</span>
-<span class="c1"># provide a similar effect depending on the weight range and mutation rate.</span>
+<span class="c1"># provide a similar effect depending on the weight range, mutation rate,</span>
+<span class="c1"># and aggregation function. (Most obviously, a near-zero weight for the</span>
+<span class="c1"># `product` aggregation function is rather more important than one giving</span>
+<span class="c1"># an output of 1 from the connection, for instance!)</span>
 <div class="viewcode-block" id="DefaultConnectionGene"><a class="viewcode-back" href="../module_summaries.html#genes.DefaultConnectionGene">[docs]</a><span class="k">class</span> <span class="nc">DefaultConnectionGene</span><span class="p">(</span><span class="n">BaseGene</span><span class="p">):</span>
     <span class="n">_gene_attributes</span> <span class="o">=</span> <span class="p">[</span><span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">),</span>
                         <span class="n">BoolAttribute</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">),</span> <span class="s2">&quot;DefaultConnectionGene key must be a tuple, not </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">BaseGene</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DefaultConnectionGene.distance"><a class="viewcode-back" href="../module_summaries.html#genes.DefaultConnectionGene.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
@@ -177,7 +192,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

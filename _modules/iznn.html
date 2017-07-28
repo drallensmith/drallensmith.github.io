@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>iznn &#8212; NEAT-Python 0.91-config_work documentation</title>
+    <title>iznn &#8212; NEAT-Python 0.92 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-config_work',
+        VERSION:     '0.92',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -25,11 +25,14 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -82,10 +85,10 @@
                            <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">),</span>
                            <span class="n">FloatAttribute</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)]</span>
 
-    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="IZNodeGene.distance"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNodeGene.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> \
             <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span></div>
+        <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span></div></div>
 
 
 <div class="viewcode-block" id="IZGenome"><a class="viewcode-back" href="../module_summaries.html#iznn.IZGenome">[docs]</a><span class="k">class</span> <span class="nc">IZGenome</span><span class="p">(</span><span class="n">DefaultGenome</span><span class="p">):</span>
@@ -165,6 +168,7 @@
 
 
 <div class="viewcode-block" id="IZNN"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN">[docs]</a><span class="k">class</span> <span class="nc">IZNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Basic iznn network object.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neurons</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">neurons</span> <span class="o">=</span> <span class="n">neurons</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span>
@@ -173,13 +177,16 @@
 
 <div class="viewcode-block" id="IZNN.set_inputs"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.set_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">set_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assign input voltages.&quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Number of inputs </span><span class="si">{0:d}</span><span class="s2"> does not match number of input nodes </span><span class="si">{1:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">input_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
 
 <div class="viewcode-block" id="IZNN.reset"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Reset all neurons to their default state.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="p">):</span>
             <span class="n">n</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="IZNN.get_time_step_msec"><a class="viewcode-back" href="../module_summaries.html#iznn.IZNN.get_time_step_msec">[docs]</a>    <span class="k">def</span> <span class="nf">get_time_step_msec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -268,7 +275,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 

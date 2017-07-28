@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Configuration file description &#8212; NEAT-Python 0.91-config_work documentation</title>
+    <title>Configuration file description &#8212; NEAT-Python 0.92 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.91-config_work',
+        VERSION:     '0.92',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,11 +27,14 @@
     <link rel="next" title="Overview of the basic XOR example (xor2.py)" href="xor_example.html" />
     <link rel="prev" title="Installation" href="installation.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -47,7 +50,8 @@ that library code changes will result in your project silently using different N
 insofar as possible new configuration parameters will default to the existing behavior.)</p>
 <p>Note that the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor also requires you to explicitly specify the types that will be used
 for the NEAT simulation.  This, again, is to help avoid silent changes in behavior.</p>
-<p id="configuration-file-sections-label">The configuration file is in several sections, of which at least one is required. However, there are no requirements for ordering within these sections, or for ordering of the sections themselves.</p>
+<p id="configuration-file-sections-label">The configuration file is in several sections, of which at least one is required. However, there are no requirements for ordering within
+these sections, or for ordering of the sections themselves.</p>
 <div class="section" id="neat-section">
 <span id="configuration-file-neat-section-label"></span><h2>[NEAT] section<a class="headerlink" href="#neat-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">NEAT</span></code> section specifies parameters particular to the generic NEAT algorithm or the experiment
@@ -79,7 +83,7 @@ any registered reporting class’ <a class="reference internal" href="module_sum
 number of generations passed to <a class="reference internal" href="module_summaries.html#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a> is enabled, and the <code class="docutils literal"><span class="pre">found_solution</span></code> method <strong>is</strong> called upon generation
 number termination. If it evaluates to <code class="docutils literal"><span class="pre">False</span></code>, then fitness is used to determine termination. <strong>This defaults to ``False``.</strong></p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
 </dd>
 </dl>
@@ -222,7 +226,7 @@ and <a class="reference internal" href="module_summaries.html#aggregations.maxab
 value may be positive or negative). New aggregation functions can be defined similarly to <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">new activation functions</span></a>.
 (Note that the function needs to take a <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-list" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">list</span></code></a> or other <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">iterable</span></code></a>; the <a class="reference external" href="https://docs.python.org/3.5/library/functools.html#functools.reduce" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">reduce</span></code></a> function, as in <a class="reference internal" href="module_summaries.html#module-aggregations" title="aggregations: Has the built-in aggregation functions, code for using them,  and code for adding new user-defined ones."><code class="xref any py py-mod docutils literal"><span class="pre">aggregations</span></code></a>, may be of use in this.)</p>
 <div class="last versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-config_work: </span>Moved out of <a class="reference internal" href="module_summaries.html#module-genome" title="genome: Handles genomes (individuals in the population)."><code class="xref py py-mod docutils literal"><span class="pre">genome</span></code></a> into <a class="reference internal" href="module_summaries.html#module-aggregations" title="aggregations: Has the built-in aggregation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">aggregations</span></code></a>; maxabs added; method for defining new aggregation functions added.</p>
+<p><span class="versionmodified">Changed in version 0.92: </span>Moved out of <a class="reference internal" href="module_summaries.html#module-genome" title="genome: Handles genomes (individuals in the population)."><code class="xref py py-mod docutils literal"><span class="pre">genome</span></code></a> into <a class="reference internal" href="module_summaries.html#module-aggregations" title="aggregations: Has the built-in aggregation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">aggregations</span></code></a>; maxabs, mean, and median added; method for defining new aggregation functions added.</p>
 </div>
 </dd>
 </dl>
@@ -252,7 +256,7 @@ from <span class="math">\(\max(bias_min_value, (bias_init_mean-(bias_init_stdev*
 range/0.25, as implied by this, but the range divided by a bit over 0.288 (the square root of 12); however, this approximation makes setting
 the range much easier.) <strong>This defaults to ``gaussian``.</strong></p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
 </dd>
 </dl>
@@ -365,7 +369,7 @@ the enabled status of a connection. Valid values are in [0.0, 1.0].</dd>
 <dt><em>enabled_rate_to_true_add</em></dt>
 <dd><p class="first">Adds to the <code class="docutils literal"><span class="pre">enabled_mutate_rate</span></code> if the connection is currently not enabled.</p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92: </span><code class="docutils literal"><span class="pre">enabled_rate_to_false_add</span></code> and <code class="docutils literal"><span class="pre">enabled_rate_to_true_add</span></code></p>
 </div>
 </dd>
 </dl>
@@ -406,7 +410,7 @@ have <a class="reference internal" href="glossary.html#term-recurrent"><span cla
 </li>
 </ul>
 <div class="versionchanged">
-<p><span class="versionmodified">Changed in version 0.91-github: </span>fs_neat split into fs_neat_nohidden and fs_neat_hidden; full, partial split into full_nodirect, full_direct, partial_nodirect, partial_direct</p>
+<p><span class="versionmodified">Changed in version 0.92: </span>fs_neat split into fs_neat_nohidden and fs_neat_hidden; full, partial split into full_nodirect, full_direct, partial_nodirect, partial_direct</p>
 </div>
 <span class="target" id="index-72"></span><span class="target" id="index-73"></span><span id="index-74"></span><ul class="simple" id="node-add-prob-label">
 <li><dl class="first docutils">
@@ -468,7 +472,7 @@ from <span class="math">\(\max(response_min_value, (response_init_mean-(response
 range/0.25, as implied by this, but the range divided by a bit over 0.288 (the square root of 12); however, this approximation makes setting
 the range much easier.) <strong>This defaults to ``gaussian``.</strong></p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
 </dd>
 </dl>
@@ -516,7 +520,7 @@ random value (as if it were a new node).</dd>
 per generation. (If the probabilities for <a class="reference internal" href="#conn-add-prob-label"><span class="std std-ref">conn_add_prob</span></a>, conn_delete_prob, <a class="reference internal" href="#node-add-prob-label"><span class="std std-ref">node_add_prob</span></a>,
 and node_delete_prob add up to over 1, the chances of each are proportional to the appropriate configuration value.) <strong>This defaults to ``False``.</strong></p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
 </dd>
 </dl>
@@ -527,7 +531,7 @@ and node_delete_prob add up to over 1, the chances of each are proportional to t
 a connection instead; furthermore, if an attempt to add a connection tries to add a connection that already exists, that connection will be
 <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a>. If this is set to <code class="docutils literal"><span class="pre">default</span></code>, then it acts as if it had the same value as <code class="docutils literal"><span class="pre">single_structural_mutation</span></code> (above). <strong>This defaults to ``default``.</strong></p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
 </dd>
 </dl>
@@ -557,7 +561,7 @@ from <span class="math">\(\max(weight_min_value, (weight_init_mean-(weight_init_
 range/0.25, as implied by this, but the range divided by a bit over 0.288 (the square root of 12); however, this approximation makes setting
 the range much easier.) <strong>This defaults to ``gaussian``.</strong></p>
 <div class="last versionadded">
-<p><span class="versionmodified">New in version 0.91-config_work.</span></p>
+<p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
 </dd>
 </dl>
@@ -652,7 +656,7 @@ random value (as if it were a new connection).</dd>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/config_file.rst.txt"

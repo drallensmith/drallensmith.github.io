@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>genome &#8212; NEAT-Python 0.91-config_work documentation</title>
+    <title>genome &#8212; NEAT-Python 0.92 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.91-config_work',
+        VERSION:     '0.92',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -25,11 +25,14 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>  
+  <body>
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -271,6 +274,8 @@
 
 <div class="viewcode-block" id="DefaultGenome.configure_crossover"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.configure_crossover">[docs]</a>    <span class="k">def</span> <span class="nf">configure_crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Configure a new genome by crossover from two parent genomes. &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&gt;</span> <span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
             <span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span> <span class="o">=</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span>
         <span class="k">else</span><span class="p">:</span>
@@ -360,7 +365,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">new_node_id</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">conn_to_split</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DefaultGenome.add_connection"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.add_connection">[docs]</a>    <span class="k">def</span> <span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">input_key</span><span class="p">,</span> <span class="n">output_key</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">enabled</span><span class="p">):</span>
-        <span class="c1"># TODO: Add validation of this connection addition.</span>
+        <span class="c1"># TODO: Add further validation of this connection addition?</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_key</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_key</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">output_key</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">enabled</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span>
         <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">input_key</span><span class="p">,</span> <span class="n">output_key</span><span class="p">)</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">connection_gene_type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="n">connection</span><span class="o">.</span><span class="n">init_attributes</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
@@ -634,7 +643,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 
