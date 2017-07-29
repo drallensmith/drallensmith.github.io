@@ -41,11 +41,11 @@
             
   <h1>Source code for species</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Divides the population into species based on genomic distances.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">DefaultClassConfig</span>
-<span class="kn">from</span> <span class="nn">neat.indexer</span> <span class="k">import</span> <span class="n">Indexer</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">count</span>
+
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">stdev</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">iterkeys</span><span class="p">,</span> <span class="n">itervalues</span>
-
+<span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">DefaultClassConfig</span>
 
 <div class="viewcode-block" id="Species"><a class="viewcode-back" href="../module_summaries.html#species.Species">[docs]</a><span class="k">class</span> <span class="nc">Species</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
@@ -95,7 +95,7 @@
         <span class="c1"># pylint: disable=super-init-not-called</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="n">reporters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indexer</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">genome_to_species</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -156,7 +156,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># No species is similar enough, create a new species, using</span>
                 <span class="c1"># this genome as its representative.</span>
-                <span class="n">sid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexer</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+                <span class="n">sid</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexer</span><span class="p">)</span>
                 <span class="n">new_representatives</span><span class="p">[</span><span class="n">sid</span><span class="p">]</span> <span class="o">=</span> <span class="n">gid</span>
                 <span class="n">new_members</span><span class="p">[</span><span class="n">sid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">gid</span><span class="p">]</span>
 

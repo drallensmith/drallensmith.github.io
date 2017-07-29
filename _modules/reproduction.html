@@ -48,9 +48,9 @@
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">count</span>
 
 <span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">DefaultClassConfig</span>
-<span class="kn">from</span> <span class="nn">neat.indexer</span> <span class="k">import</span> <span class="n">Indexer</span>
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">mean</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">itervalues</span>
 
@@ -76,14 +76,14 @@
         <span class="c1"># pylint: disable=super-init-not-called</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span> <span class="o">=</span> <span class="n">reporters</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation</span> <span class="o">=</span> <span class="n">stagnation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="DefaultReproduction.create_new"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.create_new">[docs]</a>    <span class="k">def</span> <span class="nf">create_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome_type</span><span class="p">,</span> <span class="n">genome_config</span><span class="p">,</span> <span class="n">num_genomes</span><span class="p">):</span>
         <span class="n">new_genomes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_genomes</span><span class="p">):</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span><span class="p">)</span>
             <span class="n">g</span> <span class="o">=</span> <span class="n">genome_type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
             <span class="n">g</span><span class="o">.</span><span class="n">configure_new</span><span class="p">(</span><span class="n">genome_config</span><span class="p">)</span>
             <span class="n">new_genomes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span>
@@ -220,7 +220,7 @@
 
                 <span class="c1"># Note that if the parents are not distinct, crossover will produce a</span>
                 <span class="c1"># genetically identical clone of the parent (but with a different ID).</span>
-                <span class="n">gid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+                <span class="n">gid</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span><span class="p">)</span>
                 <span class="n">child</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">genome_type</span><span class="p">(</span><span class="n">gid</span><span class="p">)</span>
                 <span class="n">child</span><span class="o">.</span><span class="n">configure_crossover</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">genome_config</span><span class="p">)</span>
                 <span class="n">child</span><span class="o">.</span><span class="n">mutate</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">genome_config</span><span class="p">)</span>

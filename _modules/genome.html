@@ -43,6 +43,8 @@
 <span></span><span class="sd">&quot;&quot;&quot;Handles genomes (individuals in the population).&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
 
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">count</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">shuffle</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -52,7 +54,6 @@
 <span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span><span class="p">,</span> <span class="n">write_pretty_params</span>
 <span class="kn">from</span> <span class="nn">neat.genes</span> <span class="k">import</span> <span class="n">DefaultConnectionGene</span><span class="p">,</span> <span class="n">DefaultNodeGene</span>
 <span class="kn">from</span> <span class="nn">neat.graphs</span> <span class="k">import</span> <span class="n">creates_cycle</span>
-<span class="kn">from</span> <span class="nn">neat.indexer</span> <span class="k">import</span> <span class="n">Indexer</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">iterkeys</span>
 
 
@@ -150,9 +151,9 @@
 
 <div class="viewcode-block" id="DefaultGenomeConfig.get_new_node_key"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenomeConfig.get_new_node_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_new_node_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_dict</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span> <span class="o">=</span> <span class="n">Indexer</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="n">node_dict</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="n">node_dict</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">new_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span><span class="o">.</span><span class="n">get_next</span><span class="p">()</span>
+        <span class="n">new_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_indexer</span><span class="p">)</span>
 
         <span class="k">assert</span> <span class="n">new_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node_dict</span>
 
