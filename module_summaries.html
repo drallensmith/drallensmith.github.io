@@ -1115,15 +1115,17 @@ constant at the given values during the simulated time.</p>
 <div><p>Distributed evaluation of genomes.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This module is in a <strong>beta</strong> state, and still <em>unstable</em> even in single-machine testing. Reliability is likely to vary, including depending on the Python version in use;
-<a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses `pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpointing</span></code></a> is particularly uncertain, as is any possibility of reconnecting between primary and secondary nodes (see below).</p>
+<p class="last">This module is in a <strong>beta</strong> state, and still <em>unstable</em> even in single-machine testing. Reliability is likely to vary, including depending on the Python version
+and implementation (e.g., cpython vs pypy) in use; <a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses `pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpointing</span></code></a> is particularly uncertain, as is any possibility of reconnecting
+between <a class="reference internal" href="glossary.html#term-primary-node"><span class="xref std std-term">primary</span></a> and <a class="reference internal" href="glossary.html#term-secondary-node"><span class="xref std std-term">secondary</span></a> nodes. Note also that this module is not responsible for starting the
+script copies on the different <a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>, since this is very site/configuration-dependent.</p>
 </div>
 <p class="rubric">About <a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>:</p>
 <p>The <a class="reference internal" href="glossary.html#term-primary-compute-node"><span class="xref std std-term">primary compute node</span></a> (the node which creates and mutates genomes) and the <a class="reference internal" href="glossary.html#term-secondary-node"><span class="xref std std-term">secondary compute nodes</span></a> (the nodes which
 evaluate genomes) can execute the same script. The role of a compute node is determined using the <code class="docutils literal"><span class="pre">mode</span></code> argument of the DistributedEvaluator. If the
 mode is <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, the <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref any py py-func docutils literal"><span class="pre">host_is_local()</span></code></a> function is used to check if the <code class="docutils literal"><span class="pre">addr</span></code> argument points to the localhost. If it does, the compute
-node starts as a primary node, and otherwise as a secondary node. If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_PRIMARY" title="distributed.MODE_PRIMARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_PRIMARY</span></code></a>, the compute node always starts as a primary
-node. If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_SECONDARY" title="distributed.MODE_SECONDARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_SECONDARY</span></code></a>, the compute node will always start as a secondary node.</p>
+node starts as a <a class="reference internal" href="glossary.html#term-primary-node"><span class="xref std std-term">primary node</span></a>, and otherwise as a <a class="reference internal" href="glossary.html#term-secondary-node"><span class="xref std std-term">secondary node</span></a>. If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_PRIMARY" title="distributed.MODE_PRIMARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_PRIMARY</span></code></a>, the compute node always starts
+as a primary node. If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_SECONDARY" title="distributed.MODE_SECONDARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_SECONDARY</span></code></a>, the compute node will always start as a secondary node.</p>
 <p>There can only be one primary node per NEAT, but any number of secondary nodes. The primary node will not evaluate any genomes, which means you will
 always need at least two compute nodes (one primary and at least one secondary).</p>
 <p>You can run any number of compute nodes on the same physical machine (or VM). However, if a machine has both a primary node and one or more secondary
@@ -1137,10 +1139,10 @@ nodes, <a class="reference internal" href="#distributed.MODE_AUTO" title="distri
 <li>Call <a class="reference internal" href="#distributed.DistributedEvaluator.start" title="distributed.DistributedEvaluator.start"><code class="xref py py-meth docutils literal"><span class="pre">de.start(exit_on_stop=True)</span></code></a>. The <code class="docutils literal"><span class="pre">start()</span></code> call will block on the secondary nodes and call <a class="reference external" href="https://docs.python.org/3.5/library/sys.html#sys.exit">sys.exit(0)</a> when the NEAT evolution finishes. This means that the following code will only be executed on the primary node.</li>
 <li>Start the evaluation using <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">p.run(de.evaluate,</span> <span class="pre">number_of_generations)</span></code></a>.</li>
 <li>Stop the secondary nodes using <a class="reference internal" href="#distributed.DistributedEvaluator.stop" title="distributed.DistributedEvaluator.stop"><code class="xref py py-meth docutils literal"><span class="pre">de.stop()</span></code></a>.</li>
-<li>You are done. You may want to save the winning genome or show some statistics.</li>
+<li>You are done. You may want to save the winning genome(s) or show some <a class="reference internal" href="#module-statistics" title="statistics: Gathers and provides (to callers and/or to a file) information on genome and species fitness, which are the most-fit genomes, and similar."><code class="xref py py-mod docutils literal"><span class="pre">statistics</span></code></a>.</li>
 </ol>
-<p>See <code class="file docutils literal"><span class="pre">examples/xor/evolve-feedforward-distributed.py</span></code> for a complete example. Note: Contains a number of private methods (starting with <code class="docutils literal"><span class="pre">_</span></code>),
-which are not documented below.</p>
+<p>See <code class="file docutils literal"><span class="pre">examples/xor/evolve-feedforward-distributed.py</span></code> for a complete example.</p>
+<p>Note: Contains a number of private methods (starting with <code class="docutils literal"><span class="pre">_</span></code>), which are usually not documented below.</p>
 <dl class="data">
 <dt id="distributed.MODE_AUTO">
 <code class="descclassname">distributed.</code><code class="descname">MODE_AUTO</code><a class="headerlink" href="#distributed.MODE_AUTO" title="Permalink to this definition">¶</a></dt>
@@ -1154,8 +1156,24 @@ which are not documented below.</p>
 <dl class="data">
 <dt id="distributed.MODE_SECONDARY">
 <code class="descclassname">distributed.</code><code class="descname">MODE_SECONDARY</code><a class="headerlink" href="#distributed.MODE_SECONDARY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Values - which should be treated as constants - that are used for the <code class="docutils literal"><span class="pre">mode</span></code> argument of <a class="reference internal" href="#distributed.DistributedEvaluator" title="distributed.DistributedEvaluator"><code class="xref py py-class docutils literal"><span class="pre">DistributedEvaluator</span></code></a>. MODE_AUTO
-uses <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a> and the specified <code class="docutils literal"><span class="pre">addr</span></code> of the <a class="reference internal" href="glossary.html#term-primary-node"><span class="xref std std-term">primary node</span></a> to decide the mode; the other two specify it.</p>
+<dd><p>Values - which should be treated as constants - that are used for the <code class="docutils literal"><span class="pre">mode</span></code> argument of <a class="reference internal" href="#distributed.DistributedEvaluator" title="distributed.DistributedEvaluator"><code class="xref py py-class docutils literal"><span class="pre">DistributedEvaluator</span></code></a>. If MODE_AUTO,
+<a class="reference internal" href="#distributed.determine_mode" title="distributed.determine_mode"><code class="xref py py-func docutils literal"><span class="pre">determine_mode()</span></code></a> uses <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a> and the specified <code class="docutils literal"><span class="pre">addr</span></code> of the <a class="reference internal" href="glossary.html#term-primary-node"><span class="xref std std-term">primary node</span></a> to decide the mode; the other two specify it.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="distributed.STATE_RUNNING">
+<code class="descclassname">distributed.</code><code class="descname">STATE_RUNNING</code><a class="headerlink" href="#distributed.STATE_RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="distributed.STATE_SHUTDOWN">
+<code class="descclassname">distributed.</code><code class="descname">STATE_SHUTDOWN</code><a class="headerlink" href="#distributed.STATE_SHUTDOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="distributed.STATE_FORCED_SHUTDOWN">
+<code class="descclassname">distributed.</code><code class="descname">STATE_FORCED_SHUTDOWN</code><a class="headerlink" href="#distributed.STATE_FORCED_SHUTDOWN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values - which should be treated as constants - that are used to determine the current state (whether the secondaries should be continuing the run or not).</p>
 </dd></dl>
 
 <dl class="exception">
@@ -1190,6 +1208,29 @@ called by a <a class="reference internal" href="glossary.html#term-secondary-nod
 </dd></dl>
 
 <dl class="function">
+<dt id="distributed.determine_mode">
+<code class="descclassname">distributed.</code><code class="descname">determine_mode</code><span class="sig-paren">(</span><em>addr</em>, <em>mode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#determine_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.determine_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the mode that should be used.  If <code class="docutils literal"><span class="pre">mode</span></code> is <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, this is determined by checking (via <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a>) if <code class="docutils literal"><span class="pre">addr</span></code> points
+to the localhost; if it does, it returns <a class="reference internal" href="#distributed.MODE_PRIMARY" title="distributed.MODE_PRIMARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_PRIMARY</span></code></a>, else it returns <a class="reference internal" href="#distributed.MODE_SECONDARY" title="distributed.MODE_SECONDARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_SECONDARY</span></code></a>. If mode is either MODE_PRIMARY or
+MODE_SECONDARY, it returns the <code class="docutils literal"><span class="pre">mode</span></code> argument. Otherwise, a ValueError is raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>) or </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bytes" title="(in Python v3.5)"><em>bytes</em></a>) – Either a tuple of (hostname, port) pointing to the machine that has the <a class="reference internal" href="glossary.html#term-primary-node"><span class="xref std std-term">primary node</span></a>, or the hostname (as <code class="docutils literal"><span class="pre">bytes</span></code> if on 3.X).</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Specifies the mode to run in - must be one of <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, <a class="reference internal" href="#distributed.MODE_PRIMARY" title="distributed.MODE_PRIMARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_PRIMARY</span></code></a>, or <a class="reference internal" href="#distributed.MODE_SECONDARY" title="distributed.MODE_SECONDARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_SECONDARY</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If the mode is not one of the above.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="distributed.chunked">
 <code class="descclassname">distributed.</code><code class="descname">chunked</code><span class="sig-paren">(</span><em>data</em>, <em>chunksize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#chunked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.chunked" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
@@ -1217,10 +1258,11 @@ called by a <a class="reference internal" href="glossary.html#term-secondary-nod
 </table>
 </dd></dl>
 
-<span class="target" id="index-39"></span><span class="target" id="index-40"></span><dl class="class">
-<dt id="distributed.DistributedEvaluator">
-<em class="property">class </em><code class="descclassname">distributed.</code><code class="descname">DistributedEvaluator</code><span class="sig-paren">(</span><em>addr</em>, <em>authkey</em>, <em>eval_function</em>, <em>secondary_chunksize=1</em>, <em>num_workers=None</em>, <em>worker_timeout=60</em>, <em>mode=MODE_AUTO</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator" title="Permalink to this definition">¶</a></dt>
-<dd><p>An evaluator working across multiple machines (<a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>).</p>
+<dl class="class">
+<dt id="distributed.ExtendedManager">
+<em class="property">class </em><code class="descclassname">distributed.</code><code class="descname">ExtendedManager</code><span class="sig-paren">(</span><em>addr</em>, <em>authkey</em>, <em>mode</em>, <em>start=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manages the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.SyncManager">multiprocessing.managers.SyncManager</a> instance. Initializes
+<code class="docutils literal"><span class="pre">self._secondary_state</span></code> to <a class="reference internal" href="#distributed.STATE_RUNNING" title="distributed.STATE_RUNNING"><code class="xref py py-data docutils literal"><span class="pre">STATE_RUNNING</span></code></a>.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">See <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#authentication-keys">Authentication Keys</a> for more on the <code class="docutils literal"><span class="pre">authkey</span></code> parameter, used to restrict access to the manager.</p>
@@ -1229,9 +1271,150 @@ called by a <a class="reference internal" href="glossary.html#term-secondary-nod
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>addr</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – Should be a tuple of (hostname, port) pointing to the machine running the DistributedEvaluator in primary mode. If mode is <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, the mode is determined by checking whether the hostname points to this host or not (via <a class="reference internal" href="#distributed.determine_mode" title="distributed.determine_mode"><code class="xref py py-func docutils literal"><span class="pre">determine_mode()</span></code></a> and <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a>).</li>
+<li><strong>authkey</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a>) – The password used to restrict access to the manager. All DistributedEvaluators need to use the same authkey. Note that this needs to be a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a> object for Python 3.X, and should be in 2.7 for compatibility (identical in 2.7 to a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a> object).</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – Specifies the mode to run in - must be one of <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, <a class="reference internal" href="#distributed.MODE_PRIMARY" title="distributed.MODE_PRIMARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_PRIMARY</span></code></a>, or <a class="reference internal" href="#distributed.MODE_SECONDARY" title="distributed.MODE_SECONDARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_SECONDARY</span></code></a>. Processed by <a class="reference internal" href="#distributed.determine_mode" title="distributed.determine_mode"><code class="xref py py-func docutils literal"><span class="pre">determine_mode()</span></code></a>.</li>
+<li><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – Whether to call the <a class="reference internal" href="#distributed.ExtendedManager.start" title="distributed.ExtendedManager.start"><code class="xref py py-meth docutils literal"><span class="pre">start()</span></code></a> method after initialization.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="distributed.ExtendedManager.__reduce__">
+<code class="descname">__reduce__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.__reduce__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.__reduce__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used by <a class="reference external" href="https://docs.python.org/3.5/library/pickle.html#module-pickle" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">pickle</span></code></a> to serialize instances of this class. TODO: Appears to assume that <code class="docutils literal"><span class="pre">start</span></code> (for initialization) should be true; perhaps <code class="docutils literal"><span class="pre">self.manager</span></code>
+should be checked? (This may require :py:meth::<a class="reference internal" href="#distributed.ExtendedManager.stop" title="distributed.ExtendedManager.stop"><code class="xref any py py-meth docutils literal"><span class="pre">stop()</span></code></a> to set <code class="docutils literal"><span class="pre">self.manager</span></code> to <code class="docutils literal"><span class="pre">None</span></code>, incidentally.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Information about the class instance; a tuple of (class name, tuple(addr, authkey, mode, True)).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a>, <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>), <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bytes" title="(in Python v3.5)">bytes</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)">bool</a>))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts (if in <a class="reference internal" href="#distributed.MODE_PRIMARY" title="distributed.MODE_PRIMARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_PRIMARY</span></code></a>) or connects to (if in <a class="reference internal" href="#distributed.MODE_SECONDARY" title="distributed.MODE_SECONDARY"><code class="xref py py-data docutils literal"><span class="pre">MODE_SECONDARY</span></code></a>) the manager.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the manager using <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.BaseManager.shutdown">shutdown</a> .
+TODO: Should this set <code class="docutils literal"><span class="pre">self.manager</span></code> to None?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.set_secondary_state">
+<code class="descname">set_secondary_state</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.set_secondary_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.set_secondary_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the value for the <code class="docutils literal"><span class="pre">secondary_state</span></code>, shared between the nodes via <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.SyncManager.Value">multiprocessing.managers.Value</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – The desired secondary state; must be one of <a class="reference internal" href="#distributed.STATE_RUNNING" title="distributed.STATE_RUNNING"><code class="xref py py-data docutils literal"><span class="pre">STATE_RUNNING</span></code></a>, <a class="reference internal" href="#distributed.STATE_SHUTDOWN" title="distributed.STATE_SHUTDOWN"><code class="xref py py-data docutils literal"><span class="pre">STATE_SHUTDOWN</span></code></a>, or <a class="reference internal" href="#distributed.STATE_FORCED_SHUTDOWN" title="distributed.STATE_FORCED_SHUTDOWN"><code class="xref py py-data docutils literal"><span class="pre">STATE_FORCED_SHUTDOWN</span></code></a>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If the <code class="docutils literal"><span class="pre">value</span></code> is not one of the above.</li>
+<li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If the manager has not been <a class="reference internal" href="#distributed.ExtendedManager.start" title="distributed.ExtendedManager.start"><code class="xref py py-meth docutils literal"><span class="pre">started</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.secondary_state">
+<code class="descname">secondary_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#distributed.ExtendedManager.secondary_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#property">property</a> <code class="docutils literal"><span class="pre">secondary_state</span></code> - whether the secondary nodes should still be processing elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The current secondary_state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.get_inqueue">
+<code class="descname">get_inqueue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.get_inqueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.get_inqueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the inqueue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The incoming <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Queue">queue</a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If the manager has not been <a class="reference internal" href="#distributed.ExtendedManager.start" title="distributed.ExtendedManager.start"><code class="xref py py-meth docutils literal"><span class="pre">started</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.get_outqueue">
+<code class="descname">get_outqueue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.get_outqueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.get_outqueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the outqueue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The outgoing <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.Queue">queue</a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If the manager has not been <a class="reference internal" href="#distributed.ExtendedManager.start" title="distributed.ExtendedManager.start"><code class="xref py py-meth docutils literal"><span class="pre">started</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="distributed.ExtendedManager.get_namespace">
+<code class="descname">get_namespace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#ExtendedManager.get_namespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.ExtendedManager.get_namespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the manager’s namespace instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The <a class="reference external" href="https://docs.python.org/3.5/library/argparse.html#argparse.Namespace">namespace</a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If the manager has not been <a class="reference internal" href="#distributed.ExtendedManager.start" title="distributed.ExtendedManager.start"><code class="xref py py-meth docutils literal"><span class="pre">started</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="index-39"></span><span class="target" id="index-40"></span><dl class="class">
+<dt id="distributed.DistributedEvaluator">
+<em class="property">class </em><code class="descclassname">distributed.</code><code class="descname">DistributedEvaluator</code><span class="sig-paren">(</span><em>addr</em>, <em>authkey</em>, <em>eval_function</em>, <em>secondary_chunksize=1</em>, <em>num_workers=None</em>, <em>worker_timeout=60</em>, <em>mode=MODE_AUTO</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>An evaluator working across multiple machines (<a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>addr</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a><em>)</em>) – Should be a tuple of (hostname, port) pointing to the machine running the DistributedEvaluator in primary mode. If mode is <a class="reference internal" href="#distributed.MODE_AUTO" title="distributed.MODE_AUTO"><code class="xref py py-data docutils literal"><span class="pre">MODE_AUTO</span></code></a>, the mode is determined by checking whether the hostname points to this host or not (via <a class="reference internal" href="#distributed.host_is_local" title="distributed.host_is_local"><code class="xref py py-func docutils literal"><span class="pre">host_is_local()</span></code></a>).</li>
-<li><strong>authkey</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a>) – The password used to restrict access to the manager. All DistributedEvaluators need to use the same authkey. Note that this needs to be a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a> object for Python 3.X, and should be in 2.7 for compatibility (identical in 2.7 to a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a> object).</li>
+<li><strong>authkey</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a>) – The password used to restrict access to the manager. All DistributedEvaluators need to use the same authkey. Note that this needs to be a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#bytes">bytes</a> object for Python 3.X, and should be in 2.7 for compatibility (identical in 2.7 to a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">str</span></code></a> object). For more information, see under <a class="reference internal" href="#distributed.ExtendedManager" title="distributed.ExtendedManager"><code class="xref py py-class docutils literal"><span class="pre">ExtendedManager</span></code></a>.</li>
 <li><strong>eval_function</strong> (<a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-function" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">function</span></code></a>) – The eval_function should take two arguments - a genome object and a config object - and return a single <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a> (the genome’s fitness) Note that this is not the same as how a fitness function is called by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">Population.run</span></code></a>, nor by <a class="reference internal" href="#parallel.ParallelEvaluator" title="parallel.ParallelEvaluator"><code class="xref py py-class docutils literal"><span class="pre">ParallelEvaluator</span></code></a> (although it is more similar to the latter).</li>
 <li><strong>secondary_chunksize</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a>) – The number of <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genomes</span></a> that will be sent to a <a class="reference internal" href="glossary.html#term-secondary-node"><span class="xref std std-term">secondary node</span></a> at any one time.</li>
 <li><strong>num_workers</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">int</a> or None) – The number of worker processes per <a class="reference internal" href="glossary.html#term-secondary-node"><span class="xref std std-term">secondary node</span></a>, used for evaluating genomes. If None, will use <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.cpu_count">multiprocessing.cpu_count()</a>  to determine the number of processes (see further below regarding this default). If 1 (for a secondary node), including if there is no usable result from <code class="docutils literal"><span class="pre">multiprocessing.cpu_count()</span></code>, then the process creating the DistributedEvaluator instance will also do the evaluations.</li>
@@ -1288,7 +1471,7 @@ called by a <a class="reference internal" href="glossary.html#term-secondary-nod
 
 <dl class="method">
 <dt id="distributed.DistributedEvaluator.start">
-<code class="descname">start</code><span class="sig-paren">(</span><em>exit_on_stop=True</em>, <em>secondary_wait=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator.start" title="Permalink to this definition">¶</a></dt>
+<code class="descname">start</code><span class="sig-paren">(</span><em>exit_on_stop=True</em>, <em>secondary_wait=0</em>, <em>reconnect=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the DistributedEvaluator is in primary mode, starts the manager process and returns. If the DistributedEvaluator is in secondary mode, it connects to the
 manager and waits for tasks.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1296,8 +1479,9 @@ manager and waits for tasks.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>exit_on_stop</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>) – If a secondary node, whether to exit upon the calling of <a class="reference internal" href="#distributed.DistributedEvaluator.stop" title="distributed.DistributedEvaluator.stop"><code class="xref any py py-meth docutils literal"><span class="pre">stop()</span></code></a> in the <a class="reference internal" href="glossary.html#term-primary-node"><span class="xref std std-term">primary node</span></a>.</li>
+<li><strong>exit_on_stop</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>) – If a secondary node, whether to exit if the connection is lost (unless reconnect is True) or the primary calls for a forced shutdown (via setting the <code class="docutils literal"><span class="pre">secondary_state</span></code> to <a class="reference internal" href="#distributed.STATE_FORCED_SHUTDOWN" title="distributed.STATE_FORCED_SHUTDOWN"><code class="xref py py-data docutils literal"><span class="pre">STATE_FORCED_SHUTDOWN</span></code></a> instead of <a class="reference internal" href="#distributed.STATE_SHUTDOWN" title="distributed.STATE_SHUTDOWN"><code class="xref py py-data docutils literal"><span class="pre">STATE_SHUTDOWN</span></code></a>)</li>
 <li><strong>secondary_wait</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) – Specifies the time (in seconds) to sleep before actually starting, if a <a class="reference internal" href="glossary.html#term-secondary-node"><span class="xref std std-term">secondary node</span></a>.</li>
+<li><strong>reconnect</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If a secondary node, whether it should try to reconnect if the connection is lost.</li>
 </ul>
 </td>
 </tr>
@@ -1313,7 +1497,7 @@ manager and waits for tasks.</p>
 
 <dl class="method">
 <dt id="distributed.DistributedEvaluator.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><em>wait=1</em>, <em>shutdown=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator.stop" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop</code><span class="sig-paren">(</span><em>wait=1</em>, <em>shutdown=True</em>, <em>force_secondary_shutdown=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops all secondaries.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1321,7 +1505,8 @@ manager and waits for tasks.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) – Time (in seconds) to wait after telling the secondaries to stop.</li>
-<li><strong>shutdown</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>) – Whether to <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.BaseManager.shutdown">shutdown</a> the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.SyncManager">multiprocessing.manager.SyncManager</a> also (after the wait, if any).</li>
+<li><strong>shutdown</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">bool</a>) – Whether to <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.BaseManager.shutdown">shutdown</a> the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#multiprocessing.managers.SyncManager">multiprocessing.managers.SyncManager</a> also (after the wait, if any).</li>
+<li><strong>force_secondary_shutdown</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If true, the <code class="docutils literal"><span class="pre">secondary_state</span></code> will be set to <a class="reference internal" href="#distributed.STATE_FORCED_SHUTDOWN" title="distributed.STATE_FORCED_SHUTDOWN"><code class="xref py py-data docutils literal"><span class="pre">STATE_FORCED_SHUTDOWN</span></code></a> instead of <a class="reference internal" href="#distributed.STATE_SHUTDOWN" title="distributed.STATE_SHUTDOWN"><code class="xref py py-data docutils literal"><span class="pre">STATE_SHUTDOWN</span></code></a>, causing the secondaries to shutdown even if started with <code class="docutils literal"><span class="pre">reconnect</span></code> true.</li>
 </ul>
 </td>
 </tr>
