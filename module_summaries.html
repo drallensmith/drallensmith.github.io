@@ -49,7 +49,7 @@
 <blockquote>
 <div><dl class="exception">
 <dt id="activations.InvalidActivationFunction">
-<em class="property">exception </em><code class="descclassname">activations.</code><code class="descname">InvalidActivationFunction</code><span class="sig-paren">(</span><em>TypeError</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#InvalidActivationFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.InvalidActivationFunction" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">activations.</code><code class="descname">InvalidActivationFunction</code><span class="sig-paren">(</span><em>TypeError</em><span class="sig-paren">)</span><a class="headerlink" href="#activations.InvalidActivationFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception called if an activation function being added is invalid according to the <a class="reference internal" href="#activations.validate_activation" title="activations.validate_activation"><code class="xref any py py-func docutils literal"><span class="pre">validate_activation</span></code></a> function, or if an unknown activation
 function is requested by name via <a class="reference internal" href="#activations.ActivationFunctionSet.get" title="activations.ActivationFunctionSet.get"><code class="xref py py-meth docutils literal"><span class="pre">get</span></code></a>.</p>
 <div class="versionchanged">
@@ -59,7 +59,7 @@ function is requested by name via <a class="reference internal" href="#activatio
 
 <dl class="function">
 <dt id="activations.validate_activation">
-<code class="descclassname">activations.</code><code class="descname">validate_activation</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/activations.html#validate_activation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#activations.validate_activation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">activations.</code><code class="descname">validate_activation</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#activations.validate_activation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks to make sure its parameter is a function that takes a single argument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -285,7 +285,7 @@ the numbers input to these functions, even as 0s.</p>
 
 <dl class="exception">
 <dt id="aggregations.InvalidAggregationFunction">
-<em class="property">exception </em><code class="descclassname">aggregations.</code><code class="descname">InvalidAggregationFunction</code><span class="sig-paren">(</span><em>TypeError</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#InvalidAggregationFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.InvalidAggregationFunction" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="descclassname">aggregations.</code><code class="descname">InvalidAggregationFunction</code><span class="sig-paren">(</span><em>TypeError</em><span class="sig-paren">)</span><a class="headerlink" href="#aggregations.InvalidAggregationFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception called if an aggregation function being added is invalid according to the <a class="reference internal" href="#aggregations.validate_aggregation" title="aggregations.validate_aggregation"><code class="xref any py py-func docutils literal"><span class="pre">validate_aggregation</span></code></a> function, or if an unknown aggregation
 function is requested by name via <a class="reference internal" href="#aggregations.AggregationFunctionSet.get" title="aggregations.AggregationFunctionSet.get"><code class="xref py py-meth docutils literal"><span class="pre">get</span></code></a>.</p>
 <div class="versionadded">
@@ -295,7 +295,7 @@ function is requested by name via <a class="reference internal" href="#aggregati
 
 <dl class="function">
 <dt id="aggregations.validate_aggregation">
-<code class="descclassname">aggregations.</code><code class="descname">validate_aggregation</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#validate_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.validate_aggregation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aggregations.</code><code class="descname">validate_aggregation</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#aggregations.validate_aggregation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks to make sure its parameter is a function that takes at least one argument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -429,12 +429,13 @@ and/or its interface in <a class="reference internal" href="#module-genome" titl
 <h2>attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
 <p>Deals with <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attributes</span></a> used by <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">genes</span></a>.</p>
 <blockquote>
-<div><img src="_images/inheritance-d89e3fce93cd38cbfb27fa8e8f2b3ca4a3182eaa.png" alt="Inheritance diagram of attributes" usemap="#inheritance199b63f8fc" class="inheritance"/>
+<div><img src="_images/inheritance-e37034b67b1ed19525d9304185ef0080a20b6c88.png" alt="Inheritance diagram of attributes" usemap="#inheritance199b63f8fc" class="inheritance"/>
 <map id="inheritance199b63f8fc" name="inheritance199b63f8fc">
 <area shape="rect" id="node1" href="#attributes.BaseAttribute" target="_top" title="Superclass for the type&#45;specialized attribute subclasses, used by genes." alt="" coords="5,55,165,80"/>
 <area shape="rect" id="node2" href="#attributes.BoolAttribute" target="_top" title="Class for boolean attributes such as whether a connection is enabled or not." alt="" coords="217,5,375,31"/>
 <area shape="rect" id="node3" href="#attributes.FloatAttribute" target="_top" title="Class for numeric attributes," alt="" coords="216,55,376,80"/>
-<area shape="rect" id="node4" href="#attributes.StringAttribute" target="_top" title="Class for string attributes such as the aggregation function of a node," alt="" coords="213,104,379,129"/>
+<area shape="rect" id="node5" href="#attributes.StringAttribute" target="_top" title="Class for string attributes such as the aggregation function of a node," alt="" coords="213,104,379,129"/>
+<area shape="rect" id="node4" title="Handle attributes that may be simple strings" alt="" coords="427,104,587,129"/>
 </map>
 <dl class="class">
 <dt id="attributes.BaseAttribute">
@@ -3089,13 +3090,13 @@ or the configuration object.</p>
 <h2>reporting<a class="headerlink" href="#reporting" title="Permalink to this headline">¶</a></h2>
 <p>Makes possible reporter classes, which are triggered on particular events and may provide information to the user, may do something else such as checkpointing, or may do both.</p>
 <blockquote>
-<div><img src="_images/inheritance-1115b8402053878279017d478cce4deb963ac2e7.png" alt="Inheritance diagram of reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancef978902bcc" class="inheritance"/>
+<div><img src="_images/inheritance-fc628da1d75d3b1402bfc561990437a96c941f87.png" alt="Inheritance diagram of reporting, checkpoint.Checkpointer, statistics.StatisticsReporter" usemap="#inheritancef978902bcc" class="inheritance"/>
 <map id="inheritancef978902bcc" name="inheritancef978902bcc">
 <area shape="rect" id="node1" href="#checkpoint.Checkpointer" target="_top" title="A reporter class that performs checkpointing using `pickle`" alt="" coords="251,104,419,129"/>
 <area shape="rect" id="node2" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="5,129,196,155"/>
 <area shape="rect" id="node6" href="#statistics.StatisticsReporter" target="_top" title="Gathers (via the reporting interface) and provides (to callers and/or a file)" alt="" coords="244,153,427,179"/>
 <area shape="rect" id="node3" href="#reporting.BaseReporter" target="_top" title="Definition of the reporter interface expected by ReporterSet." alt="" coords="21,55,181,80"/>
-<area shape="rect" id="node5" href="#reporting.StdOutReporter" target="_top" title="reporting.StdOutReporter" alt="" coords="249,55,421,80"/>
+<area shape="rect" id="node5" href="#reporting.StdOutReporter" target="_top" title="Uses `print` to output information about the run; an example reporter class." alt="" coords="249,55,421,80"/>
 <area shape="rect" id="node4" href="#reporting.ReporterSet" target="_top" title="Keeps track of the set of reporters" alt="" coords="25,5,176,31"/>
 </map>
 <dl class="class">

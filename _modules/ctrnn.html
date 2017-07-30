@@ -40,7 +40,8 @@
           <div class="body" role="main">
             
   <h1>Source code for ctrnn</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span></span><span class="sd">&quot;&quot;&quot;Handles the continuous-time recurrent neural network implementation.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
 <span class="kn">from</span> <span class="nn">neat.graphs</span> <span class="k">import</span> <span class="n">required_for_output</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">itervalues</span><span class="p">,</span> <span class="n">iteritems</span>
@@ -57,6 +58,7 @@
 
 
 <div class="viewcode-block" id="CTRNN"><a class="viewcode-back" href="../module_summaries.html#ctrnn.CTRNN">[docs]</a><span class="k">class</span> <span class="nc">CTRNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sets up the ctrnn network itself.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">node_evals</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span> <span class="o">=</span> <span class="n">inputs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_nodes</span> <span class="o">=</span> <span class="n">outputs</span>

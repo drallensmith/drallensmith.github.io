@@ -176,8 +176,8 @@
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_AUTO</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">host_is_local</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">MODE_PRIMARY</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">MODE_SECONDARY</span>
+
+        <span class="k">return</span> <span class="n">MODE_SECONDARY</span>
     <span class="k">elif</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">(</span><span class="n">MODE_SECONDARY</span><span class="p">,</span> <span class="n">MODE_PRIMARY</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">mode</span>
     <span class="k">else</span><span class="p">:</span>
@@ -238,7 +238,7 @@
 <div class="viewcode-block" id="_ExtendedManager.stop"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Stops the manager.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span></div>
-        
+
 <div class="viewcode-block" id="_ExtendedManager.set_secondary_state"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.set_secondary_state">[docs]</a>    <span class="k">def</span> <span class="nf">set_secondary_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Sets the value for &#39;secondary_state&#39;.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_STATE_RUNNING</span><span class="p">,</span> <span class="n">_STATE_SHUTDOWN</span><span class="p">,</span> <span class="n">_STATE_FORCED_SHUTDOWN</span><span class="p">):</span>
@@ -262,7 +262,7 @@
 <span class="sd">        Returns a new &#39;Manager&#39; subclass with registered methods.</span>
 <span class="sd">        If &#39;register_callable&#39; is True, defines the &#39;callable&#39; arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
+
         <span class="k">class</span> <span class="nc">_EvaluatorSyncManager</span><span class="p">(</span><span class="n">managers</span><span class="o">.</span><span class="n">BaseManager</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            A custom BaseManager.</span>
@@ -296,7 +296,7 @@
                 <span class="s2">&quot;get_namespace&quot;</span><span class="p">,</span>
                 <span class="n">callable</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">namespace</span><span class="p">,</span>
                 <span class="p">)</span>
-            
+
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -410,7 +410,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">saw_EOFError</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Required by the pickle protocol.&quot;&quot;&quot;</span>
@@ -514,7 +513,6 @@
             <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">pool</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">saw_EOFError</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">while</span> <span class="n">should_reconnect</span><span class="p">:</span>
             <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
@@ -546,14 +544,12 @@
                 <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                    <span class="n">saw_EOFError</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">break</span>
                 <span class="k">except</span> <span class="p">(</span><span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;Empty&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;TimeoutError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)):</span>
                         <span class="k">continue</span>
                     <span class="k">if</span> <span class="p">((</span><span class="s1">&#39;EOFError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;PipeError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span>
                         <span class="p">(</span><span class="s1">&#39;AuthenticationError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))):</span> <span class="c1"># Second for Python 3.X, Third for 3.6+</span>
-                        <span class="n">saw_EOFError</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="k">break</span>
                     <span class="k">raise</span>
                 <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -578,17 +574,15 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
                 <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                    <span class="n">saw_EOFError</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">break</span>
                 <span class="k">except</span> <span class="p">(</span><span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;Empty&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;TimeoutError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)):</span>
                         <span class="k">continue</span>
                     <span class="k">if</span> <span class="p">((</span><span class="s1">&#39;EOFError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;PipeError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span>
                         <span class="p">(</span><span class="s1">&#39;AuthenticationError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))):</span> <span class="c1"># Second for Python 3.X, Third for 3.6+</span>
-                        <span class="n">saw_EOFError</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="k">break</span>
                     <span class="k">raise</span>
-                
+
             <span class="k">if</span> <span class="ow">not</span> <span class="n">reconnect</span><span class="p">:</span>
                 <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">break</span>

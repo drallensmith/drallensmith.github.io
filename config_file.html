@@ -81,7 +81,7 @@ any registered reporting class’ <a class="reference internal" href="module_sum
 <dt><em>no_fitness_termination</em></dt>
 <dd><p class="first">If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, then the <code class="docutils literal"><span class="pre">fitness_criterion</span></code> and <code class="docutils literal"><span class="pre">fitness_threshold</span></code> are ignored for termination; only valid if termination by a maximum
 number of generations passed to <a class="reference internal" href="module_summaries.html#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a> is enabled, and the <code class="docutils literal"><span class="pre">found_solution</span></code> method <strong>is</strong> called upon generation
-number termination. If it evaluates to <code class="docutils literal"><span class="pre">False</span></code>, then fitness is used to determine termination. <strong>This defaults to ``False``.</strong></p>
+number termination. If it evaluates to <code class="docutils literal"><span class="pre">False</span></code>, then fitness is used to determine termination. <strong>This defaults to “False”.</strong></p>
 <div class="last versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
@@ -179,7 +179,7 @@ required for your particular implementation.</p>
 <li><dl class="first docutils">
 <dt><em>activation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation function</span></a> <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attribute</span></a> <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.init_value" title="attributes.StringAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">assigned</span></code></a> to new
-<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or ``random`` is specified, one of the ``activation_options`` will be chosen at random.</strong></dd>
+<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random” is specified, one of the activation_options will be chosen at random.</strong></dd>
 </dl>
 </li>
 </ul>
@@ -204,7 +204,7 @@ built-in available functions can be found in <a class="reference internal" href=
 <li><dl class="first docutils">
 <dt><em>aggregation_default</em></dt>
 <dd>The default <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation function</span></a> <a class="reference internal" href="glossary.html#term-attributes"><span class="xref std std-term">attribute</span></a> <a class="reference internal" href="module_summaries.html#attributes.StringAttribute.init_value" title="attributes.StringAttribute.init_value"><code class="xref py py-meth docutils literal"><span class="pre">assigned</span></code></a> to new
-<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or ``random`` is specified, one of the ``aggregation_options`` will be chosen at random.</strong></dd>
+<a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">nodes</span></a>. <strong>If none is given, or “random” is specified, one of the aggregation_options will be chosen at random.</strong></dd>
 </dl>
 </li>
 </ul>
@@ -220,7 +220,7 @@ Valid values are in [0.0, 1.0].</dd>
 <ul id="index-32">
 <li><dl class="first docutils">
 <dt><em>aggregation_options</em></dt>
-<dd><p class="first">A space-separated list of the aggregation functions that may be used by nodes.  <strong>This defaults to ``sum``.</strong> The
+<dd><p class="first">A space-separated list of the aggregation functions that may be used by nodes.  <strong>This defaults to “sum”.</strong> The
 available functions (defined in <a class="reference internal" href="module_summaries.html#module-aggregations" title="aggregations: Has the built-in aggregation functions, code for using them,  and code for adding new user-defined ones."><code class="xref any py py-mod docutils literal"><span class="pre">aggregations</span></code></a>) are: <code class="docutils literal"><span class="pre">sum</span></code>, <a class="reference internal" href="module_summaries.html#aggregations.product_aggregation" title="aggregations.product_aggregation"><code class="xref py py-func docutils literal"><span class="pre">product</span></code></a>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, <code class="docutils literal"><span class="pre">median</span></code>,
 and <a class="reference internal" href="module_summaries.html#aggregations.maxabs_aggregation" title="aggregations.maxabs_aggregation"><code class="xref py py-func docutils literal"><span class="pre">maxabs</span></code></a> (which returns the input value with the greatest absolute value; the returned
 value may be positive or negative). New aggregation functions can be defined similarly to <a class="reference internal" href="customization.html#customization-label"><span class="std std-ref">new activation functions</span></a>.
@@ -254,7 +254,7 @@ value may be positive or negative). New aggregation functions can be defined sim
 from <span class="math">\(\max(bias_min_value, (bias_init_mean-(bias_init_stdev*2)))\)</span> to
 <span class="math">\(\min(bias_max_value, (bias_init_mean+(bias_init_stdev*2)))\)</span>. (Note that the standard deviation of a uniform distribution is not
 range/0.25, as implied by this, but the range divided by a bit over 0.288 (the square root of 12); however, this approximation makes setting
-the range much easier.) <strong>This defaults to ``gaussian``.</strong></p>
+the range much easier.) <strong>This defaults to “gaussian”.</strong></p>
 <div class="last versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
@@ -470,7 +470,7 @@ the <a class="reference internal" href="glossary.html#term-enabled"><span class=
 from <span class="math">\(\max(response_min_value, (response_init_mean-(response_init_stdev*2)))\)</span> to
 <span class="math">\(\min(response_max_value, (response_init_mean+(response_init_stdev*2)))\)</span>. (Note that the standard deviation of a uniform distribution is not
 range/0.25, as implied by this, but the range divided by a bit over 0.288 (the square root of 12); however, this approximation makes setting
-the range much easier.) <strong>This defaults to ``gaussian``.</strong></p>
+the range much easier.) <strong>This defaults to “gaussian”.</strong></p>
 <div class="last versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
@@ -518,7 +518,7 @@ random value (as if it were a new node).</dd>
 <dt><em>single_structural_mutation</em></dt>
 <dd><p class="first">If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, only one structural mutation (the addition or removal of a <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> or <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connection</span></a>) will be allowed per genome
 per generation. (If the probabilities for <a class="reference internal" href="#conn-add-prob-label"><span class="std std-ref">conn_add_prob</span></a>, conn_delete_prob, <a class="reference internal" href="#node-add-prob-label"><span class="std std-ref">node_add_prob</span></a>,
-and node_delete_prob add up to over 1, the chances of each are proportional to the appropriate configuration value.) <strong>This defaults to ``False``.</strong></p>
+and node_delete_prob add up to over 1, the chances of each are proportional to the appropriate configuration value.) <strong>This defaults to “False”.</strong></p>
 <div class="last versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
@@ -529,7 +529,7 @@ and node_delete_prob add up to over 1, the chances of each are proportional to t
 <dt><em>structural_mutation_surer</em></dt>
 <dd><p class="first">If this evaluates to <code class="docutils literal"><span class="pre">True</span></code>, then an attempt to add a <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> to a genome lacking <a class="reference internal" href="glossary.html#term-connection"><span class="xref std std-term">connections</span></a> will result in adding
 a connection instead; furthermore, if an attempt to add a connection tries to add a connection that already exists, that connection will be
-<a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a>. If this is set to <code class="docutils literal"><span class="pre">default</span></code>, then it acts as if it had the same value as <code class="docutils literal"><span class="pre">single_structural_mutation</span></code> (above). <strong>This defaults to ``default``.</strong></p>
+<a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a>. If this is set to <code class="docutils literal"><span class="pre">default</span></code>, then it acts as if it had the same value as <code class="docutils literal"><span class="pre">single_structural_mutation</span></code> (above). <strong>This defaults to “default”.</strong></p>
 <div class="last versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
@@ -559,7 +559,7 @@ a connection instead; furthermore, if an attempt to add a connection tries to ad
 from <span class="math">\(\max(weight_min_value, (weight_init_mean-(weight_init_stdev*2)))\)</span> to
 <span class="math">\(\min(weight_max_value, (weight_init_mean+(weight_init_stdev*2)))\)</span>. (Note that the standard deviation of a uniform distribution is not
 range/0.25, as implied by this, but the range divided by a bit over 0.288 (the square root of 12); however, this approximation makes setting
-the range much easier.) <strong>This defaults to ``gaussian``.</strong></p>
+the range much easier.) <strong>This defaults to “gaussian”.</strong></p>
 <div class="last versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
