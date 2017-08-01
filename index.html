@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome to NEAT-Python’s documentation! &#8212; NEAT-Python 0.92 documentation</title>
+    <title>Welcome to NEAT-Python’s documentation! &#8212; NEAT-Python 0.92-multiparam_funcs documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.92',
+        VERSION:     '0.92-multiparam_funcs',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,6 +42,12 @@
             
   <div class="section" id="welcome-to-neat-python-s-documentation">
 <h1>Welcome to NEAT-Python’s documentation!<a class="headerlink" href="#welcome-to-neat-python-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">This is a <strong>draft</strong> version of the documentation, for Dr. Allen Smith’s <a class="reference external" href="https://github.com/drallensmith/neat-python/tree/multiparam_funcs">multiparam_funcs branch</a>,
+and is likely to <em>rapidly</em> change. Please see <a class="reference external" href="http://neat-python.readthedocs.io/en/latest/">neat-python.readthedocs.io</a> for an official version for the
+NEAT-Python <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/tree/master">master branch</a>.</p>
+</div>
 <p><abbr title="NeuroEvolution of Augmenting Topologies">NEAT</abbr> is a method developed by Kenneth O. Stanley for evolving arbitrary neural
 networks. NEAT-Python is a pure Python implementation of NEAT, with no dependencies other than the Python standard library.</p>
 <div class="admonition note">
@@ -92,6 +98,7 @@ more complete and stable.</p>
 <li class="toctree-l1"><a class="reference internal" href="activation.html">Overview of builtin activation functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#abs">abs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#clamped">clamped</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation.html#clamped-tanh-step">clamped_tanh_step</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#cube">cube</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#exp">exp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#gauss">gauss</a></li>
@@ -99,11 +106,14 @@ more complete and stable.</p>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#identity-label">identity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#inv">inv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#log">log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation.html#multiparam-relu">multiparam_relu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation.html#multiparam-sigmoid">multiparam_sigmoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#relu">relu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#sigmoid">sigmoid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#sin">sin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#softplus">softplus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#square">square</a></li>
+<li class="toctree-l2"><a class="reference internal" href="activation.html#step">step</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activation.html#tanh">tanh</a></li>
 </ul>
 </li>
@@ -121,6 +131,7 @@ more complete and stable.</p>
 <li class="toctree-l2"><a class="reference internal" href="module_summaries.html#graphs">graphs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_summaries.html#iznn">iznn</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_summaries.html#math-util">math_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_summaries.html#multiparameter">multiparameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_summaries.html#nn-feed-forward">nn.feed_forward</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_summaries.html#nn-recurrent">nn.recurrent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_summaries.html#parallel">parallel</a></li>
