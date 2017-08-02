@@ -62,6 +62,13 @@
 <span class="sd">MODE_AUTO cannot be used for those secondary nodes - MODE_SECONDARY will need to be</span>
 <span class="sd">specified.</span>
 
+<span class="sd">NOTE:</span>
+<span class="sd">    This module is in a **beta** state, and still *unstable* even in single-machine testing. Reliability is likely to vary, including depending on the Python version</span>
+<span class="sd">    and implementation (e.g., cpython vs pypy) in use and the likelihoods of timeouts (due to machine and/or network slowness). In particular, while the code can try</span>
+<span class="sd">    to reconnect between between primary and secondary nodes, as noted in the `multiprocessing` documentation this may not work due to data loss/corruption. Note also</span>
+<span class="sd">    that this module is not responsible for starting the script copies on the different compute nodes, since this is very site/configuration-dependent.</span>
+
+
 <span class="sd">Usage:</span>
 <span class="sd">1. Import modules and define the evaluation logic (the eval_genome function).</span>
 <span class="sd">  (After this, check for ``if __name__ == &#39;__main__&#39;``, and put the rest of</span>

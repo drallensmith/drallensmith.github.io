@@ -85,31 +85,31 @@ add an evolvable per-genome reward discount value. It is also done in the <a cla
 <span id="index-4"></span><h2>Speciation scheme<a class="headerlink" href="#speciation-scheme" title="Permalink to this headline">¶</a></h2>
 <p>To use a different speciation scheme, you can create a custom class whose interface matches that of
 <a class="reference internal" href="module_summaries.html#species.DefaultSpeciesSet" title="species.DefaultSpeciesSet"><code class="xref py py-class docutils literal"><span class="pre">DefaultSpeciesSet</span></code></a> and pass this as the <code class="docutils literal"><span class="pre">species_set_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
-<div class="admonition note">
+<div class="admonition note" id="index-5">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Further document species set interface (some done in module_summaries)</p>
 </div>
-<div class="admonition note">
+<div class="admonition note" id="index-6">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Include example</p>
 </div>
 </div>
 <div class="section" id="species-stagnation-scheme">
-<span id="index-5"></span><h2>Species stagnation scheme<a class="headerlink" href="#species-stagnation-scheme" title="Permalink to this headline">¶</a></h2>
+<span id="index-7"></span><h2>Species stagnation scheme<a class="headerlink" href="#species-stagnation-scheme" title="Permalink to this headline">¶</a></h2>
 <p>The default species stagnation scheme is a simple fixed stagnation limit–when a species exhibits
 no improvement for a fixed number of generations, all its members are removed from the simulation. This
 behavior is encapsulated in the <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">DefaultStagnation</span> <span class="pre">class</span></code></a>.</p>
 <p>To use a different species stagnation scheme, you must create a custom class whose interface matches that
 of <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a>, and provide it as the <code class="docutils literal"><span class="pre">stagnation_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
 <p>This is demonstrated in the <a class="reference external" href="https://github.com/CodeReclaimers/neat-python/blob/master/examples/picture2d/evolve_interactive.py">interactive 2D image</a> example.</p>
-<span class="target" id="index-6"></span></div>
+<span class="target" id="index-8"></span></div>
 <div class="section" id="reproduction-scheme">
-<span id="index-7"></span><h2>Reproduction scheme<a class="headerlink" href="#reproduction-scheme" title="Permalink to this headline">¶</a></h2>
+<span id="index-9"></span><h2>Reproduction scheme<a class="headerlink" href="#reproduction-scheme" title="Permalink to this headline">¶</a></h2>
 <p>The default reproduction scheme uses explicit fitness sharing.  This behavior is encapsulated in the
 <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a> class.  The minimum reproduction type interface is documented here: <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a></p>
 <p>To use a different reproduction scheme, you must create a custom class whose interface matches that
 of <a class="reference internal" href="module_summaries.html#reproduction.DefaultReproduction" title="reproduction.DefaultReproduction"><code class="xref any py py-class docutils literal"><span class="pre">DefaultReproduction</span></code></a>, and provide it as the <code class="docutils literal"><span class="pre">reproduction_type</span></code> argument to the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> constructor.</p>
-<div class="admonition note">
+<div class="admonition note" id="index-10">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Include example</p>
 </div>
