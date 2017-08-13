@@ -45,7 +45,9 @@
 <span id="activation-functions-label"></span><h1>Overview of builtin activation functions<a class="headerlink" href="#overview-of-builtin-activation-functions" title="Permalink to this headline">¶</a></h1>
 <p id="index-0">Note that some of these <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">functions</span></a> are scaled differently from the canonical
 versions you may be familiar with.  The intention of the scaling is to place
-more of the functions’ “interesting” behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>.</p>
+more of the functions’ “interesting” behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>.
+Some of these are more intended for CPPNs (e.g., for HyperNEAT) than for “direct” problem-solving;
+these include expanded_log, sin, and skewed_log_plus.</p>
 <p>The implementation of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
 <div class="section" id="abs">
 <h2>abs<a class="headerlink" href="#abs" title="Permalink to this headline">¶</a></h2>
@@ -77,6 +79,9 @@ more of the functions’ “interesting” behavior in the region <span class="m
 <a class="reference internal image-reference" href="_images/activation-exp.png"><img alt="exponential function" src="_images/activation-exp.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="expanded-log">
+<h2>expanded_log<a class="headerlink" href="#expanded-log" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="gauss">
 <h2>gauss<a class="headerlink" href="#gauss" title="Permalink to this headline">¶</a></h2>
 <div class="figure">
@@ -107,6 +112,12 @@ more of the functions’ “interesting” behavior in the region <span class="m
 <a class="reference internal image-reference" href="_images/activation-log.png"><img alt="log function" src="_images/activation-log.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="log-plus">
+<h2>log_plus<a class="headerlink" href="#log-plus" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-log_plus.png"><img alt="log(x+1) function with alterations for negative numbers" src="_images/activation-log_plus.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 <div class="section" id="multiparam-relu">
 <span id="multiparam-relu-description-label"></span><h2>multiparam_relu<a class="headerlink" href="#multiparam-relu" title="Permalink to this headline">¶</a></h2>
 <div class="figure">
@@ -135,6 +146,12 @@ more of the functions’ “interesting” behavior in the region <span class="m
 <h2>sin<a class="headerlink" href="#sin" title="Permalink to this headline">¶</a></h2>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-sin.png"><img alt="sine function" src="_images/activation-sin.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="skewed-log-plus">
+<h2>skewed_log_plus<a class="headerlink" href="#skewed-log-plus" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-skewed_log_plus.png"><img alt="shifted log-plus function" src="_images/activation-skewed_log_plus.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
 <div class="section" id="softplus">
@@ -177,16 +194,19 @@ more of the functions’ “interesting” behavior in the region <span class="m
 <li><a class="reference internal" href="#clamped-tanh-step">clamped_tanh_step</a></li>
 <li><a class="reference internal" href="#cube">cube</a></li>
 <li><a class="reference internal" href="#exp">exp</a></li>
+<li><a class="reference internal" href="#expanded-log">expanded_log</a></li>
 <li><a class="reference internal" href="#gauss">gauss</a></li>
 <li><a class="reference internal" href="#hat">hat</a></li>
 <li><a class="reference internal" href="#identity-label">identity</a></li>
 <li><a class="reference internal" href="#inv">inv</a></li>
 <li><a class="reference internal" href="#log">log</a></li>
+<li><a class="reference internal" href="#log-plus">log_plus</a></li>
 <li><a class="reference internal" href="#multiparam-relu">multiparam_relu</a></li>
 <li><a class="reference internal" href="#multiparam-sigmoid">multiparam_sigmoid</a></li>
 <li><a class="reference internal" href="#relu">relu</a></li>
 <li><a class="reference internal" href="#sigmoid">sigmoid</a></li>
 <li><a class="reference internal" href="#sin">sin</a></li>
+<li><a class="reference internal" href="#skewed-log-plus">skewed_log_plus</a></li>
 <li><a class="reference internal" href="#softplus">softplus</a></li>
 <li><a class="reference internal" href="#square">square</a></li>
 <li><a class="reference internal" href="#step">step</a></li>

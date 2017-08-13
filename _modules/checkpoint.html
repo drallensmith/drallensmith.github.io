@@ -81,10 +81,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_generation_checkpoint</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_time_checkpoint</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">start_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_generation</span> <span class="o">=</span> <span class="n">generation</span>
+<div class="viewcode-block" id="Checkpointer.start_generation"><a class="viewcode-back" href="../module_summaries.html#checkpoint.Checkpointer.start_generation">[docs]</a>    <span class="k">def</span> <span class="nf">start_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_generation</span> <span class="o">=</span> <span class="n">generation</span></div>
 
-    <span class="k">def</span> <span class="nf">end_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species_set</span><span class="p">):</span>
+<div class="viewcode-block" id="Checkpointer.end_generation"><a class="viewcode-back" href="../module_summaries.html#checkpoint.Checkpointer.end_generation">[docs]</a>    <span class="k">def</span> <span class="nf">end_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species_set</span><span class="p">):</span>
         <span class="n">checkpoint_due</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_interval_seconds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -100,7 +100,7 @@
         <span class="k">if</span> <span class="n">checkpoint_due</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save_checkpoint</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species_set</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_generation</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_generation_checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_generation</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">last_time_checkpoint</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_time_checkpoint</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Checkpointer.save_checkpoint"><a class="viewcode-back" href="../module_summaries.html#checkpoint.Checkpointer.save_checkpoint">[docs]</a>    <span class="k">def</span> <span class="nf">save_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">population</span><span class="p">,</span> <span class="n">species_set</span><span class="p">,</span> <span class="n">generation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Save the current simulation state. &quot;&quot;&quot;</span>

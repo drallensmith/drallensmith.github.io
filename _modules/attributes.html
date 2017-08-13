@@ -42,11 +42,15 @@
   <h1>Source code for attributes</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Deals with the attributes (variable parameters) of genes&quot;&quot;&quot;</span>
 <span class="c1">#from __future__ import print_function</span>
-<span class="c1">#from copy import deepcopy</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">gauss</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">uniform</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
 
 <span class="kn">from</span> <span class="nn">neat.config</span> <span class="k">import</span> <span class="n">ConfigParameter</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iterkeys</span><span class="p">,</span> <span class="n">iteritems</span>
+
+<span class="k">if</span> <span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">unicode</span> <span class="o">=</span> <span class="nb">str</span> <span class="c1"># pylint: disable=redefined-builtin</span>
 
 <span class="c1"># TODO: There is probably a lot of room for simplification of these classes using metaprogramming.</span>
 
@@ -173,8 +177,8 @@
 
 <div class="viewcode-block" id="StringAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.StringAttribute">[docs]</a><span class="k">class</span> <span class="nc">StringAttribute</span><span class="p">(</span><span class="n">BaseAttribute</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class for string attributes such as the aggregation function of a node,</span>
-<span class="sd">    which are selected from a list of options.</span>
+<span class="sd">    Class for string attributes (such as, previously, the aggregation function of a node)</span>
+<span class="sd">    that are selected from a list of options.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_config_items</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">],</span>
                      <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
@@ -203,12 +207,14 @@
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="k">pass</span></div>
 
-<span class="k">class</span> <span class="nc">FuncAttribute</span><span class="p">(</span><span class="n">StringAttribute</span><span class="p">):</span>
+<div class="viewcode-block" id="FuncAttribute"><a class="viewcode-back" href="../module_summaries.html#attributes.FuncAttribute">[docs]</a><span class="k">class</span> <span class="nc">FuncAttribute</span><span class="p">(</span><span class="n">BaseAttribute</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle attributes that may be simple strings</span>
 <span class="sd">    or may be functions needing multiparameter handling.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">init_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="n">_config_items</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">StringAttribute</span><span class="o">.</span><span class="n">_config_items</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FuncAttribute.init_value"><a class="viewcode-back" href="../module_summaries.html#attributes.FuncAttribute.init_value">[docs]</a>    <span class="k">def</span> <span class="nf">init_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">default</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_name</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">):</span>
@@ -217,16 +223,19 @@
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="s1">&#39;init_value&#39;</span><span class="p">):</span>
             <span class="n">default</span><span class="o">.</span><span class="n">init_value</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)):</span> <span class="c1"># put in test for</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unknown what to do with value </span><span class="si">{0!r}</span><span class="s2"> for </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">default</span><span class="p">,</span>
+                                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">&#39;multiparameterset&#39;</span><span class="p">):</span>
             <span class="n">multiparam</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">multiparameterset</span>
 
             <span class="k">if</span> <span class="n">multiparam</span><span class="o">.</span><span class="n">is_multiparameter</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
                 <span class="n">default</span> <span class="o">=</span> <span class="n">multiparam</span><span class="o">.</span><span class="n">init_multiparameter</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">default</span>
+        <span class="k">return</span> <span class="n">default</span></div>
 
 
-    <span class="k">def</span> <span class="nf">mutate_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<div class="viewcode-block" id="FuncAttribute.mutate_value"><a class="viewcode-back" href="../module_summaries.html#attributes.FuncAttribute.mutate_value">[docs]</a>    <span class="k">def</span> <span class="nf">mutate_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="n">mutate_rate</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutate_rate_name</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">mutate_rate</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -238,12 +247,15 @@
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;mutate_value&#39;</span><span class="p">):</span>
             <span class="c1">#print(&quot;Accessing mutate_value function of {!r}&quot;.format(value))</span>
             <span class="n">value</span><span class="o">.</span><span class="n">mutate_value</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)):</span> <span class="c1"># put in test for</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Unknown what to do with value </span><span class="si">{0!r}</span><span class="s2"> for </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">,</span>
+                                                                                      <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">&#39;multiparameterset&#39;</span><span class="p">):</span>
             <span class="n">multiparam</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">multiparameterset</span>
             <span class="k">if</span> <span class="n">multiparam</span><span class="o">.</span><span class="n">is_multiparameter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="n">multiparam</span><span class="o">.</span><span class="n">init_multiparameter</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">value</span></div></div>
 
 </pre></div>
 

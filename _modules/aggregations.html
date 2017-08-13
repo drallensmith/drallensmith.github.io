@@ -44,12 +44,16 @@
 <span class="sd">Has the built-in aggregation functions, methods for using them,</span>
 <span class="sd">and methods for adding new user-defined ones.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">mul</span>
 
 <span class="kn">from</span> <span class="nn">neat.multiparameter</span> <span class="k">import</span> <span class="n">MultiParameterSet</span>
+<span class="kn">from</span> <span class="nn">neat.multiparameter</span> <span class="k">import</span> <span class="n">BadFunctionError</span> <span class="k">as</span> <span class="n">InvalidAggregationFunction</span> <span class="c1"># pylint: disable=unused-import</span>
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">mean</span><span class="p">,</span> <span class="n">median2</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -94,6 +98,58 @@
     <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
     <span class="k">return</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">maxabs_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
+<span class="k">def</span> <span class="nf">sum_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+    <span class="n">input_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="n">num_input</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_input</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">input_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">mult</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">num_input</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span><span class="o">/</span><span class="n">num_input</span>
+
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span><span class="o">*</span><span class="n">mult</span>
+
+<span class="k">def</span> <span class="nf">product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">use_median</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+    <span class="n">input_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="n">num_input</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_input</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">input_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">power</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">num_input</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span><span class="o">/</span><span class="n">num_input</span>
+
+    <span class="n">tmp_product</span> <span class="o">=</span> <span class="n">product_aggregation</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">use_median</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">tmp_product</span><span class="p">),</span> <span class="n">power</span><span class="p">),</span> <span class="n">median2</span><span class="p">(</span><span class="n">input_list</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">tmp_product</span><span class="p">),</span> <span class="n">power</span><span class="p">),</span> <span class="n">tmp_product</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">sum_product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">sum_product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">use_median</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+    <span class="k">assert</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="p">((</span><span class="n">b</span><span class="o">*</span><span class="n">sum_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span><span class="o">+</span>
+            <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">use_median</span><span class="p">)))</span>
+    
+
 <div class="viewcode-block" id="AggregationFunctionSet"><a class="viewcode-back" href="../module_summaries.html#aggregations.AggregationFunctionSet">[docs]</a><span class="k">class</span> <span class="nc">AggregationFunctionSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Contains aggregation functions and methods to add and retrieve them.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multiparameterset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -114,6 +170,17 @@
                  <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;maxabs_mean&#39;</span><span class="p">,</span> <span class="n">maxabs_mean_aggregation</span><span class="p">,</span>
                  <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;sum_mean&#39;</span><span class="p">,</span> <span class="n">sum_mean_aggregation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;product_mean&#39;</span><span class="p">,</span> <span class="n">product_mean_aggregation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                 <span class="n">use_median</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;param_type&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;sum_product&#39;</span><span class="p">,</span> <span class="n">sum_product_aggregation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;sum_product_mean&#39;</span><span class="p">,</span> <span class="n">sum_product_mean_aggregation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                 <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                 <span class="n">use_median</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;param_type&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">})</span>
 
 <div class="viewcode-block" id="AggregationFunctionSet.add"><a class="viewcode-back" href="../module_summaries.html#aggregations.AggregationFunctionSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiparameterset</span><span class="o">.</span><span class="n">add_func</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="s1">&#39;aggregation&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>

@@ -82,15 +82,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_seconds</span> <span class="o">=</span> <span class="mf">0.0</span></div>
 
-    <span class="k">def</span> <span class="nf">set_node_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="CTRNN.set_node_value"><a class="viewcode-back" href="../module_summaries.html#ctrnn.CTRNN.set_node_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_node_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-            <span class="n">v</span><span class="p">[</span><span class="n">node_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">v</span><span class="p">[</span><span class="n">node_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
-    <span class="k">def</span> <span class="nf">get_max_time_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+<div class="viewcode-block" id="CTRNN.get_max_time_step"><a class="viewcode-back" href="../module_summaries.html#ctrnn.CTRNN.get_max_time_step">[docs]</a>    <span class="k">def</span> <span class="nf">get_max_time_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="c1"># TODO: Compute max time step that is known to be numerically stable for</span>
         <span class="c1"># the current network configuration.</span>
         <span class="c1"># pylint: disable=no-self-use</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="CTRNN.advance"><a class="viewcode-back" href="../module_summaries.html#ctrnn.CTRNN.advance">[docs]</a>    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">advance_time</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

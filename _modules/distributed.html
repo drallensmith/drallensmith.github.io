@@ -63,10 +63,14 @@
 <span class="sd">specified.</span>
 
 <span class="sd">NOTE:</span>
-<span class="sd">    This module is in a **beta** state, and still *unstable* even in single-machine testing. Reliability is likely to vary, including depending on the Python version</span>
-<span class="sd">    and implementation (e.g., cpython vs pypy) in use and the likelihoods of timeouts (due to machine and/or network slowness). In particular, while the code can try</span>
-<span class="sd">    to reconnect between between primary and secondary nodes, as noted in the `multiprocessing` documentation this may not work due to data loss/corruption. Note also</span>
-<span class="sd">    that this module is not responsible for starting the script copies on the different compute nodes, since this is very site/configuration-dependent.</span>
+<span class="sd">    This module is in a **beta** state, and still *unstable* even in single-machine</span>
+<span class="sd">    testing. Reliability is likely to vary, including depending on the Python version</span>
+<span class="sd">    and implementation (e.g., cpython vs pypy) in use and the likelihoods of timeouts</span>
+<span class="sd">    (due to machine and/or network slowness). In particular, while the code can try</span>
+<span class="sd">    to reconnect between between primary and secondary nodes, as noted in the</span>
+<span class="sd">    `multiprocessing` documentation this may not work due to data loss/corruption.</span>
+<span class="sd">    Note also that this module is *not* responsible for starting the script copies</span>
+<span class="sd">    on the different compute nodes, since this is very site/configuration-dependent.</span>
 
 
 <span class="sd">Usage:</span>
@@ -129,11 +133,10 @@
 <span class="n">MODE_PRIMARY</span> <span class="o">=</span> <span class="n">MODE_MASTER</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># enforce primary mode</span>
 <span class="n">MODE_SECONDARY</span> <span class="o">=</span> <span class="n">MODE_SLAVE</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># enforce secondary mode</span>
 
-<span class="c1"># states to determine whether the secondaries should shut down</span>
-<span class="n">_STATE_RUNNING</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">_STATE_SHUTDOWN</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">_STATE_FORCED_SHUTDOWN</span> <span class="o">=</span> <span class="mi">2</span>
-
+<span class="c1"># what a return from _check_exception means</span>
+<span class="n">_EXCEPTION_TYPE_OK</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># queue empty and similar; try again</span>
+<span class="n">_EXCEPTION_TYPE_UNCERTAIN</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># disconnected but may be able to reconnect</span>
+<span class="n">_EXCEPTION_TYPE_BAD</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># either raise it again or immediately return and exit with non-zero status code</span>
 
 <div class="viewcode-block" id="ModeError"><a class="viewcode-back" href="../module_summaries.html#distributed.ModeError">[docs]</a><span class="k">class</span> <span class="nc">ModeError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -221,50 +224,35 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">authkey</span> <span class="o">=</span> <span class="n">authkey</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">_determine_mode</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_state</span><span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">managers</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">_STATE_RUNNING</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-<div class="viewcode-block" id="_ExtendedManager.__reduce__"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.__reduce__">[docs]</a>    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="_ExtendedManager.__reduce__"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.__reduce__">[docs]</a>    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used by pickle to serialize instances of this class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">authkey</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">authkey</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)),</span>
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="_ExtendedManager.start"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Starts or connects to the manager.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_PRIMARY</span><span class="p">:</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="o">=</span> <span class="n">i</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_PRIMARY</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="o">=</span> <span class="n">i</span></div>
 
 <div class="viewcode-block" id="_ExtendedManager.stop"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Stops the manager.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span></div>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_PRIMARY</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="_ExtendedManager.set_secondary_state"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.set_secondary_state">[docs]</a>    <span class="k">def</span> <span class="nf">set_secondary_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets the value for &#39;secondary_state&#39;.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_STATE_RUNNING</span><span class="p">,</span> <span class="n">_STATE_SHUTDOWN</span><span class="p">,</span> <span class="n">_STATE_FORCED_SHUTDOWN</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;State </span><span class="si">{!r}</span><span class="s2"> is invalid - needs to be one of _STATE_RUNNING, _STATE_SHUTDOWN, or _STATE_FORCED_SHUTDOWN&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">value</span><span class="p">)</span>
-                <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Manager not started&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_get_secondary_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the value for &#39;secondary_state&#39;.</span>
-<span class="sd">        This is required for the manager.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_state</span>
-
-    <span class="k">def</span> <span class="nf">_get_manager_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register_callables</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_manager_class</span><span class="p">(</span><span class="n">register_callables</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new &#39;Manager&#39; subclass with registered methods.</span>
 <span class="sd">        If &#39;register_callable&#39; is True, defines the &#39;callable&#39; arguments.</span>
@@ -280,7 +268,7 @@
 
         <span class="n">inqueue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
         <span class="n">outqueue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
-        <span class="n">namespace</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">()</span>
+        <span class="n">namespace</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">()</span> <span class="c1"># Does this need to be from multiprocessing.managers.SyncManager?</span>
 
         <span class="k">if</span> <span class="n">register_callables</span><span class="p">:</span>
             <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -290,14 +278,6 @@
             <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
                 <span class="s2">&quot;get_outqueue&quot;</span><span class="p">,</span>
                 <span class="n">callable</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">outqueue</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-                <span class="s2">&quot;get_state&quot;</span><span class="p">,</span>
-                <span class="n">callable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_secondary_state</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-                <span class="s2">&quot;set_state&quot;</span><span class="p">,</span>
-                <span class="n">callable</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_state</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
                 <span class="s2">&quot;get_namespace&quot;</span><span class="p">,</span>
@@ -311,12 +291,6 @@
                 <span class="p">)</span>
             <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
                 <span class="s2">&quot;get_outqueue&quot;</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-                <span class="s2">&quot;get_state&quot;</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-                <span class="s2">&quot;set_state&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="n">_EvaluatorSyncManager</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
                 <span class="s2">&quot;get_namespace&quot;</span><span class="p">,</span>
@@ -336,12 +310,6 @@
         <span class="n">ins</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="n">authkey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">authkey</span><span class="p">)</span>
         <span class="n">ins</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">ins</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">secondary_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Whether the secondary nodes should still process elements.&quot;&quot;&quot;</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
 <div class="viewcode-block" id="_ExtendedManager.get_inqueue"><a class="viewcode-back" href="../module_summaries.html#distributed._ExtendedManager.get_inqueue">[docs]</a>    <span class="k">def</span> <span class="nf">get_inqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the inqueue.&quot;&quot;&quot;</span>
@@ -417,8 +385,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_string</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reconnect_max_time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_tasks</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;Required by the pickle protocol.&quot;&quot;&quot;</span>
         <span class="c1"># we do not actually save any state, but we need __getstate__ to be</span>
         <span class="c1"># called.</span>
@@ -437,7 +410,13 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Use is_primary, not is_master&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_primary</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DistributedEvaluator.start"><a class="viewcode-back" href="../module_summaries.html#distributed.DistributedEvaluator.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exit_on_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secondary_wait</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reconnect</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_do_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exit_string</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DistributedEvaluator.start"><a class="viewcode-back" href="../module_summaries.html#distributed.DistributedEvaluator.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exit_on_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">secondary_wait</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reconnect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reconnect_max_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If the DistributedEvaluator is in primary mode, starts the manager</span>
 <span class="sd">        process and returns. In this case, the ``exit_on_stop`` argument will</span>
@@ -456,14 +435,31 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;DistributedEvaluator already started!&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span> <span class="o">=</span> <span class="n">exit_on_stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reconnect</span> <span class="o">=</span> <span class="n">reconnect</span>
+        <span class="k">if</span> <span class="n">reconnect_max_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">reconnect</span><span class="p">:</span>
+                <span class="n">reconnect_max_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="mi">5</span><span class="o">*</span><span class="mi">60</span><span class="p">),(</span><span class="mi">15</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_timeout</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">reconnect_max_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">60</span><span class="p">,(</span><span class="mi">5</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_timeout</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reconnect_max_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="n">reconnect_max_time</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_PRIMARY</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_start_primary</span><span class="p">()</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">MODE_SECONDARY</span><span class="p">:</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">secondary_wait</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_start_secondary</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_loop</span><span class="p">(</span><span class="n">reconnect</span><span class="o">=</span><span class="n">reconnect</span><span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_start_secondary</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_secondary_loop</span><span class="p">(</span><span class="n">reconnect_max_time</span><span class="o">=</span><span class="n">reconnect_max_time</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_do_exit</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reconnect</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>
             <span class="k">if</span> <span class="n">exit_on_stop</span><span class="p">:</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_do_exit</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid mode </span><span class="si">{!r}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">))</span></div>
 
@@ -480,21 +476,45 @@
             <span class="k">raise</span> <span class="n">ModeError</span><span class="p">(</span><span class="s2">&quot;Not in primary mode!&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Not yet started!&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">force_secondary_shutdown</span><span class="p">:</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="n">_STATE_FORCED_SHUTDOWN</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="n">_STATE_SHUTDOWN</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">set_secondary_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_tasks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_tasks</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">wait</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_timeout</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Self.n_tasks is None; estimating at </span><span class="si">{:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_tasks</span><span class="p">))</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">num_added</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">num_added</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_tasks</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">&lt;</span>
+                                              <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">reconnect_max_time</span><span class="p">,</span>
+                                                  <span class="n">wait</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">worker_timeout</span><span class="p">)):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">force_secondary_shutdown</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">queue</span><span class="o">.</span><span class="n">Full</span><span class="p">,</span>
+                    <span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;timed&quot;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;timeout&quot;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">wait</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_timeout</span><span class="p">):</span>
+                        <span class="n">num_added</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="k">continue</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">num_added</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">time_passed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+        <span class="k">if</span> <span class="n">time_passed</span> <span class="o">&lt;</span> <span class="n">wait</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span> <span class="o">-</span> <span class="n">time_passed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">shutdown</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">namespace</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span></div>
+
 
     <span class="k">def</span> <span class="nf">_start_primary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start as the primary&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">set_secondary_state</span><span class="p">(</span><span class="n">_STATE_RUNNING</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_shared_instances</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_start_secondary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -510,55 +530,88 @@
 
     <span class="k">def</span> <span class="nf">_reset_em</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resets self.em and the shared instances.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">em</span> <span class="o">=</span> <span class="n">_ExtendedManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">authkey</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">em</span> <span class="o">=</span> <span class="n">_ExtendedManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">authkey</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_shared_instances</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_secondary_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reconnect</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_check_exception</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;timed&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;timeout&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_OK</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_UNCERTAIN</span>
+        <span class="k">elif</span> <span class="p">((</span><span class="s1">&#39;eoferror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;typeerror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;gaierror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span>
+              <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;pipeerror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;authenticationerror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span>
+              <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;refused&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;file descriptor&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_UNCERTAIN</span>
+        <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_BAD</span>
+
+    <span class="k">def</span> <span class="nf">_secondary_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reconnect_max_time</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">60</span><span class="p">)):</span>
         <span class="sd">&quot;&quot;&quot;The worker loop for the secondary nodes.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_workers</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">pool</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reconnect</span><span class="p">:</span>
+            <span class="n">em_bad</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">em_bad</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">while</span> <span class="n">should_reconnect</span><span class="p">:</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">last_time_done</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1"># so that if loops below, have a chance to check _reset_em</span>
             <span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_reset_em</span><span class="p">()</span>
-            <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                <span class="k">continue</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span>
+                    <span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_time_done</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reconnect_max_time</span><span class="p">:</span>
+                    <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">em_bad</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">==</span> <span class="n">_EXCEPTION_TYPE_BAD</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_string</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">==</span> <span class="n">_EXCEPTION_TYPE_BAD</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                    <span class="k">raise</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="n">last_time_done</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1"># being successful at reconnecting can be used as a keepalive</span>
             <span class="k">while</span> <span class="n">running</span><span class="p">:</span>
-                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="c1"># for better performance, only check every 5 cycles</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">em</span><span class="o">.</span><span class="n">secondary_state</span>
-                    <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="ow">not</span> <span class="n">reconnect</span><span class="p">:</span>
-                            <span class="k">raise</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="k">break</span>
-                    <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">_STATE_FORCED_SHUTDOWN</span><span class="p">:</span>
-                        <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">_STATE_SHUTDOWN</span><span class="p">:</span>
-                        <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">running</span><span class="p">:</span>
-                        <span class="k">continue</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">tasks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
                 <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
                     <span class="k">continue</span>
-                <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                    <span class="k">break</span>
-                <span class="k">except</span> <span class="p">(</span><span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;Empty&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;TimeoutError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)):</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span>
+                        <span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;empty&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span> <span class="c1"># pragma: no cover</span>
                         <span class="k">continue</span>
-                    <span class="k">if</span> <span class="p">((</span><span class="s1">&#39;EOFError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;PipeError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span>
-                        <span class="p">(</span><span class="s1">&#39;AuthenticationError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))):</span> <span class="c1"># Second for Python 3.X, Third for 3.6+</span>
+                    <span class="n">curr_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">curr_status</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_EXCEPTION_TYPE_OK</span><span class="p">,</span> <span class="n">_EXCEPTION_TYPE_UNCERTAIN</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_time_done</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reconnect_max_time</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">em_bad</span><span class="p">:</span>
+                                <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="k">break</span>
+                        <span class="k">elif</span> <span class="n">curr_status</span> <span class="o">==</span> <span class="n">_EXCEPTION_TYPE_OK</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">break</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_time_done</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reconnect_max_time</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_string</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                        <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
                         <span class="k">break</span>
-                    <span class="k">raise</span>
+                    <span class="k">else</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                        <span class="k">raise</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span> <span class="c1"># from primary</span>
+                    <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">if</span> <span class="n">tasks</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">reconnect</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">tasks</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+                <span class="n">last_time_done</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="k">for</span> <span class="n">genome_id</span><span class="p">,</span> <span class="n">genome</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
@@ -578,20 +631,38 @@
                         <span class="n">job</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_timeout</span><span class="p">)</span> <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">jobs</span>
                         <span class="p">]</span>
                     <span class="n">res</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genome_ids</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
+                <span class="n">last_time_done</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-                <span class="k">except</span> <span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="ne">EOFError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
-                    <span class="k">break</span>
-                <span class="k">except</span> <span class="p">(</span><span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;Empty&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;TimeoutError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)):</span>
+                <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Full</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                    <span class="k">continue</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">gaierror</span><span class="p">,</span>
+                        <span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">,</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">ProcessError</span><span class="p">,</span>
+                        <span class="ne">IOError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;full&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span> <span class="c1"># pragma: no cover</span>
                         <span class="k">continue</span>
-                    <span class="k">if</span> <span class="p">((</span><span class="s1">&#39;EOFError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;PipeError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="ow">or</span>
-                        <span class="p">(</span><span class="s1">&#39;AuthenticationError&#39;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">))):</span> <span class="c1"># Second for Python 3.X, Third for 3.6+</span>
+                    <span class="n">curr_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">curr_status</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_EXCEPTION_TYPE_OK</span><span class="p">,</span> <span class="n">_EXCEPTION_TYPE_UNCERTAIN</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_time_done</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reconnect_max_time</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">em_bad</span><span class="p">:</span>
+                                <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="k">break</span>
+                        <span class="k">elif</span> <span class="n">curr_status</span> <span class="o">==</span> <span class="n">_EXCEPTION_TYPE_OK</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">break</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_time_done</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reconnect_max_time</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_stop</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">exit_string</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                        <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
                         <span class="k">break</span>
-                    <span class="k">raise</span>
-
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">reconnect</span><span class="p">:</span>
-                <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+                        <span class="k">raise</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">last_time_done</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_time_done</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">reconnect_max_time</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">em_bad</span><span class="p">:</span>
+                    <span class="n">should_reconnect</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="k">break</span>
         <span class="k">if</span> <span class="n">pool</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pool</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
@@ -609,12 +680,12 @@
         <span class="n">tasks</span> <span class="o">=</span> <span class="n">chunked</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondary_chunksize</span><span class="p">)</span>
         <span class="n">n_tasks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">task</span><span class="p">)</span> <span class="c1"># should this be w/timeouts and checking for exceptions?</span>
         <span class="n">tresults</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">tresults</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_tasks</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">sr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outqueue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-            <span class="k">except</span> <span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">,</span> <span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">):</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">,</span> <span class="n">managers</span><span class="o">.</span><span class="n">RemoteError</span><span class="p">):</span> <span class="c1"># more detailed check?</span>
                 <span class="k">continue</span>
             <span class="n">tresults</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sr</span><span class="p">)</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -622,7 +693,8 @@
             <span class="n">results</span> <span class="o">+=</span> <span class="n">sr</span>
         <span class="k">for</span> <span class="n">genome_id</span><span class="p">,</span> <span class="n">fitness</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
             <span class="n">genome</span> <span class="o">=</span> <span class="n">id2genome</span><span class="p">[</span><span class="n">genome_id</span><span class="p">]</span>
-            <span class="n">genome</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">fitness</span></div></div>
+            <span class="n">genome</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">fitness</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_tasks</span> <span class="o">=</span> <span class="n">n_tasks</span></div></div>
 </pre></div>
 
           </div>

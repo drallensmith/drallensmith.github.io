@@ -49,7 +49,10 @@
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">NORM_EPSILON</span>
 <span class="kn">from</span> <span class="nn">neat.multiparameter</span> <span class="k">import</span> <span class="n">MultiParameterSet</span>
+<span class="kn">from</span> <span class="nn">neat.multiparameter</span> <span class="k">import</span> <span class="n">BadFunctionError</span> <span class="k">as</span> <span class="n">InvalidActivationFunction</span> <span class="c1"># pylint: disable=unused-import</span>
 
 <span class="k">def</span> <span class="nf">sigmoid_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
     <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span>
@@ -102,6 +105,19 @@
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">expanded_log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span> <span class="c1"># mostly intended for CPPNs</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">NORM_EPSILON</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">((</span><span class="n">NORM_EPSILON</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">skewed_log_plus_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span> <span class="c1"># mostly intended for CPPNs</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log_plus_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">))))</span>
+
+
 <span class="k">def</span> <span class="nf">exp_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
     <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
@@ -131,10 +147,37 @@
 
 
 <span class="k">def</span> <span class="nf">multiparam_relu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1.0</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">a</span><span class="p">))</span>
 
+<span class="k">def</span> <span class="nf">multiparam_elu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">z</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">b</span><span class="p">)))))</span>
+
+<span class="c1">##def multiparam_lu_activation(z, a, b, c): # TEST NEEDED!</span>
+<span class="c1">##    z = min(60.0, max(-60.0, (5*z)))</span>
+<span class="c1">##    return 0.2 * min(abs(z), max(z, (z*a), (math.exp(b)*(math.exp(z+c)-math.exp(c)))))</span>
+
+<span class="c1">##def multiparam_lu_partial_activation(z, a, b): # TEST NEEDED!</span>
+<span class="c1">##    return multiparam_lu_activation(z, a, b, 0.0)</span>
+
+<span class="k">def</span> <span class="nf">weighted_lu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="p">((</span><span class="n">a</span><span class="o">*</span><span class="n">multiparam_relu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span><span class="o">+</span>
+            <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">multiparam_elu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">multiparam_relu_softplus_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+    <span class="k">assert</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+    <span class="n">val1</span> <span class="o">=</span> <span class="p">((</span><span class="n">a</span><span class="o">*</span><span class="n">relu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">))</span><span class="o">+</span>
+            <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
+    <span class="n">val2</span> <span class="o">=</span> <span class="p">((</span><span class="n">a</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span><span class="o">+</span>
+            <span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">softplus_activation</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">b</span><span class="o">*</span><span class="n">val1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">val2</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">clamped_tanh_step_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
@@ -144,11 +187,11 @@
     <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="n">to_return</span> <span class="o">=</span> <span class="p">(((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">tanh_weight</span><span class="p">)</span><span class="o">*</span><span class="n">clamped_activation</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">+</span>
                      <span class="p">(</span><span class="n">tanh_weight</span><span class="o">*</span><span class="n">tanh_activation</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="n">to_return</span> <span class="o">=</span> <span class="p">(((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">tanh_weight</span><span class="p">)</span><span class="o">*</span><span class="n">step_activation</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">+</span>
                      <span class="p">(</span><span class="n">tanh_weight</span><span class="o">*</span><span class="n">tanh_activation</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
-    
-    <span class="n">to_return</span> <span class="o">=</span> <span class="n">tanh_activation</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="n">tanh_activation</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">to_return</span><span class="p">))</span>
 
@@ -164,8 +207,8 @@
         <span class="k">if</span> <span class="n">multiparameterset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">warn_string</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Activation init called without multiparameterset:&quot;</span> <span class="o">+</span>
                            <span class="s2">&quot; may cause multiple instances of it&quot;</span><span class="p">)</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warn_string</span><span class="p">)</span>
             <span class="n">multiparameterset</span> <span class="o">=</span> <span class="n">MultiParameterSet</span><span class="p">(</span><span class="s1">&#39;activation&#39;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">warn_string</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiparameterset</span> <span class="o">=</span> <span class="n">multiparameterset</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">sigmoid_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="n">tanh_activation</span><span class="p">)</span>
@@ -177,6 +220,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;clamped&#39;</span><span class="p">,</span> <span class="n">clamped_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;inv&#39;</span><span class="p">,</span> <span class="n">inv_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">log_activation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;expanded_log&#39;</span><span class="p">,</span> <span class="n">expanded_log_activation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;log_plus&#39;</span><span class="p">,</span> <span class="n">log_plus_activation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;skewed_log_plus&#39;</span><span class="p">,</span> <span class="n">skewed_log_plus_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;exp&#39;</span><span class="p">,</span> <span class="n">exp_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;abs&#39;</span><span class="p">,</span> <span class="n">abs_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;hat&#39;</span><span class="p">,</span> <span class="n">hat_activation</span><span class="p">)</span>
@@ -185,11 +231,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">step_activation</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;multiparam_relu&#39;</span><span class="p">,</span> <span class="n">multiparam_relu_activation</span><span class="p">,</span>
                  <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;multiparam_elu&#39;</span><span class="p">,</span> <span class="n">multiparam_elu_activation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                 <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+<span class="c1">##        self.add(&#39;multiparam_lu&#39;, multiparam_lu_activation,</span>
+<span class="c1">##                 a={&#39;min_value&#39;:-1.0, &#39;max_value&#39;:1.0},</span>
+<span class="c1">##                 b={&#39;min_value&#39;:-1.0, &#39;max_value&#39;:1.0},</span>
+<span class="c1">##                 c={&#39;min_value&#39;:-1.0, &#39;max_value&#39;:1.0})</span>
+<span class="c1">##        self.add(&#39;multiparam_lu_partial&#39;, multiparam_lu_partial_activation,</span>
+<span class="c1">##                 a={&#39;min_value&#39;:-1.0, &#39;max_value&#39;:1.0},</span>
+<span class="c1">##                 b={&#39;min_value&#39;:-1.0, &#39;max_value&#39;:1.0})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;weighted_lu&#39;</span><span class="p">,</span> <span class="n">weighted_lu_activation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                 <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;multiparam_relu_softplus&#39;</span><span class="p">,</span> <span class="n">multiparam_relu_softplus_activation</span><span class="p">,</span>
+                 <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">},</span>
+                 <span class="n">b</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;clamped_tanh_step&#39;</span><span class="p">,</span> <span class="n">clamped_tanh_step_activation</span><span class="p">,</span>
                  <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;multiparam_sigmoid&#39;</span><span class="p">,</span> <span class="n">multiparam_sigmoid_activation</span><span class="p">,</span>
                  <span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_value&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_value&#39;</span><span class="p">:</span><span class="mf">1.0</span><span class="p">})</span>
-        
+
 
 <div class="viewcode-block" id="ActivationFunctionSet.add"><a class="viewcode-back" href="../module_summaries.html#activations.ActivationFunctionSet.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">multiparameterset</span><span class="o">.</span><span class="n">add_func</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="s1">&#39;activation&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>

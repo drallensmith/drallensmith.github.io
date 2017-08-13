@@ -13,17 +13,14 @@ activations
 ---------------
 Has the built-in :term:`activation functions <activation function>`, code for using them, and code for adding new user-defined ones.
 
-  .. py:exception:: InvalidActivationFunction(TypeError)
+  .. py:exception:: InvalidActivationFunction(Exception)
 
-    Exception called if an activation function being added is invalid according to the `MultiParameterSet.add_func` method, or if an unknown activation
-    function is requested by name via :py:meth:`get <ActivationFunctionSet.get()>`.
-
-    .. versionchanged:: 0.92
-      Base of exception changed to more-precise TypeError.
+    Exception called if an activation function being added is invalid according to the :py:meth:`multiparameter.MultiParameterSet.add_func` method, or if an
+    unknown activation function is requested by name via :py:meth:`get <ActivationFunctionSet.get()>`.
 
     .. deprecated:: 0.92-multiparam_funcs
-      This is now an alias for :py:exc:`BadFunctionError`, which is itself based on both TypeError and LookupError. Use either it, or preferably
-      one of its two subclasses, :py:exc:`InvalidFunctionError` (for unusable functions; based on TypeError) or :py:exc:`UnknownFunctionError`
+      This is now an alias for :py:exc:`multiparameter.BadFunctionError`. Use either it, or preferably one of its two subclasses,
+      :py:exc:`.multiparameter.InvalidFunctionError` (for unusable functions; based on TypeError) or :py:exc:`multiparameter.UnknownFunctionError`
       (for unknown functions requested by name; based on LookupError).
 
   .. py:class:: ActivationFunctionSet
@@ -46,7 +43,7 @@ Has the built-in :term:`activation functions <activation function>`, code for us
       :param str name: The name of the function.
       :return: The function of interest
       :rtype: `function`
-      :raises InvalidActivationFunction: If the function is not known.
+      :raises UnknownFunctionError: If the function is not known.
 
     .. py:method:: is_valid(name)
 
@@ -140,16 +137,16 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
 
     .. versionadded:: 0.92
 
-  .. py:exception:: InvalidAggregationFunction(TypeError)
+  .. py:exception:: InvalidAggregationFunction(Exception)
 
-    Exception called if an aggregation function being added is invalid according to the `MultiParameterSet.add_func` method, or if an unknown aggregation
-    function is requested by name via :py:meth:`get <AggregationFunctionSet.get()>`.
+    Exception called if an aggregation function being added is invalid according to the :py:meth:`multiparameter.MultiParameterSet.add_func` method, or if an
+    unknown aggregation function is requested by name via :py:meth:`get <AggregationFunctionSet.get()>`.
 
     .. versionadded:: 0.92
 
     .. deprecated:: 0.92-multiparam_funcs
-      This is now an alias for :py:exc:`BadFunctionError`, which is itself based on both TypeError and LookupError. Use either it, or preferably
-      one of its two subclasses, :py:exc:`InvalidFunctionError` (for unusable functions; based on TypeError) or :py:exc:`UnknownFunctionError`
+      This is now an alias for :py:exc:`multiparameter.BadFunctionError`. Use either it, or preferably one of its two subclasses,
+      :py:exc:`multiparameter.InvalidFunctionError` (for unusable functions; based on TypeError) or :py:exc:`multiparameter.UnknownFunctionError`
       (for unknown functions requested by name; based on LookupError).
 
   .. py:class:: AggregationFunctionSet
@@ -160,9 +157,9 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
 
     .. py:method:: add(name, function)
 
-      After validating the function (via `validate_aggregation`), adds it to the available activation functions under the given name. Used
-      by :py:meth:`DefaultGenomeConfig.add_activation <genome.DefaultGenomeConfig.add_activation>`. TODO: Check for whether
-      the function needs `reduce <functools.reduce>`, or at least offer a form of this function (or extra argument for it, defaulting to false)
+      After validating the function, adds it to the available aggregation functions under the given name. Used
+      by :py:meth:`DefaultGenomeConfig.add_aggregation <genome.DefaultGenomeConfig.add_aggregation>`. TODO: Check for whether
+      the function needs `reduce <functools.reduce>`, or at least offer a form of this function (or extra argument for it, defaulting to false),
       and/or its interface in :py:mod:`genome`, that will appropriately "wrap" the input function.
 
       :param str name: The name by which the function is to be known in the :ref:`configuration file <aggregation-function-config-label>`.
@@ -178,9 +175,12 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
       :param str name: The name of the function.
       :return: The function of interest
       :rtype: `function`
-      :raises InvalidAggregationFunction: If the function is not known.
+      :raises UnknownFunctionError: If the function is not known.
 
       .. versionadded:: 0.92
+
+      .. versionchanged:: 0.92-multiparam_funcs
+        Changed from :py:exc:`InvalidAggregationFunction` to :py:exc:`multiparameter.UnknownFunctionError`.
 
     .. py:method:: __getitem__(index)
 
@@ -190,7 +190,7 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
       :param str index: The name of the function.
       :return: The function of interest.
       :rtype: `function`
-      :raises InvalidAggregationFunction: If the function is not known.
+      :raises UnknownFunctionError: If the function is not known.
       :raises DeprecationWarning: Always.
 
       .. versionchanged:: 0.92
@@ -352,7 +352,7 @@ Deals with :term:`attributes` used by :term:`genes <gene>`.
 
   .. py:class:: StringAttribute(BaseAttribute)
 
-    Class for string attributes such as the :term:`aggregation function` of a :term:`node`, which are selected from a list of options;
+    Class for string attributes (such as, previously, the :term:`aggregation function` of a :term:`node`), which are selected from a list of options;
     includes code for configuration, creation, and mutation.
 
     .. index:: ! X_default
@@ -396,6 +396,52 @@ Deals with :term:`attributes` used by :term:`genes <gene>`.
       :return: The new value.
       :rtype: str
 
+  .. py:class:: FuncAttribute(BaseAttribute)
+
+    Handle attributes that may be simple strings or may be functions needing :py:mod:`multiparameter` handling.
+
+    .. versionadded:: 0.92-multiparam_funcs
+
+   .. py:method:: init_value(config)
+
+      Initializes the attribute's value, either using a configured ``default`` or (if the default is "random") with a randomly-chosen member of the ``options``
+      (each having an equal chance). Note: It is possible for the default value, if specifically configured, to **not** be one of the options.
+
+      .. deprecated:: 0.92
+        While it is possible to use "None" as an equivalent to "random", this is too easily confusable with an actual `None`.
+
+      .. versionadded:: 0.92-multiparam_funcs
+
+      :param config: The configuration object from which the default and, if necessary, ``options`` parameters are to be retrieved.
+      :type config: :datamodel:`instance <index-48>`
+      :return: The new value.
+      :rtype: str or function
+      :raises RuntimeError: If the ``default`` is neither an object with an ``init_value`` attribute nor a string.
+
+    .. index:: ! mutation
+    .. index:: mutate_rate
+    .. index:: ! X_options
+    .. index:: TODO
+
+    .. py:method:: mutate_value(value, config)
+
+      With a frequency determined by the ``mutate_rate`` configuration parameter, replaces the value with one of the ``options``, with each having an
+      equal chance; note that this can be the same value as before. (It is possible to crudely alter the chances of what is chosen by listing a given option
+      more than once, although this is inefficient given the use of the `random.choice` function.)
+      TODO: Add configurable probabilities of which option is used. Longer-term, as with the improved version of RBF-NEAT, separate genes for the
+      likelihoods of each (but always doing some change, to prevent overly-conservative evolution due to its inherent short-sightedness), allowing the
+      genomes to control the distribution of options, will be desirable.
+
+      :param value: The current value of the attribute.
+      :type value: `str` or `function`
+      :param config: The configuration object from which the ``options`` and other parameters are to be extracted.
+      :type config: :datamodel:`instance <index-48>`
+      :return: The new value.
+      :rtype: `str` or `function`
+      :raises RuntimeError: If the chosen option is neither an object with a ``mutate_value`` attribute nor a string.
+
+      .. versionadded:: 0.92-multiparam_funcs
+
   .. versionchanged:: 0.92
     ``__config_items__`` changed to ``_config_items``, since it is not a Python internal variable.
 
@@ -424,9 +470,27 @@ Uses :py:mod:`pickle` to save and restore populations (and other aspects of the 
     :type time_interval_seconds: :pytypes:`float <typesnumeric>` or None
     :param str filename_prefix: The prefix for the checkpoint file names.
 
+    .. py:method:: start_generation(generation)
+
+      Saves the current generation number for use by :py:meth:`save_checkpoint()`.
+
+      :param int generation: Current generation.
+
+    .. py:method:: end_generation(config, population, species_set)
+
+      Checks to see whether :py:meth:`save_checkpoint()` needs to be called, and if so calls it, then updates the last_generation_checkpoint and the
+      corresponding last_time_checkpoint attributes.
+
+      :param config: The `config.Config` configuration instance to be used.
+      :type config: :datamodel:`instance <index-48>`
+      :param population: A population as created by :py:meth:`reproduction.DefaultReproduction.create_new` or a compatible implementation.
+      :type population: dict(int, :datamodel:`object <objects-values-and-types>`)
+      :param species: A :py:class:`species.DefaultSpeciesSet` (or compatible implementation) instance.
+      :type species: :datamodel:`instance <index-48>`
+
     .. py:method:: save_checkpoint(config, population, species, generation)
 
-      Saves the current simulation (including randomization) state to (if using the default ``neat-checkpoint-`` for ``filename_prefix``)
+      Saves the current simulation state (including randomization state) to (if using the default ``neat-checkpoint-`` for ``filename_prefix``)
       :file:`neat-checkpoint-{generation}`, with ``generation`` being the generation number.
 
       :param config: The `config.Config` configuration instance to be used.
@@ -445,7 +509,7 @@ Uses :py:mod:`pickle` to save and restore populations (and other aspects of the 
 
       :param str filename: The file to be restored from.
       :return: :py:class:`Population <population.Population>` instance that can be used with :py:meth:`Population.run <population.Population.run>` to restart the simulation.
-      :rtype:  :datamodel:`instance <index-48>` 
+      :rtype: :datamodel:`instance <index-48>` 
 
 .. index:: fitness_criterion
 .. index:: fitness_threshold
@@ -629,6 +693,21 @@ ctrnn
 
       Resets the time and all node activations to 0 (necessary due to otherwise retaining state via :term:`recurrent` connections).
 
+    .. py:method:: set_node_value(node_key, value)
+
+      Sets the current node activation for the particular node selected.
+
+      :param int node_key: The :term:`key` for the node to be altered.
+      :param float value: What to set the activation of the node to.
+
+    .. index:: TODO
+
+    .. py:method:: get_max_time_step()
+
+      Planned to return the maximum time step that will be stable for the current network; not yet implemented.
+
+      :raises NotImplementedError: Always.
+
     .. index:: ! continuous-time
 
     .. py:method:: advance(inputs, advance_time, time_step=None)
@@ -640,7 +719,7 @@ ctrnn
       :type inputs: list(float)
       :param advance_time: How much time to advance the network before returning the resulting outputs.
       :type advance_time: :pytypes:`float <typesnumeric>`
-      :param time_step: How much time per step to advance the network; the default of ``None`` will currently result in an error, but it is planned to determine it automatically.
+      :param time_step: How much time per step to advance the network; the default of ``None`` will currently result in an error, but it is planned to determine it automatically using :py:meth:`get_max_time_step()`.
       :type time_step: :pytypes:`float <typesnumeric>` or None
       :return: The values for the :term:`output nodes <output node>`.
       :rtype: list(float)
@@ -725,11 +804,13 @@ distributed
     Values - which should be treated as constants - that are used for the ``mode`` argument of :py:class:`DistributedEvaluator`. If MODE_AUTO,
     :py:func:`_determine_mode()` uses :py:func:`host_is_local()` and the specified ``addr`` of the :term:`primary node` to decide the mode; the other two specify it.
 
-  .. py:data:: _STATE_RUNNING
-  .. py:data:: _STATE_SHUTDOWN
-  .. py:data:: _STATE_FORCED_SHUTDOWN
+  .. py:data:: _EXCEPTION_TYPE_OK
+  .. py:data:: _EXCEPTION_TYPE_UNCERTAIN
+  .. py:data:: _EXCEPTION_TYPE_BAD
 
-    Values - which should be treated as constants - that are used to determine the current state (whether the secondaries should be continuing the run or not).
+    Values - which should be treated as constants - that are returned by the :py:meth:`_check_exception()` method. The first is for a queue being empty and similar
+    reasons to try again. The second indicates likely disconnection, but should try to reconnect. The third includes all other cases, and is responded to with either immediately
+    `raising <raise>` the exception again, or returning and exiting with a non-zero exit (status) value.
 
   .. py:exception:: ModeError(RuntimeError)
 
@@ -771,8 +852,7 @@ distributed
 
   .. py:class:: _ExtendedManager(addr, authkey, mode, start=False)
 
-    Manages the :pylib:`multiprocessing.managers.SyncManager <multiprocessing.html#multiprocessing.managers.SyncManager>` instance. Initializes
-    ``self._secondary_state`` to :py:data:`_STATE_RUNNING`.
+    Manages the :pylib:`multiprocessing.managers.SyncManager <multiprocessing.html#multiprocessing.managers.SyncManager>` instance.
 
     :param addr: Should be a tuple of (hostname, port) pointing to the machine running the DistributedEvaluator in primary mode. If mode is :py:data:`MODE_AUTO`, the mode is determined by checking whether the hostname points to this host or not (via :py:func:`_determine_mode()` and :py:func:`host_is_local()`).
     :type addr: tuple(str, int)
@@ -781,44 +861,26 @@ distributed
     :param int mode: Specifies the mode to run in - must be one of :py:data:`MODE_AUTO`, :py:data:`MODE_PRIMARY`, or :py:data:`MODE_SECONDARY`. Processed by :py:func:`_determine_mode()`.
     :param bool start: Whether to call the :py:meth:`start()` method after initialization.
 
-    .. index:: TODO
-
     .. py:method:: __reduce__()
 
-      Used by `pickle` to serialize instances of this class. TODO: Appears to assume that ``start`` (for initialization) should be true; perhaps ``self.manager``
-      should be checked? (This may require :py:meth::`stop()` to set ``self.manager`` to ``None``, incidentally.)
+      Used by `pickle` to serialize instances of this class.
 
-      :return: Information about the class instance; a tuple of (class name, tuple(addr, authkey, mode, True)).
+      :return: Information about the class instance, usable to call ``__init__()`` for the class again; a tuple of (class name, tuple(addr, authkey, mode, whether_started)).
       :rtype: tuple(str, tuple(tuple(str, int), bytes, int, bool))
 
     .. py:method:: start()
 
       Starts (if in :py:data:`MODE_PRIMARY`) or connects to (if in :py:data:`MODE_SECONDARY`) the manager.
 
-    .. index:: TODO
-
     .. py:method:: stop()
 
-      Stops the manager using :pylib:`shutdown <multiprocessing.html#multiprocessing.managers.BaseManager.shutdown>` .
-      TODO: Should this set ``self.manager`` to None?
-
-    .. py:method:: set_secondary_state(value)
-
-      Sets the value for the ``secondary_state``, shared between the nodes via :pylib:`multiprocessing.managers.Value <multiprocessing.html#multiprocessing.managers.SyncManager.Value>`.
-
-      :param int value: The desired secondary state; must be one of :py:data:`_STATE_RUNNING`, :py:data:`_STATE_SHUTDOWN`, or :py:data:`_STATE_FORCED_SHUTDOWN`.
-      :raises ValueError: If the ``value`` is not one of the above.
-      :raises RuntimeError: If the manager has not been :py:meth:`started <start()>`.
-
-    .. py:attribute:: secondary_state
-
-      The :pylib:`property <functions.html#property>` ``secondary_state`` - whether the secondary nodes should still be processing elements.
+      Stops the manager; if in :py:data:`MODE_PRIMARY`, uses :pylib:`shutdown <multiprocessing.html#multiprocessing.managers.BaseManager.shutdown>`.
 
     .. py:method:: get_inqueue()
 
       Returns the inqueue.
 
-      :return: The incoming :pylib:`queue <multiprocessing.html#multiprocessing.Queue>`.
+      :return: The incoming `queue <queue.Queue>`.
       :rtype: :datamodel:`instance <index-48>`
       :raises RuntimeError: If the manager has not been :py:meth:`started <start()>`.
 
@@ -826,7 +888,7 @@ distributed
 
       Returns the outqueue.
 
-      :return: The outgoing :pylib:`queue <multiprocessing.html#multiprocessing.Queue>`.
+      :return: The outgoing `queue <queue.Queue>`.
       :rtype: :datamodel:`instance <index-48>`
       :raises RuntimeError: If the manager has not been :py:meth:`started <start()>`.
 
@@ -907,7 +969,7 @@ distributed
       :type wait: :pytypes:`float <typesnumeric>`
       :param shutdown: Whether to :pylib:`shutdown <multiprocessing.html#multiprocessing.managers.BaseManager.shutdown>` the :pylib:`multiprocessing.managers.SyncManager <multiprocessing.html#multiprocessing.managers.SyncManager>` also (after the wait, if any).
       :type shutdown: :pytypes:`bool <typesnumeric>`
-      :param bool force_secondary_shutdown: Causes secondaries to shutdown even if started with ``reconnect`` true (via setting the ``secondary_state`` to :py:data:`_STATE_FORCED_SHUTDOWN` instead of :py:data:`_STATE_SHUTDOWN`).
+      :param bool force_secondary_shutdown: Causes secondaries to shutdown even if started with ``reconnect`` true.
       :raises ModeError: If not the :term:`primary node` (not in :py:data:`MODE_PRIMARY`).
       :raises RuntimeError: If not yet :py:meth:`started <start()>`.
 
@@ -1115,7 +1177,7 @@ Handles genomes (individuals in the population).
       Uses :py:meth:`ActivationFunctionSet.add <activations.ActivationFunctionSet.add>`.
 
       :param str name: The name by which the function is to be known in the :ref:`configuration file <activation-function-config-label>`.
-      :param func: A function meeting the requirements of :py:func:`activations.validate_activation`.
+      :param func: A function that meets the requirements of :py:meth:`multiparameter.MultiParameterSet.add_func`.
       :type func: `function`
 
     .. index:: ! aggregation function
@@ -1126,7 +1188,7 @@ Handles genomes (individuals in the population).
       Uses :py:meth:`AggregationFunctionSet.add <aggregations.AggregationFunctionSet.add>`.
 
       :param str name: The name by which the function is to be known in the :ref:`configuration file <aggregation-function-config-label>`.
-      :param func: A function meeting the requirements of :py:func:`aggregations.validate_aggregation`.
+      :param func: A function meeting the requirements of :py:meth:`multiparameter.MultiParameterSet.add_func`.
       :type func: `function`
 
       .. versionadded:: 0.92
@@ -1575,7 +1637,19 @@ See http://www.izhikevich.org/publications/spikes.pdf.
 
   .. py:class:: IZGenome(DefaultGenome)
 
-    Contains the parse_config class method for iznn genome configuration, which returns a :py:class:`genome.DefaultGenomeConfig` instance.
+    Sets up the genome to use :py:class:`IZNodeGene` instances for node genes, and :py:class:`genes.DefaultConnectionGene` instances for
+    connection genes.
+
+    .. py:classmethod:: parse_config(param_dict)
+
+      Required interface method. Provides IZNodeGene :term:`node` and default :term:`connection` :term:`gene` specifications (from :py:mod:`genes`) and
+      uses `DefaultGenomeConfig` to do the rest of the configuration.
+
+      :param param_dict: Dictionary of parameters from configuration file.
+      :type param_dict: dict(str, str)
+      :return: Configuration object; considered opaque by rest of code, so type may vary by implementation (here, a `DefaultGenomeConfig` instance).
+      :rtype: :datamodel:`instance <index-48>`
+
 
   .. py:class:: IZNeuron(bias, a, b, c, d, inputs)
 
@@ -1734,12 +1808,81 @@ functions (such as for the :ref:`species_fitness_func <species-fitness-func-labe
     .. versionchanged:: 0.92
       Previously not functional on Python 3.X due to changes to map.
 
+.. index:: activation_function
+.. index:: aggregation_function
+
 .. py:module:: multiparameter
    :synopsis: The basis for multiparameter activation and aggregation functions.
 
 multiparameter
 --------------------
-The basis for multiparameter activation and aggregation functions.
+The basis for multiparameter :term:`activation <activation function>` and :term:`aggregation <aggregation function>` functions.
+
+  .. py:class:: EvolvedMultiParameterFunction(name, multi_param_func)
+
+    Holds, initializes, and mutates the evolved parameters for one instance of a multiparameter function.
+
+    :param str name: The name of the function.
+    :param multi_param_func: The :py:class:`MultiParameterFunction` instance for the multiparameter function.
+    :type multi_param_func: :datamodel:`instance <index-48>`
+
+  .. py:class:: MultiParameterFunction(name, which_type, user_func, evolved_param_names, **evolved_param_dicts)
+
+    Holds and initializes configuration information for one multiparameter function.
+
+    :param str name: The name of the function.
+    :param str which_type: The type of function (currently, either :term:`activation <activation function>` or :term:`aggregation <aggregation function>`).
+    :param user_func: The multiparameter function.
+    :type user_func: `function`
+    :param evolved_param_names: A list of the evolved variable names.
+    :type evolved_param_names: list(str)
+    :param dict evolved_param_dicts: The `dictionaries <dictionary>` with configuration information for each of the evolved variables.
+
+  .. py:exception:: BadFunctionError(Exception)
+
+    Base exception class for errors related to unusable or unknown activation/aggregation functions.
+
+  .. py:exception:: InvalidFunctionError(TypeError, BadFunctionError)
+
+    Exception raised if an object to be added as a function is not usable. TODO: Add examples of why.
+
+  .. py:exception:: UnknownFunctionError(LookupError, BadFunctionError)
+
+    Exception raised if an unknown function is requested by name, such as via :py:meth:`activations.ActivationFunctionSet.get()`,
+    :py:meth:`aggregations.AggregationFunctionSet.get()`, or :py:meth:`multiparameter.MultiParameterSet.get_MPF()`.
+
+  .. py:class:: MultiParameterSet(*which_types)
+
+    Holds the set of (potentially multiparameter) functions and contains methods for dealing with them.
+
+    :param str which_types: What types of functions to hold; initialized by :py:class:`genome.DefaultGenomeConfig` to ['activation', 'aggregation']. Determines the valid types for ``which_type`` parameters in the class methods.
+
+    .. py:method:: get_MPF(name, which_type)
+
+      Fetches the named :py:class:`MultiParameterFunction` :datamodel:`instance <index-48>`.
+
+      :param str name: The name of the function.
+      :param str which_type: The type of function (currently, either :term:`activation <activation function>` or :term:`aggregation <aggregation function>`).
+      :return: The named :py:class:`MultiParameterFunction` instance.
+      :rtype: :datamodel:`instance <index-48>`
+      :raises UnknownFunctionError: If the function is unknown.
+
+    .. py:method:: add_func(name, user_func, which_type, **kwargs)
+
+      Adds a new activation/aggregation function, potentially multiparameter. A multiparameter function must have entries in ``kwargs`` for each
+      of its parameter variables to be evolved. Requirements for the function include the following:
+      1. Most obviously, must be a function (including lambda).
+      2. Functions (such as built-in functions) without a `__code__` attribute cannot be multiparameter functions without a wrapper function (which will have the appropriate `__code__` attribute); this attribute is used to determine the arguments for the function.
+      3. Any function arguments except the first one must be evolved variables with corresponding entries in ``kwargs``.
+      4. Multiparameter function names cannot have parentheses, since parenthesized terms are used in constructing a particular function instance.
+
+      :param str name: The name of the function.
+      :param user_func: The function to be added.
+      :type user_func: `function`
+      :param str which_type: The type of function (currently, either :term:`activation <activation function>` or :term:`aggregation <aggregation function>`).
+      :param kwargs: The configuration information for the function's evolved variables.
+      :type kwargs: dict(str, dict(str,object))
+      :raises InvalidFunctionError: If the function does not meet the requirements specified above.
 
 .. py:module:: nn.feed_forward
    :synopsis: A straightforward feed-forward neural network NEAT implementation.
@@ -1893,6 +2036,20 @@ Implements the core evolution algorithm.
     :param initial_state: If supplied (such as by a method of the :py:class:`Checkpointer <checkpoint.Checkpointer>` class), a tuple of (``Population``, ``Species``, generation number)
     :type initial_state: None or tuple(:datamodel:`instance <index-48>`, :datamodel:`instance <index-48>`, int)
     :raises RuntimeError: If the :ref:`fitness_criterion <fitness-criterion-label>` function is invalid.
+
+    .. py:method:: add_reporter(reporter)
+
+      Adds a reporter to those that will be notified at appropriate points. Uses :py:meth:`ReporterSet.add() <reporting.ReporterSet.add()>`.
+
+      :param reporter: A reporter callable via a :py:class:`reporting.ReporterSet` instance.
+      :type reporter: :datamodel:`instance <index-48>`
+
+    .. py:method:: remove_reporter(reporter)
+
+      Removes a reporter from those that will be notified at appropriate points. Uses :py:meth:`ReporterSet.remove() <reporting.ReporterSet.remove()>`.
+
+      :param reporter: A reporter callable via a :py:class:`reporting.ReporterSet` instance.
+      :type reporter: :datamodel:`instance <index-48>`
 
     .. index:: ! no_fitness_termination
     .. index:: ! reset_on_extinction
