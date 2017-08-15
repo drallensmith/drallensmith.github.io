@@ -59,14 +59,15 @@ itself.  This section is always required, and is handled by the <a class="refere
 <span class="target" id="fitness-criterion-label"></span><ul class="simple" id="index-0">
 <li><dl class="first docutils">
 <dt><em>fitness_criterion</em></dt>
-<dd>The function used to compute the termination criterion from the set of genome fitnesses.  Allowable values are: <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">max</span></code>, and <code class="docutils literal"><span class="pre">mean</span></code></dd>
+<dd>The function used to compute the termination criterion from the set of genome fitnesses.  Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>,
+<a class="reference internal" href="module_summaries.html#math_util.median" title="math_util.median"><code class="xref py py-func docutils literal"><span class="pre">median</span></code></a>, and <a class="reference internal" href="module_summaries.html#math_util.tmean" title="math_util.tmean"><code class="xref py py-func docutils literal"><span class="pre">tmean</span></code></a>.</dd>
 </dl>
 </li>
 </ul>
 <span class="target" id="fitness-threshold-label"></span><span class="target" id="index-1"></span><ul class="simple" id="index-2">
 <li><dl class="first docutils">
 <dt><em>fitness_threshold</em></dt>
-<dd>When the fitness computed by <code class="docutils literal"><span class="pre">fitness_criterion</span></code> meets or exceeds this threshold, the evolution process will terminate, with a call to
+<dd>When the <a class="reference internal" href="glossary.html#term-fitness"><span class="xref std std-term">fitness</span></a> computed by <code class="docutils literal"><span class="pre">fitness_criterion</span></code> meets or exceeds this threshold, the evolution process will terminate, with a call to
 any registered reporting class’ <a class="reference internal" href="module_summaries.html#reporting.BaseReporter.found_solution" title="reporting.BaseReporter.found_solution"><code class="xref py py-meth docutils literal"><span class="pre">found_solution</span></code></a> method.</dd>
 </dl>
 </li>
@@ -106,7 +107,7 @@ population will be created. If <code class="docutils literal"><span class="pre">
 </ul>
 <span class="target" id="index-7"></span></div>
 <div class="section" id="defaultstagnation-section">
-<span id="index-8"></span><h2>[DefaultStagnation] section<a class="headerlink" href="#defaultstagnation-section" title="Permalink to this headline">¶</a></h2>
+<span id="stagnation-config-label"></span><span id="index-8"></span><h2>[DefaultStagnation] section<a class="headerlink" href="#defaultstagnation-section" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">DefaultStagnation</span></code> section specifies parameters for the builtin <a class="reference internal" href="module_summaries.html#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref any py py-class docutils literal"><span class="pre">DefaultStagnation</span></code></a> class.
 This section is only necessary if you specify this class as the stagnation implementation when
 creating the <a class="reference internal" href="module_summaries.html#config.Config" title="config.Config"><code class="xref any py py-class docutils literal"><span class="pre">Config</span></code></a> instance; otherwise you need to include whatever configuration (if any) is
@@ -114,8 +115,8 @@ required for your particular implementation.</p>
 <span class="target" id="species-fitness-func-label"></span><ul class="simple" id="index-9">
 <li><dl class="first docutils">
 <dt><em>species_fitness_func</em></dt>
-<dd>The function used to compute species fitness.  <strong>This defaults to ``mean``.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>, and
-<a class="reference internal" href="module_summaries.html#math_util.median" title="math_util.median"><code class="xref py py-func docutils literal"><span class="pre">median</span></code></a></dd>
+<dd>The function used to compute species <a class="reference internal" href="glossary.html#term-fitness"><span class="xref std std-term">fitness</span></a>.  <strong>This defaults to ``mean``.</strong> Allowed values are: <code class="docutils literal"><span class="pre">max</span></code>, <code class="docutils literal"><span class="pre">min</span></code>, <code class="docutils literal"><span class="pre">mean</span></code>,
+<a class="reference internal" href="module_summaries.html#math_util.median" title="math_util.median"><code class="xref py py-func docutils literal"><span class="pre">median</span></code></a>, and <a class="reference internal" href="module_summaries.html#math_util.tmean" title="math_util.tmean"><code class="xref py py-func docutils literal"><span class="pre">tmean</span></code></a>.</dd>
 </dl>
 </li>
 </ul>
@@ -164,7 +165,7 @@ required for your particular implementation.</p>
 <span id="index-16"></span><ul class="simple" id="min-species-size-label">
 <li><dl class="first docutils">
 <dt><em>min_species_size</em></dt>
-<dd>The minimum number of genomes per species after reproduction. <strong>This defaults to 2.</strong></dd>
+<dd>The minimum number of genomes per species after reproduction. <strong>This defaults to 2, which is also the minimum.</strong></dd>
 </dl>
 </li>
 </ul>

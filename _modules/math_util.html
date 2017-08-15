@@ -51,7 +51,7 @@
 
 <div class="viewcode-block" id="mean"><a class="viewcode-back" href="../module_summaries.html#math_util.mean">[docs]</a><span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
     <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">fsum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="median"><a class="viewcode-back" href="../module_summaries.html#math_util.median">[docs]</a><span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
@@ -74,10 +74,51 @@
     <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span></div>
 
+<div class="viewcode-block" id="tmean"><a class="viewcode-back" href="../module_summaries.html#math_util.tmean">[docs]</a><span class="k">def</span> <span class="nf">tmean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the trimmed mean of the input values,</span>
+<span class="sd">    with the fraction trimmed from each end being the second argument;</span>
+<span class="sd">    requires 0.0 &lt;= trim &lt;= 0.5. If ``trim`` is over 0.25, returns the</span>
+<span class="sd">    weighted mean of tmean(values, 0.25) and median2(values).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">trim</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">trim</span> <span class="o">==</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">median2</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">trim</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Trim must be in 0.0 - 0.5 range, not </span><span class="si">{0!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trim</span><span class="p">))</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">trim</span> <span class="o">&gt;</span> <span class="mf">0.25</span><span class="p">:</span> <span class="c1"># trimming more than 50% of the values does not make much sense</span>
+        <span class="n">prop_trim</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">-</span><span class="n">trim</span><span class="p">)</span><span class="o">/</span><span class="mf">0.25</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">prop_trim</span><span class="o">*</span><span class="n">tmean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span><span class="o">+</span><span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">prop_trim</span><span class="p">)</span><span class="o">*</span><span class="n">median2</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+    <span class="n">orig_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">orig_values</span> <span class="o">=</span> <span class="n">values</span>
+    <span class="n">trim_fully</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">trim</span><span class="o">*</span><span class="n">orig_len</span><span class="p">))</span>
+    <span class="n">trim_partially</span> <span class="o">=</span> <span class="n">trim</span><span class="o">*</span><span class="n">orig_len</span>
+    <span class="k">if</span> <span class="n">trim_fully</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">trim_fully</span><span class="p">:]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">trim_fully</span><span class="p">]</span>
+    <span class="n">center_values</span> <span class="o">=</span> <span class="n">values</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">center_values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">center_values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">trim_partially</span> <span class="o">&gt;</span> <span class="n">trim_fully</span><span class="p">):</span>
+        <span class="n">center_values</span> <span class="o">=</span> <span class="n">center_values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">center_values</span> <span class="o">=</span> <span class="n">center_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">curr_sum</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">fsum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">center_values</span><span class="p">))</span>
+    <span class="n">div_by</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">center_values</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">trim_partially</span> <span class="o">&gt;</span> <span class="n">trim_fully</span><span class="p">):</span>
+        <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">trim_partially</span><span class="o">-</span><span class="n">trim_fully</span><span class="p">)</span>
+        <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">trim_partially</span><span class="o">-</span><span class="n">trim_fully</span><span class="p">)</span>
+        <span class="n">div_by</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">trim_partially</span><span class="o">-</span><span class="n">trim_fully</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">curr_sum</span><span class="o">/</span><span class="n">div_by</span></div>
+
 <div class="viewcode-block" id="variance"><a class="viewcode-back" href="../module_summaries.html#math_util.variance">[docs]</a><span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
     <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">sum</span><span class="p">((</span><span class="n">v</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">fsum</span><span class="p">((</span><span class="n">v</span> <span class="o">-</span> <span class="n">m</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="stdev"><a class="viewcode-back" href="../module_summaries.html#math_util.stdev">[docs]</a><span class="k">def</span> <span class="nf">stdev</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
@@ -87,7 +128,8 @@
 <div class="viewcode-block" id="softmax"><a class="viewcode-back" href="../module_summaries.html#math_util.softmax">[docs]</a><span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the softmax of the given value set, v_i = exp(v_i) / s,</span>
-<span class="sd">    where s = sum(exp(v_0), exp(v_1), ..).&quot;&quot;&quot;</span>
+<span class="sd">    where s = sum(exp(v_0), exp(v_1), ..).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">e_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
     <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">e_values</span><span class="p">)</span>
     <span class="n">inv_s</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">s</span>
@@ -96,7 +138,7 @@
 
 <span class="c1"># Lookup table for commonly used {value} -&gt; value functions.</span>
 <span class="n">stat_functions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="nb">min</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="n">median</span><span class="p">,</span>
-                  <span class="s1">&#39;median2&#39;</span><span class="p">:</span> <span class="n">median2</span><span class="p">}</span>
+                  <span class="s1">&#39;median2&#39;</span><span class="p">:</span> <span class="n">median2</span><span class="p">,</span> <span class="s1">&#39;tmean&#39;</span><span class="p">:</span> <span class="n">tmean</span><span class="p">}</span>
 </pre></div>
 
           </div>

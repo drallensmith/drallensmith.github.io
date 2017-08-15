@@ -122,6 +122,9 @@ by <a class="reference internal" href="#genome.DefaultGenomeConfig.add_activatio
 
 </dd></dl>
 
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.92-multiparam_funcs: </span>Most functionality of <a class="reference internal" href="#activations.ActivationFunctionSet" title="activations.ActivationFunctionSet"><code class="xref py py-class docutils literal"><span class="pre">ActivationFunctionSet</span></code></a> moved to <a class="reference internal" href="#module-multiparameter" title="multiparameter: The basis for multiparameter activation and aggregation functions."><code class="xref py py-mod docutils literal"><span class="pre">multiparameter</span></code></a>.</p>
+</div>
 </div></blockquote>
 <span class="target" id="module-aggregations"><span id="index-1"></span></span></div>
 <div class="section" id="aggregations">
@@ -397,6 +400,9 @@ and/or its interface in <a class="reference internal" href="#module-genome" titl
 
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 0.92: </span>Moved from <a class="reference internal" href="#module-genome" title="genome: Handles genomes (individuals in the population)."><code class="xref py py-mod docutils literal"><span class="pre">genome</span></code></a> and expanded to match <a class="reference internal" href="#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref any py py-mod docutils literal"><span class="pre">activations</span></code></a> (plus the <code class="docutils literal"><span class="pre">maxabs</span></code>, <code class="docutils literal"><span class="pre">median</span></code>, and <code class="docutils literal"><span class="pre">mean</span></code> functions added).</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.92-multiparam_funcs: </span>Most functionality of <a class="reference internal" href="#aggregations.AggregationFunctionSet" title="aggregations.AggregationFunctionSet"><code class="xref py py-class docutils literal"><span class="pre">AggregationFunctionSet</span></code></a> moved to <a class="reference internal" href="#module-multiparameter" title="multiparameter: The basis for multiparameter activation and aggregation functions."><code class="xref py py-mod docutils literal"><span class="pre">multiparameter</span></code></a>.</p>
 </div>
 </div></blockquote>
 <span class="target" id="module-attributes"></span></div>
@@ -678,7 +684,7 @@ due to its inherent short-sightedness), allowing the genomes to control the dist
 <dt id="attributes.FuncAttribute">
 <em class="property">class </em><code class="descclassname">attributes.</code><code class="descname">FuncAttribute</code><span class="sig-paren">(</span><em>BaseAttribute</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/attributes.html#FuncAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#attributes.FuncAttribute" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
-<div><p>Handle attributes that may be simple strings or may be functions needing <a class="reference internal" href="#module-multiparameter" title="multiparameter: The basis for multiparameter activation and aggregation functions."><code class="xref py py-mod docutils literal"><span class="pre">multiparameter</span></code></a> handling.</p>
+<div><p>Handle attributes that may be simple strings or may be functions needing <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> handling.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
 </div>
@@ -891,7 +897,7 @@ a <a class="reference internal" href="#population.Population" title="population.
 <dl class="method">
 <dt id="config.ConfigParameter.__repr__">
 <code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/config.html#ConfigParameter.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#config.ConfigParameter.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a representation of the class suitable for use in code for initialization.</p>
+<dd><p>Returns a representation of the class suitable for use in code for initialization.g</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2806,10 +2812,15 @@ functions (such as for the <a class="reference internal" href="config_file.html#
 <div><span class="target" id="index-125"></span><span class="target" id="index-126"></span><dl class="data">
 <dt id="math_util.stat_functions">
 <code class="descclassname">math_util.</code><code class="descname">stat_functions</code><a class="headerlink" href="#math_util.stat_functions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lookup table for commonly used <code class="docutils literal"><span class="pre">{value}</span> <span class="pre">-&gt;</span> <span class="pre">value</span></code> functions, namely <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#max" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">max</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#min" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">min</span></code></a>, <a class="reference internal" href="#math_util.mean" title="math_util.mean"><code class="xref any py py-func docutils literal"><span class="pre">mean</span></code></a>, <a class="reference internal" href="#math_util.median" title="math_util.median"><code class="xref any py py-func docutils literal"><span class="pre">median</span></code></a>, and <a class="reference internal" href="#math_util.median2" title="math_util.median2"><code class="xref any py py-func docutils literal"><span class="pre">median2</span></code></a>.
-The <a class="reference internal" href="config_file.html#species-fitness-func-label"><span class="std std-ref">species_fitness_func</span></a> (used for <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">stagnation.DefaultStagnation</span></code></a>) is required to be one of these.</p>
+<dd><p>Lookup table for commonly used <code class="docutils literal"><span class="pre">{value}</span> <span class="pre">-&gt;</span> <span class="pre">value</span></code> functions, namely <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#max" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">max</span></code></a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#min" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">min</span></code></a>, <a class="reference internal" href="#math_util.mean" title="math_util.mean"><code class="xref any py py-func docutils literal"><span class="pre">mean</span></code></a>, <a class="reference internal" href="#math_util.median" title="math_util.median"><code class="xref any py py-func docutils literal"><span class="pre">median</span></code></a>, <a class="reference internal" href="#math_util.median2" title="math_util.median2"><code class="xref any py py-func docutils literal"><span class="pre">median2</span></code></a>, and <a class="reference internal" href="#math_util.tmean" title="math_util.tmean"><code class="xref any py py-func docutils literal"><span class="pre">tmean</span></code></a>.
+The <a class="reference internal" href="config_file.html#species-fitness-func-label"><span class="std std-ref">species_fitness_func</span></a> (used for <a class="reference internal" href="#stagnation.DefaultStagnation" title="stagnation.DefaultStagnation"><code class="xref py py-class docutils literal"><span class="pre">stagnation.DefaultStagnation</span></code></a>) is required to be one of these, as
+is the <a class="reference internal" href="config_file.html#fitness-criterion-label"><span class="std std-ref">fitness_criterion</span></a> used for determining termination based on <a class="reference internal" href="glossary.html#term-fitness"><span class="xref std std-term">fitness</span></a> (if
+<a class="reference internal" href="config_file.html#no-fitness-termination-label"><span class="std std-ref">no_fitness_termination</span></a> is not set).</p>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 0.92: </span><a class="reference internal" href="#math_util.median2" title="math_util.median2"><code class="xref any py py-func docutils literal"><span class="pre">median2</span></code></a> added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.92-multiparam_funcs: </span><a class="reference internal" href="#math_util.tmean" title="math_util.tmean"><code class="xref any py py-func docutils literal"><span class="pre">tmean</span></code></a> added.</p>
 </div>
 </dd></dl>
 
@@ -2868,6 +2879,34 @@ The <a class="reference internal" href="config_file.html#species-fitness-func-la
 <div class="versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="math_util.tmean">
+<code class="descclassname">math_util.</code><code class="descname">tmean</code><span class="sig-paren">(</span><em>values</em>, <em>trim=0.25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/math_util.html#tmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#math_util.tmean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the trimmed mean of the input values, with the fraction trimmed from each end being the second argument;
+requires 0.0 &lt;= trim &lt;= 0.5. If <code class="docutils literal"><span class="pre">trim</span></code> is over 0.25, returns the weighted mean of tmean(values, 0.25) and median2(values).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>values</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>) or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#set" title="(in Python v3.5)"><em>set</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>) or </em><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a><em>)</em>) – Numbers to take the trimmed mean of.</li>
+<li><strong>trim</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Fraction to trim from each end, if &lt;= 0.25 (must have 0.0 &lt;= trim &lt;= 0.5)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The trimmed mean.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If <code class="docutils literal"><span class="pre">trim</span></code> is outside of the range 0.0-0.5, inclusive.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -2932,12 +2971,12 @@ The <a class="reference internal" href="config_file.html#species-fitness-func-la
 <span class="target" id="index-127"></span><span class="target" id="module-multiparameter"><span id="index-128"></span></span></div>
 <div class="section" id="multiparameter">
 <h2>multiparameter<a class="headerlink" href="#multiparameter" title="Permalink to this headline">¶</a></h2>
-<p>The basis for multiparameter <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation</span></a> and <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation</span></a> functions.</p>
+<p>The basis for <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation</span></a> and <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation</span></a> functions.</p>
 <blockquote>
 <div><dl class="class">
 <dt id="multiparameter.EvolvedMultiParameterFunction">
 <em class="property">class </em><code class="descclassname">multiparameter.</code><code class="descname">EvolvedMultiParameterFunction</code><span class="sig-paren">(</span><em>name</em>, <em>multi_param_func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/multiparameter.html#EvolvedMultiParameterFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multiparameter.EvolvedMultiParameterFunction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Holds, initializes, and mutates the evolved parameters for one instance of a multiparameter function.</p>
+<dd><p>Holds, initializes, and mutates the evolved parameters for one instance of a <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2955,7 +2994,7 @@ The <a class="reference internal" href="config_file.html#species-fitness-func-la
 <dl class="class">
 <dt id="multiparameter.MultiParameterFunction">
 <em class="property">class </em><code class="descclassname">multiparameter.</code><code class="descname">MultiParameterFunction</code><span class="sig-paren">(</span><em>name</em>, <em>which_type</em>, <em>user_func</em>, <em>evolved_param_names</em>, <em>**evolved_param_dicts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/multiparameter.html#MultiParameterFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multiparameter.MultiParameterFunction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Holds and initializes configuration information for one multiparameter function.</p>
+<dd><p>Holds and initializes configuration information for one <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2995,7 +3034,7 @@ The <a class="reference internal" href="config_file.html#species-fitness-func-la
 <dl class="class">
 <dt id="multiparameter.MultiParameterSet">
 <em class="property">class </em><code class="descclassname">multiparameter.</code><code class="descname">MultiParameterSet</code><span class="sig-paren">(</span><em>*which_types</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/multiparameter.html#MultiParameterSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#multiparameter.MultiParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Holds the set of (potentially multiparameter) functions and contains methods for dealing with them.</p>
+<dd><p>Holds the set of (potentially <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a>) functions and contains methods for dealing with them.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3349,7 +3388,7 @@ or the configuration object.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If <code class="docutils literal"><span class="pre">None</span></code> for n but <a class="reference internal" href="config_file.html#no-fitness-termination-label"><span class="std std-ref">no_fitness_termination</span></a> is <code class="docutils literal"><span class="pre">True</span></code>.</li>
-<li><a class="reference internal" href="#population.CompleteExtinctionException" title="population.CompleteExtinctionException"><strong>CompleteExtinctionException</strong></a> – If all species go extinct due to <a class="reference internal" href="#module-stagnation" title="stagnation: Keeps track of whether species are making progress and helps remove ones that are not (for a configurable number of generations)."><code class="xref any py py-mod docutils literal"><span class="pre">stagnation</span></code></a> but <a class="reference internal" href="config_file.html#reset-on-extinction-label"><span class="std std-ref">reset_on_extinction</span></a> is <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><a class="reference internal" href="#population.CompleteExtinctionException" title="population.CompleteExtinctionException"><strong>CompleteExtinctionException</strong></a> – If all species go extinct due to <a class="reference internal" href="glossary.html#term-stagnation"><span class="xref std std-term">stagnation</span></a> but <a class="reference internal" href="config_file.html#reset-on-extinction-label"><span class="std std-ref">reset_on_extinction</span></a> is <code class="docutils literal"><span class="pre">False</span></code>.</li>
 </ul>
 </td>
 </tr>

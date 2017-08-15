@@ -46,136 +46,220 @@
 <p id="index-0">Note that some of these <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">functions</span></a> are scaled differently from the canonical
 versions you may be familiar with.  The intention of the scaling is to place
 more of the functions’ “interesting” behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>.
-Some of these are more intended for CPPNs (e.g., for HyperNEAT) than for “direct” problem-solving;
-these include expanded_log, sin, and skewed_log_plus.</p>
-<p>The implementation of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
-<div class="section" id="abs">
-<h2>abs<a class="headerlink" href="#abs" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-abs.png"><img alt="absolute value function" src="_images/activation-abs.png" style="width: 400.0px; height: 400.0px;" /></a>
+Some of these are more intended for <a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a>) than for “direct” problem-solving,
+as noted below.</p>
+<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:
+====== =========================================
+Old        New
+====== =========================================
+abs         multiparam_relu, multiparam_relu_softplus, or weighted_lu
+clamped  clamped_tanh_step
+gauss     hat_gauss
+hat         hat_gauss
+identity   multiparam_relu, multiparam_relu_softplus, or weighted_lu
+log         scaled_expanded_log, if for a CPPN
+relu        multiparam_relu, multiparam_relu_softplus, or weighted_lu
+sigmoid  multiparam_sigmoid
+softplus  multiparam_relu_softplus
+tanh       clamped_tanh_step
+====== =========================================</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
 </div>
-</div>
+<p>The implementations of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
+<div class="section" id="general-use-activation-functions-single-parameter">
+<h2>General-use activation functions (single-parameter)<a class="headerlink" href="#general-use-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="clamped">
-<h2>clamped<a class="headerlink" href="#clamped" title="Permalink to this headline">¶</a></h2>
+<h3>clamped<a class="headerlink" href="#clamped" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-clamped.png"><img alt="clamped linear function" src="_images/activation-clamped.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
-<div class="section" id="clamped-tanh-step">
-<span id="clamped-tanh-step-label"></span><h2>clamped_tanh_step<a class="headerlink" href="#clamped-tanh-step" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="log1p">
+<h3>log1p<a class="headerlink" href="#log1p" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-clamped_tanh_step.png"><img alt="Weighted combination of clamped, :ref:`tanh &lt;tanh-label&gt;`, and step functions." src="_images/activation-clamped_tanh_step.png" style="width: 1596.0px; height: 348.0px;" /></a>
-</div>
-</div>
-<div class="section" id="cube">
-<h2>cube<a class="headerlink" href="#cube" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-cube.png"><img alt="cubic function" src="_images/activation-cube.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="exp">
-<h2>exp<a class="headerlink" href="#exp" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-exp.png"><img alt="exponential function" src="_images/activation-exp.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="expanded-log">
-<h2>expanded_log<a class="headerlink" href="#expanded-log" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="gauss">
-<h2>gauss<a class="headerlink" href="#gauss" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-gauss.png"><img alt="gaussian function" src="_images/activation-gauss.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="hat">
-<h2>hat<a class="headerlink" href="#hat" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-hat.png"><img alt="hat function" src="_images/activation-hat.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="identity-label">
-<span id="identity"></span><h2>identity<a class="headerlink" href="#identity-label" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-identity.png"><img alt="identity function" src="_images/activation-identity.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="inv">
-<h2>inv<a class="headerlink" href="#inv" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-inv.png"><img alt="inverse function" src="_images/activation-inv.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="log">
-<h2>log<a class="headerlink" href="#log" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-log.png"><img alt="log function" src="_images/activation-log.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="log-plus">
-<h2>log_plus<a class="headerlink" href="#log-plus" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-log_plus.png"><img alt="log(x+1) function with alterations for negative numbers" src="_images/activation-log_plus.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="multiparam-relu">
-<span id="multiparam-relu-description-label"></span><h2>multiparam_relu<a class="headerlink" href="#multiparam-relu" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-multiparam_relu.png"><img alt="max(x, a*x), where a is an evolved parameter with a range from -1 to 1, inclusive." src="_images/activation-multiparam_relu.png" style="width: 1596.0px; height: 348.0px;" /></a>
-</div>
-</div>
-<div class="section" id="multiparam-sigmoid">
-<span id="multiparam-sigmoid-label"></span><h2>multiparam_sigmoid<a class="headerlink" href="#multiparam-sigmoid" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-multiparam_sigmoid.png"><img alt="A version of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` rescaled to match :ref:`sigmoid &lt;sigmoid-label&gt;` instead of :ref:`tanh &lt;tanh-label&gt;`." src="_images/activation-multiparam_sigmoid.png" style="width: 1596.0px; height: 348.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-log1p.png"><img alt="log(x+1) function with alterations for negative numbers" src="_images/activation-log1p.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
 <div class="section" id="relu">
-<h2>relu<a class="headerlink" href="#relu" title="Permalink to this headline">¶</a></h2>
+<h3>relu<a class="headerlink" href="#relu" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-relu.png"><img alt="rectified linear function (max(x,0))" src="_images/activation-relu.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
 <div class="section" id="sigmoid">
-<span id="sigmoid-label"></span><h2>sigmoid<a class="headerlink" href="#sigmoid" title="Permalink to this headline">¶</a></h2>
+<span id="sigmoid-label"></span><h3>sigmoid<a class="headerlink" href="#sigmoid" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-sigmoid.png"><img alt="sigmoid function" src="_images/activation-sigmoid.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
-<div class="section" id="sin">
-<h2>sin<a class="headerlink" href="#sin" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-sin.png"><img alt="sine function" src="_images/activation-sin.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="skewed-log-plus">
-<h2>skewed_log_plus<a class="headerlink" href="#skewed-log-plus" title="Permalink to this headline">¶</a></h2>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-skewed_log_plus.png"><img alt="shifted log-plus function" src="_images/activation-skewed_log_plus.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
 <div class="section" id="softplus">
-<h2>softplus<a class="headerlink" href="#softplus" title="Permalink to this headline">¶</a></h2>
+<h3>softplus<a class="headerlink" href="#softplus" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-softplus.png"><img alt="soft-plus function (effectively a version of relu with a curve around 0)" src="_images/activation-softplus.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="step">
+<h3>step<a class="headerlink" href="#step" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-step.png"><img alt="step function: -1 below 0, 0 at exactly 0, 1 above 0" src="_images/activation-step.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="tanh">
+<span id="tanh-label"></span><h3>tanh<a class="headerlink" href="#tanh" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-tanh.png"><img alt="hyperbolic tangent function" src="_images/activation-tanh.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="general-use-activation-functions-multiparameter">
+<h2>General-use activation functions (multiparameter)<a class="headerlink" href="#general-use-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="clamped-tanh-step">
+<span id="clamped-tanh-step-label"></span><h3>clamped_tanh_step<a class="headerlink" href="#clamped-tanh-step" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-clamped_tanh_step.png"><img alt="Weighted combination of clamped, :ref:`tanh &lt;tanh-label&gt;`, and step functions." src="_images/activation-clamped_tanh_step.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-elu">
+<h3>multiparam_elu<a class="headerlink" href="#multiparam-elu" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_elu.png"><img alt="Variable-scaling version of the exponential linear function (ELU)" src="_images/activation-multiparam_elu.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_elu.png"><img alt="Variable-scaling version of the exponential linear function (ELU)" src="_images/activation-swap-multiparam_elu.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-relu">
+<span id="multiparam-relu-description-label"></span><h3>multiparam_relu<a class="headerlink" href="#multiparam-relu" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_relu.png"><img alt="max(x, a*x), where a is an evolved parameter with a range from -1 to 1, inclusive. Acts like a weighted combination of abs, relu, and identity." src="_images/activation-multiparam_relu.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-relu-softplus">
+<h3>multiparam_relu_softplus<a class="headerlink" href="#multiparam-relu-softplus" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_relu_softplus.png"><img alt="A weighted combination of softplus, relu, abs, and identity." src="_images/activation-multiparam_relu_softplus.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_relu_softplus.png"><img alt="A weighted combination of softplus, relu, abs, and identity." src="_images/activation-swap-multiparam_relu_softplus.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-sigmoid">
+<span id="multiparam-sigmoid-label"></span><h3>multiparam_sigmoid<a class="headerlink" href="#multiparam-sigmoid" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_sigmoid.png"><img alt="A version of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` rescaled to match :ref:`sigmoid &lt;sigmoid-label&gt;` instead of :ref:`tanh &lt;tanh-label&gt;`." src="_images/activation-multiparam_sigmoid.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-tanh-log1p">
+<h3>multiparam_tanh_log1p<a class="headerlink" href="#multiparam-tanh-log1p" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_tanh_log1p.png"><img alt="A weighted combination of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` and scaled_log1p." src="_images/activation-multiparam_tanh_log1p.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_tanh_log1p.png"><img alt="A weighted combination of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` and scaled_log1p." src="_images/activation-swap-multiparam_tanh_log1p.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="scaled-log1p">
+<h3>scaled_log1p<a class="headerlink" href="#scaled-log1p" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-scaled_log1p.png"><img alt="A version of log1p with variable scaling (with partially-counterbalancing weights inside and outside the log1p function)." src="_images/activation-scaled_log1p.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="weighted-lu">
+<h3>weighted_lu<a class="headerlink" href="#weighted-lu" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-weighted_lu.png"><img alt="A weighted combination of multiparam_relu and multiparam_elu." src="_images/activation-weighted_lu.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-weighted_lu.png"><img alt="A weighted combination of multiparam_relu and multiparam_elu." src="_images/activation-swap-weighted_lu.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="cppn-intended-activation-functions-single-parameter">
+<h2>CPPN-intended activation functions (single-parameter)<a class="headerlink" href="#cppn-intended-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="abs">
+<h3>abs<a class="headerlink" href="#abs" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-abs.png"><img alt="absolute value function" src="_images/activation-abs.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="cube">
+<h3>cube<a class="headerlink" href="#cube" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-cube.png"><img alt="cubic function" src="_images/activation-cube.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="exp">
+<h3>exp<a class="headerlink" href="#exp" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-exp.png"><img alt="exponential function" src="_images/activation-exp.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="expanded-log">
+<h3>expanded_log<a class="headerlink" href="#expanded-log" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="gauss">
+<h3>gauss<a class="headerlink" href="#gauss" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-gauss.png"><img alt="gaussian function" src="_images/activation-gauss.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="hat">
+<h3>hat<a class="headerlink" href="#hat" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-hat.png"><img alt="hat function" src="_images/activation-hat.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="identity-label">
+<span id="identity"></span><h3>identity<a class="headerlink" href="#identity-label" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-identity.png"><img alt="identity function" src="_images/activation-identity.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="inv">
+<h3>inv<a class="headerlink" href="#inv" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-inv.png"><img alt="inverse (1/x) function" src="_images/activation-inv.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="log">
+<h3>log<a class="headerlink" href="#log" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-log.png"><img alt="log function" src="_images/activation-log.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="sin">
+<h3>sin<a class="headerlink" href="#sin" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-sin.png"><img alt="sine function" src="_images/activation-sin.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="skewed-log1p">
+<h3>skewed_log1p<a class="headerlink" href="#skewed-log1p" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-skewed_log1p.png"><img alt="shifted log-plus function" src="_images/activation-skewed_log1p.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 <div class="section" id="square">
-<h2>square<a class="headerlink" href="#square" title="Permalink to this headline">¶</a></h2>
+<h3>square<a class="headerlink" href="#square" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-square.png"><img alt="square function" src="_images/activation-square.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
-<div class="section" id="step">
-<h2>step<a class="headerlink" href="#step" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="cppn-intended-activation-functions-multi-parameter">
+<h2>CPPN-intended activation functions (multi-parameter)<a class="headerlink" href="#cppn-intended-activation-functions-multi-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hat-gauss">
+<h3>hat_gauss<a class="headerlink" href="#hat-gauss" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-step.png"><img alt="step function: -1 below 0, 0.5 at exactly 0, 1 above 0" src="_images/activation-step.png" style="width: 400.0px; height: 400.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-hat_gauss.png"><img alt="Weighted average of gauss and hat functions." src="_images/activation-hat_gauss.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
-<div class="section" id="tanh">
-<span id="tanh-label"></span><h2>tanh<a class="headerlink" href="#tanh" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scaled-expanded-log">
+<h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-tanh.png"><img alt="hyperbolic tangent function" src="_images/activation-tanh.png" style="width: 400.0px; height: 400.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-scaled_expanded_log.png"><img alt="A version of expanded_log with variable scaling (with partially-counterbalancing weights both inside and outside the expanded_log function)." src="_images/activation-scaled_expanded_log.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
 </div>
 </div>
 </div>
@@ -189,9 +273,29 @@ these include expanded_log, sin, and skewed_log_plus.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Overview of builtin activation functions</a><ul>
-<li><a class="reference internal" href="#abs">abs</a></li>
+<li><a class="reference internal" href="#general-use-activation-functions-single-parameter">General-use activation functions (single-parameter)</a><ul>
 <li><a class="reference internal" href="#clamped">clamped</a></li>
+<li><a class="reference internal" href="#log1p">log1p</a></li>
+<li><a class="reference internal" href="#relu">relu</a></li>
+<li><a class="reference internal" href="#sigmoid">sigmoid</a></li>
+<li><a class="reference internal" href="#softplus">softplus</a></li>
+<li><a class="reference internal" href="#step">step</a></li>
+<li><a class="reference internal" href="#tanh">tanh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#general-use-activation-functions-multiparameter">General-use activation functions (multiparameter)</a><ul>
 <li><a class="reference internal" href="#clamped-tanh-step">clamped_tanh_step</a></li>
+<li><a class="reference internal" href="#multiparam-elu">multiparam_elu</a></li>
+<li><a class="reference internal" href="#multiparam-relu">multiparam_relu</a></li>
+<li><a class="reference internal" href="#multiparam-relu-softplus">multiparam_relu_softplus</a></li>
+<li><a class="reference internal" href="#multiparam-sigmoid">multiparam_sigmoid</a></li>
+<li><a class="reference internal" href="#multiparam-tanh-log1p">multiparam_tanh_log1p</a></li>
+<li><a class="reference internal" href="#scaled-log1p">scaled_log1p</a></li>
+<li><a class="reference internal" href="#weighted-lu">weighted_lu</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cppn-intended-activation-functions-single-parameter">CPPN-intended activation functions (single-parameter)</a><ul>
+<li><a class="reference internal" href="#abs">abs</a></li>
 <li><a class="reference internal" href="#cube">cube</a></li>
 <li><a class="reference internal" href="#exp">exp</a></li>
 <li><a class="reference internal" href="#expanded-log">expanded_log</a></li>
@@ -200,17 +304,16 @@ these include expanded_log, sin, and skewed_log_plus.</p>
 <li><a class="reference internal" href="#identity-label">identity</a></li>
 <li><a class="reference internal" href="#inv">inv</a></li>
 <li><a class="reference internal" href="#log">log</a></li>
-<li><a class="reference internal" href="#log-plus">log_plus</a></li>
-<li><a class="reference internal" href="#multiparam-relu">multiparam_relu</a></li>
-<li><a class="reference internal" href="#multiparam-sigmoid">multiparam_sigmoid</a></li>
-<li><a class="reference internal" href="#relu">relu</a></li>
-<li><a class="reference internal" href="#sigmoid">sigmoid</a></li>
 <li><a class="reference internal" href="#sin">sin</a></li>
-<li><a class="reference internal" href="#skewed-log-plus">skewed_log_plus</a></li>
-<li><a class="reference internal" href="#softplus">softplus</a></li>
+<li><a class="reference internal" href="#skewed-log1p">skewed_log1p</a></li>
 <li><a class="reference internal" href="#square">square</a></li>
-<li><a class="reference internal" href="#step">step</a></li>
-<li><a class="reference internal" href="#tanh">tanh</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cppn-intended-activation-functions-multi-parameter">CPPN-intended activation functions (multi-parameter)</a><ul>
+<li><a class="reference internal" href="#hat-gauss">hat_gauss</a></li>
+<li><a class="reference internal" href="#scaled-expanded-log">scaled_expanded_log</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
