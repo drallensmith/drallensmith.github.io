@@ -195,7 +195,7 @@ exp
 expanded_log
 ^^^^^^^^^^^^^^
 
-.. figure: activation-expanded_log.png
+.. figure:: activation-expanded_log.png
     :scale: 100 %
     :alt: Expanded-range log function.
 
