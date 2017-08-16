@@ -533,7 +533,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">em</span> <span class="o">=</span> <span class="n">_ExtendedManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">authkey</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_shared_instances</span><span class="p">()</span>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="DistributedEvaluator._check_exception"><a class="viewcode-back" href="../module_summaries.html#distributed.DistributedEvaluator._check_exception">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_check_exception</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
         <span class="n">string</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;timed&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;timeout&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">):</span>
@@ -544,7 +544,7 @@
               <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;pipeerror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;authenticationerror&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span>
               <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;refused&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;file descriptor&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_UNCERTAIN</span>
-        <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_BAD</span>
+        <span class="k">return</span> <span class="n">_EXCEPTION_TYPE_BAD</span></div>
 
     <span class="k">def</span> <span class="nf">_secondary_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reconnect_max_time</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">60</span><span class="p">)):</span>
         <span class="sd">&quot;&quot;&quot;The worker loop for the secondary nodes.&quot;&quot;&quot;</span>
