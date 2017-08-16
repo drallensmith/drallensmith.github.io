@@ -45,7 +45,7 @@
 <h1>Module summaries<a class="headerlink" href="#module-summaries" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-activations"><span id="index-0"></span></span><div class="section" id="activations">
 <h2>activations<a class="headerlink" href="#activations" title="Permalink to this headline">¶</a></h2>
-<p>Has the built-in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a>, code for using them, and code for adding new user-defined ones.</p>
+<p>Has the built-in <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation functions</span></a>, code for using them, and code for adding new user-defined ones. For the built-in activation functions, see <a class="reference internal" href="activation.html#activation-functions-label"><span class="std std-ref">Overview of builtin activation functions</span></a>.</p>
 <blockquote>
 <div><dl class="exception">
 <dt id="activations.InvalidActivationFunction">
@@ -269,6 +269,181 @@ the numbers input to these functions, even as 0s.</p>
 </table>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="aggregations.tmean_aggregation">
+<code class="descclassname">aggregations.</code><code class="descname">tmean_aggregation</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#tmean_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.tmean_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="#math_util.tmean" title="math_util.tmean"><code class="xref py py-func docutils literal"><span class="pre">trimmed</span> <span class="pre">mean</span></code></a>, with 25% of the values being trimmed off each end.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or tuple(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or set(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>)) – The numbers to find the trimmed mean of; takes any <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable">iterable</a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The trimmed arithmetic mean.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a></td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="aggregations.maxabs_mean_aggregation">
+<code class="descclassname">aggregations.</code><code class="descname">maxabs_mean_aggregation</code><span class="sig-paren">(</span><em>x</em>, <em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#maxabs_mean_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.maxabs_mean_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> aggregation function; the weighted mean of the <a class="reference internal" href="#aggregations.maxabs_aggregation" title="aggregations.maxabs_aggregation"><code class="xref py py-func docutils literal"><span class="pre">maxabs_aggregation()</span></code></a> and <a class="reference internal" href="#aggregations.mean_aggregation" title="aggregations.mean_aggregation"><code class="xref py py-func docutils literal"><span class="pre">mean_aggregation()</span></code></a>, with
+the weighing determined by the evolved <code class="docutils literal"><span class="pre">a</span></code> parameter. If a is 1.0, then maxabs is used; if a is 0.0, then mean is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or tuple(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or set(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>)) – The numbers to aggregate; takes any <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable">iterable</a>.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Determines the relative weights of maxabs and mean; must be between 0.0 and 1.0, inclusive.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The weighted mean of the maxabs and mean aggregation functions.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If a is outside of 0.0-1.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="aggregations.multiparam_tmean_aggregation">
+<code class="descclassname">aggregations.</code><code class="descname">multiparam_tmean_aggregation</code><span class="sig-paren">(</span><em>x</em>, <em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#multiparam_tmean_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.multiparam_tmean_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> aggregation function; in this case, the evolved <code class="docutils literal"><span class="pre">a</span></code> term is used for the <code class="docutils literal"><span class="pre">trim</span></code> parameter of <a class="reference internal" href="#math_util.tmean" title="math_util.tmean"><code class="xref py py-func docutils literal"><span class="pre">tmean</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or tuple(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or set(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>)) – The numbers to aggregate; takes any <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable">iterable</a>.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Determines the trim parameter used; must be between 0.0 and 0.5, inclusive.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The trimmed mean of the data.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If a is outside of 0.0-0.5.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="aggregations.maxabs_tmean_aggregation">
+<code class="descclassname">aggregations.</code><code class="descname">maxabs_tmean_aggregation</code><span class="sig-paren">(</span><em>x</em>, <em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#maxabs_tmean_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.maxabs_tmean_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> aggregation function; if the evolved <code class="docutils literal"><span class="pre">a</span></code> term is 0.0 or above, <a class="reference internal" href="#aggregations.maxabs_mean_aggregation" title="aggregations.maxabs_mean_aggregation"><code class="xref py py-func docutils literal"><span class="pre">maxabs_mean_aggregation()</span></code></a> is called; if a is below
+0.0, then <a class="reference internal" href="#aggregations.multiparam_tmean_aggregation" title="aggregations.multiparam_tmean_aggregation"><code class="xref py py-func docutils literal"><span class="pre">multiparam_tmean_aggregation()</span></code></a> is called, with a = abs(a/2). <em>Recommended for ``pooling`` use by neural networks.</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or tuple(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or set(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>)) – The numbers to aggregate; takes any <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable">iterable</a>.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Determines the balance between maxabs, mean, tmean, and median; must be between -1.0 and 1.0, inclusive.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The combination of the input according to the <code class="docutils literal"><span class="pre">a</span></code> parameter.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If a is outside of -1.0-1.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="aggregations.sum_product_aggregation">
+<code class="descclassname">aggregations.</code><code class="descname">sum_product_aggregation</code><span class="sig-paren">(</span><em>x</em>, <em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#sum_product_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.sum_product_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> aggregation function; the evolved <code class="docutils literal"><span class="pre">a</span></code> term determines the weights in the weighted mean of the
+<a class="reference internal" href="#aggregations.sum_aggregation" title="aggregations.sum_aggregation"><code class="xref py py-func docutils literal"><span class="pre">sum_aggregation()</span></code></a> and <a class="reference internal" href="#aggregations.product_aggregation" title="aggregations.product_aggregation"><code class="xref py py-func docutils literal"><span class="pre">product_aggregation()</span></code></a> functions. <em>Recommended as a more flexible replacement for both sum and product.</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or tuple(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or set(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>)) – The numbers to aggregate; takes any <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable">iterable</a>.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Determines the balance between sum and product; must be between 0.0 and 1.0, inclusive.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The combination of the input according to the <code class="docutils literal"><span class="pre">a</span></code> parameter.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If a is outside of 0.0-1.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="aggregations.max_median_min_aggregation">
+<code class="descclassname">aggregations.</code><code class="descname">max_median_min_aggregation</code><span class="sig-paren">(</span><em>x</em>, <em>a</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aggregations.html#max_median_min_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aggregations.max_median_min_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> aggregation function; the evolved <code class="docutils literal"><span class="pre">a</span></code> term determines the weights in the weighted mean of the max, median, and min
+aggregation functions. While meant primarily for <a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a>, could be of use in other circumstances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (list(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or tuple(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>) or set(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric">float</a>)) – The numbers to aggregate; takes any <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-iterable">iterable</a>.</li>
+<li><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Determines the balance between max, median, and min; must be between -1.0 and 1.0, inclusive.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The combination of the input according to the <code class="docutils literal"><span class="pre">a</span></code> parameter.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If a is outside of -1.0-1.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
 </div>
 </dd></dl>
 

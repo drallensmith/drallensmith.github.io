@@ -9,25 +9,25 @@ Note that some of these :term:`functions <activation function>` are scaled diffe
 versions you may be familiar with.  The intention of the scaling is to place
 more of the functions' "interesting" behavior in the region :math:`\left[-1, 1\right] \times \left[-1, 1\right]`.
 Some of these are more intended for :term:`CPPNs <CPPN>` (e.g., for :term:`HyperNEAT`) than for "direct" problem-solving,
-as noted below.
+as noted below; however, even those meant mainly for CPPNs can be of use elsewhere - `abs` and ``hat`` can both solve xor in one generation,
+for instance (although note for the former that it is included in several others such as ``multiparam_relu``).
 
 The :term:`multiparameter` functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:
-====== =========================================
-Old        New
-====== =========================================
-abs         multiparam_relu, multiparam_relu_softplus, or weighted_lu
-clamped  clamped_tanh_step
-gauss     hat_gauss
-hat         hat_gauss
-identity   multiparam_relu, multiparam_relu_softplus, or weighted_lu
-log         scaled_expanded_log, if for a CPPN
-relu        multiparam_relu, multiparam_relu_softplus, or weighted_lu
-sigmoid  multiparam_sigmoid
-softplus  multiparam_relu_softplus
-tanh       clamped_tanh_step
-====== =========================================
 
-.. versionadded:: 0.92-multiparam_funcs
+======== =======================================================
+Old            New
+======== =======================================================
+abs             multiparam_relu, multiparam_relu_softplus, or weighted_lu
+clamped      clamped_tanh_step
+gauss         hat_gauss
+hat             hat_gauss
+identity       multiparam_relu, multiparam_relu_softplus, or weighted_lu
+log             scaled_expanded_log, if for a CPPN
+relu            multiparam_relu, multiparam_relu_softplus, or weighted_lu
+sigmoid      multiparam_sigmoid
+softplus      multiparam_relu_softplus
+tanh           clamped_tanh_step
+======== =======================================================
 
 The implementations of these functions can be found in the :py:mod:`activations` module.
 

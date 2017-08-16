@@ -47,25 +47,52 @@
 versions you may be familiar with.  The intention of the scaling is to place
 more of the functions’ “interesting” behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>.
 Some of these are more intended for <a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a>) than for “direct” problem-solving,
-as noted below.</p>
-<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:
-====== =========================================
-Old        New
-====== =========================================
-abs         multiparam_relu, multiparam_relu_softplus, or weighted_lu
-clamped  clamped_tanh_step
-gauss     hat_gauss
-hat         hat_gauss
-identity   multiparam_relu, multiparam_relu_softplus, or weighted_lu
-log         scaled_expanded_log, if for a CPPN
-relu        multiparam_relu, multiparam_relu_softplus, or weighted_lu
-sigmoid  multiparam_sigmoid
-softplus  multiparam_relu_softplus
-tanh       clamped_tanh_step
-====== =========================================</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
-</div>
+as noted below; however, even those meant mainly for CPPNs can be of use elsewhere - <cite>abs</cite> and <code class="docutils literal"><span class="pre">hat</span></code> can both solve xor in one generation,
+for instance (although note for the former that it is included in several others such as <code class="docutils literal"><span class="pre">multiparam_relu</span></code>).</p>
+<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Old</th>
+<th class="head">New</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>abs</td>
+<td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
+</tr>
+<tr class="row-odd"><td>clamped</td>
+<td>clamped_tanh_step</td>
+</tr>
+<tr class="row-even"><td>gauss</td>
+<td>hat_gauss</td>
+</tr>
+<tr class="row-odd"><td>hat</td>
+<td>hat_gauss</td>
+</tr>
+<tr class="row-even"><td>identity</td>
+<td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
+</tr>
+<tr class="row-odd"><td>log</td>
+<td>scaled_expanded_log, if for a CPPN</td>
+</tr>
+<tr class="row-even"><td>relu</td>
+<td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
+</tr>
+<tr class="row-odd"><td>sigmoid</td>
+<td>multiparam_sigmoid</td>
+</tr>
+<tr class="row-even"><td>softplus</td>
+<td>multiparam_relu_softplus</td>
+</tr>
+<tr class="row-odd"><td>tanh</td>
+<td>clamped_tanh_step</td>
+</tr>
+</tbody>
+</table>
 <p>The implementations of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
 <div class="section" id="general-use-activation-functions-single-parameter">
 <h2>General-use activation functions (single-parameter)<a class="headerlink" href="#general-use-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>

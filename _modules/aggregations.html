@@ -80,12 +80,36 @@
 <div class="viewcode-block" id="mean_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.mean_aggregation">[docs]</a><span class="k">def</span> <span class="nf">mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
 
-<span class="k">def</span> <span class="nf">tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">tmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">trim</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<div class="viewcode-block" id="tmean_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.tmean_aggregation">[docs]</a><span class="k">def</span> <span class="nf">tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">trim</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span></div>
 
-<span class="k">def</span> <span class="nf">max_median_min_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="k">def</span> <span class="nf">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">caller</span><span class="p">,</span> <span class="n">var_name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">min_val</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">max_val</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> for </span><span class="si">{1}</span><span class="s2">_aggregation must be between </span><span class="si">{2:n}</span><span class="s2"> and </span><span class="si">{3:n}</span><span class="s2">, not </span><span class="si">{4!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">var_name</span><span class="p">,</span> <span class="n">caller</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span> <span class="n">max_val</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+
+<div class="viewcode-block" id="maxabs_mean_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.maxabs_mean_aggregation">[docs]</a><span class="k">def</span> <span class="nf">maxabs_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;maxabs_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">maxabs_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="multiparam_tmean_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.multiparam_tmean_aggregation">[docs]</a><span class="k">def</span> <span class="nf">multiparam_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;multiparam_tmean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">trim</span><span class="o">=</span><span class="n">a</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="maxabs_tmean_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.maxabs_tmean_aggregation">[docs]</a><span class="k">def</span> <span class="nf">maxabs_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;maxabs_tmean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">maxabs_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">multiparam_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="sum_product_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.sum_product_aggregation">[docs]</a><span class="k">def</span> <span class="nf">sum_product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sum_product&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="max_median_min_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.max_median_min_aggregation">[docs]</a><span class="k">def</span> <span class="nf">max_median_min_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;max_median_min&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
     <span class="n">median_weight</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
@@ -94,29 +118,10 @@
     <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">median_weight</span><span class="p">)</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span>
                 <span class="p">(</span><span class="n">median_weight</span><span class="o">*</span><span class="n">median2</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-    <span class="k">return</span> <span class="n">median2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">multiparam_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">0.5</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
-    <span class="k">return</span> <span class="n">tmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">trim</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">maxabs_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
-    <span class="k">return</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">maxabs_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-
-<span class="k">def</span> <span class="nf">maxabs_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1.0</span>
-    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">maxabs_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">multiparam_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">median2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">sum_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sum_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
 
     <span class="n">input_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
 
@@ -130,8 +135,11 @@
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span><span class="o">*</span><span class="n">mult</span>
 
 <span class="k">def</span> <span class="nf">product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">use_median</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;product_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">use_median</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;Type of use_median must be bool, not </span><span class="si">{0!s}</span><span class="s2"> (for </span><span class="si">{1!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">use_median</span><span class="p">),</span> <span class="n">use_median</span><span class="p">))</span>
 
     <span class="n">input_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
 
@@ -149,19 +157,9 @@
     
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">tmp_product</span><span class="p">),</span> <span class="n">power</span><span class="p">),</span> <span class="n">tmp_product</span><span class="p">)</span>
 
-
-<span class="k">def</span> <span class="nf">sum_product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
-
-    <span class="k">return</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-
 <span class="k">def</span> <span class="nf">sum_product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">use_median</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
-    <span class="k">assert</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
-    <span class="k">assert</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
-
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sum_product_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="n">_check_value_range</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sum_product_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">b</span><span class="o">*</span><span class="n">sum_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span><span class="o">+</span>
             <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">use_median</span><span class="p">)))</span>
     

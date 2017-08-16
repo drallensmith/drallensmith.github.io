@@ -11,7 +11,7 @@ Module summaries
 
 activations
 ---------------
-Has the built-in :term:`activation functions <activation function>`, code for using them, and code for adding new user-defined ones.
+Has the built-in :term:`activation functions <activation function>`, code for using them, and code for adding new user-defined ones. For the built-in activation functions, see :ref:`activation-functions-label`.
 
   .. py:exception:: InvalidActivationFunction(Exception)
 
@@ -139,6 +139,86 @@ Has the built-in :term:`aggregation functions <aggregation function>`, code for 
     :rtype: :pytypes:`float <typesnumeric>`
 
     .. versionadded:: 0.92
+
+  .. py:function:: tmean_aggregation(x)
+
+    Returns the :py:func:`trimmed mean <math_util.tmean>`, with 25% of the values being trimmed off each end.
+
+    :param x: The numbers to find the trimmed mean of; takes any :pygloss:`iterable`.
+    :type x: list(:pytypes:`float <typesnumeric>`) or tuple(:pytypes:`float <typesnumeric>`) or set(:pytypes:`float <typesnumeric>`)
+    :return: The trimmed arithmetic mean.
+    :rtype: :pytypes:`float <typesnumeric>`
+
+    .. versionadded:: 0.92-multiparam_funcs
+
+  .. py:function:: maxabs_mean_aggregation(x, a)
+
+    A :term:`multiparameter` aggregation function; the weighted mean of the :py:func:`maxabs_aggregation()` and :py:func:`mean_aggregation()`, with
+    the weighing determined by the evolved ``a`` parameter. If a is 1.0, then maxabs is used; if a is 0.0, then mean is used.
+
+    :param x: The numbers to aggregate; takes any :pygloss:`iterable`.
+    :type x: list(:pytypes:`float <typesnumeric>`) or tuple(:pytypes:`float <typesnumeric>`) or set(:pytypes:`float <typesnumeric>`)
+    :param float a: Determines the relative weights of maxabs and mean; must be between 0.0 and 1.0, inclusive.
+    :return: The weighted mean of the maxabs and mean aggregation functions.
+    :rtype: float
+    :raises ValueError: If a is outside of 0.0-1.0.
+
+    .. versionadded:: 0.92-multiparam_funcs
+
+  .. py:function:: multiparam_tmean_aggregation(x, a)
+
+    A :term:`multiparameter` aggregation function; in this case, the evolved ``a`` term is used for the ``trim`` parameter of :py:func:`tmean <math_util.tmean>`.
+
+    :param x: The numbers to aggregate; takes any :pygloss:`iterable`.
+    :type x: list(:pytypes:`float <typesnumeric>`) or tuple(:pytypes:`float <typesnumeric>`) or set(:pytypes:`float <typesnumeric>`)
+    :param float a: Determines the trim parameter used; must be between 0.0 and 0.5, inclusive.
+    :return: The trimmed mean of the data.
+    :rtype: float
+    :raises ValueError: If a is outside of 0.0-0.5.
+
+    .. versionadded:: 0.92-multiparam_funcs
+
+  .. py:function:: maxabs_tmean_aggregation(x, a)
+
+    A :term:`multiparameter` aggregation function; if the evolved ``a`` term is 0.0 or above, :py:func:`maxabs_mean_aggregation()` is called; if a is below
+    0.0, then :py:func:`multiparam_tmean_aggregation()` is called, with a = abs(a/2). *Recommended for ``pooling`` use by neural networks.*
+
+    :param x: The numbers to aggregate; takes any :pygloss:`iterable`.
+    :type x: list(:pytypes:`float <typesnumeric>`) or tuple(:pytypes:`float <typesnumeric>`) or set(:pytypes:`float <typesnumeric>`)
+    :param float a: Determines the balance between maxabs, mean, tmean, and median; must be between -1.0 and 1.0, inclusive.
+    :return: The combination of the input according to the ``a`` parameter.
+    :rtype: float
+    :raises ValueError: If a is outside of -1.0-1.0.
+
+    .. versionadded:: 0.92-multiparam_funcs
+
+  .. py:function:: sum_product_aggregation(x, a)
+
+    A :term:`multiparameter` aggregation function; the evolved ``a`` term determines the weights in the weighted mean of the
+    :py:func:`sum_aggregation()` and :py:func:`product_aggregation()` functions. *Recommended as a more flexible replacement for both sum and product.*
+
+    :param x: The numbers to aggregate; takes any :pygloss:`iterable`.
+    :type x: list(:pytypes:`float <typesnumeric>`) or tuple(:pytypes:`float <typesnumeric>`) or set(:pytypes:`float <typesnumeric>`)
+    :param float a: Determines the balance between sum and product; must be between 0.0 and 1.0, inclusive.
+    :return: The combination of the input according to the ``a`` parameter.
+    :rtype: float
+    :raises ValueError: If a is outside of 0.0-1.0.
+
+    .. versionadded:: 0.92-multiparam_funcs
+
+  .. py:function:: max_median_min_aggregation(x, a)
+
+    A :term:`multiparameter` aggregation function; the evolved ``a`` term determines the weights in the weighted mean of the max, median, and min
+    aggregation functions. While meant primarily for :term:`CPPNs <CPPN>`, could be of use in other circumstances.
+
+    :param x: The numbers to aggregate; takes any :pygloss:`iterable`.
+    :type x: list(:pytypes:`float <typesnumeric>`) or tuple(:pytypes:`float <typesnumeric>`) or set(:pytypes:`float <typesnumeric>`)
+    :param float a: Determines the balance between max, median, and min; must be between -1.0 and 1.0, inclusive.
+    :return: The combination of the input according to the ``a`` parameter.
+    :rtype: float
+    :raises ValueError: If a is outside of -1.0-1.0.
+
+    .. versionadded:: 0.92-multiparam_funcs
 
   .. py:exception:: InvalidAggregationFunction(Exception)
 
