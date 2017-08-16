@@ -10,7 +10,7 @@ versions you may be familiar with.  The intention of the scaling is to place
 more of the functions' "interesting" behavior in the region :math:`\left[-1, 1\right] \times \left[-1, 1\right]`.
 Some of these are more intended for :term:`CPPNs <CPPN>` (e.g., for :term:`HyperNEAT`) than for "direct" problem-solving,
 as noted below; however, even those meant mainly for CPPNs can be of use elsewhere - `abs` and ``hat`` can both solve xor in one generation,
-for instance (although note for the former that it is included in several others such as ``multiparam_relu``).
+for instance (although note for the former that it is included in several others such as :ref:`multiparam_relu <multiparam-relu-description-label>`).
 
 The :term:`multiparameter` functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:
 
@@ -25,7 +25,7 @@ identity       multiparam_relu, multiparam_relu_softplus, or weighted_lu
 log             :ref:`scaled_expanded_log <scaled-expanded-log-label>`, if for a CPPN
 relu            multiparam_relu, multiparam_relu_softplus, or weighted_lu
 sigmoid      :ref:`multiparam_sigmoid <multiparam-sigmoid-label>`
-softplus      multiparam_relu_softplus
+softplus      :ref:`multiparam_relu_softplus <multiparam-relu-softplus-label>`
 tanh           :ref:`clamped_tanh_step <clamped-tanh-step-label>`
 ======== =======================================================
 
@@ -118,6 +118,8 @@ multiparam_relu
 .. figure:: activation-multiparam_relu.png
     :scale: 100 %
     :alt: max(x, a*x), where a is an evolved parameter with a range from -1 to 1, inclusive. Acts like a weighted combination of abs, relu, and identity.
+
+.. _multiparam-relu-softplus-label:
 
 multiparam_relu_softplus
 ^^^^^^^^^^^^^^^^^^^^^^^^
