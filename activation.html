@@ -52,8 +52,8 @@ for instance (although note for the former that it is included in several others
 <p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="10%" />
+<col width="90%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Old</th>
@@ -65,31 +65,31 @@ for instance (although note for the former that it is included in several others
 <td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
 </tr>
 <tr class="row-odd"><td>clamped</td>
-<td>clamped_tanh_step</td>
+<td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
 </tr>
 <tr class="row-even"><td>gauss</td>
-<td>hat_gauss</td>
+<td><a class="reference internal" href="#hat-gauss-label"><span class="std std-ref">hat_gauss</span></a></td>
 </tr>
 <tr class="row-odd"><td>hat</td>
-<td>hat_gauss</td>
+<td><a class="reference internal" href="#hat-gauss-label"><span class="std std-ref">hat_gauss</span></a></td>
 </tr>
 <tr class="row-even"><td>identity</td>
 <td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
 </tr>
 <tr class="row-odd"><td>log</td>
-<td>scaled_expanded_log, if for a CPPN</td>
+<td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a>, if for a CPPN</td>
 </tr>
 <tr class="row-even"><td>relu</td>
 <td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
 </tr>
 <tr class="row-odd"><td>sigmoid</td>
-<td>multiparam_sigmoid</td>
+<td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
 </tr>
 <tr class="row-even"><td>softplus</td>
 <td>multiparam_relu_softplus</td>
 </tr>
 <tr class="row-odd"><td>tanh</td>
-<td>clamped_tanh_step</td>
+<td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
 </tr>
 </tbody>
 </table>
@@ -280,13 +280,13 @@ for instance (although note for the former that it is included in several others
 <div class="section" id="cppn-intended-activation-functions-multi-parameter">
 <h2>CPPN-intended activation functions (multi-parameter)<a class="headerlink" href="#cppn-intended-activation-functions-multi-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hat-gauss">
-<h3>hat_gauss<a class="headerlink" href="#hat-gauss" title="Permalink to this headline">¶</a></h3>
+<span id="hat-gauss-label"></span><h3>hat_gauss<a class="headerlink" href="#hat-gauss" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-hat_gauss.png"><img alt="Weighted average of gauss and hat functions." src="_images/activation-hat_gauss.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="scaled-expanded-log">
-<h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
+<span id="scaled-expanded-log-label"></span><h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-scaled_expanded_log.png"><img alt="A version of expanded_log with variable scaling (with partially-counterbalancing weights both inside and outside the expanded_log function)." src="_images/activation-scaled_expanded_log.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>

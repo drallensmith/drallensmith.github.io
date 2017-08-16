@@ -18,15 +18,15 @@ The :term:`multiparameter` functions below, and some of the others, are new; if 
 Old            New
 ======== =======================================================
 abs             multiparam_relu, multiparam_relu_softplus, or weighted_lu
-clamped      clamped_tanh_step
-gauss         hat_gauss
-hat             hat_gauss
+clamped      :ref:`clamped_tanh_step <clamped-tanh-step-label>`
+gauss         :ref:`hat_gauss <hat-gauss-label>`
+hat             :ref:`hat_gauss <hat-gauss-label>`
 identity       multiparam_relu, multiparam_relu_softplus, or weighted_lu
-log             scaled_expanded_log, if for a CPPN
+log             :ref:`scaled_expanded_log <scaled-expanded-log-label>`, if for a CPPN
 relu            multiparam_relu, multiparam_relu_softplus, or weighted_lu
-sigmoid      multiparam_sigmoid
+sigmoid      :ref:`multiparam_sigmoid <multiparam-sigmoid-label>`
 softplus      multiparam_relu_softplus
-tanh           clamped_tanh_step
+tanh           :ref:`clamped_tanh_step <clamped-tanh-step-label>`
 ======== =======================================================
 
 The implementations of these functions can be found in the :py:mod:`activations` module.
@@ -260,12 +260,16 @@ square
 CPPN-intended activation functions (multi-parameter)
 ---------------------------------------------------------------------------
 
+.. _hat-gauss-label:
+
 hat_gauss
 ^^^^^^^^^^^
 
 .. figure:: activation-hat_gauss.png
     :scale: 100 %
     :alt: Weighted average of gauss and hat functions.
+
+.. _scaled-expanded-log-label:
 
 scaled_expanded_log
 ^^^^^^^^^^^^^^^^^^^^
