@@ -327,7 +327,7 @@
         <span class="c1"># type: (...) -&gt; EvolvedMultiParameterFunction</span>
         <span class="sd">&quot;&quot;&quot;Fetches a named EvolvedMultiParameterFunction instance.&quot;&quot;&quot;</span>
 
-        <span class="c1"># TODO: Accept in keyword format also;</span>
+        <span class="c1"># TODO: Accept in keyword format also (possibly use dict.update?);</span>
         <span class="c1"># probably package into function usable by get_func also</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
             <span class="n">mpfunc_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]</span> <span class="c1"># type: Dict[str, MultiParameterFunction]</span>

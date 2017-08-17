@@ -174,6 +174,12 @@
 
         <span class="k">return</span> <span class="n">new_id</span></div>
 
+    <span class="k">def</span> <span class="nf">get_compatibility_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">to_return_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;disjoint_coefficient&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compatibility_disjoint_coefficient</span>
+        <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;weight_coefficient&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compatibility_weight_coefficient</span>
+        <span class="k">return</span> <span class="n">to_return_dict</span>
+
 <div class="viewcode-block" id="DefaultGenomeConfig.check_structural_mutation_surer"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenomeConfig.check_structural_mutation_surer">[docs]</a>    <span class="k">def</span> <span class="nf">check_structural_mutation_surer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">structural_mutation_surer</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -228,6 +234,9 @@
 
         <span class="c1"># Fitness results.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Should FeedForwardNetwork NOT be used for this genome?</span>
+        <span class="c1"># Direct cycle determination would be better given connection removal, but this is faster and simpler.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="DefaultGenome.configure_new"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.configure_new">[docs]</a>    <span class="k">def</span> <span class="nf">configure_new</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Configure a new genome based on the given configuration.&quot;&quot;&quot;</span>
@@ -290,8 +299,10 @@
 
 <div class="viewcode-block" id="DefaultGenome.configure_crossover"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.configure_crossover">[docs]</a>    <span class="k">def</span> <span class="nf">configure_crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Configure a new genome by crossover from two parent genomes. &quot;&quot;&quot;</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)),</span> <span class="s2">&quot;Genome1.fitness (</span><span class="si">{0!r}</span><span class="s2">) is type </span><span class="si">{1!s}</span><span class="s2">, not int/float&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)),</span> <span class="s2">&quot;Genome2.fitness (</span><span class="si">{0!r}</span><span class="s2">) is type </span><span class="si">{1!s}</span><span class="s2">, not int/float&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">genome1</span><span class="o">.</span><span class="n">fitness</span> <span class="o">&gt;</span> <span class="n">genome2</span><span class="o">.</span><span class="n">fitness</span><span class="p">:</span>
             <span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span> <span class="o">=</span> <span class="n">genome1</span><span class="p">,</span> <span class="n">genome2</span>
         <span class="k">else</span><span class="p">:</span>
@@ -306,6 +317,8 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Homologous gene: combine genes from both parents.</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cg1</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">cg2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">maybe_recurrent</span>
 
         <span class="c1"># Inherit node genes</span>
         <span class="n">parent1_set</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">nodes</span>
@@ -420,8 +433,12 @@
         <span class="c1"># they cannot be the output end of a connection (see above).</span>
 
         <span class="c1"># For feed-forward networks, avoid creating cycles.</span>
-        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">feed_forward</span> <span class="ow">and</span> <span class="n">creates_cycle</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)),</span> <span class="n">key</span><span class="p">):</span>
-            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">feed_forward</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">creates_cycle</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)),</span> <span class="n">key</span><span class="p">):</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">creates_cycle</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">iterkeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)),</span> <span class="n">key</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">cg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">in_node</span><span class="p">,</span> <span class="n">out_node</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">cg</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cg</span></div>
@@ -435,7 +452,7 @@
         <span class="n">del_key</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="n">available_nodes</span><span class="p">)</span>
 
         <span class="n">connections_to_delete</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">):</span> <span class="c1"># TODO: Why not just do iterkeys?</span>
             <span class="k">if</span> <span class="n">del_key</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
                 <span class="n">connections_to_delete</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
 
@@ -593,12 +610,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_full_connections</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">input_id</span> <span class="o">==</span> <span class="n">output_id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">connection</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span></div>
 
 <div class="viewcode-block" id="DefaultGenome.connect_full_direct"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.connect_full_direct">[docs]</a>    <span class="k">def</span> <span class="nf">connect_full_direct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a fully-connected genome, including direct input-output connections.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_full_connections</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">input_id</span> <span class="o">==</span> <span class="n">output_id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">connection</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span></div>
 
 <div class="viewcode-block" id="DefaultGenome.connect_partial_nodirect"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.connect_partial_nodirect">[docs]</a>    <span class="k">def</span> <span class="nf">connect_partial_nodirect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
@@ -613,6 +634,8 @@
         <span class="n">num_to_add</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_connections</span><span class="p">)</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">connection_fraction</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span> <span class="ow">in</span> <span class="n">all_connections</span><span class="p">[:</span><span class="n">num_to_add</span><span class="p">]:</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">input_id</span> <span class="o">==</span> <span class="n">output_id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">connection</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span></div>
 
 <div class="viewcode-block" id="DefaultGenome.connect_partial_direct"><a class="viewcode-back" href="../module_summaries.html#genome.DefaultGenome.connect_partial_direct">[docs]</a>    <span class="k">def</span> <span class="nf">connect_partial_direct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
@@ -626,6 +649,8 @@
         <span class="n">num_to_add</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_connections</span><span class="p">)</span> <span class="o">*</span> <span class="n">config</span><span class="o">.</span><span class="n">connection_fraction</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span> <span class="ow">in</span> <span class="n">all_connections</span><span class="p">[:</span><span class="n">num_to_add</span><span class="p">]:</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">input_id</span><span class="p">,</span> <span class="n">output_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">input_id</span> <span class="o">==</span> <span class="n">output_id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maybe_recurrent</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[</span><span class="n">connection</span><span class="o">.</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">connection</span></div></div>
 </pre></div>
 

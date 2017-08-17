@@ -48,6 +48,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">NORM_EPSILON</span>
@@ -55,13 +56,27 @@
 <span class="kn">from</span> <span class="nn">neat.multiparameter</span> <span class="k">import</span> <span class="n">BadFunctionError</span> <span class="k">as</span> <span class="n">InvalidActivationFunction</span> <span class="c1"># pylint: disable=unused-import</span>
 
 <span class="k">def</span> <span class="nf">sigmoid_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span>
-    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_return</span>
 
 
 <span class="k">def</span> <span class="nf">tanh_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_return</span>
 
 
 <span class="k">def</span> <span class="nf">sin_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -70,8 +85,12 @@
 
 
 <span class="k">def</span> <span class="nf">gauss_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">3.4</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_return</span>
 
 
 <span class="k">def</span> <span class="nf">relu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -79,8 +98,15 @@
 
 
 <span class="k">def</span> <span class="nf">softplus_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">60.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span>
-    <span class="k">return</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="mf">5.0</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+            <span class="k">return</span> <span class="n">z</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_return</span>
 
 
 <span class="k">def</span> <span class="nf">identity_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -101,8 +127,13 @@
 
 
 <span class="k">def</span> <span class="nf">log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">to_return</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1e-7</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">to_return</span>
 
 
 <span class="k">def</span> <span class="nf">expanded_log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span> <span class="c1"># mostly intended for CPPNs</span>
@@ -128,7 +159,7 @@
 
 
 <span class="k">def</span> <span class="nf">hat_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
 
 
 <span class="k">def</span> <span class="nf">square_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
@@ -139,9 +170,9 @@
     <span class="k">return</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">3</span>
 
 <span class="k">def</span> <span class="nf">step_activation</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">z</span>
 
@@ -153,13 +184,23 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="mi">5</span><span class="p">),</span> <span class="nb">max</span><span class="p">((</span><span class="n">z</span><span class="o">*</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">z</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">b</span><span class="p">)))))</span>
     <span class="k">except</span> <span class="ne">ArithmeticError</span><span class="p">:</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="mf">300.0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">300.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">z</span><span class="p">)))</span>
-        <span class="k">return</span> <span class="n">multiparam_elu_activation_inner</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">old_z</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="n">old_a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="n">old_b</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max_10_exp</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">min_10_exp</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max_10_exp</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">min_10_exp</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(((</span><span class="mf">60.0</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="nb">max</span><span class="p">(((</span><span class="o">-</span><span class="mf">60.0</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="n">z</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">old_z</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">old_a</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">old_b</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">multiparam_elu_activation_inner</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">multiparam_elu_activation_inner</span><span class="p">(</span><span class="n">old_z</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="n">a</span><span class="p">)),</span>
+                                                   <span class="nb">min</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="n">b</span><span class="p">)))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">result</span>
 
 <span class="k">def</span> <span class="nf">multiparam_elu_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">multiparam_elu_activation_inner</span><span class="p">((</span><span class="n">z</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">))),</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">a_use</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max_10_exp</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">min_10_exp</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">multiparam_elu_activation_inner</span><span class="p">((</span><span class="n">z</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a_use</span><span class="p">))),</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="c1">##def multiparam_elu_variant_activation(z, a, b):</span>
 <span class="c1">##    try:</span>
@@ -224,12 +265,13 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">hat_activation</span><span class="p">(</span><span class="n">z</span><span class="p">))</span><span class="o">+</span><span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">gauss_activation</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">scaled_expanded_log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span> <span class="c1"># mostly intended for CPPNs</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max_10_exp</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">min_10_exp</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)))</span> <span class="o">&lt;</span> <span class="n">NORM_EPSILON</span><span class="p">:</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">((</span><span class="n">NORM_EPSILON</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">))),</span><span class="n">z</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">a</span><span class="p">)),</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">))),</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">multiparam_log_inv_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span> <span class="c1"># mostly intended for CPPNs</span>
-    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;&#39;a&#39; for multiparam_log_inv must be -1.0 or above, not </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">scaled_expanded_log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,(</span><span class="n">a</span><span class="o">+</span><span class="mf">1.0</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
@@ -237,6 +279,7 @@
                 <span class="o">+</span><span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">))</span><span class="o">*</span><span class="n">scaled_expanded_log_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)))</span>
 
 <span class="k">def</span> <span class="nf">scaled_log1p_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">max_10_exp</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">min_10_exp</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.5</span><span class="o">-</span><span class="n">a</span><span class="p">),</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)))</span>
 
 <span class="k">def</span> <span class="nf">multiparam_tanh_log1p_activation</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
