@@ -58,7 +58,7 @@
 
             <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">ignored_activ</span><span class="p">,</span><span class="n">ignored_aggr</span><span class="p">,</span><span class="n">ignored_bias</span><span class="p">,</span><span class="n">ignored_resp</span><span class="p">,</span> <span class="n">links</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_evals</span><span class="p">:</span>
                 <span class="n">v</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ignored_w</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
                     <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -136,6 +136,8 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Module code</a><ul>
+  <li><a href="../nn.html">nn</a><ul>
+  </ul></li>
   </ul></li>
   </ul></li>
 </ul>

@@ -67,29 +67,35 @@ for instance (although note for the former that it is included in several others
 <tr class="row-odd"><td>clamped</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
 </tr>
-<tr class="row-even"><td>gauss</td>
+<tr class="row-even"><td>cube</td>
+<td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
+</tr>
+<tr class="row-odd"><td>gauss</td>
 <td><a class="reference internal" href="#hat-gauss-label"><span class="std std-ref">hat_gauss</span></a></td>
 </tr>
-<tr class="row-odd"><td>hat</td>
+<tr class="row-even"><td>hat</td>
 <td><a class="reference internal" href="#hat-gauss-label"><span class="std std-ref">hat_gauss</span></a></td>
 </tr>
-<tr class="row-even"><td>identity</td>
+<tr class="row-odd"><td>identity</td>
 <td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
 </tr>
-<tr class="row-odd"><td>inv</td>
+<tr class="row-even"><td>inv</td>
 <td><a class="reference internal" href="#multiparam-log-inv-label"><span class="std std-ref">multiparam_log_inv</span></a>, if for a CPPN</td>
 </tr>
-<tr class="row-even"><td>log</td>
+<tr class="row-odd"><td>log</td>
 <td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a>, if for a CPPN</td>
 </tr>
-<tr class="row-odd"><td>relu</td>
+<tr class="row-even"><td>relu</td>
 <td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
 </tr>
-<tr class="row-even"><td>sigmoid</td>
+<tr class="row-odd"><td>sigmoid</td>
 <td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
 </tr>
-<tr class="row-odd"><td>softplus</td>
+<tr class="row-even"><td>softplus</td>
 <td><a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a></td>
+</tr>
+<tr class="row-odd"><td>square</td>
+<td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
 </tr>
 <tr class="row-even"><td>tanh</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
@@ -300,6 +306,12 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-multiparam_log_inv.png"><img alt="Above 0.0, equivalent to scaled_expanded_log with a+1.0; below, weighted mean with inv of -1*x." src="_images/activation-multiparam_log_inv.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
+<div class="section" id="multiparam-pow">
+<span id="multiparam-pow-label"></span><h3>multiparam_pow<a class="headerlink" href="#multiparam-pow" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_pow.png"><img alt="Above a=1, pow(z, a); below 1, pow(z, pow(2,(a-1.0))" src="_images/activation-multiparam_pow.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
 </div>
 </div>
 
@@ -352,6 +364,7 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#hat-gauss">hat_gauss</a></li>
 <li><a class="reference internal" href="#scaled-expanded-log">scaled_expanded_log</a></li>
 <li><a class="reference internal" href="#multiparam-log-inv">multiparam_log_inv</a></li>
+<li><a class="reference internal" href="#multiparam-pow">multiparam_pow</a></li>
 </ul>
 </li>
 </ul>

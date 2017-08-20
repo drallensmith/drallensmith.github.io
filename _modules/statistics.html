@@ -101,16 +101,16 @@
         <span class="sd">&quot;&quot;&quot;Get the per-generation median fitness.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fitness_stat</span><span class="p">(</span><span class="n">median2</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_average_cross_validation_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
-        <span class="sd">&quot;&quot;&quot;Get the per-generation average cross_validation fitness.&quot;&quot;&quot;</span>
-        <span class="n">avg_cross_validation_fitness</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">stats</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_cross_validation_statistics</span><span class="p">:</span>
-            <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">fitness</span> <span class="ow">in</span> <span class="n">stats</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">scores</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fitness</span><span class="p">)</span>
-            <span class="n">avg_cross_validation_fitness</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+<span class="c1">##    def get_average_cross_validation_fitness(self): # pragma: no cover</span>
+<span class="c1">##        &quot;&quot;&quot;Get the per-generation average cross_validation fitness.&quot;&quot;&quot;</span>
+<span class="c1">##        avg_cross_validation_fitness = []</span>
+<span class="c1">##        for stats in self.generation_cross_validation_statistics:</span>
+<span class="c1">##            scores = []</span>
+<span class="c1">##            for fitness in stats.values():</span>
+<span class="c1">##                scores.extend(fitness)</span>
+<span class="c1">##            avg_cross_validation_fitness.append(mean(scores))</span>
 
-        <span class="k">return</span> <span class="n">avg_cross_validation_fitness</span>
+<span class="c1">##        return avg_cross_validation_fitness</span>
 
 <div class="viewcode-block" id="StatisticsReporter.best_unique_genomes"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter.best_unique_genomes">[docs]</a>    <span class="k">def</span> <span class="nf">best_unique_genomes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the most n fit genomes, with no duplication.&quot;&quot;&quot;</span>

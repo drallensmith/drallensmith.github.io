@@ -46,17 +46,18 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
+<span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="c1">##import sys</span>
 <span class="kn">import</span> <span class="nn">types</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
-<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">isnan</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
 
 <span class="kn">from</span> <span class="nn">neat.attributes</span> <span class="k">import</span> <span class="n">FloatAttribute</span><span class="p">,</span> <span class="n">BoolAttribute</span>
 <span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">NORM_EPSILON</span>
-<span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span>
+<span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">iterkeys</span>
 
 <div class="viewcode-block" id="EvolvedMultiParameterFunction"><a class="viewcode-back" href="../module_summaries.html#multiparameter.EvolvedMultiParameterFunction">[docs]</a><span class="k">class</span> <span class="nc">EvolvedMultiParameterFunction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -93,11 +94,10 @@
                                                           <span class="bp">self</span><span class="o">.</span><span class="n">multi_param_func</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__set_instance_name</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">set_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">param_values</span><span class="p">):</span> <span class="c1"># TEST NEEDED; Perhaps do as @property?</span>
+    <span class="k">def</span> <span class="nf">set_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">param_values</span><span class="p">):</span> <span class="c1"># TEST NEEDED!</span>
         <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">param_values</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">isnan</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span>
                     <span class="s2">&quot;Parameter name </span><span class="si">{0!r}</span><span class="s2"> (val </span><span class="si">{1!r}</span><span class="s2">) not among known (</span><span class="si">{2!s}</span><span class="s2">) for </span><span class="si">{3!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -106,6 +106,10 @@
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_name</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;EvolvedMultiParameterFunction(</span><span class="si">{0!r}</span><span class="s2">, </span><span class="si">{1!r}</span><span class="s2">).set_values(</span><span class="si">{2!r}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">multi_param_func</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">):</span>
@@ -118,31 +122,43 @@
 
         <span class="n">max_diff</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
-            <span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">-</span>
-                       <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">diff</span><span class="p">:</span>
-                <span class="n">param_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-                <span class="n">this_diff</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">NORM_EPSILON</span><span class="p">,</span>
-                                       <span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]))</span>
-                <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">this_diff</span><span class="p">)</span>
+            <span class="n">param_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">):</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">-</span>
+                           <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">diff</span><span class="p">:</span>
+                    <span class="n">this_diff</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">NORM_EPSILON</span><span class="p">,</span>
+                                           <span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]))</span>
+                    <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">this_diff</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="mf">1.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown what to do with param_type </span><span class="si">{0!r}</span><span class="s2"> for </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">max_diff</span>
 
     <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1">#print(&quot;{0!s}: Copying myself {1!r}&quot;.format(self.instance_name,self),file=sys.stderr)</span>
-        <span class="n">other</span> <span class="o">=</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multi_param_func</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
-            <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-        <span class="n">other</span><span class="o">.</span><span class="n">instance_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_name</span><span class="p">[:]</span>
-        <span class="k">return</span> <span class="n">other</span>
+        <span class="c1"># I am uncertain about this one - deepcopy unfortunately takes forever, though.</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">multi_param_func</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+                                                         <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">,</span>
+                                                         <span class="n">collections</span><span class="o">.</span><span class="n">Callable</span><span class="p">)):</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">instance_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_name</span><span class="p">[:]</span>
+        <span class="k">return</span> <span class="n">other</span>
 
     <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo_dict</span><span class="p">):</span>
         <span class="n">other</span> <span class="o">=</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[:],</span>
                                               <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multi_param_func</span><span class="p">,</span><span class="n">memo_dict</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
-            <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="n">memo_dict</span><span class="p">)</span>
         <span class="n">other</span><span class="o">.</span><span class="n">instance_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_name</span><span class="p">[:]</span>
         <span class="k">return</span> <span class="n">other</span>
 
@@ -155,114 +171,155 @@
 
 <div class="viewcode-block" id="MultiParameterFunction"><a class="viewcode-back" href="../module_summaries.html#multiparameter.MultiParameterFunction">[docs]</a><span class="k">class</span> <span class="nc">MultiParameterFunction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Holds and initializes configuration information for one multiparameter function.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">which_type</span><span class="p">,</span> <span class="n">user_func</span><span class="p">,</span> <span class="n">evolved_param_names</span><span class="p">,</span> <span class="o">**</span><span class="n">evolved_param_dicts</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">name</span><span class="p">,</span>
+                 <span class="n">which_type</span><span class="p">,</span>
+                 <span class="n">user_func</span><span class="p">,</span>
+                 <span class="n">evolved_param_names</span><span class="p">,</span>
+                 <span class="n">full_init_defaults</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">evolved_param_dicts</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_MPF&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">which_type</span> <span class="o">=</span> <span class="n">which_type</span> <span class="c1"># activation or aggregation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user_func</span> <span class="o">=</span> <span class="n">user_func</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span> <span class="o">=</span> <span class="n">evolved_param_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span> <span class="o">=</span> <span class="n">evolved_param_names</span> <span class="c1"># for the ordering</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span> <span class="o">=</span> <span class="n">evolved_param_dicts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_attributes</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">evolved_param_names</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">init_defaults</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_defaults</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="n">full_init_defaults</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">init_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes (or re-initializes after user settings changes - the user will need to</span>
-<span class="sd">        remove existing entries in the evolved_param_dicts[n] dictionary, and keep in mind</span>
-<span class="sd">        that MultiParameterFunctionInstances generally share MultiParameterFunction instances)</span>
-<span class="sd">        defaults for one parameter&#39;s FloatAttribute settings for a multiparameter function.</span>
+<span class="sd">        Initializes (or re-initializes after user settings changes, provided the user deletes</span>
+<span class="sd">        any old settings not altered) defaults for one parameter&#39;s attribute settings</span>
+<span class="sd">        for a multiparameter function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;param_type&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>
         <span class="n">param_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
         <span class="n">tmp_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">_</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-
+        
         <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">,</span><span class="s1">&#39;int&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_type&#39;</span><span class="p">,</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">full</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_type&#39;</span><span class="p">,</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+                
+                <span class="n">middle</span> <span class="o">=</span> <span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">+</span>
+                          <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_mean&#39;</span><span class="p">,</span> <span class="n">middle</span><span class="p">)</span>
+                <span class="c1"># below here is mainly intended for users wanting to use built-in</span>
+                <span class="c1"># multiparameter functions without too much initialization worries</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+                <span class="n">mutate_rate</span> <span class="o">=</span> <span class="nb">min</span><span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">]),</span>
+                                  <span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">5.0</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">,</span> <span class="n">mutate_rate</span><span class="p">)</span>
+                <span class="n">for_stdev</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">-</span>
+                                    <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;init_mean&#39;</span><span class="p">]),</span>
+                                <span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]</span> <span class="o">-</span>
+                                    <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;init_mean&#39;</span><span class="p">]))</span><span class="o">/</span><span class="mf">2.0</span>
+                <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;init_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_stdev&#39;</span><span class="p">,</span> <span class="n">for_stdev</span><span class="p">)</span>
+                    <span class="c1"># actual standard deviation of uniform distribution is width/sqrt(12) -</span>
+                    <span class="c1"># use of 1/4 range in the uniform distribution FloatAttribute setup</span>
+                    <span class="c1"># (and thus the above) is to make it easier to figure out how to</span>
+                    <span class="c1"># get a given initialization range that is not the same as the</span>
+                    <span class="c1"># overall min/max range.</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_stdev&#39;</span><span class="p">,</span>
+                                                           <span class="p">((</span><span class="mf">4.0</span><span class="o">*</span><span class="n">for_stdev</span><span class="p">)</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">12.0</span><span class="p">)))</span>
+                <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">mutate_power</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">]))</span><span class="o">*</span>
+                                    <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">12.0</span><span class="p">)))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_power&#39;</span><span class="p">,</span> <span class="n">mutate_power</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_power&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-            <span class="n">middle</span> <span class="o">=</span> <span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">+</span>
-                      <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_mean&#39;</span><span class="p">,</span> <span class="n">middle</span><span class="p">)</span>
-            <span class="c1"># below here is mainly intended for users wanting to use built-in</span>
-            <span class="c1"># multiparameter functions without too much initialization worries</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-            <span class="n">mutate_rate</span> <span class="o">=</span> <span class="nb">min</span><span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">]),(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">5.0</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">,</span> <span class="n">mutate_rate</span><span class="p">)</span>
-            <span class="n">for_stdev</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span> <span class="o">-</span>
-                                <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;init_mean&#39;</span><span class="p">]),</span>
-                            <span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">]</span> <span class="o">-</span>
-                                <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;init_mean&#39;</span><span class="p">]))</span><span class="o">/</span><span class="mf">2.0</span>
-            <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;init_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_stdev&#39;</span><span class="p">,</span> <span class="n">for_stdev</span><span class="p">)</span>
-                <span class="c1"># actual standard deviation of uniform distribution is width/sqrt(12) -</span>
-                <span class="c1"># use of 1/4 range in the uniform distribution FloatAttribute setup</span>
-                <span class="c1"># (and thus the above) is to make it easier to figure out how to</span>
-                <span class="c1"># get a given initialization range that is not the same as the</span>
-                <span class="c1"># overall min/max range.</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;init_stdev&#39;</span><span class="p">,</span> <span class="p">((</span><span class="mf">4.0</span><span class="o">*</span><span class="n">for_stdev</span><span class="p">)</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">12.0</span><span class="p">)))</span>
-            <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">mutate_power</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;replace_rate&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">]))</span><span class="o">*</span>
-                                <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;max_value&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;min_value&#39;</span><span class="p">])</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">12.0</span><span class="p">)))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_power&#39;</span><span class="p">,</span> <span class="n">mutate_power</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_power&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-
-            <span class="n">param_dict2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
+            <span class="n">param_dict2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">param_dict2</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_attributes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">FloatAttribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">tmp_name</span><span class="p">,</span> <span class="c1"># TODO: IntAttribute</span>
                                                               <span class="o">**</span><span class="n">param_dict2</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">full</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;mutate_rate&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">)</span>
 
-            <span class="n">param_dict2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
+            <span class="n">param_dict2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
             <span class="k">del</span> <span class="n">param_dict2</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_attributes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">BoolAttribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">tmp_name</span><span class="p">,</span>
                                                              <span class="o">**</span><span class="n">param_dict2</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Unknown param_type </span><span class="si">{0!r}</span><span class="s2"> for MultiParameterFunction </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">))</span>
 
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">param_dict</span><span class="p">):</span> <span class="c1"># so that this can be used as a config for the attribute</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]):</span>
+            <span class="c1"># so that this can be used as a config for the attribute</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_attributes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">config_item_name</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">init_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-<span class="c1">##    def set_attribute_settings(self, n, **param_dict): # TEST NEEDED! Perhaps do as @property?</span>
-<span class="c1">##        &quot;&quot;&quot;</span>
-<span class="c1">##        Sets the FloatAttribute settings for one of a function&#39;s parameters. Note that this will</span>
-<span class="c1">##        change these for all MultiParameterFunctionInstances derived from MultiParameterFunction</span>
-<span class="c1">##        class instance, although such changes will not have an effect until the next mutation</span>
-<span class="c1">##        (including reinitialization). It is advisable to make a copy first, and alter that.</span>
-<span class="c1">##        &quot;&quot;&quot;</span>
-<span class="c1">##        for x, y in iteritems(param_dict):</span>
-<span class="c1">##            self.evolved_param_dicts[n][x] = y</span>
-<span class="c1">##        self.init_defaults(n)</span>
+    <span class="k">def</span> <span class="nf">copy_and_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">del_not_changed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">del_param_dicts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">new_param_dicts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1"># TEST NEEDED!</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Makes a copy of the MultiParameterFunction instance, does deletions and</span>
+<span class="sd">        substitutions, initializes any remaining defaults, and returns the new instance.</span>
+<span class="sd">        If del_not_changed is True, any values for parameters in new_param_dicts that are not</span>
+<span class="sd">        set will be deleted and reinitialized.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">n_done</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+        <span class="k">if</span> <span class="n">del_param_dicts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">iterkeys</span><span class="p">(</span><span class="n">del_param_dicts</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">del_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">,</span><span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">del_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+                        <span class="k">del</span> <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">del_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Hashable</span><span class="p">):</span>
+                    <span class="k">del</span> <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">del_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+                    <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">n_done</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_param_dicts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">iterkeys</span><span class="p">(</span><span class="n">new_param_dicts</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">del_not_changed</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+                    <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">new_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]):</span>
+                    <span class="n">new</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+                <span class="n">n_done</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_done</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">init_defaults</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># TEST NEEDED! Should be able to duplicate by using this as an init...</span>
-        <span class="n">to_return_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">,</span>
-                          <span class="bp">self</span><span class="o">.</span><span class="n">which_type</span><span class="p">,</span>
-                          <span class="bp">self</span><span class="o">.</span><span class="n">user_func</span><span class="p">,</span>
-                          <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">]</span>
-        <span class="n">to_return_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">repr</span><span class="p">,</span><span class="n">to_return_list</span><span class="p">))</span>
+        <span class="n">to_return_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">to_return_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;orig_name=&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">)</span>
+        <span class="n">to_return_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;which_type=&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">which_type</span><span class="p">)</span>
+        <span class="n">to_return_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;user_func=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_func</span><span class="p">)</span>
+        <span class="n">to_return_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;evolved_param_names=&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
-            <span class="n">to_return_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_return_list</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+            <span class="n">to_return_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="s1">&#39;MultiParameterFunction(&#39;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_return_list</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
     <span class="k">def</span> <span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">MultiParameterFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">which_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_func</span><span class="p">,</span>
-                                      <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">)</span>
+        <span class="n">new_evolved_param_dicts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
+            <span class="n">new_evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">MultiParameterFunction</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">[:],</span> <span class="n">which_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">which_type</span><span class="p">[:],</span>
+                                      <span class="n">user_func</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_func</span><span class="p">),</span>
+                                      <span class="n">evolved_param_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">[:],</span>
+                                      <span class="n">full_init_defaults</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                      <span class="o">**</span><span class="n">new_evolved_param_dicts</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo_dict</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">MultiParameterFunction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">[:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">which_type</span><span class="p">[:],</span>
-                                      <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_func</span><span class="p">,</span> <span class="n">memo_dict</span><span class="p">),</span>
-                                      <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">,</span> <span class="n">memo_dict</span><span class="p">),</span>
+        <span class="k">return</span> <span class="n">MultiParameterFunction</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">orig_name</span><span class="p">[:],</span> <span class="n">which_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">which_type</span><span class="p">[:],</span>
+                                      <span class="n">user_func</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user_func</span><span class="p">,</span> <span class="n">memo_dict</span><span class="p">),</span>
+                                      <span class="n">evolved_param_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">[:],</span>
+                                      <span class="n">full_init_defaults</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                                       <span class="o">**</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">,</span> <span class="n">memo_dict</span><span class="p">))</span></div>
 
 
@@ -299,7 +356,7 @@
     <span class="k">def</span> <span class="nf">is_multiparameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">which_type</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">UnknownFunctionError</span><span class="p">(</span><span class="s2">&quot;Called with uncertain name &#39;</span><span class="si">{!s}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">init_multiparameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">ignored_config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">which_type</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
@@ -316,7 +373,7 @@
 
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
             <span class="n">mpfunc_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]</span> <span class="c1"># type: Dict[str, MultiParameterFunction]</span>
-            <span class="c1"># Allows for altering configuration, although tricky re already-existing ones</span>
+            <span class="c1"># Allows for altering configuration - preferably via copy_and_change!</span>
             <span class="k">return</span> <span class="n">mpfunc_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">raise</span> <span class="n">UnknownFunctionError</span><span class="p">(</span><span class="s2">&quot;Unknown </span><span class="si">{!s}</span><span class="s2"> MPF function </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">which_type</span><span class="p">,</span><span class="n">name</span><span class="p">))</span></div>
 
@@ -343,7 +400,7 @@
                                        <span class="nb">format</span><span class="p">(</span><span class="n">which_type</span><span class="p">,</span><span class="n">name</span><span class="p">))</span>
 
         <span class="n">func_name</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="n">param_start</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">func_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">func_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="n">UnknownFunctionError</span><span class="p">(</span><span class="s2">&quot;Unknown </span><span class="si">{0!s}</span><span class="s2"> MPF function </span><span class="si">{1!r}</span><span class="s2"> (from </span><span class="si">{2!r}</span><span class="s2">)&quot;</span><span class="o">.</span>
                                        <span class="nb">format</span><span class="p">(</span><span class="n">which_type</span><span class="p">,</span><span class="n">func_name</span><span class="p">,</span><span class="n">name</span><span class="p">))</span>
         <span class="n">multiparam_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">][</span><span class="n">func_name</span><span class="p">]</span>
@@ -361,7 +418,7 @@
 
         <span class="n">init_params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">multiparam_func</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">,</span> <span class="n">param_values</span><span class="p">))</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">name2</span> <span class="ow">in</span> <span class="n">init_params</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name2</span> <span class="ow">in</span> <span class="n">multiparam_func</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">init_params</span><span class="p">[</span><span class="n">name2</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">multiparam_func</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">name2</span><span class="p">][</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;float&#39;</span><span class="p">:</span>
                 <span class="n">params</span><span class="p">[</span><span class="n">name2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -393,9 +450,7 @@
 <span class="sd">        Figures out what function, or function instance for multiparameter functions,</span>
 <span class="sd">        is needed, and returns it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">get_func</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;get_func&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">EvolvedMultiParameterFunction</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;get_func&#39;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">get_func</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
@@ -412,7 +467,7 @@
                                        <span class="nb">format</span><span class="p">(</span><span class="n">which_type</span><span class="p">,</span><span class="n">name</span><span class="p">))</span>
 
         <span class="n">func_name</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="n">param_start</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">func_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">func_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="n">UnknownFunctionError</span><span class="p">(</span><span class="s2">&quot;Unknown </span><span class="si">{0!s}</span><span class="s2"> function </span><span class="si">{1!r}</span><span class="s2"> (from </span><span class="si">{2!r}</span><span class="s2">)&quot;</span><span class="o">.</span>
                                        <span class="nb">format</span><span class="p">(</span><span class="n">which_type</span><span class="p">,</span><span class="n">func_name</span><span class="p">,</span><span class="n">name</span><span class="p">))</span>
         <span class="n">multiparam_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiparam_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">][</span><span class="n">func_name</span><span class="p">]</span>
@@ -459,8 +514,7 @@
                                                                                     <span class="n">kwargs</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">func_code</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">func_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">]</span>
-            <span class="n">func_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_func</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">norm_func_dict</span><span class="p">[</span><span class="n">which_type</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_func</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;(&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">&#39;)&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">):</span>

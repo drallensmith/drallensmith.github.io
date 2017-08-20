@@ -101,8 +101,7 @@
     <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;maxabs_tmean&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">maxabs_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">multiparam_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">multiparam_tmean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="sum_product_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.sum_product_aggregation">[docs]</a><span class="k">def</span> <span class="nf">sum_product_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
     <span class="n">_check_value_range</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sum_product&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span>
@@ -155,7 +154,6 @@
 
     <span class="k">if</span> <span class="n">use_median</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">transformed_product</span><span class="p">,</span> <span class="n">median2</span><span class="p">(</span><span class="n">input_list</span><span class="p">))</span>
-    
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">transformed_product</span><span class="p">,</span> <span class="n">tmp_product</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="sum_product_mean_aggregation"><a class="viewcode-back" href="../module_summaries.html#aggregations.sum_product_mean_aggregation">[docs]</a><span class="k">def</span> <span class="nf">sum_product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">use_median</span><span class="p">):</span>
@@ -163,7 +161,7 @@
     <span class="n">_check_value_range</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sum_product_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">((</span><span class="n">b</span><span class="o">*</span><span class="n">sum_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span><span class="o">+</span>
             <span class="p">((</span><span class="mf">1.0</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">product_mean_aggregation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">use_median</span><span class="p">)))</span></div>
-    
+
 
 <div class="viewcode-block" id="AggregationFunctionSet"><a class="viewcode-back" href="../module_summaries.html#aggregations.AggregationFunctionSet">[docs]</a><span class="k">class</span> <span class="nc">AggregationFunctionSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Contains aggregation functions and methods to add and retrieve them.&quot;&quot;&quot;</span>

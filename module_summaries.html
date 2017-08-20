@@ -3413,6 +3413,36 @@ of its parameter variables to be evolved. Requirements for the function include 
 </dd></dl>
 
 </div></blockquote>
+<span class="target" id="module-nn"></span></div>
+<div class="section" id="nn">
+<h2>nn<a class="headerlink" href="#nn" title="Permalink to this headline">¶</a></h2>
+<p>Handles standard neural networks, either <a class="reference internal" href="glossary.html#term-feed-forward"><span class="xref std std-term">feed-forward</span></a> or <a class="reference internal" href="glossary.html#term-recurrent"><span class="xref std std-term">recurrent</span></a>.</p>
+<blockquote>
+<div><dl class="function">
+<dt id="nn.create">
+<code class="descclassname">nn.</code><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns either a RecurrentNetwork or a FeedForwardNetwork for this genome, based on the genome’s maybe_recurrent attribute (a conservative estimate).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>genome</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Genome to return phenotype for.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – Configuration object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <a class="reference internal" href="#nn.feed_forward.FeedForwardNetwork" title="nn.feed_forward.FeedForwardNetwork"><code class="xref py py-class docutils literal"><span class="pre">nn.feed_forward.FeedForwardNetwork</span></code></a> or <a class="reference internal" href="#nn.recurrent.RecurrentNetwork" title="nn.recurrent.RecurrentNetwork"><code class="xref py py-class docutils literal"><span class="pre">nn.recurrent.RecurrentNetwork</span></code></a> instance.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div></blockquote>
 <span class="target" id="module-nn.feed_forward"></span></div>
 <div class="section" id="nn-feed-forward">
 <h2>nn.feed_forward<a class="headerlink" href="#nn-feed-forward" title="Permalink to this headline">¶</a></h2>
@@ -4048,7 +4078,7 @@ rate configuration. This scheme should be adaptive so that species do not evolve
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If <a class="reference internal" href="config_file.html#min-species-size-label"><span class="std std-ref">min_species_size</span></a> is below 2 (the minimum needed for <a class="reference internal" href="glossary.html#term-crossover"><span class="xref std std-term">crossover</span></a>), or if <span class="xref std std-ref">fitness_min_divisor</span> is below 0.0.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If <a class="reference internal" href="config_file.html#min-species-size-label"><span class="std std-ref">min_species_size</span></a> is below 2 (the minimum needed for <a class="reference internal" href="glossary.html#term-crossover"><span class="xref std std-term">crossover</span></a>), or if <a class="reference internal" href="config_file.html#fitness-min-divisor-label"><span class="std std-ref">fitness_min_divisor</span></a> is below 0.0.</p>
 </td>
 </tr>
 </tbody>
@@ -4140,7 +4170,7 @@ desired population size.</p>
 their <code class="docutils literal"><span class="pre">fitness</span></code> member assigned.  This method should use the stagnation instance given to the initializer to remove species deemed to have stagnated.
 Determines relative fitnesses by transforming into (ideally) a 0-1 scale; however, if the top and bottom fitnesses are not at least some amount apart, the
 range may be less than 0-1, as a check against dividing by a too-small number. The minimum divisor is determined by the configuration variable
-<span class="xref std std-ref">fitness_min_divisor</span>.</p>
+<a class="reference internal" href="config_file.html#fitness-min-divisor-label"><span class="std std-ref">fitness_min_divisor</span></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4883,6 +4913,7 @@ Note that weakref is not compatible with saving via <a class="reference external
 <li><a class="reference internal" href="#iznn">iznn</a></li>
 <li><a class="reference internal" href="#math-util">math_util</a></li>
 <li><a class="reference internal" href="#multiparameter">multiparameter</a></li>
+<li><a class="reference internal" href="#nn">nn</a></li>
 <li><a class="reference internal" href="#nn-feed-forward">nn.feed_forward</a></li>
 <li><a class="reference internal" href="#nn-recurrent">nn.recurrent</a></li>
 <li><a class="reference internal" href="#parallel">parallel</a></li>

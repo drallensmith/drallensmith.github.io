@@ -104,7 +104,8 @@
             <span class="n">time_step</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max_time_step</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Expected </span><span class="si">{0}</span><span class="s2"> inputs, got </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)))</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Expected </span><span class="si">{0:n}</span><span class="s2"> inputs, got </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_nodes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)))</span>
 
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_seconds</span> <span class="o">&lt;</span> <span class="n">final_time_seconds</span><span class="p">:</span>
             <span class="n">dt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="n">final_time_seconds</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_seconds</span><span class="p">)</span>
@@ -132,7 +133,9 @@
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">genome</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">time_constant</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Receives a genome and returns its phenotype (a CTRNN). &quot;&quot;&quot;</span>
         <span class="n">genome_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">genome_config</span>
-        <span class="n">required</span> <span class="o">=</span> <span class="n">required_for_output</span><span class="p">(</span><span class="n">genome_config</span><span class="o">.</span><span class="n">input_keys</span><span class="p">,</span> <span class="n">genome_config</span><span class="o">.</span><span class="n">output_keys</span><span class="p">,</span> <span class="n">genome</span><span class="o">.</span><span class="n">connections</span><span class="p">)</span>
+        <span class="n">required</span> <span class="o">=</span> <span class="n">required_for_output</span><span class="p">(</span><span class="n">genome_config</span><span class="o">.</span><span class="n">input_keys</span><span class="p">,</span>
+                                       <span class="n">genome_config</span><span class="o">.</span><span class="n">output_keys</span><span class="p">,</span>
+                                       <span class="n">genome</span><span class="o">.</span><span class="n">connections</span><span class="p">)</span>
 
         <span class="c1"># Gather inputs and expressed connections.</span>
         <span class="n">node_inputs</span> <span class="o">=</span> <span class="p">{}</span>

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Overview: module code &#8212; NEAT-Python 0.92-multiparam_funcs documentation</title>
+    <title>nn &#8212; NEAT-Python 0.92-multiparam_funcs documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -39,35 +39,24 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="activations.html">activations</a></li>
-<li><a href="aggregations.html">aggregations</a></li>
-<li><a href="attributes.html">attributes</a></li>
-<li><a href="checkpoint.html">checkpoint</a></li>
-<li><a href="config.html">config</a></li>
-<li><a href="ctrnn.html">ctrnn</a></li>
-<li><a href="distributed.html">distributed</a></li>
-<li><a href="genes.html">genes</a></li>
-<li><a href="genome.html">genome</a></li>
-<li><a href="graphs.html">graphs</a></li>
-<li><a href="iznn.html">iznn</a></li>
-<li><a href="math_util.html">math_util</a></li>
-<li><a href="multiparameter.html">multiparameter</a></li>
-<li><a href="neat/multiparameter.html">neat.multiparameter</a></li>
-<li><a href="neat/nn/feed_forward.html">neat.nn.feed_forward</a></li>
-<li><a href="nn.html">nn</a></li>
-<ul><li><a href="nn/feed_forward.html">nn.feed_forward</a></li>
-<li><a href="nn/recurrent.html">nn.recurrent</a></li>
-</ul><li><a href="parallel.html">parallel</a></li>
-<li><a href="population.html">population</a></li>
-<li><a href="reporting.html">reporting</a></li>
-<li><a href="reproduction.html">reproduction</a></li>
-<li><a href="six_util.html">six_util</a></li>
-<li><a href="species.html">species</a></li>
-<li><a href="stagnation.html">stagnation</a></li>
-<li><a href="statistics.html">statistics</a></li>
-<li><a href="threaded.html">threaded</a></li>
-</ul>
+  <h1>Source code for nn</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Handles standard neural networks, either feedforward or recurrent.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">neat.nn.feed_forward</span> <span class="k">import</span> <span class="n">FeedForwardNetwork</span>
+<span class="kn">from</span> <span class="nn">neat.nn.recurrent</span> <span class="k">import</span> <span class="n">RecurrentNetwork</span>
+
+<div class="viewcode-block" id="create"><a class="viewcode-back" href="../module_summaries.html#nn.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">genome</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns either a RecurrentNetwork or a FeedForwardNetwork for this genome,</span>
+<span class="sd">    based on maybe_recurrent (a conservative estimate).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">genome</span><span class="o">.</span><span class="n">maybe_recurrent</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RecurrentNetwork</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">genome</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">FeedForwardNetwork</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">genome</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></div>
+
+
+
+</pre></div>
 
           </div>
         </div>
@@ -77,6 +66,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
