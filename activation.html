@@ -91,13 +91,16 @@ for instance (although note for the former that it is included in several others
 <tr class="row-odd"><td>sigmoid</td>
 <td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
 </tr>
-<tr class="row-even"><td>softplus</td>
+<tr class="row-even"><td>sin</td>
+<td><a class="reference internal" href="#wave-label"><span class="std std-ref">wave</span></a></td>
+</tr>
+<tr class="row-odd"><td>softplus</td>
 <td><a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a></td>
 </tr>
-<tr class="row-odd"><td>square</td>
+<tr class="row-even"><td>square</td>
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
 </tr>
-<tr class="row-even"><td>tanh</td>
+<tr class="row-odd"><td>tanh</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
 </tr>
 </tbody>
@@ -285,19 +288,25 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-square.png"><img alt="square function" src="_images/activation-square.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="square-wave">
+<h3>square_wave<a class="headerlink" href="#square-wave" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-square_wave.png"><img alt="Square wave with period matching sin activation function" src="_images/activation-square_wave.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="triangle-wave">
+<h3>triangle_wave<a class="headerlink" href="#triangle-wave" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-triangle_wave.png"><img alt="Triangle wave with period matching sin activation function" src="_images/activation-triangle_wave.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 </div>
 <div class="section" id="cppn-intended-activation-functions-multi-parameter">
 <h2>CPPN-intended activation functions (multi-parameter)<a class="headerlink" href="#cppn-intended-activation-functions-multi-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hat-gauss">
 <span id="hat-gauss-label"></span><h3>hat_gauss<a class="headerlink" href="#hat-gauss" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-hat_gauss.png"><img alt="Weighted average of gauss and hat functions." src="_images/activation-hat_gauss.png" style="width: 1596.0px; height: 369.0px;" /></a>
-</div>
-</div>
-<div class="section" id="scaled-expanded-log">
-<span id="scaled-expanded-log-label"></span><h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-scaled_expanded_log.png"><img alt="A version of expanded_log with variable scaling (with partially-counterbalancing weights both inside and outside the expanded_log function)." src="_images/activation-scaled_expanded_log.png" style="width: 1596.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-hat_gauss.png"><img alt="Weighted mean of gauss and hat functions." src="_images/activation-hat_gauss.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-log-inv">
@@ -310,6 +319,18 @@ for instance (although note for the former that it is included in several others
 <span id="multiparam-pow-label"></span><h3>multiparam_pow<a class="headerlink" href="#multiparam-pow" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-multiparam_pow.png"><img alt="Above a=1, pow(z, a); below 1, pow(z, pow(2,(a-1.0))" src="_images/activation-multiparam_pow.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="scaled-expanded-log">
+<span id="scaled-expanded-log-label"></span><h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-scaled_expanded_log.png"><img alt="A version of expanded_log with variable scaling (with partially-counterbalancing weights both inside and outside the expanded_log function)." src="_images/activation-scaled_expanded_log.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="wave">
+<span id="wave-label"></span><h3>wave<a class="headerlink" href="#wave" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-wave.png"><img alt="Weighted mean of triangle_wave, sin, and square_wave activation functions." src="_images/activation-wave.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 </div>
@@ -358,13 +379,16 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#sin">sin</a></li>
 <li><a class="reference internal" href="#skewed-log1p">skewed_log1p</a></li>
 <li><a class="reference internal" href="#square">square</a></li>
+<li><a class="reference internal" href="#square-wave">square_wave</a></li>
+<li><a class="reference internal" href="#triangle-wave">triangle_wave</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#cppn-intended-activation-functions-multi-parameter">CPPN-intended activation functions (multi-parameter)</a><ul>
 <li><a class="reference internal" href="#hat-gauss">hat_gauss</a></li>
-<li><a class="reference internal" href="#scaled-expanded-log">scaled_expanded_log</a></li>
 <li><a class="reference internal" href="#multiparam-log-inv">multiparam_log_inv</a></li>
 <li><a class="reference internal" href="#multiparam-pow">multiparam_pow</a></li>
+<li><a class="reference internal" href="#scaled-expanded-log">scaled_expanded_log</a></li>
+<li><a class="reference internal" href="#wave">wave</a></li>
 </ul>
 </li>
 </ul>
