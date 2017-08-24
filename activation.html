@@ -71,10 +71,10 @@ for instance (although note for the former that it is included in several others
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
 </tr>
 <tr class="row-odd"><td>gauss</td>
-<td><a class="reference internal" href="#hat-gauss-label"><span class="std std-ref">hat_gauss</span></a></td>
+<td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a></td>
 </tr>
 <tr class="row-even"><td>hat</td>
-<td><a class="reference internal" href="#hat-gauss-label"><span class="std std-ref">hat_gauss</span></a></td>
+<td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a></td>
 </tr>
 <tr class="row-odd"><td>identity</td>
 <td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
@@ -189,6 +189,18 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-multiparam_sigmoid.png"><img alt="A version of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` rescaled to match :ref:`sigmoid &lt;sigmoid-label&gt;` instead of :ref:`tanh &lt;tanh-label&gt;`." src="_images/activation-multiparam_sigmoid.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
+<div class="section" id="multiparam-sigmoid-approx">
+<h3>multiparam_sigmoid_approx<a class="headerlink" href="#multiparam-sigmoid-approx" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_sigmoid.png"><img alt="A version of multiparam_tanh_approx rescaled to match :ref:`sigmoid &lt;sigmoid-label&gt;` instead of :ref:`tanh &lt;tanh-label&gt;`, and constrained to 0-1" src="_images/activation-multiparam_sigmoid.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-tanh-approx">
+<h3>multiparam_tanh_approx<a class="headerlink" href="#multiparam-tanh-approx" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_tanh_approx.png"><img alt="Trying out an approximation to tanh that may be more efficient" src="_images/activation-swap-multiparam_tanh_approx.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
 <div class="section" id="multiparam-tanh-log1p">
 <h3>multiparam_tanh_log1p<a class="headerlink" href="#multiparam-tanh-log1p" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
@@ -270,6 +282,12 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-log.png"><img alt="log function" src="_images/activation-log.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="rectangular">
+<h3>rectangular<a class="headerlink" href="#rectangular" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-rectangular.png"><img alt="rectangular impulse function" src="_images/activation-rectangular.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 <div class="section" id="sin">
 <h3>sin<a class="headerlink" href="#sin" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
@@ -303,10 +321,10 @@ for instance (although note for the former that it is included in several others
 </div>
 <div class="section" id="cppn-intended-activation-functions-multi-parameter">
 <h2>CPPN-intended activation functions (multi-parameter)<a class="headerlink" href="#cppn-intended-activation-functions-multi-parameter" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="hat-gauss">
-<span id="hat-gauss-label"></span><h3>hat_gauss<a class="headerlink" href="#hat-gauss" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="hat-gauss-rectangular">
+<span id="hat-gauss-rectangular-label"></span><h3>hat_gauss_rectangular<a class="headerlink" href="#hat-gauss-rectangular" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-hat_gauss.png"><img alt="Weighted mean of gauss and hat functions." src="_images/activation-hat_gauss.png" style="width: 1596.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-hat_gauss_rectangular.png"><img alt="Weighted mean of hat, gauss, and rectangular functions." src="_images/activation-hat_gauss_rectangular.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-log-inv">
@@ -361,6 +379,8 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#multiparam-relu">multiparam_relu</a></li>
 <li><a class="reference internal" href="#multiparam-relu-softplus">multiparam_relu_softplus</a></li>
 <li><a class="reference internal" href="#multiparam-sigmoid">multiparam_sigmoid</a></li>
+<li><a class="reference internal" href="#multiparam-sigmoid-approx">multiparam_sigmoid_approx</a></li>
+<li><a class="reference internal" href="#multiparam-tanh-approx">multiparam_tanh_approx</a></li>
 <li><a class="reference internal" href="#multiparam-tanh-log1p">multiparam_tanh_log1p</a></li>
 <li><a class="reference internal" href="#scaled-log1p">scaled_log1p</a></li>
 <li><a class="reference internal" href="#weighted-lu">weighted_lu</a></li>
@@ -376,6 +396,7 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#identity-label">identity</a></li>
 <li><a class="reference internal" href="#inv">inv</a></li>
 <li><a class="reference internal" href="#log">log</a></li>
+<li><a class="reference internal" href="#rectangular">rectangular</a></li>
 <li><a class="reference internal" href="#sin">sin</a></li>
 <li><a class="reference internal" href="#skewed-log1p">skewed_log1p</a></li>
 <li><a class="reference internal" href="#square">square</a></li>
@@ -384,7 +405,7 @@ for instance (although note for the former that it is included in several others
 </ul>
 </li>
 <li><a class="reference internal" href="#cppn-intended-activation-functions-multi-parameter">CPPN-intended activation functions (multi-parameter)</a><ul>
-<li><a class="reference internal" href="#hat-gauss">hat_gauss</a></li>
+<li><a class="reference internal" href="#hat-gauss-rectangular">hat_gauss_rectangular</a></li>
 <li><a class="reference internal" href="#multiparam-log-inv">multiparam_log_inv</a></li>
 <li><a class="reference internal" href="#multiparam-pow">multiparam_pow</a></li>
 <li><a class="reference internal" href="#scaled-expanded-log">scaled_expanded_log</a></li>
