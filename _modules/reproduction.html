@@ -85,6 +85,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">genome_indexer</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation</span> <span class="o">=</span> <span class="n">stagnation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span>
 
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">survival_threshold</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span> <span class="c1"># NEEDS TEST</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -107,12 +108,13 @@
                 <span class="s2">&quot;Fitness_min_divisor cannot be negative (</span><span class="si">{0:n}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">=</span> <span class="n">NORM_EPSILON</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">=</span> <span class="n">NORM_EPSILON</span>
         <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">&lt;</span> <span class="n">float_info</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitness_min_divisor </span><span class="si">{0:n}</span><span class="s2"> is too low; increasing to </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span><span class="p">,</span><span class="n">float_info</span><span class="o">.</span><span class="n">epsilon</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
             <span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="n">config</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">=</span> <span class="n">float_info</span><span class="o">.</span><span class="n">epsilon</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fitness_min_divisor</span> <span class="o">=</span> <span class="n">float_info</span><span class="o">.</span><span class="n">epsilon</span>
 
         <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">min_species_size</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># NEEDS TEST</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -135,10 +137,19 @@
         <span class="n">to_return_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">elitism</span><span class="p">,</span>
                                          <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">min_species_size</span><span class="p">)</span>
-        <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_good_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
-            <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">survival_threshold</span><span class="p">))</span>
+        <span class="n">num_try</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_size&#39;</span><span class="p">])</span>
+        <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_OK_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_good_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">num_try</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">survival_threshold</span><span class="p">))</span>
+        <span class="k">while</span> <span class="p">((</span><span class="n">num_try</span><span class="o">*</span><span class="p">(</span><span class="n">num_try</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># number of possible parent combinations</span>
+               <span class="o">&lt;</span> <span class="p">(</span><span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_good_size&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">num_try</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_good_size&#39;</span><span class="p">]</span>
+                                                                 <span class="o">&lt;</span> <span class="mi">50</span><span class="p">):</span> <span class="c1"># half of min pop size 100</span>
+            <span class="n">num_try</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;min_good_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+                <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">num_try</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">survival_threshold</span><span class="p">))</span>
         <span class="c1"># below - for info about weight, disjoint coefficients</span>
         <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;genome_config&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_config</span>
+        <span class="c1"># for max_stagnation</span>
+        <span class="n">to_return_dict</span><span class="p">[</span><span class="s1">&#39;stagnation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation</span>
         <span class="k">return</span> <span class="n">to_return_dict</span>
 
 <div class="viewcode-block" id="DefaultReproduction.compute_spawn"><a class="viewcode-back" href="../module_summaries.html#reproduction.DefaultReproduction.compute_spawn">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -224,7 +235,7 @@
         <span class="n">min_fitness</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_fitnesses</span><span class="p">)</span>
         <span class="n">max_fitness</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_fitnesses</span><span class="p">)</span>
         <span class="c1"># Do not allow the fitness range to be zero, as we divide by it below.</span>
-        <span class="n">fitness_range</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="o">.</span><span class="n">fitness_min_divisor</span><span class="p">,</span> <span class="n">max_fitness</span> <span class="o">-</span> <span class="n">min_fitness</span><span class="p">)</span>
+        <span class="n">fitness_range</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness_min_divisor</span><span class="p">,</span> <span class="n">max_fitness</span> <span class="o">-</span> <span class="n">min_fitness</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">afs</span> <span class="ow">in</span> <span class="n">remaining_species</span><span class="p">:</span>
             <span class="c1"># Compute adjusted fitness.</span>
             <span class="c1"># TODO: One variant suggested by Stanley on his webpage is to only use the</span>
