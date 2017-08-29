@@ -102,9 +102,9 @@
         <span class="sd">&quot;&quot;&quot;Get the per-generation median fitness.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fitness_stat</span><span class="p">(</span><span class="n">median2</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_fitness_tmean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span> <span class="c1"># TEST NEEDED</span>
+<div class="viewcode-block" id="StatisticsReporter.get_fitness_tmean"><a class="viewcode-back" href="../module_summaries.html#statistics.StatisticsReporter.get_fitness_tmean">[docs]</a>    <span class="k">def</span> <span class="nf">get_fitness_tmean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="mf">0.25</span><span class="p">):</span> <span class="c1"># TEST NEEDED</span>
         <span class="sd">&quot;&quot;&quot;Get the per-generation trimmed fitness.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fitness_stat</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">tmean</span><span class="p">,</span><span class="n">trim</span><span class="o">=</span><span class="n">trim</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fitness_stat</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">tmean</span><span class="p">,</span><span class="n">trim</span><span class="o">=</span><span class="n">trim</span><span class="p">))</span></div>
 
 <span class="c1">##    def get_average_cross_validation_fitness(self): # pragma: no cover</span>
 <span class="c1">##        &quot;&quot;&quot;Get the per-generation average cross_validation fitness.&quot;&quot;&quot;</span>

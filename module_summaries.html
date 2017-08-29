@@ -2294,6 +2294,23 @@ existing nodes with that key acquiring a new connection. Question: If two nodes 
 </dd></dl>
 
 <span class="target" id="index-83"></span><span class="target" id="index-84"></span><dl class="method">
+<dt id="genome.DefaultGenomeConfig.get_compatibility_info">
+<code class="descname">get_compatibility_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenomeConfig.get_compatibility_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenomeConfig.get_compatibility_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method to retrieve the current <a class="reference internal" href="config_file.html#compatibility-disjoint-coefficient-label"><span class="std std-ref">compatibility_disjoint_coefficient</span></a> and
+<a class="reference internal" href="config_file.html#compatibility-weight-coefficient-label"><span class="std std-ref">compatibility_weight_coefficient</span></a> settings. More information may be added.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of, currently, <code class="docutils literal"><span class="pre">disjoint_coefficient</span></code> vs the compatibility_disjoint_coefficient and <code class="docutils literal"><span class="pre">weight_coefficient</span></code> vs the compatibility_weight_coefficient</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a>(<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)">str</a>, <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)">float</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="index-85"></span><span class="target" id="index-86"></span><dl class="method">
 <dt id="genome.DefaultGenomeConfig.check_structural_mutation_surer">
 <code class="descname">check_structural_mutation_surer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenomeConfig.check_structural_mutation_surer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenomeConfig.check_structural_mutation_surer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks vs <a class="reference internal" href="config_file.html#structural-mutation-surer-label"><span class="std std-ref">structural_mutation_surer</span></a> and, if necessary, <code class="docutils literal"><span class="pre">single_structural_mutation</span></code> to decide if
@@ -2315,7 +2332,7 @@ changes from the former should happen.</p>
 
 </dd></dl>
 
-<span class="target" id="index-85"></span><span class="target" id="index-86"></span><dl class="class">
+<span class="target" id="index-87"></span><span class="target" id="index-88"></span><dl class="class">
 <dt id="genome.DefaultGenome">
 <em class="property">class </em><code class="descclassname">genome.</code><code class="descname">DefaultGenome</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome" title="Permalink to this definition">¶</a></dt>
 <dd><p>A <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a> for generalized neural networks. For class requirements, see <a class="reference internal" href="genome-interface.html#genome-interface-label"><span class="std std-ref">Genome Interface</span></a>.
@@ -2374,7 +2391,7 @@ uses <a class="reference internal" href="#genome.DefaultGenomeConfig" title="gen
 </table>
 </dd></dl>
 
-<span class="target" id="index-87"></span><span class="target" id="index-88"></span><span class="target" id="index-89"></span><span class="target" id="index-90"></span><dl class="method">
+<span class="target" id="index-89"></span><span class="target" id="index-90"></span><span class="target" id="index-91"></span><span class="target" id="index-92"></span><dl class="method">
 <dt id="genome.DefaultGenome.configure_new">
 <code class="descname">configure_new</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.configure_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.configure_new" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Configures a new genome (itself) based on the given
@@ -2391,7 +2408,7 @@ starting <a class="reference internal" href="glossary.html#term-node"><span clas
 </table>
 </dd></dl>
 
-<span class="target" id="index-91"></span><dl class="method">
+<span class="target" id="index-93"></span><dl class="method">
 <dt id="genome.DefaultGenome.configure_crossover">
 <code class="descname">configure_crossover</code><span class="sig-paren">(</span><em>genome1</em>, <em>genome2</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.configure_crossover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.configure_crossover" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Configures a new genome (itself) by <a class="reference internal" href="glossary.html#term-crossover"><span class="xref std std-term">crossover</span></a> from two parent genomes. <a class="reference internal" href="glossary.html#term-disjoint"><span class="xref std std-term">disjoint</span></a>
@@ -2412,7 +2429,7 @@ or <a class="reference internal" href="glossary.html#term-excess"><span class="x
 </table>
 </dd></dl>
 
-<span class="target" id="index-92"></span><span class="target" id="index-93"></span><span class="target" id="index-94"></span><span class="target" id="index-95"></span><span class="target" id="index-96"></span><span class="target" id="index-97"></span><dl class="method">
+<span class="target" id="index-94"></span><span class="target" id="index-95"></span><span class="target" id="index-96"></span><span class="target" id="index-97"></span><span class="target" id="index-98"></span><span class="target" id="index-99"></span><dl class="method">
 <dt id="genome.DefaultGenome.mutate">
 <code class="descname">mutate</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.mutate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. <a class="reference internal" href="glossary.html#term-mutation"><span class="xref std std-term">Mutates</span></a> this genome. What mutations take place are determined by configuration file settings, such
@@ -2434,7 +2451,7 @@ connection and node genes (generally <a class="reference internal" href="#genes.
 </div>
 </dd></dl>
 
-<span class="target" id="index-98"></span><span class="target" id="index-99"></span><span class="target" id="index-100"></span><span class="target" id="index-101"></span><dl class="method">
+<span class="target" id="index-100"></span><span class="target" id="index-101"></span><span class="target" id="index-102"></span><span class="target" id="index-103"></span><dl class="method">
 <dt id="genome.DefaultGenome.mutate_add_node">
 <code class="descname">mutate_add_node</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.mutate_add_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.mutate_add_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a randomly-selected existing connection, turns its <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> attribute to <code class="docutils literal"><span class="pre">False</span></code>, and makes two new (enabled) connections with a
@@ -2456,7 +2473,7 @@ TODO: Perhaps exactly how the new connection weights are set up should be config
 </div>
 </dd></dl>
 
-<span class="target" id="index-102"></span><span class="target" id="index-103"></span><dl class="method">
+<span class="target" id="index-104"></span><span class="target" id="index-105"></span><dl class="method">
 <dt id="genome.DefaultGenome.add_connection">
 <code class="descname">add_connection</code><span class="sig-paren">(</span><em>config</em>, <em>input_key</em>, <em>output_key</em>, <em>weight</em>, <em>enabled</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.add_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.add_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a specified new connection; its <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">key</span></a> is the <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">tuple</span></code></a> of <code class="docutils literal"><span class="pre">(input_key,</span> <span class="pre">output_key)</span></code>. TODO: Add further validation of this connection addition?</p>
@@ -2477,7 +2494,7 @@ TODO: Perhaps exactly how the new connection weights are set up should be config
 </table>
 </dd></dl>
 
-<span class="target" id="index-104"></span><span class="target" id="index-105"></span><span class="target" id="index-106"></span><span class="target" id="index-107"></span><dl class="method">
+<span class="target" id="index-106"></span><span class="target" id="index-107"></span><span class="target" id="index-108"></span><span class="target" id="index-109"></span><dl class="method">
 <dt id="genome.DefaultGenome.mutate_add_connection">
 <code class="descname">mutate_add_connection</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.mutate_add_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.mutate_add_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attempts to add a randomly-selected new connection, with some filtering:
@@ -2512,14 +2529,14 @@ TODO: Perhaps exactly how the new connection weights are set up should be config
 </table>
 </dd></dl>
 
-<span class="target" id="index-108"></span><dl class="method">
+<span class="target" id="index-110"></span><dl class="method">
 <dt id="genome.DefaultGenome.mutate_delete_connection">
 <code class="descname">mutate_delete_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.mutate_delete_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.mutate_delete_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a randomly-chosen connection. TODO: If the connection is <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a>, have an option to - possibly with a <a class="reference internal" href="glossary.html#term-weight"><span class="xref std std-term">weight</span></a>-dependent
 chance - turn its <a class="reference internal" href="glossary.html#term-enabled"><span class="xref std std-term">enabled</span></a> attribute to <code class="docutils literal"><span class="pre">False</span></code> instead.</p>
 </dd></dl>
 
-<span class="target" id="index-109"></span><span class="target" id="index-110"></span><span class="target" id="index-111"></span><span class="target" id="index-112"></span><dl class="method">
+<span class="target" id="index-111"></span><span class="target" id="index-112"></span><span class="target" id="index-113"></span><span class="target" id="index-114"></span><dl class="method">
 <dt id="genome.DefaultGenome.distance">
 <code class="descname">distance</code><span class="sig-paren">(</span><em>other</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Returns the <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> between this genome and the other.
@@ -2584,7 +2601,7 @@ for reporters - some retrieve this information for the highest-fitness genome at
 </table>
 </dd></dl>
 
-<span class="target" id="index-113"></span><dl class="staticmethod">
+<span class="target" id="index-115"></span><dl class="staticmethod">
 <dt id="genome.DefaultGenome.create_node">
 <em class="property">static </em><code class="descname">create_node</code><span class="sig-paren">(</span><em>config</em>, <em>node_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.create_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.create_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new node with the specified <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">id</span></a> (including for its <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a>), using the specified configuration object to retrieve the proper
@@ -2609,7 +2626,7 @@ node gene type and how to initialize its attributes.</p>
 </table>
 </dd></dl>
 
-<span class="target" id="index-114"></span><dl class="staticmethod">
+<span class="target" id="index-116"></span><dl class="staticmethod">
 <dt id="genome.DefaultGenome.create_connection">
 <em class="property">static </em><code class="descname">create_connection</code><span class="sig-paren">(</span><em>config</em>, <em>input_id</em>, <em>output_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.create_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.create_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new connection with the specified <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">id</span></a> pair as its key (including for its <a class="reference internal" href="glossary.html#term-gene"><span class="xref std std-term">gene</span></a>, as a <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#tuple" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">tuple</span></code></a>), using the specified
@@ -2635,7 +2652,7 @@ configuration object to retrieve the proper connection gene type and how to init
 </table>
 </dd></dl>
 
-<span class="target" id="index-115"></span><dl class="method">
+<span class="target" id="index-117"></span><dl class="method">
 <dt id="genome.DefaultGenome.connect_fs_neat_nohidden">
 <code class="descname">connect_fs_neat_nohidden</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genome.html#DefaultGenome.connect_fs_neat_nohidden"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genome.DefaultGenome.connect_fs_neat_nohidden" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect one randomly-chosen input to all <a class="reference internal" href="glossary.html#term-output-node"><span class="xref std std-term">output nodes</span></a> (FS-NEAT without connections to <a class="reference internal" href="glossary.html#term-hidden-node"><span class="xref std std-term">hidden nodes</span></a>,
@@ -2771,7 +2788,7 @@ there are no hidden nodes), each hidden node connected to all output nodes. (Rec
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="index-116"></span><span class="target" id="index-117"></span><span class="target" id="index-118"></span><span class="target" id="module-graphs"><span id="index-119"></span></span></div>
+<span class="target" id="index-118"></span><span class="target" id="index-119"></span><span class="target" id="index-120"></span><span class="target" id="module-graphs"><span id="index-121"></span></span></div>
 <div class="section" id="graphs">
 <h2>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h2>
 <p>Directed graph algorithm implementations.</p>
@@ -2909,7 +2926,7 @@ by <code class="docutils literal"><span class="pre">connections</span></code>. U
 <dd><p>Parameter sets (for <code class="docutils literal"><span class="pre">a</span></code>, <code class="docutils literal"><span class="pre">b</span></code>, <code class="docutils literal"><span class="pre">c</span></code>, and <code class="docutils literal"><span class="pre">d</span></code>, described below) producing known types of spiking behaviors.</p>
 </dd></dl>
 
-<span class="target" id="index-120"></span><span class="target" id="index-121"></span><span class="target" id="index-122"></span><dl class="class">
+<span class="target" id="index-122"></span><span class="target" id="index-123"></span><span class="target" id="index-124"></span><dl class="class">
 <dt id="iznn.IZNodeGene">
 <em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZNodeGene</code><span class="sig-paren">(</span><em>BaseGene</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNodeGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNodeGene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains attributes for the iznn <a class="reference internal" href="glossary.html#term-node"><span class="xref std std-term">node</span></a> genes and determines <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distances</span></a>.
@@ -2934,7 +2951,7 @@ TODO: Genomic distance currently does not take into account the node’s <a clas
 
 </dd></dl>
 
-<span class="target" id="index-123"></span><dl class="class">
+<span class="target" id="index-125"></span><dl class="class">
 <dt id="iznn.IZGenome">
 <em class="property">class </em><code class="descclassname">iznn.</code><code class="descname">IZGenome</code><span class="sig-paren">(</span><em>DefaultGenome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZGenome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZGenome" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets up the genome to use <a class="reference internal" href="#iznn.IZNodeGene" title="iznn.IZNodeGene"><code class="xref py py-class docutils literal"><span class="pre">IZNodeGene</span></code></a> instances for node genes, and <a class="reference internal" href="#genes.DefaultConnectionGene" title="genes.DefaultConnectionGene"><code class="xref py py-class docutils literal"><span class="pre">genes.DefaultConnectionGene</span></code></a> instances for
@@ -2983,7 +3000,7 @@ uses <a class="reference internal" href="#genome.DefaultGenomeConfig" title="gen
 </tr>
 </tbody>
 </table>
-<span class="target" id="index-124"></span><dl class="method">
+<span class="target" id="index-126"></span><dl class="method">
 <dt id="iznn.IZNeuron.advance">
 <code class="descname">advance</code><span class="sig-paren">(</span><em>dt_msec</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNeuron.advance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNeuron.advance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Advances simulation time for the neuron by the given time step in milliseconds. TODO: Currently has some numerical stability problems.</p>
@@ -3042,7 +3059,7 @@ uses <a class="reference internal" href="#genome.DefaultGenomeConfig" title="gen
 <dd><p>Resets all neurons to their default state.</p>
 </dd></dl>
 
-<span class="target" id="index-125"></span><dl class="method">
+<span class="target" id="index-127"></span><dl class="method">
 <dt id="iznn.IZNN.get_time_step_msec">
 <code class="descname">get_time_step_msec</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/iznn.html#IZNN.get_time_step_msec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#iznn.IZNN.get_time_step_msec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a suggested time step; currently hardwired to 0.05. TODO: Investigate this (particularly effects on numerical stability issues).</p>
@@ -3121,7 +3138,7 @@ functions (such as for the <a class="reference internal" href="config_file.html#
 <code class="descname">learning techniques can work well with half-precision floating-point numbers).</code></dt>
 <dd></dd></dl>
 
-<span class="target" id="index-126"></span><span class="target" id="index-127"></span><dl class="function">
+<span class="target" id="index-128"></span><span class="target" id="index-129"></span><dl class="function">
 <dt id="math_util.mean">
 <code class="descclassname">math_util.</code><code class="descname">mean</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/math_util.html#mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#math_util.mean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the arithmetic mean.</p>
@@ -3280,7 +3297,7 @@ is the <a class="reference internal" href="config_file.html#fitness-criterion-la
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="index-128"></span><span class="target" id="index-129"></span><span class="target" id="module-multiparameter"><span id="index-130"></span></span></div>
+<span class="target" id="index-130"></span><span class="target" id="index-131"></span><span class="target" id="module-multiparameter"><span id="index-132"></span></span></div>
 <div class="section" id="multiparameter">
 <h2>multiparameter<a class="headerlink" href="#multiparameter" title="Permalink to this headline">¶</a></h2>
 <p>The basis for <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">activation</span></a> and <a class="reference internal" href="glossary.html#term-aggregation-function"><span class="xref std std-term">aggregation</span></a> functions.</p>
@@ -3484,6 +3501,12 @@ of its parameter variables to be evolved. Requirements for the function include 
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="nn.feed_forward.FeedForwardNetwork.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy method to match interface <a class="reference internal" href="#nn.recurrent.RecurrentNetwork.reset" title="nn.recurrent.RecurrentNetwork.reset"><code class="xref py py-meth docutils literal"><span class="pre">reset</span></code></a> method for <a class="reference internal" href="#nn.recurrent.RecurrentNetwork" title="nn.recurrent.RecurrentNetwork"><code class="xref py py-class docutils literal"><span class="pre">nn.recurrent.RecurrentNetwork</span></code></a>.</p>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="nn.feed_forward.FeedForwardNetwork.create">
 <em class="property">static </em><code class="descname">create</code><span class="sig-paren">(</span><em>genome</em>, <em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/feed_forward.html#FeedForwardNetwork.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nn.feed_forward.FeedForwardNetwork.create" title="Permalink to this definition">¶</a></dt>
@@ -3590,7 +3613,7 @@ of its parameter variables to be evolved. Requirements for the function include 
 <h2>parallel<a class="headerlink" href="#parallel" title="Permalink to this headline">¶</a></h2>
 <p>Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once.</p>
 <blockquote>
-<div><span class="target" id="index-131"></span><span class="target" id="index-132"></span><dl class="class">
+<div><span class="target" id="index-133"></span><span class="target" id="index-134"></span><dl class="class">
 <dt id="parallel.ParallelEvaluator">
 <em class="property">class </em><code class="descclassname">parallel.</code><code class="descname">ParallelEvaluator</code><span class="sig-paren">(</span><em>num_workers</em>, <em>eval_function</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/parallel.html#ParallelEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#parallel.ParallelEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once. The analogous <a class="reference internal" href="#module-threaded" title="threaded: Runs evaluation functions in parallel threads in order to evaluate multiple genomes at once."><code class="xref py py-mod docutils literal"><span class="pre">threaded</span></code></a> is probably preferable
@@ -3640,13 +3663,13 @@ for python implementations without a <a class="reference external" href="https:/
 <h2>population<a class="headerlink" href="#population" title="Permalink to this headline">¶</a></h2>
 <p>Implements the core evolution algorithm.</p>
 <blockquote>
-<div><span class="target" id="index-133"></span><dl class="exception">
+<div><span class="target" id="index-135"></span><dl class="exception">
 <dt id="population.CompleteExtinctionException">
 <em class="property">exception </em><code class="descclassname">population.</code><code class="descname">CompleteExtinctionException</code><a class="reference internal" href="_modules/population.html#CompleteExtinctionException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#population.CompleteExtinctionException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raised on complete extinction (all species removed due to stagnation) unless <a class="reference internal" href="config_file.html#reset-on-extinction-label"><span class="std std-ref">reset_on_extinction</span></a> is set.</p>
 </dd></dl>
 
-<span class="target" id="index-134"></span><span class="target" id="index-135"></span><span class="target" id="index-136"></span><span class="target" id="index-137"></span><span class="target" id="index-138"></span><span class="target" id="index-139"></span><span class="target" id="index-140"></span><span class="target" id="index-141"></span><span class="target" id="index-142"></span><span class="target" id="index-143"></span><dl class="class">
+<span class="target" id="index-136"></span><span class="target" id="index-137"></span><span class="target" id="index-138"></span><span class="target" id="index-139"></span><span class="target" id="index-140"></span><span class="target" id="index-141"></span><span class="target" id="index-142"></span><span class="target" id="index-143"></span><span class="target" id="index-144"></span><span class="target" id="index-145"></span><dl class="class">
 <dt id="population.Population">
 <em class="property">class </em><code class="descclassname">population.</code><code class="descname">Population</code><span class="sig-paren">(</span><em>config</em>, <em>initial_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/population.html#Population"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#population.Population" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class implements the core evolution algorithm:
@@ -3698,7 +3721,7 @@ for python implementations without a <a class="reference external" href="https:/
 </table>
 </dd></dl>
 
-<span class="target" id="index-144"></span><span class="target" id="index-145"></span><span class="target" id="index-146"></span><span class="target" id="index-147"></span><dl class="method">
+<span class="target" id="index-146"></span><span class="target" id="index-147"></span><span class="target" id="index-148"></span><span class="target" id="index-149"></span><dl class="method">
 <dt id="population.Population.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>fitness_function</em>, <em>n=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/population.html#Population.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#population.Population.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs NEAT’s genetic algorithm for at most n generations.  If n
@@ -3790,7 +3813,7 @@ or the configuration object.</p>
 </table>
 </dd></dl>
 
-<span class="target" id="index-148"></span><dl class="method">
+<span class="target" id="index-150"></span><dl class="method">
 <dt id="reporting.ReporterSet.start_generation">
 <code class="descname">start_generation</code><span class="sig-paren">(</span><em>gen</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#ReporterSet.start_generation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.ReporterSet.start_generation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls <a class="reference internal" href="#reporting.BaseReporter.start_generation" title="reporting.BaseReporter.start_generation"><code class="xref py py-meth docutils literal"><span class="pre">start_generation</span></code></a> on each reporter in the set.</p>
@@ -3913,7 +3936,7 @@ or the configuration object.</p>
 <em class="property">class </em><code class="descclassname">reporting.</code><code class="descname">BaseReporter</code><a class="reference internal" href="_modules/reporting.html#BaseReporter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract class defining the reporter interface expected by ReporterSet. Inheriting from it will provide a set of <code class="docutils literal"><span class="pre">dummy</span></code> methods to be overridden as
 desired, as follows:</p>
-<span class="target" id="index-149"></span><dl class="method">
+<span class="target" id="index-151"></span><dl class="method">
 <dt id="reporting.BaseReporter.start_generation">
 <code class="descname">start_generation</code><span class="sig-paren">(</span><em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.start_generation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.start_generation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called via <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> (by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>) at the start of each generation, prior to the invocation of the fitness function.</p>
@@ -3927,7 +3950,7 @@ desired, as follows:</p>
 </table>
 </dd></dl>
 
-<span class="target" id="index-150"></span><dl class="method">
+<span class="target" id="index-152"></span><dl class="method">
 <dt id="reporting.BaseReporter.end_generation">
 <code class="descname">end_generation</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.end_generation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.end_generation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called via <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> (by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>) at the end of each <a class="reference internal" href="glossary.html#term-generation"><span class="xref std std-term">generation</span></a>, after reproduction and speciation.</p>
@@ -3946,7 +3969,7 @@ desired, as follows:</p>
 </table>
 </dd></dl>
 
-<span class="target" id="index-151"></span><dl class="method">
+<span class="target" id="index-153"></span><dl class="method">
 <dt id="reporting.BaseReporter.post_evaluate">
 <code class="descname">post_evaluate</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>species</em>, <em>best_genome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.post_evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.post_evaluate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called via <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> (by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>) after the fitness function is finished.</p>
@@ -3973,7 +3996,7 @@ desired, as follows:</p>
 Note: New members of the population likely will not have a set species.</p>
 </dd></dl>
 
-<span class="target" id="index-152"></span><dl class="method">
+<span class="target" id="index-154"></span><dl class="method">
 <dt id="reporting.BaseReporter.complete_extinction">
 <code class="descname">complete_extinction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.complete_extinction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.complete_extinction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called via <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> (by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>) if complete extinction (due to stagnation) occurs, prior to
@@ -3981,7 +4004,7 @@ Note: New members of the population likely will not have a set species.</p>
 a new population being created or a <a class="reference internal" href="#population.CompleteExtinctionException" title="population.CompleteExtinctionException"><code class="xref py py-exc docutils literal"><span class="pre">population.CompleteExtinctionException</span></code></a> being raised.</p>
 </dd></dl>
 
-<span class="target" id="index-153"></span><span class="target" id="index-154"></span><span class="target" id="index-155"></span><dl class="method">
+<span class="target" id="index-155"></span><span class="target" id="index-156"></span><span class="target" id="index-157"></span><dl class="method">
 <dt id="reporting.BaseReporter.found_solution">
 <code class="descname">found_solution</code><span class="sig-paren">(</span><em>config</em>, <em>generation</em>, <em>best</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reporting.html#BaseReporter.found_solution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reporting.BaseReporter.found_solution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called via <a class="reference internal" href="#reporting.ReporterSet" title="reporting.ReporterSet"><code class="xref py py-class docutils literal"><span class="pre">ReporterSet</span></code></a> (by <a class="reference internal" href="#population.Population.run" title="population.Population.run"><code class="xref py py-meth docutils literal"><span class="pre">population.Population.run()</span></code></a>) prior to exiting if the configured
@@ -4060,7 +4083,7 @@ stagnation class (such as <a class="reference internal" href="#stagnation.Defaul
 <h2>reproduction<a class="headerlink" href="#reproduction" title="Permalink to this headline">¶</a></h2>
 <p>Handles creation of genomes, either from scratch or by sexual or asexual reproduction from parents. For class requirements, see <a class="reference internal" href="reproduction-interface.html#reproduction-interface-label"><span class="std std-ref">Reproduction Interface</span></a>. Implements the default NEAT-python reproduction scheme: explicit fitness sharing with fixed-time species stagnation.</p>
 <blockquote>
-<div><span class="target" id="index-156"></span><span class="target" id="index-157"></span><span class="target" id="index-158"></span><dl class="class">
+<div><span class="target" id="index-158"></span><span class="target" id="index-159"></span><span class="target" id="index-160"></span><dl class="class">
 <dt id="reproduction.DefaultReproduction">
 <em class="property">class </em><code class="descclassname">reproduction.</code><code class="descname">DefaultReproduction</code><span class="sig-paren">(</span><em>config</em>, <em>reporters</em>, <em>stagnation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implements the default NEAT-python reproduction scheme: explicit fitness sharing with fixed-time species stagnation. Inherits
@@ -4092,8 +4115,8 @@ rate configuration. This scheme should be adaptive so that species do not evolve
 <dl class="classmethod">
 <dt id="reproduction.DefaultReproduction.parse_config">
 <em class="property">classmethod </em><code class="descname">parse_config</code><span class="sig-paren">(</span><em>param_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.parse_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.parse_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Required interface method. Provides defaults for <span class="target" id="index-159"></span>elitism, <span class="target" id="index-160"></span>survival_threshold, <span class="target" id="index-161"></span>min_species_size, and
-<span class="target" id="index-162"></span>fitness_min_divisor parameters and updates them from the <a class="reference internal" href="config_file.html#reproduction-config-label"><span class="std std-ref">configuration file</span></a>, in this implementation
+<dd><p>Required interface method. Provides defaults for <span class="target" id="index-161"></span>elitism, <span class="target" id="index-162"></span>survival_threshold, <span class="target" id="index-163"></span>min_species_size, and
+<span class="target" id="index-164"></span>fitness_min_divisor parameters and updates them from the <a class="reference internal" href="config_file.html#reproduction-config-label"><span class="std std-ref">configuration file</span></a>, in this implementation
 using <a class="reference internal" href="#config.DefaultClassConfig" title="config.DefaultClassConfig"><code class="xref py py-class docutils literal"><span class="pre">config.DefaultClassConfig</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -4115,7 +4138,7 @@ using <a class="reference internal" href="#config.DefaultClassConfig" title="con
 </div>
 </dd></dl>
 
-<span class="target" id="index-163"></span><dl class="method">
+<span class="target" id="index-165"></span><dl class="method">
 <dt id="reproduction.DefaultReproduction.create_new">
 <code class="descname">create_new</code><span class="sig-paren">(</span><em>genome_type</em>, <em>genome_config</em>, <em>num_genomes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.create_new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.create_new" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Creates <code class="docutils literal"><span class="pre">num_genomes</span></code> new genomes of the given type using the given configuration. Also initializes ancestry
@@ -4141,7 +4164,7 @@ information (as an empty tuple).</p>
 </table>
 </dd></dl>
 
-<span class="target" id="index-164"></span><span class="target" id="index-165"></span><dl class="staticmethod">
+<span class="target" id="index-166"></span><span class="target" id="index-167"></span><dl class="staticmethod">
 <dt id="reproduction.DefaultReproduction.compute_spawn">
 <em class="property">static </em><code class="descname">compute_spawn</code><span class="sig-paren">(</span><em>adjusted_fitness</em>, <em>previous_sizes</em>, <em>pop_size</em>, <em>min_species_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.compute_spawn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.compute_spawn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apportions desired number of members per species according to fitness (adjusted by <a class="reference internal" href="#reproduction.DefaultReproduction.reproduce" title="reproduction.DefaultReproduction.reproduce"><code class="xref py py-meth docutils literal"><span class="pre">reproduce()</span></code></a> to a 0-1 scale) from out of the
@@ -4162,7 +4185,7 @@ desired population size.</p>
 </table>
 </dd></dl>
 
-<span class="target" id="index-166"></span><span class="target" id="index-167"></span><span class="target" id="index-168"></span><span class="target" id="index-169"></span><span class="target" id="index-170"></span><span class="target" id="index-171"></span><span class="target" id="index-172"></span><span class="target" id="index-173"></span><span class="target" id="index-174"></span><span class="target" id="index-175"></span><dl class="method">
+<span class="target" id="index-168"></span><span class="target" id="index-169"></span><span class="target" id="index-170"></span><span class="target" id="index-171"></span><span class="target" id="index-172"></span><span class="target" id="index-173"></span><span class="target" id="index-174"></span><span class="target" id="index-175"></span><span class="target" id="index-176"></span><span class="target" id="index-177"></span><dl class="method">
 <dt id="reproduction.DefaultReproduction.reproduce">
 <code class="descname">reproduce</code><span class="sig-paren">(</span><em>config</em>, <em>species</em>, <em>pop_size</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/reproduction.html#DefaultReproduction.reproduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#reproduction.DefaultReproduction.reproduce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Creates the population to be used in the next generation from the given configuration instance, SpeciesSet instance,
@@ -4213,7 +4236,7 @@ stagnation; it is now determined using only the non-stagnant species. The minimu
 <h2>six_util<a class="headerlink" href="#six-util" title="Permalink to this headline">¶</a></h2>
 <p>This Python 2/3 portability code was copied from the <a class="reference external" href="https://pythonhosted.org/six/">six module</a> to avoid adding it as a dependency.</p>
 <blockquote>
-<div><div class="admonition-todo admonition" id="index-176">
+<div><div class="admonition-todo admonition" id="index-178">
 <p class="first admonition-title">Todo</p>
 <p class="last">Better documentation for the <code class="docutils literal"><span class="pre">kw</span></code> parameter in the below. Internally, these are using <code class="docutils literal"><span class="pre">**kw</span></code> as a <strong>parameter</strong> for
 keys/items/values/iterkeys/iteritems/itervalues! Is this in case someone puts in a set of key/value pairs instead of a dictionary?
@@ -4274,7 +4297,7 @@ The <a class="reference external" href="https://pythonhosted.org/six/">six docum
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="module-species"><span id="index-177"></span></span></div>
+<span class="target" id="module-species"><span id="index-179"></span></span></div>
 <div class="section" id="species">
 <h2>species<a class="headerlink" href="#species" title="Permalink to this headline">¶</a></h2>
 <p>Divides the population into species based on <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distances</span></a>.</p>
@@ -4296,7 +4319,7 @@ Note: <a class="reference internal" href="#stagnation.DefaultStagnation" title="
 </tr>
 </tbody>
 </table>
-<span class="target" id="index-178"></span><dl class="method">
+<span class="target" id="index-180"></span><dl class="method">
 <dt id="species.Species.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>representative</em>, <em>members</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#Species.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.Species.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Updates a species instance with the current members and most-representative member (from which
@@ -4333,7 +4356,7 @@ Note: <a class="reference internal" href="#stagnation.DefaultStagnation" title="
 
 </dd></dl>
 
-<span class="target" id="index-179"></span><dl class="class">
+<span class="target" id="index-181"></span><dl class="class">
 <dt id="species.GenomeDistanceCache">
 <em class="property">class </em><code class="descclassname">species.</code><code class="descname">GenomeDistanceCache</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#GenomeDistanceCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.GenomeDistanceCache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Caches (indexing by <a class="reference internal" href="glossary.html#term-genome"><span class="xref std std-term">genome</span></a> <a class="reference internal" href="glossary.html#term-key"><span class="xref std std-term">key</span></a>/id) <a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a> information to avoid repeated lookups. (The
@@ -4416,7 +4439,7 @@ method provides a default for it and updates it from the configuration file, in 
 </div>
 </dd></dl>
 
-<span class="target" id="index-180"></span><span class="target" id="index-181"></span><span class="target" id="index-182"></span><span class="target" id="index-183"></span><dl class="method">
+<span class="target" id="index-182"></span><span class="target" id="index-183"></span><span class="target" id="index-184"></span><span class="target" id="index-185"></span><dl class="method">
 <dt id="species.DefaultSpeciesSet.speciate">
 <code class="descname">speciate</code><span class="sig-paren">(</span><em>config</em>, <em>population</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/species.html#DefaultSpeciesSet.speciate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#species.DefaultSpeciesSet.speciate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Place genomes into species by genetic similarity (<a class="reference internal" href="glossary.html#term-genomic-distance"><span class="xref std std-term">genomic distance</span></a>). TODO: The current code has a <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-docstring" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">docstring</span></code></a>
@@ -4478,12 +4501,12 @@ functions already.</p>
 </dd></dl>
 
 </div></blockquote>
-<span class="target" id="index-184"></span><span class="target" id="module-stagnation"><span id="index-185"></span></span></div>
+<span class="target" id="index-186"></span><span class="target" id="module-stagnation"><span id="index-187"></span></span></div>
 <div class="section" id="stagnation">
 <h2>stagnation<a class="headerlink" href="#stagnation" title="Permalink to this headline">¶</a></h2>
 <p>Keeps track of whether species are making progress and helps remove ones that are not.</p>
 <blockquote>
-<div><span class="target" id="index-186"></span><span class="target" id="index-187"></span><span class="target" id="index-188"></span><span class="target" id="index-189"></span><div class="admonition note" id="index-190">
+<div><span class="target" id="index-188"></span><span class="target" id="index-189"></span><span class="target" id="index-190"></span><span class="target" id="index-191"></span><div class="admonition note" id="index-192">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: Currently, depending on the settings for <a class="reference internal" href="config_file.html#species-fitness-func-label"><span class="std std-ref">species_fitness_func</span></a> and
 <a class="reference internal" href="config_file.html#fitness-criterion-label"><span class="std std-ref">fitness_criterion</span></a>, it is possible for a species with members <strong>above</strong> the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness_threshold</span></a>
@@ -4533,7 +4556,7 @@ from the configuration file, in this implementation using <a class="reference in
 </div>
 </dd></dl>
 
-<span class="target" id="index-191"></span><span class="target" id="index-192"></span><span class="target" id="index-193"></span><dl class="method">
+<span class="target" id="index-193"></span><span class="target" id="index-194"></span><span class="target" id="index-195"></span><dl class="method">
 <dt id="stagnation.DefaultStagnation.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>species_set</em>, <em>generation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/stagnation.html#DefaultStagnation.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stagnation.DefaultStagnation.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required interface method. Updates species fitness history information, checking for ones that have not improved in
@@ -4574,11 +4597,11 @@ function in use).</p>
 <div class="section" id="statistics">
 <h2>statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><div class="admonition note" id="index-194">
+<div><div class="admonition note" id="index-196">
 <p class="first admonition-title">Note</p>
 <p>There are two design decisions to be aware of:</p>
 <ul class="simple">
-<li>The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module (if they were, it would far worsen existing potential memory problems - see below), and it is assumed that fitnesses (as given by the <span class="target" id="index-195"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting). Code violating this assumption (e.g., with competitive coevolution) will need to use different statistical gathering methods.</li>
+<li>The most-fit genomes are based on the highest-fitness member of each generation; other genomes are not saved by this module (if they were, it would far worsen existing potential memory problems - see below), and it is assumed that fitnesses (as given by the <span class="target" id="index-197"></span>fitness function) are not relative to others in the generation (also assumed by the use of the <a class="reference internal" href="config_file.html#fitness-threshold-label"><span class="std std-ref">fitness threshold</span></a> as a signal for exiting). Code violating this assumption (e.g., with competitive coevolution) will need to use different statistical gathering methods.</li>
 <li>Generally reports or records a per-generation list of values; the numeric position in the list may not correspond to the generation number if there has been a restart, such as via the <a class="reference internal" href="#module-checkpoint" title="checkpoint: Uses `pickle` to save and restore populations (and other aspects of the simulation state)."><code class="xref py py-mod docutils literal"><span class="pre">checkpoint</span></code></a> module.</li>
 </ul>
 <p class="last">There is also a TODO item: Currently keeps accumulating information in memory, which may be a problem in long runs.</p>
@@ -4631,12 +4654,45 @@ Information gathered includes a copy of the best genome in each generation and t
 </dd></dl>
 
 <dl class="method">
+<dt id="statistics.StatisticsReporter.get_fitness_tmean">
+<code class="descname">get_fitness_tmean</code><span class="sig-paren">(</span><em>trim=0.25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_fitness_tmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_fitness_tmean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the per-generation trimmed mean fitness. A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.get_fitness_stat" title="statistics.StatisticsReporter.get_fitness_stat"><code class="xref py py-meth docutils literal"><span class="pre">get_fitness_stat()</span></code></a> with the function being
+<a class="reference internal" href="#math_util.tmean" title="math_util.tmean"><code class="xref py py-func docutils literal"><span class="pre">tmean</span></code></a>. Not currently used internally.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.92-multiparam_funcs.</span></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>trim</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – Trim proportion (from each end) and/or determinant of weighting with <a class="reference internal" href="#math_util.median2" title="math_util.median2"><code class="xref any py py-func docutils literal"><span class="pre">median2</span></code></a>; see <a class="reference internal" href="#math_util.tmean" title="math_util.tmean"><code class="xref py py-func docutils literal"><span class="pre">tmean</span></code></a> for more information.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of trimmed mean genome fitnesses for each generation.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list(pytypes:<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="statistics.StatisticsReporter.get_fitness_median">
 <code class="descname">get_fitness_median</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/statistics.html#StatisticsReporter.get_fitness_median"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#statistics.StatisticsReporter.get_fitness_median" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the per-generation median fitness. A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.get_fitness_stat" title="statistics.StatisticsReporter.get_fitness_stat"><code class="xref py py-meth docutils literal"><span class="pre">get_fitness_stat()</span></code></a> with the function being <a class="reference internal" href="#math_util.median2" title="math_util.median2"><code class="xref any py py-func docutils literal"><span class="pre">median2</span></code></a>. Not currently used internally.</p>
+<dd><p>Gets the per-generation median fitness. A wrapper for <a class="reference internal" href="#statistics.StatisticsReporter.get_fitness_stat" title="statistics.StatisticsReporter.get_fitness_stat"><code class="xref py py-meth docutils literal"><span class="pre">get_fitness_stat()</span></code></a> with the function being
+<a class="reference internal" href="#math_util.median2" title="math_util.median2"><code class="xref py py-func docutils literal"><span class="pre">median2</span></code></a>. Not currently used internally.</p>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 0.92.</span></p>
 </div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of median genome fitnesses for each generation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(pytypes:<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#typesnumeric" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">float</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -4821,7 +4877,7 @@ uses the default values for all three.</p>
 <h2>threaded<a class="headerlink" href="#threaded" title="Permalink to this headline">¶</a></h2>
 <p>Runs evaluation functions in parallel threads (using the python library module <a class="reference external" href="https://docs.python.org/3.5/library/threading.html">threading</a>) in order to evaluate multiple genomes at once. Probably preferable to <a class="reference internal" href="#module-parallel" title="parallel: Runs evaluation functions in parallel subprocesses in order to evaluate multiple genomes at once."><code class="xref py py-mod docutils literal"><span class="pre">parallel</span></code></a> for python implementations without a <a class="reference external" href="https://docs.python.org/3.5/glossary.html#term-GIL">GIL</a> (Global Interpreter Lock); note, however, that neat-python is not currently tested on any such implementation.</p>
 <blockquote>
-<div><span class="target" id="index-196"></span><span class="target" id="index-197"></span><dl class="class">
+<div><span class="target" id="index-198"></span><span class="target" id="index-199"></span><dl class="class">
 <dt id="threaded.ThreadedEvaluator">
 <em class="property">class </em><code class="descclassname">threaded.</code><code class="descname">ThreadedEvaluator</code><span class="sig-paren">(</span><em>num_workers</em>, <em>eval_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/threaded.html#ThreadedEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threaded.ThreadedEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs evaluation functions in parallel threads in order to evaluate multiple genomes at once.</p>
@@ -4837,7 +4893,7 @@ uses the default values for all three.</p>
 </tr>
 </tbody>
 </table>
-<span class="target" id="index-198"></span><dl class="method">
+<span class="target" id="index-200"></span><dl class="method">
 <dt id="threaded.ThreadedEvaluator.__del__">
 <code class="descname">__del__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/threaded.html#ThreadedEvaluator.__del__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#threaded.ThreadedEvaluator.__del__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attempts to take care of removing each worker thread, but deliberately calling <code class="docutils literal"><span class="pre">self.stop()</span></code> in the threads may be needed.

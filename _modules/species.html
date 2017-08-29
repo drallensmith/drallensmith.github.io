@@ -69,7 +69,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">last_improved</span> <span class="o">=</span> <span class="n">generation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">fitness_history</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">getAdjustedFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_getAdjustedFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Backwards compatibility wrapper for species.adjusted_fitness;</span>
 <span class="sd">        use species.reproduction_namespace.adjusted_fitness instead.</span>
@@ -78,7 +78,7 @@
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_namespace</span><span class="o">.</span><span class="n">adjusted_fitness</span>
 
-    <span class="k">def</span> <span class="nf">setAdjustedFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_setAdjustedFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="s2">&quot;Adjusted_fitness (</span><span class="si">{0!r}</span><span class="s2">) should be a float, not </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -87,16 +87,16 @@
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_namespace</span><span class="o">.</span><span class="n">adjusted_fitness</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="nf">delAdjustedFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_delAdjustedFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Use species.reproduction_namespace for adjusted_fitness&quot;</span><span class="p">,</span>
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_namespace</span><span class="o">.</span><span class="n">adjusted_fitness</span> <span class="o">=</span> <span class="kc">None</span>
     
-    <span class="n">adjusted_fitness</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getAdjustedFitness</span><span class="p">,</span>
-                                <span class="n">setAdjustedFitness</span><span class="p">,</span>
-                                <span class="n">delAdjustedFitness</span><span class="p">)</span>
+    <span class="n">adjusted_fitness</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_getAdjustedFitness</span><span class="p">,</span>
+                                <span class="n">_setAdjustedFitness</span><span class="p">,</span>
+                                <span class="n">_delAdjustedFitness</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">getFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_getFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Backwards compatibility wrapper for species.fitness;</span>
 <span class="sd">        use species.stagnation_namespace.fitness instead.</span>
@@ -105,7 +105,7 @@
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">fitness</span>
 
-    <span class="k">def</span> <span class="nf">setFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_setFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="s2">&quot;Fitness (</span><span class="si">{0!r}</span><span class="s2">) should be a float, not </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -114,16 +114,16 @@
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="nf">delFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_delFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Use species.stagnation_namespace for fitness&quot;</span><span class="p">,</span>
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">fitness</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getFitness</span><span class="p">,</span>
-                       <span class="n">setFitness</span><span class="p">,</span>
-                       <span class="n">delFitness</span><span class="p">)</span>
+    <span class="n">fitness</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_getFitness</span><span class="p">,</span>
+                       <span class="n">_setFitness</span><span class="p">,</span>
+                       <span class="n">_delFitness</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">getLastImproved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_getLastImproved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Backwards compatibility wrapper for species.last_improved;</span>
 <span class="sd">        use species.stagnation_namespace.last_improved instead.</span>
@@ -132,7 +132,7 @@
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">last_improved</span>
 
-    <span class="k">def</span> <span class="nf">setLastImproved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_setLastImproved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="s2">&quot;Last_improved (</span><span class="si">{0!r}</span><span class="s2">) should be an int, not </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -141,11 +141,10 @@
                       <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">last_improved</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="n">last_improved</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getLastImproved</span><span class="p">,</span>
-                             <span class="n">setLastImproved</span><span class="p">)</span>
+    <span class="n">last_improved</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_getLastImproved</span><span class="p">,</span>
+                             <span class="n">_setLastImproved</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fitness_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+    <span class="k">def</span> <span class="nf">_getFitnessHistory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Partial (due to being a list) backwards compatibility</span>
 <span class="sd">        wrapper for species.fitness_history; use</span>
@@ -154,6 +153,8 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Use species.stagnation_namespace for fitness_history&quot;</span><span class="p">,</span>
                       <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_namespace</span><span class="o">.</span><span class="n">fitness_history</span>
+
+    <span class="n">fitness_history</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_getFitnessHistory</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Species.update"><a class="viewcode-back" href="../module_summaries.html#species.Species.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">representative</span><span class="p">,</span> <span class="n">members</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">representative</span> <span class="o">=</span> <span class="n">representative</span>
@@ -241,7 +242,7 @@
                                    <span class="n">ConfigParameter</span><span class="p">(</span><span class="s1">&#39;desired_species_num_min&#39;</span><span class="p">,</span>
                                                    <span class="nb">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">default_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)])</span></div>
 
-    <span class="k">def</span> <span class="nf">find_desired_num_species</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pop_size_high</span><span class="p">,</span> <span class="n">pop_size_low</span><span class="p">):</span> <span class="c1"># DOCUMENT!</span>
+    <span class="k">def</span> <span class="nf">_find_desired_num_species</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pop_size_high</span><span class="p">,</span> <span class="n">pop_size_low</span><span class="p">):</span> <span class="c1"># DOCUMENT!</span>
         <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span>
         <span class="n">max_num_usable</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">pop_size_high</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">threshold_adjust_dict</span><span class="p">[</span><span class="s1">&#39;min_size&#39;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">max_num_usable</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -309,7 +310,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">to_return_high</span><span class="p">,</span><span class="n">to_return_low</span><span class="p">)</span>
 
 
-    <span class="k">def</span> <span class="nf">adjust_compatibility_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">increase</span><span class="p">,</span> <span class="n">curr_tmean</span><span class="p">,</span> <span class="n">max_rep_dist</span><span class="p">):</span> <span class="c1"># DOCUMENT!</span>
+    <span class="k">def</span> <span class="nf">_adjust_compatibility_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">increase</span><span class="p">,</span> <span class="n">curr_tmean</span><span class="p">,</span> <span class="n">max_rep_dist</span><span class="p">):</span> <span class="c1"># DOCUMENT!</span>
         <span class="n">old_threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="o">.</span><span class="n">compatibility_threshold</span>
         <span class="k">if</span> <span class="n">increase</span><span class="p">:</span>
             <span class="n">mult_threshold</span> <span class="o">=</span> <span class="mf">1.05</span><span class="o">*</span><span class="n">old_threshold</span>
@@ -456,15 +457,15 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">threshold_adjust_dict</span><span class="p">[</span><span class="s1">&#39;min_good_size&#39;</span><span class="p">]))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">min_pop_seen</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_pop_seen</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">max_pop_seen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_pop_seen</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">population</span><span class="p">))</span>
-            <span class="n">desired_num_species_high</span><span class="p">,</span> <span class="n">desired_num_species_low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_desired_num_species</span><span class="p">(</span>
+            <span class="n">desired_num_species_high</span><span class="p">,</span> <span class="n">desired_num_species_low</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_desired_num_species</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">max_pop_seen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_pop_seen</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">desired_num_species_low</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                     <span class="s2">&quot;Species num </span><span class="si">{0:n}</span><span class="s2"> below desired minimum </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">),</span> <span class="n">desired_num_species_low</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">adjust_compatibility_threshold</span><span class="p">(</span><span class="n">increase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                    <span class="n">curr_tmean</span><span class="o">=</span><span class="n">gdtmean</span><span class="p">,</span>
-                                                    <span class="n">max_rep_dist</span><span class="o">=</span><span class="n">max_rep_dist</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_compatibility_threshold</span><span class="p">(</span><span class="n">increase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                     <span class="n">curr_tmean</span><span class="o">=</span><span class="n">gdtmean</span><span class="p">,</span>
+                                                     <span class="n">max_rep_dist</span><span class="o">=</span><span class="n">max_rep_dist</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">desired_num_species_high</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">reporters</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                     <span class="s2">&quot;Species num </span><span class="si">{0:n}</span><span class="s2"> above desired maximum </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -475,14 +476,14 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">orig_compatibility_threshold</span><span class="p">)</span>
                     <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="o">.</span><span class="n">compatibility_threshold</span> <span class="o">&lt;=</span>
                         <span class="n">max_rep_dist</span><span class="p">)):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">adjust_compatibility_threshold</span><span class="p">(</span><span class="n">increase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                        <span class="n">curr_tmean</span><span class="o">=</span><span class="n">gdtmean</span><span class="p">,</span>
-                                                        <span class="n">max_rep_dist</span><span class="o">=</span><span class="n">max_rep_dist</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_compatibility_threshold</span><span class="p">(</span><span class="n">increase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                         <span class="n">curr_tmean</span><span class="o">=</span><span class="n">gdtmean</span><span class="p">,</span>
+                                                         <span class="n">max_rep_dist</span><span class="o">=</span><span class="n">max_rep_dist</span><span class="p">)</span>
             <span class="k">elif</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="o">.</span><span class="n">compatibility_threshold</span> <span class="o">&lt;=</span> <span class="n">max_rep_dist</span><span class="p">)</span>
                   <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">desired_num_species_low</span><span class="p">)):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">adjust_compatibility_threshold</span><span class="p">(</span><span class="n">increase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                                    <span class="n">curr_tmean</span><span class="o">=</span><span class="n">gdtmean</span><span class="p">,</span>
-                                                    <span class="n">max_rep_dist</span><span class="o">=</span><span class="n">max_rep_dist</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_compatibility_threshold</span><span class="p">(</span><span class="n">increase</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                     <span class="n">curr_tmean</span><span class="o">=</span><span class="n">gdtmean</span><span class="p">,</span>
+                                                     <span class="n">max_rep_dist</span><span class="o">=</span><span class="n">max_rep_dist</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="o">.</span><span class="n">compatibility_threshold_adjust</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;fixed&#39;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Unknown compatibility_threshold_adjust </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
