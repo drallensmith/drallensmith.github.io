@@ -1589,9 +1589,9 @@ maintaining and improving the code, not for enabling external use, and the inter
 <dl class="data">
 <dt id="distributed._EXCEPTION_TYPE_BAD">
 <code class="descclassname">distributed.</code><code class="descname">_EXCEPTION_TYPE_BAD</code><a class="headerlink" href="#distributed._EXCEPTION_TYPE_BAD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Values - which should be treated as constants - that are returned by the <a class="reference internal" href="#distributed.DistributedEvaluator._check_exception" title="distributed.DistributedEvaluator._check_exception"><code class="xref py py-meth docutils literal"><span class="pre">_check_exception</span></code></a> method. The first is
+<dd><p>Values - which should be treated as constants - that are returned by the <a class="reference internal" href="#distributed._check_exception" title="distributed._check_exception"><code class="xref py py-func docutils literal"><span class="pre">_check_exception()</span></code></a> function. The first is
 for a queue being empty and similar reasons to try again. The second indicates likely disconnection, but should try to reconnect. The third includes all other cases, and
-is responded to with either immediately <a class="reference external" href="https://docs.python.org/3.5/reference/simple_stmts.html#raise" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">raising</span></code></a> the exception again, or returning and exiting with a non-zero exit (status) value.</p>
+is responded to in the calling code by either immediately <a class="reference external" href="https://docs.python.org/3.5/reference/simple_stmts.html#raise" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">raising</span></code></a> the exception again, or returning and exiting with a non-zero exit (status) value.</p>
 </dd></dl>
 
 <dl class="exception">
@@ -1671,6 +1671,28 @@ MODE_SECONDARY, it returns the <code class="docutils literal"><span class="pre">
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#ValueError" title="(in Python v3.5)"><strong>ValueError</strong></a> – If <code class="docutils literal"><span class="pre">chunksize</span></code> is not 1+ or is not an integer</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="index-48"></span><dl class="function">
+<dt id="distributed._check_exception">
+<code class="descclassname">distributed.</code><code class="descname">_check_exception</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#_check_exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed._check_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates whether an exception should be treated as simply a reason to retry the operation, as indicating a need to reconnect, or as some worse type of error.
+TODO: Currently, due to problems with the variety of exceptions emitted by the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">multiprocessing</span></code></a> module - particularly due to different versions of
+Python - attempts in most (but not all) cases to evaluate the exception via <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#repr" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">repr</span></code></a>, looking for keywords, which is uncertain at best. The <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">multiprocessing</span></code></a> module
+in particular has a large number of <a class="reference external" href="https://docs.python.org/3.5/reference/simple_stmts.html#assert" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">The</span> <span class="pre">assert</span> <span class="pre">statement</span></code></a> checks, frequently without user messages. Two pull requests have been submitted to correct this for the most problematic
+portions of the module, in at least the latest (developmental) version of Python (“nightly”), of which one has been accepted thus far; the other is awaiting review.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The exception to be evaluated.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">One of <a class="reference internal" href="#distributed._EXCEPTION_TYPE_OK" title="distributed._EXCEPTION_TYPE_OK"><code class="xref py py-data docutils literal"><span class="pre">_EXCEPTION_TYPE_OK</span></code></a>, <a class="reference internal" href="#distributed._EXCEPTION_TYPE_UNCERTAIN" title="distributed._EXCEPTION_TYPE_UNCERTAIN"><code class="xref py py-data docutils literal"><span class="pre">_EXCEPTION_TYPE_UNCERTAIN</span></code></a>, or <a class="reference internal" href="#distributed._EXCEPTION_TYPE_BAD" title="distributed._EXCEPTION_TYPE_BAD"><code class="xref py py-data docutils literal"><span class="pre">_EXCEPTION_TYPE_BAD</span></code></a>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a></td>
 </tr>
 </tbody>
 </table>
@@ -1778,7 +1800,7 @@ MODE_SECONDARY, it returns the <code class="docutils literal"><span class="pre">
 
 </dd></dl>
 
-<span class="target" id="index-48"></span><span class="target" id="index-49"></span><dl class="class">
+<span class="target" id="index-49"></span><span class="target" id="index-50"></span><dl class="class">
 <dt id="distributed.DistributedEvaluator">
 <em class="property">class </em><code class="descclassname">distributed.</code><code class="descname">DistributedEvaluator</code><span class="sig-paren">(</span><em>addr</em>, <em>authkey</em>, <em>eval_function</em>, <em>secondary_chunksize=1</em>, <em>num_workers=None</em>, <em>worker_timeout=60</em>, <em>mode=MODE_AUTO</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator" title="Permalink to this definition">¶</a></dt>
 <dd><p>An evaluator working across multiple machines (<a class="reference internal" href="glossary.html#term-compute-node"><span class="xref std std-term">compute nodes</span></a>).</p>
@@ -1893,28 +1915,6 @@ manager and waits for tasks.</p>
 <li><a class="reference external" href="https://docs.python.org/3.5/library/exceptions.html#RuntimeError" title="(in Python v3.5)"><strong>RuntimeError</strong></a> – If not yet <a class="reference internal" href="#distributed.DistributedEvaluator.start" title="distributed.DistributedEvaluator.start"><code class="xref py py-meth docutils literal"><span class="pre">started</span></code></a>.</li>
 </ul>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<span class="target" id="index-50"></span><dl class="staticmethod">
-<dt id="distributed.DistributedEvaluator._check_exception">
-<em class="property">static </em><code class="descname">_check_exception</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#distributed.DistributedEvaluator._check_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Evaluates whether an exception should be treated as simply a reason to retry the operation, as indicating a need to reconnect, or as some worse type of error.
-TODO: Currently, due to problems with the variety of exceptions emitted by the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">multiprocessing</span></code></a> module - particularly due to different versions of
-Python - attempts in most (but not all) cases to evaluate the exception via <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#repr" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">repr</span></code></a>, looking for keywords, which is uncertain at best. The <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">multiprocessing</span></code></a> module
-in particular has a large number of <a class="reference external" href="https://docs.python.org/3.5/reference/simple_stmts.html#assert" title="(in Python v3.5)"><code class="docutils literal"><span class="pre">The</span> <span class="pre">assert</span> <span class="pre">statement</span></code></a> checks, frequently without user messages. Two pull requests have been submitted to correct this for the most problematic
-portions of the module, in at least the latest (developmental) version of Python (“nightly”), of which one has been accepted thus far; the other is awaiting review.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3.5/reference/datamodel.html#index-48">instance</a>) – The exception to be evaluated.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">One of <a class="reference internal" href="#distributed._EXCEPTION_TYPE_OK" title="distributed._EXCEPTION_TYPE_OK"><code class="xref py py-data docutils literal"><span class="pre">_EXCEPTION_TYPE_OK</span></code></a>, <a class="reference internal" href="#distributed._EXCEPTION_TYPE_UNCERTAIN" title="distributed._EXCEPTION_TYPE_UNCERTAIN"><code class="xref py py-data docutils literal"><span class="pre">_EXCEPTION_TYPE_UNCERTAIN</span></code></a>, or <a class="reference internal" href="#distributed._EXCEPTION_TYPE_BAD" title="distributed._EXCEPTION_TYPE_BAD"><code class="xref py py-data docutils literal"><span class="pre">_EXCEPTION_TYPE_BAD</span></code></a>.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)">int</a></td>
 </tr>
 </tbody>
 </table>
