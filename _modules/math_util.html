@@ -32,9 +32,30 @@
 
   </head>
   <body>
-  
-
-    <div class="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
@@ -44,6 +65,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
 <span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">float_info</span>
 
@@ -133,6 +155,33 @@
     <span class="n">inv_s</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">s</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">ev</span> <span class="o">*</span> <span class="n">inv_s</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">e_values</span><span class="p">]</span></div>
 
+<span class="k">def</span> <span class="nf">random_proportional_selection</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">max_freq</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Roulette selection - see http://jbn.github.io/fast_proportional_selection/ for analysis&quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">chance_first</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">freqs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">chance_first</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">max_freq</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">max_freq</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">min_freq</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">min_freq</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="n">max_freq</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_freq</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">freqs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">max_freq</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">i</span>
+
 
 <span class="c1"># Lookup table for commonly used {value} -&gt; value functions.</span>
 <span class="n">stat_functions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="nb">min</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="n">median</span><span class="p">,</span>
@@ -142,30 +191,8 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2015-2017, CodeReclaimers, LLC.
       

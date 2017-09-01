@@ -32,9 +32,30 @@
 
   </head>
   <body>
-  
-
-    <div class="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
@@ -49,6 +70,7 @@
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">shuffle</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">from</span> <span class="nn">neat.activations</span> <span class="k">import</span> <span class="n">ActivationFunctionSet</span>
 <span class="kn">from</span> <span class="nn">neat.aggregations</span> <span class="k">import</span> <span class="n">AggregationFunctionSet</span>
@@ -107,12 +129,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">output_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_outputs</span><span class="p">)]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_outputs</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">num_inputs</span><span class="p">)</span>
-                                                <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">num_hidden</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;identical_mutations_keys </span><span class="si">{0:n}</span><span class="s2"> is too low - min </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span><span class="p">,</span>
-                        <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_outputs</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">num_inputs</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">num_hidden</span><span class="p">)))</span>
+            <span class="n">desired_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,(</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_outputs</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">num_inputs</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">num_hidden</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="o">&lt;</span> <span class="n">desired_min</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                    <span class="s2">&quot;identical_mutations_keys </span><span class="si">{0:n}</span><span class="s2"> too low - raising to </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span><span class="p">,</span> <span class="n">desired_min</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="o">=</span> <span class="n">desired_min</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conn_to_node_dict</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">node_to_conn_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">else</span><span class="p">:</span>
@@ -193,7 +215,12 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="ow">and</span> <span class="p">(</span><span class="n">conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn_to_node_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="o">&gt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_outputs</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">num_hidden</span><span class="p">)</span>
+                <span class="n">desired_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,(</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_outputs</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">num_inputs</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">num_hidden</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="o">&lt;</span> <span class="n">desired_min</span><span class="p">:</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="s2">&quot;identical_mutations_keys </span><span class="si">{0:n}</span><span class="s2"> too low - raising to </span><span class="si">{1:n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span><span class="p">,</span> <span class="n">desired_min</span><span class="p">))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">identical_mutations_keys</span> <span class="o">=</span> <span class="n">desired_min</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">conn_to_node_dict</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">node_to_conn_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -720,30 +747,8 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2015-2017, CodeReclaimers, LLC.
       

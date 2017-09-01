@@ -34,46 +34,8 @@
 
   </head>
   <body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="reproduction-interface">
-<span id="reproduction-interface-label"></span><h1>Reproduction Interface<a class="headerlink" href="#reproduction-interface" title="Permalink to this headline">¶</a></h1>
-<p>This is an outline of the minimal interface that is expected to be present on reproduction objects.  Each Population
-instance will create exactly one instance of the reproduction class in <cite>Population.__init__</cite> regardless of the
-configuration or arguments provided to <cite>Population.__init__</cite>.</p>
-<div class="section" id="class-methods">
-<h2>Class Methods<a class="headerlink" href="#class-methods" title="Permalink to this headline">¶</a></h2>
-<p><cite>parse_config(cls, param_dict)</cite> - Takes a dictionary of configuration items, returns an object that will later
-be passed to the <cite>write_config</cite> method.  This configuration object is considered to be opaque by the rest
-of the library.</p>
-<p><cite>write_config(cls, f, config)</cite> - Takes a file-like object and the configuration object created by parse_config.
-This method should write the configuration item definitions to the given file.</p>
-</div>
-<div class="section" id="initialization">
-<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
-<p><cite>__init__(self, config, reporters, stagnation)</cite> - Takes the top-level Config object, a ReporterSet instance,
-and a stagnation object instance.</p>
-</div>
-<div class="section" id="other-methods">
-<h2>Other methods<a class="headerlink" href="#other-methods" title="Permalink to this headline">¶</a></h2>
-<p><cite>create_new(self, genome_type, genome_config, num_genomes):</cite> - Create <cite>num_genomes</cite> new genomes of the given type
-using the given configuration.</p>
-<p><cite>reproduce(self, config, species, pop_size, generation):</cite> - Creates the population to be used in the next generation
-from the given configuration instance, SpeciesSet instance, desired size of the population, and current generation
-number.  This method is called after all genomes have been evaluated and their <cite>fitness</cite> member assigned.  This method
-should use the stagnation instance given to the initializer to remove species it deems to have stagnated.</p>
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
+  <div class="document">
+    
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
@@ -113,8 +75,45 @@ should use the stagnation instance given to the initializer to remove species it
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="reproduction-interface">
+<span id="reproduction-interface-label"></span><h1>Reproduction Interface<a class="headerlink" href="#reproduction-interface" title="Permalink to this headline">¶</a></h1>
+<p>This is an outline of the minimal interface that is expected to be present on reproduction objects.  Each Population
+instance will create exactly one instance of the reproduction class in <cite>Population.__init__</cite> regardless of the
+configuration or arguments provided to <cite>Population.__init__</cite>.</p>
+<div class="section" id="class-methods">
+<h2>Class Methods<a class="headerlink" href="#class-methods" title="Permalink to this headline">¶</a></h2>
+<p><cite>parse_config(cls, param_dict)</cite> - Takes a dictionary of configuration items, returns an object that will later
+be passed to the <cite>write_config</cite> method.  This configuration object is considered to be opaque by the rest
+of the library.</p>
+<p><cite>write_config(cls, f, config)</cite> - Takes a file-like object and the configuration object created by parse_config.
+This method should write the configuration item definitions to the given file.</p>
+</div>
+<div class="section" id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
+<p><cite>__init__(self, config, reporters, stagnation)</cite> - Takes the top-level Config object, a ReporterSet instance,
+and a stagnation object instance.</p>
+</div>
+<div class="section" id="other-methods">
+<h2>Other methods<a class="headerlink" href="#other-methods" title="Permalink to this headline">¶</a></h2>
+<p><cite>create_new(self, genome_type, genome_config, num_genomes):</cite> - Create <cite>num_genomes</cite> new genomes of the given type
+using the given configuration.</p>
+<p><cite>reproduce(self, config, species, pop_size, generation):</cite> - Creates the population to be used in the next generation
+from the given configuration instance, SpeciesSet instance, desired size of the population, and current generation
+number.  This method is called after all genomes have been evaluated and their <cite>fitness</cite> member assigned.  This method
+should use the stagnation instance given to the initializer to remove species it deems to have stagnated.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2015-2017, CodeReclaimers, LLC.
       

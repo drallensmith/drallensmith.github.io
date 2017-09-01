@@ -32,9 +32,30 @@
 
   </head>
   <body>
-  
-
-    <div class="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
@@ -52,6 +73,7 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">ConfigParser</span> <span class="k">import</span> <span class="n">Error</span><span class="p">,</span> <span class="n">SafeConfigParser</span> <span class="k">as</span> <span class="n">ConfigParser</span>
 
+<span class="kn">from</span> <span class="nn">neat.repr_util</span> <span class="k">import</span> <span class="n">check_if_file_object</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iterkeys</span>
 
 <div class="viewcode-block" id="ConfigParameter"><a class="viewcode-back" href="../module_summaries.html#config.ConfigParameter">[docs]</a><span class="k">class</span> <span class="nc">ConfigParameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -163,7 +185,7 @@
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">param_names_not_defaulted</span><span class="p">:</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">longest_name_len</span><span class="p">),</span>
-                                       <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">))))</span>
+                                        <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">))))</span>
 
     <span class="k">if</span> <span class="n">param_names_default_ok</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"># Used expected default:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -230,15 +252,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">species_set_type</span> <span class="o">=</span> <span class="n">species_set_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_type</span> <span class="o">=</span> <span class="n">stagnation_type</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;No such config file: &#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-
         <span class="n">parameters</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">check_if_file_object</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="s1">&#39;read_file&#39;</span><span class="p">):</span>
-                <span class="n">parameters</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">parameters</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;No such config file: &#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="s1">&#39;read_file&#39;</span><span class="p">):</span>
+                    <span class="n">parameters</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">parameters</span><span class="o">.</span><span class="n">readfp</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
         <span class="c1"># NEAT configuration</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">parameters</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s1">&#39;NEAT&#39;</span><span class="p">):</span>
@@ -291,52 +320,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span> <span class="o">=</span> <span class="n">reproduction_type</span><span class="o">.</span><span class="n">parse_config</span><span class="p">(</span><span class="n">reproduction_dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Config.save"><a class="viewcode-back" href="../module_summaries.html#config.Config.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# The `NEAT` section specifies parameters particular to the NEAT algorithm</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# or the experiment itself.  This is the only required section.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[NEAT]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">check_if_file_object</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">genome_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_config</span><span class="p">)</span>
-
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species_set_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">species_set_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="p">)</span>
-
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stagnation_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_config</span><span class="p">)</span>
-
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="p">)</span></div></div>
+    <span class="k">def</span> <span class="nf">_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# The `NEAT` section specifies parameters particular to the NEAT algorithm</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# or the experiment itself.  This is the only required section.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;[NEAT]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">write_pretty_params</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span><span class="p">)</span>
+        
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genome_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">genome_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">genome_config</span><span class="p">)</span>
+        
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species_set_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">species_set_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">species_set_config</span><span class="p">)</span>
+        
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stagnation_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stagnation_config</span><span class="p">)</span>
+        
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{0}</span><span class="s1">]</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reproduction_type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_type</span><span class="o">.</span><span class="n">write_config</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reproduction_config</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2015-2017, CodeReclaimers, LLC.
       

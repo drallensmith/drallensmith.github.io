@@ -34,9 +34,69 @@
 
   </head>
   <body>
-  
-
-    <div class="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module summaries</a><ul>
+<li><a class="reference internal" href="#activations">activations</a></li>
+<li><a class="reference internal" href="#aggregations">aggregations</a></li>
+<li><a class="reference internal" href="#attributes">attributes</a></li>
+<li><a class="reference internal" href="#checkpoint">checkpoint</a></li>
+<li><a class="reference internal" href="#config">config</a></li>
+<li><a class="reference internal" href="#ctrnn">ctrnn</a></li>
+<li><a class="reference internal" href="#distributed">distributed</a></li>
+<li><a class="reference internal" href="#genes">genes</a></li>
+<li><a class="reference internal" href="#genome">genome</a></li>
+<li><a class="reference internal" href="#graphs">graphs</a></li>
+<li><a class="reference internal" href="#iznn">iznn</a></li>
+<li><a class="reference internal" href="#math-util">math_util</a></li>
+<li><a class="reference internal" href="#multiparameter">multiparameter</a></li>
+<li><a class="reference internal" href="#nn">nn</a></li>
+<li><a class="reference internal" href="#nn-feed-forward">nn.feed_forward</a></li>
+<li><a class="reference internal" href="#nn-recurrent">nn.recurrent</a></li>
+<li><a class="reference internal" href="#parallel">parallel</a></li>
+<li><a class="reference internal" href="#population">population</a></li>
+<li><a class="reference internal" href="#reporting">reporting</a></li>
+<li><a class="reference internal" href="#reproduction">reproduction</a></li>
+<li><a class="reference internal" href="#six-util">six_util</a></li>
+<li><a class="reference internal" href="#species">species</a></li>
+<li><a class="reference internal" href="#stagnation">stagnation</a></li>
+<li><a class="reference internal" href="#statistics">statistics</a></li>
+<li><a class="reference internal" href="#threaded">threaded</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ctrnn.html" title="previous chapter">Continuous-time recurrent neural network implementation</a></li>
+      <li>Next: <a href="genome-interface.html" title="next chapter">Genome Interface</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/module_summaries.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
@@ -1900,7 +1960,7 @@ manager and waits for tasks.</p>
 
 <span class="target" id="index-50"></span><dl class="staticmethod">
 <dt id="distributed.DistributedEvaluator._check_exception">
-<em class="property">static </em><code class="descname">_check_exception</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/distributed.html#DistributedEvaluator._check_exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#distributed.DistributedEvaluator._check_exception" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">_check_exception</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#distributed.DistributedEvaluator._check_exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates whether an exception should be treated as simply a reason to retry the operation, as indicating a need to reconnect, or as some worse type of error.
 TODO: Currently, due to problems with the variety of exceptions emitted by the <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">multiprocessing</span></code></a> module - particularly due to different versions of
 Python - attempts in most (but not all) cases to evaluate the exception via <a class="reference external" href="https://docs.python.org/3.5/library/functions.html#repr" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">repr</span></code></a>, looking for keywords, which is uncertain at best. The <a class="reference external" href="https://docs.python.org/3.5/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.5)"><code class="xref any docutils literal"><span class="pre">multiprocessing</span></code></a> module
@@ -4951,69 +5011,8 @@ Note that weakref is not compatible with saving via <a class="reference external
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Module summaries</a><ul>
-<li><a class="reference internal" href="#activations">activations</a></li>
-<li><a class="reference internal" href="#aggregations">aggregations</a></li>
-<li><a class="reference internal" href="#attributes">attributes</a></li>
-<li><a class="reference internal" href="#checkpoint">checkpoint</a></li>
-<li><a class="reference internal" href="#config">config</a></li>
-<li><a class="reference internal" href="#ctrnn">ctrnn</a></li>
-<li><a class="reference internal" href="#distributed">distributed</a></li>
-<li><a class="reference internal" href="#genes">genes</a></li>
-<li><a class="reference internal" href="#genome">genome</a></li>
-<li><a class="reference internal" href="#graphs">graphs</a></li>
-<li><a class="reference internal" href="#iznn">iznn</a></li>
-<li><a class="reference internal" href="#math-util">math_util</a></li>
-<li><a class="reference internal" href="#multiparameter">multiparameter</a></li>
-<li><a class="reference internal" href="#nn">nn</a></li>
-<li><a class="reference internal" href="#nn-feed-forward">nn.feed_forward</a></li>
-<li><a class="reference internal" href="#nn-recurrent">nn.recurrent</a></li>
-<li><a class="reference internal" href="#parallel">parallel</a></li>
-<li><a class="reference internal" href="#population">population</a></li>
-<li><a class="reference internal" href="#reporting">reporting</a></li>
-<li><a class="reference internal" href="#reproduction">reproduction</a></li>
-<li><a class="reference internal" href="#six-util">six_util</a></li>
-<li><a class="reference internal" href="#species">species</a></li>
-<li><a class="reference internal" href="#stagnation">stagnation</a></li>
-<li><a class="reference internal" href="#statistics">statistics</a></li>
-<li><a class="reference internal" href="#threaded">threaded</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="ctrnn.html" title="previous chapter">Continuous-time recurrent neural network implementation</a></li>
-      <li>Next: <a href="genome-interface.html" title="next chapter">Genome Interface</a></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/module_summaries.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2015-2017, CodeReclaimers, LLC.
       

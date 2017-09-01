@@ -32,9 +32,30 @@
 
   </head>
   <body>
-  
-
-    <div class="document">
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
@@ -57,7 +78,7 @@
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">saferepr</span>
 
 <span class="kn">from</span> <span class="nn">neat.attributes</span> <span class="k">import</span> <span class="n">FloatAttribute</span><span class="p">,</span> <span class="n">BoolAttribute</span>
-<span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">NORM_EPSILON</span>
+<span class="kn">from</span> <span class="nn">neat.math_util</span> <span class="k">import</span> <span class="n">NORM_EPSILON</span><span class="p">,</span> <span class="n">tmean</span>
 <span class="kn">from</span> <span class="nn">neat.repr_util</span> <span class="k">import</span> <span class="n">repr_extract_function_name</span>
 <span class="kn">from</span> <span class="nn">neat.six_util</span> <span class="k">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">iterkeys</span>
 
@@ -142,7 +163,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">instance_name</span><span class="p">:</span>
             <span class="k">return</span> <span class="mf">0.0</span>
 
-        <span class="n">max_diff</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">diffs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_names</span><span class="p">:</span>
             <span class="n">param_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolved_param_dicts</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">):</span>
@@ -156,14 +177,18 @@
                         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                             <span class="s2">&quot;This_diff </span><span class="si">{0:n}</span><span class="s2"> over 1.0 (diff </span><span class="si">{1:n}</span><span class="s2">, div_by </span><span class="si">{2:n}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                 <span class="n">this_diff</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">div_by</span><span class="p">))</span>
-                    <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">this_diff</span><span class="p">)</span>
+                    <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">this_diff</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bool&#39;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">current_param_values</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
-                    <span class="k">return</span> <span class="mf">1.0</span>
+                    <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown what to do with param_type </span><span class="si">{0!s}</span><span class="s2"> for </span><span class="si">{1!s}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">saferepr</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s1">&#39;param_type&#39;</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">max_diff</span>
+        <span class="k">return</span> <span class="n">tmean</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -607,30 +632,8 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2015-2017, CodeReclaimers, LLC.
       
