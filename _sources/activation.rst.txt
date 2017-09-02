@@ -101,6 +101,28 @@ tanh
 General-use activation functions (multiparameter)
 ---------------------------------------------------------------------
 
+bicentral
+^^^^^^^^^
+
+.. figure:: activation-bicentral.png
+    :scale: 100 %
+    :alt: A differently-parameterized combination of two sigmoids than bisigmoid.
+
+.. figure:: activation-swap-bicentral.png
+    :scale: 100 %
+    :alt: A differently-parameterized combination of two sigmoids than bisigmoid.
+
+bisigmoid
+^^^^^^^^^^
+
+.. figure:: activation-bisigmoid.png
+    :scale: 100 %
+    :alt: A combination of two oppositely-aligned sigmoids
+
+.. figure:: activation-swap-bisigmoid.png
+    :scale: 100 %
+    :alt: A combination of two oppositely-aligned sigmoids
+
 .. _clamped-tanh-step-label:
 
 clamped_tanh_step
