@@ -44,17 +44,16 @@
   <div class="section" id="overview-of-builtin-activation-functions">
 <span id="activation-functions-label"></span><h1>Overview of builtin activation functions<a class="headerlink" href="#overview-of-builtin-activation-functions" title="Permalink to this headline">¶</a></h1>
 <p id="index-0">Note that some of these <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">functions</span></a> are scaled differently from the canonical
-versions you may be familiar with.  The intention of the scaling is to place
-more of the functions’ “interesting” behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>.
-Some of these are more intended for <a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a>) than for “direct” problem-solving,
-as noted below; however, even those meant mainly for CPPNs can be of use elsewhere - <cite>abs</cite> and <code class="docutils literal"><span class="pre">hat</span></code> can both solve xor in one generation,
-for instance (although note for the former that it is included in several others such as <a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>).</p>
-<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
+versions you may be familiar with.  The intention of the scaling is to place more of the functions’ “interesting”
+behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>. Some of these are more intended for
+<a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a>) than for “direct” problem-solving, as noted below;
+however, even those meant mainly for CPPNs can be of use elsewhere - <a class="reference internal" href="#abs-label"><span class="std std-ref">abs</span></a> and
+<a class="reference internal" href="#hat-label"><span class="std std-ref">hat</span></a> can both solve the <a class="reference internal" href="xor_example.html#xor-example-label"><span class="std std-ref">xor example</span></a>) task in one generation, for instance (although
+note for the former that it is included in several others such as
+<a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>).</p>
+<p>The implementations of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
+<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested as possibilities among the multiparameter functions:</p>
+<table border="1" class="colwidths-auto docutils align-center">
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Old</th>
 <th class="head">New</th>
@@ -62,7 +61,7 @@ for instance (although note for the former that it is included in several others
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>abs</td>
-<td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
 </tr>
 <tr class="row-odd"><td>clamped</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
@@ -71,13 +70,13 @@ for instance (although note for the former that it is included in several others
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
 </tr>
 <tr class="row-odd"><td>gauss</td>
-<td>hat_gauss_rectangular or multiparam_gauss</td>
+<td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a> or multiparam_gauss</td>
 </tr>
 <tr class="row-even"><td>hat</td>
 <td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a></td>
 </tr>
 <tr class="row-odd"><td>identity</td>
-<td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
 </tr>
 <tr class="row-even"><td>inv</td>
 <td><a class="reference internal" href="#multiparam-log-inv-label"><span class="std std-ref">multiparam_log_inv</span></a>, if for a CPPN</td>
@@ -86,7 +85,7 @@ for instance (although note for the former that it is included in several others
 <td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a>, if for a CPPN</td>
 </tr>
 <tr class="row-even"><td>relu</td>
-<td>multiparam_relu, multiparam_relu_softplus, or weighted_lu</td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
 </tr>
 <tr class="row-odd"><td>sigmoid</td>
 <td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
@@ -105,7 +104,7 @@ for instance (although note for the former that it is included in several others
 </tr>
 </tbody>
 </table>
-<p>The implementations of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
+<p>Two potentially-faster approximations of the <a class="reference internal" href="#sigmoid-label"><span class="std std-ref">sigmoid</span></a> and <a class="reference internal" href="#tanh-label"><span class="std std-ref">tanh</span></a> functions have also been added, namely <a class="reference internal" href="#sigmoid-approx-label"><span class="std std-ref">sigmoid_approx</span></a> and <a class="reference internal" href="#tanh-approx-label"><span class="std std-ref">tanh_approx</span></a>.</p>
 <div class="section" id="general-use-activation-functions-single-parameter">
 <h2>General-use activation functions (single-parameter)<a class="headerlink" href="#general-use-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="clamped">
@@ -138,6 +137,12 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-sigmoid.png"><img alt="sigmoid function" src="_images/activation-sigmoid.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="sigmoid-approx">
+<h3>sigmoid_approx<a class="headerlink" href="#sigmoid-approx" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="sigmoid-approx-label">
+<a class="reference internal image-reference" href="_images/activation-sigmoid_approx.png"><img alt="Potentially-faster approximation for the sigmoid function." src="_images/activation-sigmoid_approx.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 <div class="section" id="softplus">
 <h3>softplus<a class="headerlink" href="#softplus" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
@@ -156,30 +161,18 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-tanh.png"><img alt="hyperbolic tangent function" src="_images/activation-tanh.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="tanh-approx">
+<h3>tanh_approx<a class="headerlink" href="#tanh-approx" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="tanh-approx-label">
+<a class="reference internal image-reference" href="_images/activation-tanh_approx.png"><img alt="Potentially-faster approximation for the tanh function." src="_images/activation-tanh_approx.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 </div>
 <div class="section" id="general-use-activation-functions-multiparameter">
 <h2>General-use activation functions (multiparameter)<a class="headerlink" href="#general-use-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="bicentral">
-<h3>bicentral<a class="headerlink" href="#bicentral" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral.png"><img alt="A differently-parameterized combination of two sigmoids than bisigmoid." src="_images/activation-bicentral.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-bicentral.png"><img alt="A differently-parameterized combination of two sigmoids than bisigmoid." src="_images/activation-swap-bicentral.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-</div>
-<div class="section" id="bisigmoid">
-<h3>bisigmoid<a class="headerlink" href="#bisigmoid" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bisigmoid.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bisigmoid.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-bisigmoid.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-swap-bisigmoid.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-</div>
 <div class="section" id="clamped-tanh-step">
-<span id="clamped-tanh-step-label"></span><h3>clamped_tanh_step<a class="headerlink" href="#clamped-tanh-step" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<h3>clamped_tanh_step<a class="headerlink" href="#clamped-tanh-step" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="clamped-tanh-step-label">
 <a class="reference internal image-reference" href="_images/activation-clamped_tanh_step.png"><img alt="Weighted combination of clamped, :ref:`tanh &lt;tanh-label&gt;`, and step functions." src="_images/activation-clamped_tanh_step.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
@@ -193,29 +186,29 @@ for instance (although note for the former that it is included in several others
 </div>
 </div>
 <div class="section" id="multiparam-pow">
-<span id="multiparam-pow-label"></span><h3>multiparam_pow<a class="headerlink" href="#multiparam-pow" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<h3>multiparam_pow<a class="headerlink" href="#multiparam-pow" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="multiparam-pow-label">
 <a class="reference internal image-reference" href="_images/activation-multiparam_pow.png"><img alt="Above a=1, pow(z, a); below 1, pow(z, pow(2,(a-1.0))" src="_images/activation-multiparam_pow.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-relu">
-<span id="multiparam-relu-description-label"></span><h3>multiparam_relu<a class="headerlink" href="#multiparam-relu" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<h3>multiparam_relu<a class="headerlink" href="#multiparam-relu" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="multiparam-relu-description-label">
 <a class="reference internal image-reference" href="_images/activation-multiparam_relu.png"><img alt="max(x, a*x), where a is an evolved parameter with a range from -1 to 1, inclusive. Acts like a weighted combination of abs, relu, and identity." src="_images/activation-multiparam_relu.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-relu-softplus">
 <span id="multiparam-relu-softplus-label"></span><h3>multiparam_relu_softplus<a class="headerlink" href="#multiparam-relu-softplus" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-multiparam_relu_softplus.png"><img alt="A weighted combination of softplus, relu, abs, and identity." src="_images/activation-multiparam_relu_softplus.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-multiparam_relu_softplus.png"><img alt="A combination of multiparam_relu and multiparam_softplus." src="_images/activation-multiparam_relu_softplus.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-multiparam_relu_softplus.png"><img alt="A weighted combination of softplus, relu, abs, and identity." src="_images/activation-swap-multiparam_relu_softplus.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_relu_softplus.png"><img alt="A combination of multiparam_relu and multiparam_softplus." src="_images/activation-swap-multiparam_relu_softplus.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-sigmoid">
-<span id="multiparam-sigmoid-label"></span><h3>multiparam_sigmoid<a class="headerlink" href="#multiparam-sigmoid" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<h3>multiparam_sigmoid<a class="headerlink" href="#multiparam-sigmoid" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="multiparam-sigmoid-label">
 <a class="reference internal image-reference" href="_images/activation-multiparam_sigmoid.png"><img alt="A version of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` rescaled to match :ref:`sigmoid &lt;sigmoid-label&gt;` instead of :ref:`tanh &lt;tanh-label&gt;`." src="_images/activation-multiparam_sigmoid.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
@@ -225,13 +218,19 @@ for instance (although note for the former that it is included in several others
 <a class="reference internal image-reference" href="_images/activation-multiparam_sigmoid_approx.png"><img alt="A version of multiparam_tanh_approx rescaled to match :ref:`sigmoid &lt;sigmoid-label&gt;` instead of :ref:`tanh &lt;tanh-label&gt;`, and constrained to 0-1" src="_images/activation-multiparam_sigmoid_approx.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
+<div class="section" id="multiparam-softplus">
+<h3>multiparam_softplus<a class="headerlink" href="#multiparam-softplus" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_softplus.png"><img alt="A version of softplus with variable curvature at 0 x." src="_images/activation-multiparam_softplus.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
 <div class="section" id="multiparam-tanh-approx">
 <h3>multiparam_tanh_approx<a class="headerlink" href="#multiparam-tanh-approx" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-multiparam_tanh_approx.png"><img alt="Trying out an approximation to tanh that may be more efficient" src="_images/activation-multiparam_tanh_approx.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-multiparam_tanh_approx.png"><img alt="An adjustable version of tanh_approx." src="_images/activation-multiparam_tanh_approx.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-multiparam_tanh_approx.png"><img alt="Trying out an approximation to tanh that may be more efficient" src="_images/activation-swap-multiparam_tanh_approx.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_tanh_approx.png"><img alt="An adjustable version of tanh_approx." src="_images/activation-swap-multiparam_tanh_approx.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-tanh-log1p">
@@ -263,7 +262,7 @@ for instance (although note for the former that it is included in several others
 <h2>CPPN-intended activation functions (single-parameter)<a class="headerlink" href="#cppn-intended-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="abs">
 <h3>abs<a class="headerlink" href="#abs" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<div class="figure" id="abs-label">
 <a class="reference internal image-reference" href="_images/activation-abs.png"><img alt="absolute value function" src="_images/activation-abs.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
@@ -287,13 +286,13 @@ for instance (although note for the former that it is included in several others
 </div>
 <div class="section" id="hat">
 <h3>hat<a class="headerlink" href="#hat" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<div class="figure" id="hat-label">
 <a class="reference internal image-reference" href="_images/activation-hat.png"><img alt="hat function" src="_images/activation-hat.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
-<div class="section" id="identity-label">
-<span id="identity"></span><h3>identity<a class="headerlink" href="#identity-label" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<div class="section" id="identity">
+<h3>identity<a class="headerlink" href="#identity" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="identity-label">
 <a class="reference internal image-reference" href="_images/activation-identity.png"><img alt="identity function" src="_images/activation-identity.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
@@ -348,6 +347,28 @@ for instance (although note for the former that it is included in several others
 </div>
 <div class="section" id="cppn-intended-activation-functions-multiparameter">
 <h2>CPPN-intended activation functions (multiparameter)<a class="headerlink" href="#cppn-intended-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bicentral">
+<span id="bicentral-label"></span><h3>bicentral<a class="headerlink" href="#bicentral" title="Permalink to this headline">¶</a></h3>
+<p>This combination of two sigmoid functions is taken from the article “Taxonomy of neural transfer functions” <a class="reference internal" href="#taxonomy" id="id1">[taxonomy]</a>, with adjustments.
+It is uncertain whether it is more suitable for direct use, or for CPPNs.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral.png"><img alt="A differently-parameterized combination of two sigmoids than bisigmoid." src="_images/activation-bicentral.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-bicentral.png"><img alt="A differently-parameterized combination of two sigmoids than bisigmoid." src="_images/activation-swap-bicentral.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="bisigmoid">
+<h3>bisigmoid<a class="headerlink" href="#bisigmoid" title="Permalink to this headline">¶</a></h3>
+<p>This is a differently-parameterized version of the <a class="reference internal" href="#bicentral-label"><span class="std std-ref">bicentral</span></a> function. As with that function, it is uncertain whether it is
+more suitable for direct use, or for CPPNs.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bisigmoid.png"><img alt="A combination of two oppositely-aligned sigmoids." src="_images/activation-bisigmoid.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-bisigmoid.png"><img alt="A combination of two oppositely-aligned sigmoids." src="_images/activation-swap-bisigmoid.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
 <div class="section" id="hat-gauss-rectangular">
 <span id="hat-gauss-rectangular-label"></span><h3>hat_gauss_rectangular<a class="headerlink" href="#hat-gauss-rectangular" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
@@ -367,22 +388,28 @@ for instance (although note for the former that it is included in several others
 </div>
 </div>
 <div class="section" id="multiparam-log-inv">
-<span id="multiparam-log-inv-label"></span><h3>multiparam_log_inv<a class="headerlink" href="#multiparam-log-inv" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-multiparam_log_inv.png"><img alt="Above 0.0, equivalent to scaled_expanded_log with a+1.0; below, weighted mean with inv of -1*x." src="_images/activation-multiparam_log_inv.png" style="width: 1596.0px; height: 369.0px;" /></a>
+<h3>multiparam_log_inv<a class="headerlink" href="#multiparam-log-inv" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="multiparam-log-inv-label">
+<a class="reference internal image-reference" href="_images/activation-multiparam_log_inv.png"><img alt="Above 0.0, from scaled_expanded_log; below, weighted mean with inv of -1*x." src="_images/activation-multiparam_log_inv.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="scaled-expanded-log">
-<span id="scaled-expanded-log-label"></span><h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<h3>scaled_expanded_log<a class="headerlink" href="#scaled-expanded-log" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="scaled-expanded-log-label">
 <a class="reference internal image-reference" href="_images/activation-scaled_expanded_log.png"><img alt="A version of expanded_log with variable scaling (with partially-counterbalancing weights both inside and outside the expanded_log function)." src="_images/activation-scaled_expanded_log.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="wave">
-<span id="wave-label"></span><h3>wave<a class="headerlink" href="#wave" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<h3>wave<a class="headerlink" href="#wave" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="wave-label">
 <a class="reference internal image-reference" href="_images/activation-wave.png"><img alt="Weighted mean of triangle_wave, sin, and square_wave activation functions." src="_images/activation-wave.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
+<table class="docutils citation" frame="void" id="taxonomy" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[taxonomy]</a></td><td>Duch, Włodzisław; Jankowski, Norbert. 2000. Taxonomy of neural transfer functions. ICJNN 2000. <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.29.9375">CiteSeerX Link</a>.</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -402,14 +429,14 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#log1p">log1p</a></li>
 <li><a class="reference internal" href="#relu">relu</a></li>
 <li><a class="reference internal" href="#sigmoid">sigmoid</a></li>
+<li><a class="reference internal" href="#sigmoid-approx">sigmoid_approx</a></li>
 <li><a class="reference internal" href="#softplus">softplus</a></li>
 <li><a class="reference internal" href="#step">step</a></li>
 <li><a class="reference internal" href="#tanh">tanh</a></li>
+<li><a class="reference internal" href="#tanh-approx">tanh_approx</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#general-use-activation-functions-multiparameter">General-use activation functions (multiparameter)</a><ul>
-<li><a class="reference internal" href="#bicentral">bicentral</a></li>
-<li><a class="reference internal" href="#bisigmoid">bisigmoid</a></li>
 <li><a class="reference internal" href="#clamped-tanh-step">clamped_tanh_step</a></li>
 <li><a class="reference internal" href="#multiparam-elu">multiparam_elu</a></li>
 <li><a class="reference internal" href="#multiparam-pow">multiparam_pow</a></li>
@@ -417,6 +444,7 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#multiparam-relu-softplus">multiparam_relu_softplus</a></li>
 <li><a class="reference internal" href="#multiparam-sigmoid">multiparam_sigmoid</a></li>
 <li><a class="reference internal" href="#multiparam-sigmoid-approx">multiparam_sigmoid_approx</a></li>
+<li><a class="reference internal" href="#multiparam-softplus">multiparam_softplus</a></li>
 <li><a class="reference internal" href="#multiparam-tanh-approx">multiparam_tanh_approx</a></li>
 <li><a class="reference internal" href="#multiparam-tanh-log1p">multiparam_tanh_log1p</a></li>
 <li><a class="reference internal" href="#scaled-log1p">scaled_log1p</a></li>
@@ -429,7 +457,7 @@ for instance (although note for the former that it is included in several others
 <li><a class="reference internal" href="#expanded-log">expanded_log</a></li>
 <li><a class="reference internal" href="#gauss">gauss</a></li>
 <li><a class="reference internal" href="#hat">hat</a></li>
-<li><a class="reference internal" href="#identity-label">identity</a></li>
+<li><a class="reference internal" href="#identity">identity</a></li>
 <li><a class="reference internal" href="#inv">inv</a></li>
 <li><a class="reference internal" href="#log">log</a></li>
 <li><a class="reference internal" href="#rectangular">rectangular</a></li>
@@ -441,6 +469,8 @@ for instance (although note for the former that it is included in several others
 </ul>
 </li>
 <li><a class="reference internal" href="#cppn-intended-activation-functions-multiparameter">CPPN-intended activation functions (multiparameter)</a><ul>
+<li><a class="reference internal" href="#bicentral">bicentral</a></li>
+<li><a class="reference internal" href="#bisigmoid">bisigmoid</a></li>
 <li><a class="reference internal" href="#hat-gauss-rectangular">hat_gauss_rectangular</a></li>
 <li><a class="reference internal" href="#multiparam-gauss">multiparam_gauss</a></li>
 <li><a class="reference internal" href="#multiparam-log-inv">multiparam_log_inv</a></li>
