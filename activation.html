@@ -48,63 +48,77 @@ versions you may be familiar with.  The intention of the scaling is to place mor
 behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>. Some of these are more intended for
 <a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a>) than for “direct” problem-solving, as noted below;
 however, even those meant mainly for CPPNs can be of use elsewhere - <a class="reference internal" href="#abs-label"><span class="std std-ref">abs</span></a> and
-<a class="reference internal" href="#hat-label"><span class="std std-ref">hat</span></a> can both solve the <a class="reference internal" href="xor_example.html#xor-example-label"><span class="std std-ref">xor example</span></a>) task in one generation, for instance (although
-note for the former that it is included in several others such as
-<a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>).</p>
+<a class="reference internal" href="#hat-label"><span class="std std-ref">hat</span></a> can both solve the <a class="reference internal" href="xor_example.html#xor-example-label"><span class="std std-ref">xor example</span></a> task in one generation, for instance (although
+note for the former that it is included in several others such as <a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>).</p>
 <p>The implementations of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
-<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if users wish to try substituting them for previously-used activation functions, the following are suggested as possibilities among the multiparameter functions:</p>
+<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if you wish to try substituting them for previously-used activation functions, the following are suggested as possibilities among the multiparameter functions:</p>
 <table border="1" class="colwidths-auto docutils align-center">
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Old</th>
 <th class="head">New</th>
+<th class="head">&#160;</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>abs</td>
 <td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>clamped</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>cube</td>
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>gauss</td>
 <td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a> or multiparam_gauss</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>hat</td>
 <td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a></td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>identity</td>
 <td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>inv</td>
 <td><a class="reference internal" href="#multiparam-log-inv-label"><span class="std std-ref">multiparam_log_inv</span></a>, if for a CPPN</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>log</td>
 <td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a>, if for a CPPN</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>relu</td>
 <td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>sigmoid</td>
 <td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>sin</td>
 <td><a class="reference internal" href="#wave-label"><span class="std std-ref">wave</span></a></td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>softplus</td>
 <td><a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a></td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>square</td>
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
+<td>if the result does not need to be positive</td>
 </tr>
 <tr class="row-odd"><td>tanh</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
-<p>Two potentially-faster approximations of the <a class="reference internal" href="#sigmoid-label"><span class="std std-ref">sigmoid</span></a> and <a class="reference internal" href="#tanh-label"><span class="std std-ref">tanh</span></a> functions have also been added, namely <a class="reference internal" href="#sigmoid-approx-label"><span class="std std-ref">sigmoid_approx</span></a> and <a class="reference internal" href="#tanh-approx-label"><span class="std std-ref">tanh_approx</span></a>.</p>
+<p>The builtin multiparameter functions are also present to serve as examples of ways to construct and configure new such functions. Two potentially-faster approximations of the <a class="reference internal" href="#sigmoid-label"><span class="std std-ref">sigmoid</span></a> and <a class="reference internal" href="#tanh-label"><span class="std std-ref">tanh</span></a> functions have also been added, namely <a class="reference internal" href="#sigmoid-approx-label"><span class="std std-ref">sigmoid_approx</span></a> and <a class="reference internal" href="#tanh-approx-label"><span class="std std-ref">tanh_approx</span></a>.</p>
 <div class="section" id="general-use-activation-functions-single-parameter">
 <h2>General-use activation functions (single-parameter)<a class="headerlink" href="#general-use-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="clamped">
