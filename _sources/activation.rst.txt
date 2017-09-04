@@ -23,6 +23,7 @@ The :term:`multiparameter` functions below, and some of the others, are new; if 
     :align: center
 
     abs, ":ref:`multiparam_relu <multiparam-relu-description-label>`, :ref:`multiparam_relu_softplus <multiparam-relu-softplus-label>`, or :ref:`weighted_lu <weighted-lu-label>`", "If the result does not need to be positive"
+    abs, ":ref:`fourth_square_abs <fourth-square-abs-label>`", "If the result needs to be positive"
     clamped, ":ref:`clamped_tanh_step <clamped-tanh-step-label>`"
     cube, ":ref:`multiparam_pow <multiparam-pow-label>`"
     gauss, ":ref:`hat_gauss_rectangular <hat-gauss-rectangular-label>` or :ref:`multiparam_gauss <multiparam-gauss-label>`"
@@ -36,6 +37,7 @@ The :term:`multiparameter` functions below, and some of the others, are new; if 
     softplus, ":ref:`multiparam_relu_softplus <multiparam-relu-softplus-label>`", "If the result does not need to be positive"
     softplus, ":ref:`multiparam_softplus <multiparam-softplus-label>`", "If the result needs to be positive"
     square, ":ref:`multiparam_pow <multiparam-pow-label>`", "If the result does not need to be positive"
+    square, ":ref:`fourth_square_abs <fourth-square-abs-label>`", "If the result needs to be positive"
     tanh, ":ref:`clamped_tanh_step <clamped-tanh-step-label>`", "If the result needs to be within [-1, 1]"
     tanh, ":ref:`multiparam_tanh_log1p <multiparam-tanh-log1p-label>`", "If it does not need to be within [-1, 1]"
 
@@ -378,6 +380,13 @@ more suitable for direct use, or for CPPNs.
     :scale: 100 %
     :alt: A combination of two oppositely-aligned sigmoids.
 
+fourth_square_abs
+^^^^^^^^^^^^^^^^^^
+
+.. figure:: activation-fourth_square_abs.png
+    :scale: 100 %
+    :alt: A weighted combination of x**4, x**2, and abs
+    :name: fourth-square-abs-label
 
 .. _hat-gauss-rectangular-label:
 
