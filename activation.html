@@ -56,13 +56,13 @@ note for the former that it is included in several others such as <a class="refe
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Old</th>
 <th class="head">New</th>
-<th class="head">&#160;</th>
+<th class="head">Notes</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>abs</td>
-<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
-<td>&#160;</td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a></td>
+<td>If the result does not need to be positive</td>
 </tr>
 <tr class="row-odd"><td>clamped</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
@@ -73,7 +73,7 @@ note for the former that it is included in several others such as <a class="refe
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>gauss</td>
-<td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a> or multiparam_gauss</td>
+<td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a> or <a class="reference internal" href="#multiparam-gauss-label"><span class="std std-ref">multiparam_gauss</span></a></td>
 <td>&#160;</td>
 </tr>
 <tr class="row-even"><td>hat</td>
@@ -81,20 +81,20 @@ note for the former that it is included in several others such as <a class="refe
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>identity</td>
-<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a></td>
 <td>&#160;</td>
 </tr>
 <tr class="row-even"><td>inv</td>
-<td><a class="reference internal" href="#multiparam-log-inv-label"><span class="std std-ref">multiparam_log_inv</span></a>, if for a CPPN</td>
-<td>&#160;</td>
+<td><a class="reference internal" href="#multiparam-log-inv-label"><span class="std std-ref">multiparam_log_inv</span></a></td>
+<td>If for a CPPN</td>
 </tr>
 <tr class="row-odd"><td>log</td>
-<td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a>, if for a CPPN</td>
-<td>&#160;</td>
+<td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a></td>
+<td>If for a CPPN</td>
 </tr>
 <tr class="row-even"><td>relu</td>
-<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or weighted_lu</td>
-<td>&#160;</td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a></td>
+<td>If the result does not need to be positive</td>
 </tr>
 <tr class="row-odd"><td>sigmoid</td>
 <td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
@@ -106,19 +106,28 @@ note for the former that it is included in several others such as <a class="refe
 </tr>
 <tr class="row-odd"><td>softplus</td>
 <td><a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a></td>
-<td>&#160;</td>
+<td>If the result does not need to be positive</td>
 </tr>
-<tr class="row-even"><td>square</td>
+<tr class="row-even"><td>softplus</td>
+<td><a class="reference internal" href="#multiparam-softplus-label"><span class="std std-ref">multiparam_softplus</span></a></td>
+<td>If the result needs to be positive</td>
+</tr>
+<tr class="row-odd"><td>square</td>
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
-<td>if the result does not need to be positive</td>
+<td>If the result does not need to be positive</td>
+</tr>
+<tr class="row-even"><td>tanh</td>
+<td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
+<td>If the result needs to be within [-1, 1]</td>
 </tr>
 <tr class="row-odd"><td>tanh</td>
-<td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
-<td>&#160;</td>
+<td><a class="reference internal" href="#multiparam-tanh-log1p-label"><span class="std std-ref">multiparam_tanh_log1p</span></a></td>
+<td>If it does not need to be within [-1, 1]</td>
 </tr>
 </tbody>
 </table>
-<p>The builtin multiparameter functions are also present to serve as examples of ways to construct and configure new such functions. Two potentially-faster approximations of the <a class="reference internal" href="#sigmoid-label"><span class="std std-ref">sigmoid</span></a> and <a class="reference internal" href="#tanh-label"><span class="std std-ref">tanh</span></a> functions have also been added, namely <a class="reference internal" href="#sigmoid-approx-label"><span class="std std-ref">sigmoid_approx</span></a> and <a class="reference internal" href="#tanh-approx-label"><span class="std std-ref">tanh_approx</span></a>.</p>
+<p>The builtin multiparameter functions are also present to serve as examples of how to construct and configure new such functions.</p>
+<p>Two potentially-faster approximations of the <a class="reference internal" href="#sigmoid-label"><span class="std std-ref">sigmoid</span></a> and <a class="reference internal" href="#tanh-label"><span class="std std-ref">tanh</span></a> functions have also been added, namely <a class="reference internal" href="#sigmoid-approx-label"><span class="std std-ref">sigmoid_approx</span></a> and <a class="reference internal" href="#tanh-approx-label"><span class="std std-ref">tanh_approx</span></a>.</p>
 <div class="section" id="general-use-activation-functions-single-parameter">
 <h2>General-use activation functions (single-parameter)<a class="headerlink" href="#general-use-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="clamped">
@@ -234,7 +243,7 @@ note for the former that it is included in several others such as <a class="refe
 </div>
 <div class="section" id="multiparam-softplus">
 <h3>multiparam_softplus<a class="headerlink" href="#multiparam-softplus" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
+<div class="figure" id="multiparam-softplus-label">
 <a class="reference internal image-reference" href="_images/activation-multiparam_softplus.png"><img alt="A version of softplus with variable curvature at 0 x." src="_images/activation-multiparam_softplus.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
@@ -248,7 +257,7 @@ note for the former that it is included in several others such as <a class="refe
 </div>
 </div>
 <div class="section" id="multiparam-tanh-log1p">
-<h3>multiparam_tanh_log1p<a class="headerlink" href="#multiparam-tanh-log1p" title="Permalink to this headline">¶</a></h3>
+<span id="multiparam-tanh-log1p-label"></span><h3>multiparam_tanh_log1p<a class="headerlink" href="#multiparam-tanh-log1p" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-multiparam_tanh_log1p.png"><img alt="A weighted combination of :ref:`clamped_tanh_step &lt;clamped-tanh-step-label&gt;` and scaled_log1p." src="_images/activation-multiparam_tanh_log1p.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
@@ -263,7 +272,7 @@ note for the former that it is included in several others such as <a class="refe
 </div>
 </div>
 <div class="section" id="weighted-lu">
-<h3>weighted_lu<a class="headerlink" href="#weighted-lu" title="Permalink to this headline">¶</a></h3>
+<span id="weighted-lu-label"></span><h3>weighted_lu<a class="headerlink" href="#weighted-lu" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-weighted_lu.png"><img alt="A weighted combination of multiparam_relu and multiparam_elu." src="_images/activation-weighted_lu.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
@@ -393,7 +402,7 @@ more suitable for direct use, or for CPPNs.</p>
 </div>
 </div>
 <div class="section" id="multiparam-gauss">
-<h3>multiparam_gauss<a class="headerlink" href="#multiparam-gauss" title="Permalink to this headline">¶</a></h3>
+<span id="multiparam-gauss-label"></span><h3>multiparam_gauss<a class="headerlink" href="#multiparam-gauss" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-multiparam_gauss.png"><img alt="Gauss with variations on exponent, effective SD" src="_images/activation-multiparam_gauss.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
