@@ -78,14 +78,14 @@ note for the former that it is included in several others such as <a class="refe
 </tr>
 <tr class="row-even"><td>gauss</td>
 <td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a> or <a class="reference internal" href="#multiparam-gauss-label"><span class="std std-ref">multiparam_gauss</span></a></td>
-<td>&#160;</td>
+<td>Either is suitable for seeding a HyperNEAT-LEO CPPN</td>
 </tr>
 <tr class="row-odd"><td>hat</td>
 <td><a class="reference internal" href="#hat-gauss-rectangular-label"><span class="std std-ref">hat_gauss_rectangular</span></a></td>
 <td>&#160;</td>
 </tr>
 <tr class="row-even"><td>identity</td>
-<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a></td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a>, <a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a>, or <a class="reference internal" href="#multiparam-tanh-log1p-label"><span class="std std-ref">multiparam_tanh_log1p</span></a></td>
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>inv</td>
@@ -93,42 +93,46 @@ note for the former that it is included in several others such as <a class="refe
 <td>If for a CPPN</td>
 </tr>
 <tr class="row-even"><td>log</td>
-<td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a></td>
+<td><a class="reference internal" href="#scaled-expanded-log-label"><span class="std std-ref">scaled_expanded_log</span></a> or <a class="reference internal" href="#multiparam-log-inv-label"><span class="std std-ref">multiparam_log_inv</span></a></td>
 <td>If for a CPPN</td>
 </tr>
 <tr class="row-odd"><td>relu</td>
 <td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, or <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a></td>
 <td>If the result does not need to be positive</td>
 </tr>
-<tr class="row-even"><td>sigmoid</td>
-<td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>sin</td>
-<td><a class="reference internal" href="#wave-label"><span class="std std-ref">wave</span></a></td>
-<td>&#160;</td>
-</tr>
-<tr class="row-even"><td>softplus</td>
-<td><a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a></td>
-<td>If the result does not need to be positive</td>
-</tr>
-<tr class="row-odd"><td>softplus</td>
+<tr class="row-even"><td>relu</td>
 <td><a class="reference internal" href="#multiparam-softplus-label"><span class="std std-ref">multiparam_softplus</span></a></td>
 <td>If the result needs to be positive</td>
 </tr>
-<tr class="row-even"><td>square</td>
+<tr class="row-odd"><td>sigmoid</td>
+<td><a class="reference internal" href="#multiparam-sigmoid-label"><span class="std std-ref">multiparam_sigmoid</span></a></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>sin</td>
+<td><a class="reference internal" href="#wave-label"><span class="std std-ref">wave</span></a></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>softplus</td>
+<td><a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a></td>
+<td>If the result does not need to be positive</td>
+</tr>
+<tr class="row-even"><td>softplus</td>
+<td><a class="reference internal" href="#multiparam-softplus-label"><span class="std std-ref">multiparam_softplus</span></a></td>
+<td>If the result needs to be positive</td>
+</tr>
+<tr class="row-odd"><td>square</td>
 <td><a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a></td>
 <td>If the result does not need to be positive</td>
 </tr>
-<tr class="row-odd"><td>square</td>
+<tr class="row-even"><td>square</td>
 <td><a class="reference internal" href="#fourth-square-abs-label"><span class="std std-ref">fourth_square_abs</span></a></td>
 <td>If the result needs to be positive</td>
 </tr>
-<tr class="row-even"><td>tanh</td>
+<tr class="row-odd"><td>tanh</td>
 <td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
 <td>If the result needs to be within [-1, 1]</td>
 </tr>
-<tr class="row-odd"><td>tanh</td>
+<tr class="row-even"><td>tanh</td>
 <td><a class="reference internal" href="#multiparam-tanh-log1p-label"><span class="std std-ref">multiparam_tanh_log1p</span></a></td>
 <td>If it does not need to be within [-1, 1]</td>
 </tr>
