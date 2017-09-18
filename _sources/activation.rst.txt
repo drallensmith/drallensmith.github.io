@@ -24,7 +24,7 @@ The :term:`multiparameter` functions below, and some of the others, are new; if 
 
     abs, ":ref:`multiparam_relu <multiparam-relu-description-label>`, :ref:`multiparam_relu_softplus <multiparam-relu-softplus-label>`, or :ref:`weighted_lu <weighted-lu-label>`", "If the result does not need to be positive"
     abs, ":ref:`fourth_square_abs <fourth-square-abs-label>`", "If the result needs to be positive"
-    clamped, ":ref:`clamped_tanh_step <clamped-tanh-step-label>`"
+    clamped, ":ref:`clamped_tanh_step <clamped-tanh-step-label>` or :ref:`clamped_step <clamped-step-label>`"
     cube, ":ref:`multiparam_pow <multiparam-pow-label>`"
     gauss, ":ref:`hat_gauss_rectangular <hat-gauss-rectangular-label>` or :ref:`multiparam_gauss <multiparam-gauss-label>`", "Either is suitable for seeding a HyperNEAT-LEO CPPN"
     hat, ":ref:`hat_gauss_rectangular <hat-gauss-rectangular-label>`"
@@ -128,6 +128,25 @@ tanh_approx
 
 General-use activation functions (multiparameter)
 ---------------------------------------------------------------------
+
+clamped_log1p_step
+^^^^^^^^^^^^^^^^^^^
+
+.. figure:: activation-clamped_log1p_step.png
+  :scale: 100 %
+  :alt: Weighted combination of (extended) clamped_step and scaled_log1p functions.
+
+.. figure:: activation-swap-clamped_log1p_step.png
+  :scale: 100 %
+  :alt: Weighted combination of (extended) clamped_step and scaled_log1p functions.
+
+clamped_step
+^^^^^^^^^^^^^
+
+.. figure:: activation-clamped_step.png
+    :scale: 100 %
+    :alt: Clamped with varying slope, including vertical (step function)
+    :name: clamped-step-label
 
 clamped_tanh_step
 ^^^^^^^^^^^^^^^^^^
@@ -359,27 +378,29 @@ bicentral
 This combination of two sigmoid functions is taken from the article "Taxonomy of neural transfer functions" [taxonomy]_, with adjustments.
 It is uncertain whether it is more suitable for direct use, or for CPPNs.
 
-.. figure:: activation-bicentral.png
+.. figure:: activation-bicentral-tilt-width.png
     :scale: 100 %
-    :alt: A differently-parameterized combination of two sigmoids than bisigmoid.
+    :alt: A combination of two oppositely-aligned sigmoids
 
-.. figure:: activation-swap-bicentral.png
+.. figure:: activation-bicentral-lower-width.png
     :scale: 100 %
-    :alt: A differently-parameterized combination of two sigmoids than bisigmoid.
+    :alt: A combination of two oppositely-aligned sigmoids
 
-bisigmoid
-^^^^^^^^^^
-
-This is a differently-parameterized version of the :ref:`bicentral <bicentral-label>` function. As with that function, it is uncertain whether it is
-more suitable for direct use, or for CPPNs.
-
-.. figure:: activation-bisigmoid.png
+.. figure:: activation-bicentral-lower-tilt.png
     :scale: 100 %
-    :alt: A combination of two oppositely-aligned sigmoids.
+    :alt: A combination of two oppositely-aligned sigmoids
 
-.. figure:: activation-swap-bisigmoid.png
+.. figure:: activation-bicentral-width-tilt.png
     :scale: 100 %
-    :alt: A combination of two oppositely-aligned sigmoids.
+    :alt: A combination of two oppositely-aligned sigmoids
+
+.. figure:: activation-bicentral-width-lower.png
+    :scale: 100 %
+    :alt: A combination of two oppositely-aligned sigmoids
+
+.. figure:: activation-bicentral-tilt-lower.png
+    :scale: 100 %
+    :alt: A combination of two oppositely-aligned sigmoids
 
 fourth_square_abs
 ^^^^^^^^^^^^^^^^^^

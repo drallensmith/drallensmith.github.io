@@ -69,7 +69,7 @@ note for the former that it is included in several others such as <a class="refe
 <td>If the result needs to be positive</td>
 </tr>
 <tr class="row-even"><td>clamped</td>
-<td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a></td>
+<td><a class="reference internal" href="#clamped-tanh-step-label"><span class="std std-ref">clamped_tanh_step</span></a> or <a class="reference internal" href="#clamped-step-label"><span class="std std-ref">clamped_step</span></a></td>
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>cube</td>
@@ -205,6 +205,21 @@ note for the former that it is included in several others such as <a class="refe
 </div>
 <div class="section" id="general-use-activation-functions-multiparameter">
 <h2>General-use activation functions (multiparameter)<a class="headerlink" href="#general-use-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="clamped-log1p-step">
+<h3>clamped_log1p_step<a class="headerlink" href="#clamped-log1p-step" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-clamped_log1p_step.png"><img alt="Weighted combination of (extended) clamped_step and scaled_log1p functions." src="_images/activation-clamped_log1p_step.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-clamped_log1p_step.png"><img alt="Weighted combination of (extended) clamped_step and scaled_log1p functions." src="_images/activation-swap-clamped_log1p_step.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="clamped-step">
+<h3>clamped_step<a class="headerlink" href="#clamped-step" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="clamped-step-label">
+<a class="reference internal image-reference" href="_images/activation-clamped_step.png"><img alt="Clamped with varying slope, including vertical (step function)" src="_images/activation-clamped_step.png" style="width: 1596.0px; height: 369.0px;" /></a>
+</div>
+</div>
 <div class="section" id="clamped-tanh-step">
 <h3>clamped_tanh_step<a class="headerlink" href="#clamped-tanh-step" title="Permalink to this headline">¶</a></h3>
 <div class="figure" id="clamped-tanh-step-label">
@@ -387,21 +402,22 @@ note for the former that it is included in several others such as <a class="refe
 <p>This combination of two sigmoid functions is taken from the article “Taxonomy of neural transfer functions” <a class="reference internal" href="#taxonomy" id="id1">[taxonomy]</a>, with adjustments.
 It is uncertain whether it is more suitable for direct use, or for CPPNs.</p>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral.png"><img alt="A differently-parameterized combination of two sigmoids than bisigmoid." src="_images/activation-bicentral.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-bicentral-tilt-width.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-tilt-width.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-bicentral.png"><img alt="A differently-parameterized combination of two sigmoids than bisigmoid." src="_images/activation-swap-bicentral.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-</div>
-<div class="section" id="bisigmoid">
-<h3>bisigmoid<a class="headerlink" href="#bisigmoid" title="Permalink to this headline">¶</a></h3>
-<p>This is a differently-parameterized version of the <a class="reference internal" href="#bicentral-label"><span class="std std-ref">bicentral</span></a> function. As with that function, it is uncertain whether it is
-more suitable for direct use, or for CPPNs.</p>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bisigmoid.png"><img alt="A combination of two oppositely-aligned sigmoids." src="_images/activation-bisigmoid.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-bicentral-lower-width.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-lower-width.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-bisigmoid.png"><img alt="A combination of two oppositely-aligned sigmoids." src="_images/activation-swap-bisigmoid.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-bicentral-lower-tilt.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-lower-tilt.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-width-tilt.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-width-tilt.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-width-lower.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-width-lower.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-tilt-lower.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-tilt-lower.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="fourth-square-abs">
@@ -478,6 +494,8 @@ more suitable for direct use, or for CPPNs.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#general-use-activation-functions-multiparameter">General-use activation functions (multiparameter)</a><ul>
+<li><a class="reference internal" href="#clamped-log1p-step">clamped_log1p_step</a></li>
+<li><a class="reference internal" href="#clamped-step">clamped_step</a></li>
 <li><a class="reference internal" href="#clamped-tanh-step">clamped_tanh_step</a></li>
 <li><a class="reference internal" href="#multiparam-elu">multiparam_elu</a></li>
 <li><a class="reference internal" href="#multiparam-pow">multiparam_pow</a></li>
@@ -511,7 +529,6 @@ more suitable for direct use, or for CPPNs.</p>
 </li>
 <li><a class="reference internal" href="#cppn-intended-activation-functions-multiparameter">CPPN-intended activation functions (multiparameter)</a><ul>
 <li><a class="reference internal" href="#bicentral">bicentral</a></li>
-<li><a class="reference internal" href="#bisigmoid">bisigmoid</a></li>
 <li><a class="reference internal" href="#fourth-square-abs">fourth_square_abs</a></li>
 <li><a class="reference internal" href="#hat-gauss-rectangular">hat_gauss_rectangular</a></li>
 <li><a class="reference internal" href="#multiparam-gauss">multiparam_gauss</a></li>
