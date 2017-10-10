@@ -46,12 +46,15 @@
 <p id="index-0">Note that some of these <a class="reference internal" href="glossary.html#term-activation-function"><span class="xref std std-term">functions</span></a> are scaled differently from the canonical
 versions you may be familiar with.  The intention of the scaling is to place more of the functions’ “interesting”
 behavior in the region <span class="math">\(\left[-1, 1\right] \times \left[-1, 1\right]\)</span>. Some of these are more intended for
-<a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a>) than for “direct” problem-solving, as noted below;
-however, even those meant mainly for CPPNs can be of use elsewhere - <a class="reference internal" href="#abs-label"><span class="std std-ref">abs</span></a> and
+<a class="reference internal" href="glossary.html#term-cppn"><span class="xref std std-term">CPPNs</span></a> (e.g., for <a class="reference internal" href="glossary.html#term-hyperneat"><span class="xref std std-term">HyperNEAT</span></a> - the <a class="reference internal" href="#mexican-hat-label"><span class="std std-ref">mexican_hat</span></a> function is specifically
+intended for seeding HyperNEAT weight determination, for instance) than for “direct” problem-solving, as noted below;
+however, even those originally meant mainly for CPPNs can be of use elsewhere - <a class="reference internal" href="#abs-label"><span class="std std-ref">abs</span></a> and
 <a class="reference internal" href="#hat-label"><span class="std std-ref">hat</span></a> can both solve the <a class="reference internal" href="xor_example.html#xor-example-label"><span class="std std-ref">xor example</span></a> task in one generation, for instance (although
 note for the former that it is included in several others such as <a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>).</p>
 <p>The implementations of these functions can be found in the <a class="reference internal" href="module_summaries.html#module-activations" title="activations: Has the built-in activation functions, code for using them,  and code for adding new user-defined ones."><code class="xref py py-mod docutils literal"><span class="pre">activations</span></code></a> module.</p>
-<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new; if you wish to try substituting them for previously-used activation functions, the following are suggested as possibilities among the multiparameter functions:</p>
+<p>The <a class="reference internal" href="glossary.html#term-multiparameter"><span class="xref std std-term">multiparameter</span></a> functions below, and some of the others, are new;
+if you wish to try substituting them for previously-used activation functions,
+the following are suggested as possibilities among the multiparameter functions:</p>
 <table border="1" class="colwidths-auto docutils align-center">
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Old</th>
@@ -85,7 +88,7 @@ note for the former that it is included in several others such as <a class="refe
 <td>&#160;</td>
 </tr>
 <tr class="row-even"><td>identity</td>
-<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a>, <a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a>, or <a class="reference internal" href="#multiparam-tanh-log1p-label"><span class="std std-ref">multiparam_tanh_log1p</span></a></td>
+<td><a class="reference internal" href="#multiparam-relu-description-label"><span class="std std-ref">multiparam_relu</span></a>, <a class="reference internal" href="#multiparam-relu-softplus-label"><span class="std std-ref">multiparam_relu_softplus</span></a>, <a class="reference internal" href="#multiparam-pow-label"><span class="std std-ref">multiparam_pow</span></a>, or <a class="reference internal" href="#weighted-lu-label"><span class="std std-ref">weighted_lu</span></a></td>
 <td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>inv</td>
@@ -316,18 +319,6 @@ note for the former that it is included in several others such as <a class="refe
 <a class="reference internal image-reference" href="_images/activation-abs.png"><img alt="absolute value function" src="_images/activation-abs.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
-<div class="section" id="exp">
-<h3>exp<a class="headerlink" href="#exp" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-exp.png"><img alt="exponential function" src="_images/activation-exp.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="expanded-log">
-<h3>expanded_log<a class="headerlink" href="#expanded-log" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-expanded_log.png"><img alt="Expanded-range log function." src="_images/activation-expanded_log.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
 <div class="section" id="gauss">
 <h3>gauss<a class="headerlink" href="#gauss" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
@@ -346,6 +337,79 @@ note for the former that it is included in several others such as <a class="refe
 <a class="reference internal image-reference" href="_images/activation-identity.png"><img alt="identity function" src="_images/activation-identity.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
+<div class="section" id="rectangular">
+<h3>rectangular<a class="headerlink" href="#rectangular" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-rectangular.png"><img alt="rectangular impulse function" src="_images/activation-rectangular.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="cppn-intended-activation-functions-multiparameter">
+<h2>CPPN-intended activation functions (multiparameter)<a class="headerlink" href="#cppn-intended-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bicentral">
+<span id="bicentral-label"></span><h3>bicentral<a class="headerlink" href="#bicentral" title="Permalink to this headline">¶</a></h3>
+<p>This combination of two sigmoid functions is taken from the article “Taxonomy of neural transfer functions” <a class="reference internal" href="#taxonomy" id="id1">[taxonomy]</a>, with adjustments.</p>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-tilt-width.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-tilt-width.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-lower-width.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-lower-width.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-lower-tilt.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-lower-tilt.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-width-tilt.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-width-tilt.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-width-lower.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-width-lower.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-bicentral-tilt-lower.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-tilt-lower.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="hat-gauss-rectangular">
+<span id="hat-gauss-rectangular-label"></span><h3>hat_gauss_rectangular<a class="headerlink" href="#hat-gauss-rectangular" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-hat_gauss_rectangular.png"><img alt="Weighted mean of hat, gauss, and rectangular functions." src="_images/activation-hat_gauss_rectangular.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-hat_gauss_rectangular.png"><img alt="Weighted mean of hat, multiparam_gauss, and rectangular functions" src="_images/activation-swap-hat_gauss_rectangular.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="multiparam-gauss">
+<span id="multiparam-gauss-label"></span><h3>multiparam_gauss<a class="headerlink" href="#multiparam-gauss" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-multiparam_gauss.png"><img alt="Gauss with variations on exponent, effective SD" src="_images/activation-multiparam_gauss.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-multiparam_gauss.png"><img alt="Gauss with variations on exponent, effective SD" src="_images/activation-swap-multiparam_gauss.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+<div class="section" id="rational-quadratic">
+<h3>rational_quadratic<a class="headerlink" href="#rational-quadratic" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-rational_quadratic.png"><img alt="Rational quadratic kernel" src="_images/activation-rational_quadratic.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-swap-rational_quadratic.png"><img alt="Rational quadratic kernel" src="_images/activation-swap-rational_quadratic.png" style="width: 1957.0px; height: 369.0px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="cppn-use-activation-functions-single-parameter">
+<h2>CPPN-use activation functions (single-parameter)<a class="headerlink" href="#cppn-use-activation-functions-single-parameter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exp">
+<h3>exp<a class="headerlink" href="#exp" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-exp.png"><img alt="exponential function" src="_images/activation-exp.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
+<div class="section" id="expanded-log">
+<h3>expanded_log<a class="headerlink" href="#expanded-log" title="Permalink to this headline">¶</a></h3>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/activation-expanded_log.png"><img alt="Expanded-range log function." src="_images/activation-expanded_log.png" style="width: 400.0px; height: 400.0px;" /></a>
+</div>
+</div>
 <div class="section" id="inv">
 <h3>inv<a class="headerlink" href="#inv" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
@@ -356,12 +420,6 @@ note for the former that it is included in several others such as <a class="refe
 <h3>log<a class="headerlink" href="#log" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
 <a class="reference internal image-reference" href="_images/activation-log.png"><img alt="log function" src="_images/activation-log.png" style="width: 400.0px; height: 400.0px;" /></a>
-</div>
-</div>
-<div class="section" id="rectangular">
-<h3>rectangular<a class="headerlink" href="#rectangular" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-rectangular.png"><img alt="rectangular impulse function" src="_images/activation-rectangular.png" style="width: 400.0px; height: 400.0px;" /></a>
 </div>
 </div>
 <div class="section" id="sin">
@@ -395,53 +453,21 @@ note for the former that it is included in several others such as <a class="refe
 </div>
 </div>
 </div>
-<div class="section" id="cppn-intended-activation-functions-multiparameter">
-<h2>CPPN-intended activation functions (multiparameter)<a class="headerlink" href="#cppn-intended-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="bicentral">
-<span id="bicentral-label"></span><h3>bicentral<a class="headerlink" href="#bicentral" title="Permalink to this headline">¶</a></h3>
-<p>This combination of two sigmoid functions is taken from the article “Taxonomy of neural transfer functions” <a class="reference internal" href="#taxonomy" id="id1">[taxonomy]</a>, with adjustments.
-It is uncertain whether it is more suitable for direct use, or for CPPNs.</p>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral-tilt-width.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-tilt-width.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral-lower-width.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-lower-width.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral-lower-tilt.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-lower-tilt.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral-width-tilt.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-width-tilt.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral-width-lower.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-width-lower.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-bicentral-tilt-lower.png"><img alt="A combination of two oppositely-aligned sigmoids" src="_images/activation-bicentral-tilt-lower.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-</div>
+<div class="section" id="cppn-use-activation-functions-multiparameter">
+<h2>CPPN-use activation functions (multiparameter)<a class="headerlink" href="#cppn-use-activation-functions-multiparameter" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="fourth-square-abs">
 <h3>fourth_square_abs<a class="headerlink" href="#fourth-square-abs" title="Permalink to this headline">¶</a></h3>
 <div class="figure" id="fourth-square-abs-label">
 <a class="reference internal image-reference" href="_images/activation-fourth_square_abs.png"><img alt="A weighted combination of x**4, x**2, and abs" src="_images/activation-fourth_square_abs.png" style="width: 1596.0px; height: 369.0px;" /></a>
 </div>
 </div>
-<div class="section" id="hat-gauss-rectangular">
-<span id="hat-gauss-rectangular-label"></span><h3>hat_gauss_rectangular<a class="headerlink" href="#hat-gauss-rectangular" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="mexican-hat">
+<span id="mexican-hat-label"></span><h3>mexican_hat<a class="headerlink" href="#mexican-hat" title="Permalink to this headline">¶</a></h3>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-hat_gauss_rectangular.png"><img alt="Weighted mean of hat, gauss, and rectangular functions." src="_images/activation-hat_gauss_rectangular.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-mexican_hat.png"><img alt="Parameterized &quot;mexican hat&quot; function for HyperNEAT CPPN weight determination" src="_images/activation-mexican_hat.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 <div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-hat_gauss_rectangular.png"><img alt="Weighted mean of hat, multiparam_gauss, and rectangular functions" src="_images/activation-swap-hat_gauss_rectangular.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-</div>
-<div class="section" id="multiparam-gauss">
-<span id="multiparam-gauss-label"></span><h3>multiparam_gauss<a class="headerlink" href="#multiparam-gauss" title="Permalink to this headline">¶</a></h3>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-multiparam_gauss.png"><img alt="Gauss with variations on exponent, effective SD" src="_images/activation-multiparam_gauss.png" style="width: 1957.0px; height: 369.0px;" /></a>
-</div>
-<div class="figure">
-<a class="reference internal image-reference" href="_images/activation-swap-multiparam_gauss.png"><img alt="Gauss with variations on exponent, effective SD" src="_images/activation-swap-multiparam_gauss.png" style="width: 1957.0px; height: 369.0px;" /></a>
+<a class="reference internal image-reference" href="_images/activation-swap-mexican_hat.png"><img alt="Parameterized &quot;mexican hat&quot; function for HyperNEAT CPPN weight determination" src="_images/activation-swap-mexican_hat.png" style="width: 1957.0px; height: 369.0px;" /></a>
 </div>
 </div>
 <div class="section" id="multiparam-log-inv">
@@ -512,14 +538,24 @@ It is uncertain whether it is more suitable for direct use, or for CPPNs.</p>
 </li>
 <li><a class="reference internal" href="#cppn-intended-activation-functions-single-parameter">CPPN-intended activation functions (single-parameter)</a><ul>
 <li><a class="reference internal" href="#abs">abs</a></li>
-<li><a class="reference internal" href="#exp">exp</a></li>
-<li><a class="reference internal" href="#expanded-log">expanded_log</a></li>
 <li><a class="reference internal" href="#gauss">gauss</a></li>
 <li><a class="reference internal" href="#hat">hat</a></li>
 <li><a class="reference internal" href="#identity">identity</a></li>
+<li><a class="reference internal" href="#rectangular">rectangular</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cppn-intended-activation-functions-multiparameter">CPPN-intended activation functions (multiparameter)</a><ul>
+<li><a class="reference internal" href="#bicentral">bicentral</a></li>
+<li><a class="reference internal" href="#hat-gauss-rectangular">hat_gauss_rectangular</a></li>
+<li><a class="reference internal" href="#multiparam-gauss">multiparam_gauss</a></li>
+<li><a class="reference internal" href="#rational-quadratic">rational_quadratic</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cppn-use-activation-functions-single-parameter">CPPN-use activation functions (single-parameter)</a><ul>
+<li><a class="reference internal" href="#exp">exp</a></li>
+<li><a class="reference internal" href="#expanded-log">expanded_log</a></li>
 <li><a class="reference internal" href="#inv">inv</a></li>
 <li><a class="reference internal" href="#log">log</a></li>
-<li><a class="reference internal" href="#rectangular">rectangular</a></li>
 <li><a class="reference internal" href="#sin">sin</a></li>
 <li><a class="reference internal" href="#skewed-log1p">skewed_log1p</a></li>
 <li><a class="reference internal" href="#square">square</a></li>
@@ -527,11 +563,9 @@ It is uncertain whether it is more suitable for direct use, or for CPPNs.</p>
 <li><a class="reference internal" href="#triangle-wave">triangle_wave</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#cppn-intended-activation-functions-multiparameter">CPPN-intended activation functions (multiparameter)</a><ul>
-<li><a class="reference internal" href="#bicentral">bicentral</a></li>
+<li><a class="reference internal" href="#cppn-use-activation-functions-multiparameter">CPPN-use activation functions (multiparameter)</a><ul>
 <li><a class="reference internal" href="#fourth-square-abs">fourth_square_abs</a></li>
-<li><a class="reference internal" href="#hat-gauss-rectangular">hat_gauss_rectangular</a></li>
-<li><a class="reference internal" href="#multiparam-gauss">multiparam_gauss</a></li>
+<li><a class="reference internal" href="#mexican-hat">mexican_hat</a></li>
 <li><a class="reference internal" href="#multiparam-log-inv">multiparam_log_inv</a></li>
 <li><a class="reference internal" href="#scaled-expanded-log">scaled_expanded_log</a></li>
 <li><a class="reference internal" href="#wave">wave</a></li>
